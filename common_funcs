@@ -1,0 +1,16 @@
+# misc funcs for nothing and everything
+
+# movess "file" to dotfiles/"file"
+function dot-mv () {
+    dot_fname=$(basename $1)
+
+    if [[ ${dot_fname[1]} == '.' ]]; then
+	    dot_fname=${dot_fname[2,-1]}
+    else
+	    dot_fname=${dot_fname}
+    fi
+
+    mv --interactive $1 ~/dotfiles/$dot_fname
+    ln --symbolic ~/dotfiles/$dot_fname $1
+
+}

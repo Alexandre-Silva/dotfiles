@@ -1,0 +1,26 @@
+# ~/.common_aliases common for all shells (such as bash and zsh)
+
+alias acsh="apt-cache show"
+alias slFE="while true; do sl;done"
+alias fuck='sudo !!'
+
+### Raspberry-pi related alias ###
+alias mount-pi_music='pkill -9 sshfs; fusermount -u /mnt/pi_music; sshfs pi@soulcasa.ddns.net:/media/HDD1/share/music/ /mnt/pi_music -p 2222 -o IdentityFile=~/.ssh/id_rsa'
+alias tunnel-pi_nas='ssh -L 10445:localhost:445 -f -C -N pi &'
+
+alias pm="ps -fu $(whoami) "
+alias pa="p -fe"
+
+
+#On/Off related alias
+alias suspend="pm-suspend"
+alias hibernate="sudo pm-hibernate"
+
+#trash-cli
+alias tsp=trash-put
+alias tsl=trash-list
+alias tsr=restore-trash
+alias tse=trash-empty
+
+
+alias vimrc="vim ~/.vimrc"
