@@ -17,6 +17,47 @@ endif
 " Use Vim settings, rather than Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
 set nocompatible
+filetype off
+
+let iCanHazVundle=1
+" If vundle is not installed, do it first
+if (!isdirectory(expand("$HOME/.vim/bundle/vundle")))
+    echo "Installing Vundle.."
+    echo ""
+    silent !mkdir -p ~/.vim/bundle
+    silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
+    let iCanHazVundle=0
+endif
+
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#begin()
+
+Plugin 'gmarik/vundle'
+Plugin 'Solarized'
+Plugin 'ctrlp.vim'
+Plugin 'bling/vim-airline'
+Plugin 'bash-support.vim'
+Plugin 'UltiSnips'
+Plugin 'honza/vim-snippets'
+Plugin 'surround.vim'
+Plugin 'delimitMate.vim'
+Plugin 'neocomplcache'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-sensible'
+
+if iCanHazVundle == 0
+    echo "Installing Bundles, please ignore key map error messages"
+    echo ""
+    :BundleInstall
+    :q
+endif
+" All of your Plugins must be added before the following line
+call vundle#end()            " required
+
+
+
+
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
