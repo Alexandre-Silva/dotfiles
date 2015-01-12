@@ -49,16 +49,13 @@ if version >= 500
   " Text below the last line is darker grey
   " Cursor is green, Cyan when ":lmap" mappings are active
   " Constants are not underlined but have a slightly lighter background
-  highlight Normal guibg=grey90
-  highlight Cursor guibg=Green guifg=NONE
-  highlight lCursor guibg=Cyan guifg=NONE
-  highlight NonText guibg=grey80
-  highlight Constant gui=NONE guibg=grey95
-  highlight Special gui=NONE guibg=grey95
+  " highlight Normal guibg=grey90
+  " highlight Cursor guibg=Green guifg=NONE
+  " highlight lCursor guibg=Cyan guifg=NONE
+  " highlight NonText guibg=grey80
+  " highlight Constant gui=NONE guibg=grey95
+  " highlight Special gui=NONE guibg=grey95
 
 endif
 
-" base16 colour scheme .vim in ~/.vim/colors/
-set background=dark
-" "let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-solarized
+source ~/.vimrc
