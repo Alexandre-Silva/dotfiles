@@ -57,9 +57,9 @@ endif
 call vundle#end()            " required
 
 
-
-
-
+"================================================================================
+"Confs
+"===============================================================================
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
@@ -130,12 +130,28 @@ endif " has("autocmd")
 
 set encoding=utf-8
 
-" Convenient command to see the difference between the current buffer and the
-" file it was loaded from, thus the changes you made.
-" Only define it when not defined already.
+" tab and ident spaces
+set shiftwidth=4
+set softtabstop=4
+
+set so=7
+
+"================================================================================
+" Binds
+"================================================================================
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 endif
+
+" Stupid shift key fixes
+cmap W w			
+cmap WQ wq
+cmap wQ wq
+cmap Q q
+
+"================================================================================
+"Plugins
+"================================================================================
 
 " base16 colour scheme .vim in ~/.vim/colors/
 set background=dark
@@ -173,11 +189,6 @@ let g:airline_symbols.whitespace = 'Ξ'
 " CtrlP
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-
-
-" tab and ident spaces
-set shiftwidth=4
-set softtabstop=4
 
 " matlab plugin stuff
 source $VIMRUNTIME/macros/matchit.vim
