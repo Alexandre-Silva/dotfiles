@@ -117,7 +117,7 @@ if ! shopt -oq posix; then
 fi
 
 # Set colour related env vars 
-if [ -z "$TMUX" ]; then
+if [ $TERMO != linux ] && [ -z "$TMUX" ]; then
 	if [ -e /usr/share/terminfo/x/xterm+256color ]; then
 		export TERM='xterm-256color'
 	else

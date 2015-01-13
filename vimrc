@@ -45,6 +45,7 @@ Plugin 'delimitMate.vim'
 Plugin 'neocomplcache'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-sensible'
+Plugin 'chriskempson/base16-vim'
 
 if iCanHazVundle == 0
     echo "Installing Bundles, please ignore key map error messages"
@@ -67,7 +68,6 @@ if has("vms")
 else
   set backup		" keep a backup file
 endif
-set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
 set showcmd		" display incomplete commands
 set incsearch		" do incremental searching
@@ -128,19 +128,52 @@ else
 
 endif " has("autocmd")
 
+set encoding=utf-8
+
 " Convenient command to see the difference between the current buffer and the
 " file it was loaded from, thus the changes you made.
 " Only define it when not defined already.
 if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis
-		  \ | wincmd p | diffthis
+  command DiffOrig vert new | set bt=nofile | r ++edit # | 0d_ | diffthis | wincmd p | diffthis
 endif
 
 " base16 colour scheme .vim in ~/.vim/colors/
 set background=dark
-"let base16colorspace=256  " Access colors present in 256 colorspace
-set t_Co=256
-colorscheme base16-bright
+
+if !has("gui_running")
+  set t_Co=256
+  let base16colorspace=256  " Access colors present in 256 colorspace
+  colorscheme base16-solarized " base16-bright
+  if has($TMUX)
+    let g:gruvbox_italic=0
+  endif
+endif
+
+" airline stuff
+" let g:airline_theme="silver"
+" let g:airline#extensions#tabline#enabled = 1
+let g:airline_powerline_fonts=1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+" let g:airline_left_sep = '»'
+" let g:airline_left_sep = '▶'
+" let g:airline_right_sep = '«'
+" let g:airline_right_sep = '◀'
+" let g:airline_symbols.linenr = '␊'
+" let g:airline_symbols.linenr = '␤'
+" let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.branch = '⎇'
+" let g:airline_symbols.paste = 'ρ'
+" let g:airline_symbols.paste = 'Þ'
+" let g:airline_symbols.paste = '∥'
+" let g:airline_symbols.whitespace = 'Ξ'
+
+" CtrlP
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+
 
 " tab and ident spaces
 set shiftwidth=4

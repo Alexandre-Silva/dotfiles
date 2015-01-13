@@ -58,4 +58,6 @@ if version >= 500
 
 endif
 
+colorscheme solarized
+
 source ~/.vimrc
