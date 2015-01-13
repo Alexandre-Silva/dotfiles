@@ -60,17 +60,6 @@ call vundle#end()            " required
 "================================================================================
 "Confs
 "===============================================================================
-" allow backspacing over everything in insert mode
-set backspace=indent,eol,start
-
-if has("vms")
-  set nobackup		" do not keep a backup file, use versions instead
-else
-  set backup		" keep a backup file
-endif
-set ruler		" show the cursor position all the time
-set showcmd		" display incomplete commands
-set incsearch		" do incremental searching
 
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
@@ -128,13 +117,72 @@ else
 
 endif " has("autocmd")
 
-set encoding=utf-8
+" allow backspacing over everything in insert mode
+set backspace=indent,eol,start
 
-" tab and ident spaces
-set shiftwidth=4
-set softtabstop=4
+if has("vms")
+  set nobackup		" do not keep a backup file, use versions instead
+else
+  set backup		" keep a backup file
+endif
+set ruler		" show the cursor position all the time
+set showcmd		" display incomplete commands
 
 set so=7
+set laststatus=2                " Show status bar
+set number                      " Show line numbers.
+set completeopt=menuone,longest,preview
+set hls                         " Highlight search matches.
+set incsearch                   " find as you type search
+set ignorecase                  " case insensitive search
+set smartcase                   " case sensitive when uc present
+set wildmenu                    " show list instead of just completing
+set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
+set foldenable                  " auto fold code
+set showmatch                   " show matching brackets/parenthesis
+set magic                       " For regular expressions turn magic on
+set clipboard=unnamedplus       " Use X clipboard
+
+" Enable filetype plugins filetype plugin on
+filetype plugin on
+filetype plugin indent on
+filetype on
+
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+" Use Unix as the standard file type
+set ffs=unix
+
+"================================================================================
+"Colors / Theme
+"================================================================================
+set background=dark
+
+if !has("gui_running")
+  set t_Co=256
+  let base16colorspace=256  " Access colors present in 256 colorspace
+  colorscheme base16-bright " base16-bright
+  if has($TMUX)
+    let g:gruvbox_italic=0
+  endif
+endif
+
+"===============================================================================
+" => Formating
+"===============================================================================
+set ai "Auto indent
+set si "Smart indent
+set nowrap                      " wrap long lines
+set shiftwidth=4                " use indents of 4 spaces
+set tabstop=4                   " an indentation every four columnsvmap <C-c> "+yi
+set expandtab                   " tabs are spaces, not tabs" copy and paste shortcuts.
+set softtabstop=4               " let backspace delete indentvmap <C-x> "+c
+set iskeyword+=-
+set iskeyword+=_
+"set list
+"set listchars=tab:>.,trail:.,extends:#,nbsp:. " Highlight problematic whitespace
+"set listchars=tab:▸\ ,eol:¬
 
 "================================================================================
 " Binds
@@ -144,26 +192,63 @@ if !exists(":DiffOrig")
 endif
 
 " Stupid shift key fixes
-cmap W w			
-cmap WQ wq
-cmap wQ wq
-cmap Q q
+" cmap W w			
+" cmap WQ wq
+" cmap wQ wq
+" cmap Q q
+
+" For when you forget to sudo.. Really Write the file.
+cmap w!! w !sudo tee % >/dev/null
+
+" Get off my lawn
+nnoremap <Left> :echoe "Use h"<CR>
+nnoremap <Right> :echoe "Use l"<CR>
+nnoremap <Up> :echoe "Use k"<CR>
+nnoremap <Down> :echoe "Use j"<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Initdirs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! InitializeDirectories()
+    let separator = "."
+    let parent = $HOME
+    let prefix = '.vim_tmp'
+    let topdir = parent . '/' . prefix . '/'
+    let dir_list = {
+                \ 'backup': 'backupdir',
+                \ 'views': 'viewdir',
+                \ 'swap': 'directory',
+                \ 'undo': 'undodir' }
+
+    if exists("*mkdir")
+        if !isdirectory(topdir)
+            call mkdir(topdir)
+        endif
+    endif
+
+
+    for [dirname, settingname] in items(dir_list)
+        let directory = parent . '/' . prefix . '/' . dirname . "/"
+        if exists("*mkdir")
+            if !isdirectory(directory)
+                call mkdir(directory)
+            endif
+        endif
+        if !isdirectory(directory)
+            echo "Warning: Unable to create backup directory: " . directory
+            echo "Try: mkdir -p " . directory
+        else
+            let directory = substitute(directory, " ", "\\\\ ", "")
+            exec "set " . settingname . "=" . directory
+        endif
+    endfor
+endfunction
+" call InitializeDirectories()
 
 "================================================================================
 "Plugins
 "================================================================================
-
-" base16 colour scheme .vim in ~/.vim/colors/
-set background=dark
-
-if !has("gui_running")
-  set t_Co=256
-  let base16colorspace=256  " Access colors present in 256 colorspace
-  colorscheme base16-solarized " base16-bright
-  if has($TMUX)
-    let g:gruvbox_italic=0
-  endif
-endif
 
 " airline stuff
 " let g:airline_theme="silver"

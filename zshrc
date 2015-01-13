@@ -71,7 +71,7 @@ if [ $TERM != "linux" ] && [ -z "$TMUX" ]; then
 	fi
 
 	# Base16 Shell
-	BASE16_SHELL="$HOME/.config/base16-shell/base16-solarized.dark.sh"
+	BASE16_SHELL="$HOME/.config/base16-shell/base16-bright.dark.sh"
 	[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 fi
 
