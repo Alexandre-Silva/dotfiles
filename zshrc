@@ -62,13 +62,21 @@ if [ -f ~/.common_funcs ]; then
     . ~/.common_funcs
 fi
 
+
+# shell specific vars definitions.
+if [ -f ~/.common_shell_vars ]; then
+    . ~/.common_shell_vars
+fi
+
 # Set colour related env vars 
-if [ $TERM != "linux" ] && [ -z "$TMUX" ]; then
-	if [ -e /usr/share/terminfo/x/xterm+256color ]; then
-		export TERM='xterm-256color'
-	else
-		export TERM='xterm-color'
-	fi
+if [ $TERM != "linux" ] && ; then
+    if [ -z "$TMUX" ]; then  
+        if [ -e /usr/share/terminfo/x/xterm+256color ]; then
+            export TERM='xterm-256color'
+        else
+            export TERM='xterm-color'
+        fi
+    fi
 
 	# Base16 Shell
 	BASE16_SHELL="$HOME/.config/base16-shell/base16-bright.dark.sh"

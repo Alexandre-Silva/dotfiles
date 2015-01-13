@@ -104,6 +104,11 @@ if [ -f ~/.common_funcs ]; then
     . ~/.common_funcs
 fi
 
+# shell specific vars definitions.
+if [ -f ~/.common_shell_vars ]; then
+    . ~/.common_shell_vars
+fi
+
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -114,15 +119,6 @@ if ! shopt -oq posix; then
   elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
   fi
-fi
-
-# Set colour related env vars 
-if [ $TERMO != linux ] && [ -z "$TMUX" ]; then
-	if [ -e /usr/share/terminfo/x/xterm+256color ]; then
-		export TERM='xterm-256color'
-	else
-		export TERM='xterm-color'
-	fi
 fi
 
 # cursor da consola
