@@ -68,23 +68,6 @@ if [ -f ~/.common_shell_vars ]; then
     . ~/.common_shell_vars
 fi
 
-# Set colour related env vars 
-if [ $TERM != "linux" ] && ; then
-    if [ -z "$TMUX" ]; then  
-        if [ -e /usr/share/terminfo/x/xterm+256color ]; then
-            export TERM='xterm-256color'
-        else
-            export TERM='xterm-color'
-        fi
-    fi
-
-	# Base16 Shell
-	BASE16_SHELL="$HOME/.config/base16-shell/base16-bright.dark.sh"
-	[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
-fi
-
-
-
 # export PATH="/home/alex/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 # export MANPATH="/usr/local/man:$MANPATH"
 
