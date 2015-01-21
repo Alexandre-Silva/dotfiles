@@ -47,6 +47,8 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-sensible'
 Plugin 'chriskempson/base16-vim'
 
+
+
 if iCanHazVundle == 0
     echo "Installing Bundles, please ignore key map error messages"
     echo ""
@@ -56,6 +58,22 @@ endif
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
+"================================================================================
+"Colors / Theme
+"================================================================================
+set background=dark
+
+if !has("gui_running")
+  set t_Co=256
+  let base16colorspace=256  " Access colors present in 256 colorspace
+  colorscheme base16-bright " base16-bright
+  if has($TMUX)
+    let g:gruvbox_italic=0
+  endif
+endif
+
+" this fixes the brackets blink cursors problem
+" highlight MatchParen cterm=NONE ctermbg=black ctermfg=white
 
 "================================================================================
 "Confs
@@ -139,9 +157,11 @@ set smartcase                   " case sensitive when uc present
 set wildmenu                    " show list instead of just completing
 set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
 set foldenable                  " auto fold code
-set showmatch                   " show matching brackets/parenthesis
+"set showmatch                   " show matching brackets/parenthesis
+let loaded_matchparen = 1
 set magic                       " For regular expressions turn magic on
 set clipboard=unnamedplus       " Use X clipboard
+set hidden
 
 " Enable filetype plugins filetype plugin on
 filetype plugin on
@@ -150,23 +170,10 @@ filetype on
 
 
 " Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
+set encoding=utf-8
 " Use Unix as the standard file type
 set ffs=unix
 
-"================================================================================
-"Colors / Theme
-"================================================================================
-set background=dark
-
-if !has("gui_running")
-  set t_Co=256
-  let base16colorspace=256  " Access colors present in 256 colorspace
-  colorscheme base16-bright " base16-bright
-  if has($TMUX)
-    let g:gruvbox_italic=0
-  endif
-endif
 
 "===============================================================================
 " => Formating
@@ -197,8 +204,24 @@ endif
 " cmap wQ wq
 " cmap Q q
 
+" This way j/k move between display lines. While gj/gk operate on real lines
+" noremap k gk
+" noremap gk k
+" noremap j gj
+" noremap gj j
+
 " For when you forget to sudo.. Really Write the file.
 cmap w!! w !sudo tee % >/dev/null
+
+" Navigate trough buffers. From Tim Pope’s unimpaired.vim
+nnoremap <silent> [b :bprevious <CR>
+nnoremap <silent> ]b :bnext <CR>
+nnoremap <silent> [B :bfirst <CR>
+nnoremap <silent> ]B :blast <CR>
+
+" In ex mode go up/down in the hist with c-p c-n instead of up/down
+cnoremap <C-p> <Up>
+cnoremap <C-n> <Down>
 
 " Get off my lawn
 nnoremap <Left> :echoe "Use h"<CR>
@@ -206,6 +229,8 @@ nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
+" alias %% equivalent to "pwd"
+cnoremap <expr> %%  getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Initdirs
@@ -252,7 +277,7 @@ endfunction
 
 " airline stuff
 " let g:airline_theme="silver"
-" let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 0
 let g:airline_powerline_fonts=1
 
 if !exists('g:airline_symbols')
