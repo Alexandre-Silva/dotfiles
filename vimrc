@@ -158,11 +158,11 @@ set wildmenu                    " show list instead of just completing
 set wildmode=list:longest,full  " command <Tab> completion, list matches, then longest common part, then all.
 set foldenable                  " auto fold code
 "set showmatch                   " show matching brackets/parenthesis
-let loaded_matchparen = 1
+let loaded_matchparen = 1       " fix annoying brackets cursor blink jumping
 set magic                       " For regular expressions turn magic on
 set clipboard=unnamedplus       " Use X clipboard
 set hidden
-
+ 
 " Enable filetype plugins filetype plugin on
 filetype plugin on
 filetype plugin indent on
