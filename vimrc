@@ -63,10 +63,10 @@ call vundle#end()            " required
 "================================================================================
 set background=dark
 
+set t_Co=256
+let base16colorspace=256  " Access colors present in 256 colorspace
+colorscheme base16-bright " base16-bright
 if !has("gui_running")
-  set t_Co=256
-  let base16colorspace=256  " Access colors present in 256 colorspace
-  colorscheme base16-bright " base16-bright
   if has($TMUX)
     let g:gruvbox_italic=0
   endif
