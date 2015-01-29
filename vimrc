@@ -58,19 +58,7 @@ endif
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
 
-"================================================================================
-"Colors / Theme
-"================================================================================
-set background=dark
 
-set t_Co=256
-let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-bright " base16-bright
-if !has("gui_running")
-  if has($TMUX)
-    let g:gruvbox_italic=0
-  endif
-endif
 
 " this fixes the brackets blink cursors problem
 " highlight MatchParen cterm=NONE ctermbg=black ctermfg=white
@@ -162,6 +150,7 @@ let loaded_matchparen = 1       " fix annoying brackets cursor blink jumping
 set magic                       " For regular expressions turn magic on
 set clipboard=unnamedplus       " Use X clipboard
 set hidden
+set nowrapscan                    " bot -> top when searching
  
 " Enable filetype plugins filetype plugin on
 filetype plugin on
@@ -231,6 +220,9 @@ nnoremap <Down> :echoe "Use j"<CR>
 
 " alias %% equivalent to "pwd"
 cnoremap <expr> %%  getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+
+" smart disable of seaarch hilight
+nnoremap <silent> <C-l> :<C-u> nohlsearch <CR><C-l>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Initdirs
@@ -306,3 +298,24 @@ source $VIMRUNTIME/macros/matchit.vim
 autocmd BufEnter *.m    compiler mlint
 au FileType matlab set foldmethod=syntax foldcolumn=2 foldlevel=33
 au FileType matlab map <buffer> <silent> <F5> :w<CR>:!matlab -nodesktop -nospalsh -r "try, run(which('%')), pause, end, quit" <CR>\\|<ESC><ESC>
+
+
+
+
+"================================================================================
+"Colors / Theme
+"================================================================================
+set background=dark
+
+set t_Co=256
+let base16colorspace=256  " Access colors present in 256 colorspace
+colorscheme base16-bright " base16-bright
+if !has("gui_running")
+  if has($TMUX)
+    let g:gruvbox_italic=0
+  endif
+  hi Search cterm=NONe ctermfg=black ctermbg=blue " highlight/search colour
+else
+  hi Search guibg=peru guifg=wheat
+endif
+
