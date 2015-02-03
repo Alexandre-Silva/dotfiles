@@ -213,6 +213,12 @@ nnoremap <silent> ]b :bnext <CR>
 nnoremap <silent> [B :bfirst <CR>
 nnoremap <silent> ]B :blast <CR>
 
+" Navigate trough ctags.
+nnoremap <silent> [t :cprevious <CR>
+nnoremap <silent> ]t :cnext <CR>
+nnoremap <silent> [T :cfirst <CR>
+nnoremap <silent> ]T :clast <CR>
+
 " In ex mode go up/down in the hist with c-p c-n instead of up/down
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>

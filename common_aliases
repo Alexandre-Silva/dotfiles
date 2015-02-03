@@ -24,3 +24,5 @@ alias tse=trash-empty
 
 
 alias vimrc="vim ~/.vimrc"
+
+alias grep='grep -v "^grep:.*Is a directory$"'
