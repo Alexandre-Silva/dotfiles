@@ -47,6 +47,11 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-sensible'
 Plugin 'chriskempson/base16-vim'
 
+Plugin 'kana/vim-textobj-user'              " lib of textobjs
+Plugin 'kana/vim-textobj-lastpat'           " motion for selected text (search hilight)
+Plugin 'bronson/vim-visual-star-search'     " * and # search for selected text in V-mode
+
+
 
 
 if iCanHazVundle == 0
