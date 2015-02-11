@@ -1,5 +1,11 @@
-# ~/.zprofile .profile fot the z shell
+#!/bin/zsh
 
-if [[ -f ~/.profile ]]; then
-    emulate sh -c '. ~/.profile'
-fi
+# Only for login shells.
+[[ -o login ]] || exit 0
+
+# Same behaviour as bash.
+emulate sh
+. /etc/profile
+. ~/.profile
+emulate zsh
+
