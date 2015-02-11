@@ -162,6 +162,8 @@ filetype plugin on
 filetype plugin indent on
 filetype on
 
+" Dictionary words
+set dict+=/usr/share/dict/words
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf-8
@@ -218,6 +220,12 @@ nnoremap <silent> [t :cprevious <CR>
 nnoremap <silent> ]t :cnext <CR>
 nnoremap <silent> [T :cfirst <CR>
 nnoremap <silent> ]T :clast <CR>
+
+" Navigate trough tabs (t already used by ctags).
+nnoremap <silent> [v :tabprevious <CR>
+nnoremap <silent> ]v :tabnext <CR>
+nnoremap <silent> [V :tabfirst <CR>
+nnoremap <silent> ]V :tablast <CR>
 
 " In ex mode go up/down in the hist with c-p c-n instead of up/down
 cnoremap <C-p> <Up>
