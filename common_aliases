@@ -25,4 +25,6 @@ alias tse=trash-empty
 
 alias vimrc="vim ~/.vimrc"
 
-alias grep='grep -v "^grep:.*Is a directory$"'
+alias ls="ls -F --color=auto"
+
+alias pw="gpg ~/Documents/pw.txt.gpg; cat ~/Documents/pw.txt; rm -f ~/Documents/pw.txt"
