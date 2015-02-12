@@ -1,0 +1,38 @@
+- clean: ['~']
+
+- shell:
+  - [git submodule foreach git pull, Installing/updating submodules]
+  - [./install-oh-my-zsh, Installing/updating oh-my-zsh]
+
+- link:
+    ~/dotfiles: ''
+        
+    ~/.tmux.conf: tmux.conf
+
+    ~/.vimrc: vimrc
+    ~/.gvimrc: gvimrc
+
+    ~/.config/awesome: 
+      create: true
+      path: awesome/
+    ~/.config/base16-shell: 
+      create: true
+      path: base16-shell/
+
+    ~/.bashrc: bashrc
+    ~/.bash_aliases: bash_aliases
+    ~/.bash_aliases_colors: bash_aliases_colors
+
+    ~/.common_aliases: common_aliases
+    ~/.common_funcs: common_funcs
+    ~/.common_shell_vars: common_shell_vars
+
+    ~/.profile: profile
+    ~/.zprofile: zprofile
+
+    ~/.zshrc: zshrc
+    ~/.oh-my-zshrc: oh-my-zshrc
+
+
+- shell:
+    - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]

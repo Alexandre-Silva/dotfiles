@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+if [ -n "$ZSH" ]; then
+    echo "Oh-my-zsh already installed."
+    . "$ZSH/tools/upgrade.sh"
+else
+    echo "Cloning oh-my-zsh."
+    git clone git://github.com/robbyrussell/oh-my-zsh.git "~/.oh-my-zsh"
+fi
