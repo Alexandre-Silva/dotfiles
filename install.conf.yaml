@@ -14,10 +14,10 @@
 
     ~/.config/awesome: 
       create: true
-      path: awesome/
+      path: config/awesome/
     ~/.config/base16-shell: 
       create: true
-      path: base16-shell/
+      path: config/base16-shell/
 
     ~/.bashrc: bashrc
     ~/.bash_aliases: bash_aliases
