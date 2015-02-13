@@ -49,3 +49,8 @@ fi
 if [ -f ~/.common_shell_vars ]; then
     . ~/.common_shell_vars
 fi
+
+# Machine local confs
+if [ -f ~/.zshrc_local ]; then
+    source ~/.zshrc_local
+fi

@@ -338,3 +338,10 @@ else
   hi Search guibg=peru guifg=wheat
 endif
 
+"================================================================================
+" Local configs
+"================================================================================
+let $LOCALFILE=expand("~/.vimrc_local")
+if filereadable($LOCALFILE)
+    source $LOCALFILE
+endif
