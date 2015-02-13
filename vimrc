@@ -19,6 +19,7 @@ endif
 set nocompatible
 filetype off
 
+set encoding=utf-8
 let iCanHazVundle=1
 " If vundle is not installed, do it first
 if (!isdirectory(expand("$HOME/.vim/bundle/vundle")))
@@ -306,6 +307,7 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.paste = 'Þ'
 let g:airline_symbols.paste = '∥'
 let g:airline_symbols.whitespace = 'Ξ'
+let g:airline_symbols.readonly = 'R'
 
 " CtrlP
 let g:ctrlp_map = '<c-p>'
