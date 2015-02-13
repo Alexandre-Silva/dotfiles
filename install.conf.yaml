@@ -1,7 +1,7 @@
 - clean: ['~']
 
 - shell:
-  - [git submodule foreach git pull, Installing/updating submodules]
+  - [git submodule update --init, Installing/updating submodules]
   - [./install-oh-my-zsh, Installing/updating oh-my-zsh]
 
 - link:
@@ -27,11 +27,15 @@
     ~/.common_funcs: common_funcs
     ~/.common_shell_vars: common_shell_vars
 
+    ~/.zshrc: zshrc
+
+    ~/.oh-my-zshrc: oh-my-zshrc
+
     ~/.profile: profile
     ~/.zprofile: zprofile
 
-    ~/.zshrc: zshrc
-    ~/.oh-my-zshrc: oh-my-zshrc
+    ~/.gitconfig: gitconfig
+    ~/.gitignore_global: gitignore_global
 
 
 - shell:

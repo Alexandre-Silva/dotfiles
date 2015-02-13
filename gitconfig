@@ -1,0 +1,36 @@
+[user]
+	name = Alexandre-Silva
+	pass = unreal1234
+	email = aalexandre.grande@hotmail.com
+
+[push]
+	default = simple
+
+[color]
+	ui = auto
+	status = auto
+	diff = auto
+	interactive = auto
+
+[color "grep"]
+    match = cyan bold
+    selected = blue
+    context = normal
+    filename = magenta
+    linenumber = green
+    separator = yellow
+    function = blue
+    branch = auto
+
+[grep]
+    lineNumber = true
+
+[core]
+    excludesfile = ~/.gitignore_global
+
+[merge]
+	tool = vimdiff
+
+# Allow local customizations in the .gitconfig_local file
+[include]
+    path = ~/.gitconfig_local
