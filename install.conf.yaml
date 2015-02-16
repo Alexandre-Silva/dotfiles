@@ -2,7 +2,9 @@
 
 - shell:
   - [git submodule update --init, Installing/updating submodules]
-  - [./install-oh-my-zsh, Installing/updating oh-my-zsh]
+  -
+    command: [./install-oh-my-zsh, Installing/updating oh-my-zsh]
+    stdout: true
 
 - link:
     ~/.tmux.conf: tmux.conf
