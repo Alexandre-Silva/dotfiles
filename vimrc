@@ -281,7 +281,7 @@ function! InitializeDirectories()
         endif
     endfor
 endfunction
-" call InitializeDirectories()
+call InitializeDirectories()
 
 "================================================================================
 "Plugins

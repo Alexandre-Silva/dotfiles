@@ -30,14 +30,9 @@ export BROWSER='firefox'
 #Merdas uteis em geral
 export GIT_HOME="$HOME/.git"
 
-export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64/"
-
 export ECLIPSE_HOME="$HOME/.eclipse"
 #export PATH=$ECLIPSE_HOME/eclipse:$PATH
 export GWT_HOME="$ECLIPSE_HOME/plugins/com.google.gwt.eclipse.sdkbundle_2.6.0/gwt-2.6.0"
-export ANT_HOME=/usr/share/ant
-
-export EDITOR="vim"
 
 # jpdfboorkmarks
 export JPDFBOOKMARKS_HOME=$HOME/.jpdfbookmarks
