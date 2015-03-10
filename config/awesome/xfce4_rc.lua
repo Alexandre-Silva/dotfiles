@@ -201,10 +201,10 @@ root.buttons(awful.util.table.join(
 
 -- {{{ Key bindings
 globalkeys = awful.util.table.join(
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext       ),
+    awful.key({ modkey,           }, "Left",   awful.tag.viewprev ),
+    awful.key({ modkey,           }, "Right",  awful.tag.viewnext ),
     awful.key({ modkey,           }, "Up",     function () awful.tag.viewidx("4") end  ),
-    awful.key({ modkey,           }, "Down",     function () awful.tag.viewidx("-4") end  ),
+    awful.key({ modkey,           }, "Down",   function () awful.tag.viewidx("-4") end  ),
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
 
     awful.key({ modkey,           }, "j",
@@ -346,6 +346,8 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
+    { rule = { name = "xfce4-panel" },
+      properties = { focus = false } },
     { rule = { class = "panel-1-whisker" },
       properties = { floating = true } },
     { rule = { instance = "plugin-container" },
@@ -388,4 +390,3 @@ end)
 client.add_signal("focus", function(c) c.border_color = beautiful.border_focus end)
 client.add_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
 -- }}}
-
