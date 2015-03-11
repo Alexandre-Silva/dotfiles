@@ -337,6 +337,7 @@ awful.rules.rules = {
       properties = { border_width = beautiful.border_width,
                      size_hints_honor = false,
                      border_color = beautiful.border_normal,
+                     --focus = awful.client.focus.filter,
                      focus = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
@@ -346,12 +347,12 @@ awful.rules.rules = {
       properties = { floating = true } },
     { rule = { class = "gimp" },
       properties = { floating = true } },
-    { rule = { name = "xfce4-panel" },
-      properties = { focus = false } },
+    { rule = { instance = "the-xfce4-panel" },
+      properties = { focus = false, focusable = true } },
     { rule = { class = "panel-1-whisker" },
       properties = { floating = true } },
     { rule = { instance = "plugin-container" },
-    properties = { floating = true } },    
+      properties = { floating = true } },    
 
 
     -- Set Firefox to always map on tags number 2 of screen 1.
