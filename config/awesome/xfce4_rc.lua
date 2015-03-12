@@ -337,23 +337,29 @@ awful.rules.rules = {
       properties = { border_width = beautiful.border_width,
                      size_hints_honor = false,
                      border_color = beautiful.border_normal,
-                     --focus = awful.client.focus.filter,
-                     focus = true,
+                     focus = awful.client.focus.filter,
+                     --focus = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "MPlayer" },
+
+
+    -- Floatings
+    { rule_any = { class = { "MPlayer", "pinentry", "gimp", "Xfce4-settings-manager" } },
       properties = { floating = true } },
-    { rule = { class = "pinentry" },
-      properties = { floating = true } },
-    { rule = { class = "gimp" },
-      properties = { floating = true } },
-    { rule = { instance = "the-xfce4-panel" },
-      properties = { focus = false, focusable = true } },
-    { rule = { class = "panel-1-whisker" },
-      properties = { floating = true } },
+
+
+--"
+
+    { rule = { name = "Whisker Menu" } ,
+      properties = { type = "dropdown_menu", floating = true } },
+
+    -- Browser videos fullscreen work around
     { rule = { instance = "plugin-container" },
       properties = { floating = true } },    
 
+    -- Stuff that should not get focus
+    --{ rule_any = { name = "the-xfce4-panel" }, --, class = "Xfce4-notifyd" 
+    --  properties = { focus = false, focusable = false } },
 
     -- Set Firefox to always map on tags number 2 of screen 1.
     -- { rule = { class = "Firefox" },
@@ -370,7 +376,7 @@ client.add_signal("manage", function (c, startup)
     -- Enable sloppy focus
     c:add_signal("mouse::enter", function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier 
-            --[[and awful.client.focus.filter(c) ]]-- 
+            and awful.client.focus.filter(c)  
             then
             client.focus = c
         end
