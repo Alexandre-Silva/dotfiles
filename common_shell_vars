@@ -15,3 +15,8 @@ if [ $TERM != "linux" ]; then
 	[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 fi
 
+
+export DOTFILES="$HOME/dotfiles"
+
+export TODOTXT_CFG_FILE="$DOTFILES/todo.cfg"
+export TODO_ACTIONS_DIR="$DOTFILES/todo.actions.d"
