@@ -344,7 +344,14 @@ awful.rules.rules = {
 
 
     -- Floatings
-    { rule_any = { class = { "MPlayer", "pinentry", "gimp", "Xfce4-settings-manager" } },
+    { rule_any = { class = { 
+                            "MPlayer", 
+                            "pinentry", 
+                            "gimp", 
+                            "Xfce4-settings-manager", 
+                            "Alarm-clock-applet",
+                            "Alarmclock"
+                            } },
       properties = { floating = true } },
 
 
