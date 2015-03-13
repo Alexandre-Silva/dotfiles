@@ -350,7 +350,8 @@ awful.rules.rules = {
                             "gimp", 
                             "Xfce4-settings-manager", 
                             "Alarm-clock-applet",
-                            "Alarmclock"
+                            "Alarmclock",
+                            "TeamSpeak 3"
                             } },
       properties = { floating = true } },
 
