@@ -351,7 +351,8 @@ awful.rules.rules = {
                             "Xfce4-settings-manager", 
                             "Alarm-clock-applet",
                             "Alarmclock",
-                            "TeamSpeak 3"
+                            "TeamSpeak 3",
+                            "File-roller"
                             } },
       properties = { floating = true } },
 
