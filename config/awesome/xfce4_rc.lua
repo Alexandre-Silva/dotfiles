@@ -357,7 +357,6 @@ awful.rules.rules = {
       properties = { floating = true } },
 
 
---"
 
     { rule = { name = "Whisker Menu" } ,
       properties = { type = "dropdown_menu", floating = true } },
@@ -367,7 +366,7 @@ awful.rules.rules = {
       properties = { floating = true } },    
 
     -- Stuff that should not get focus
-    --{ rule_any = { name = "the-xfce4-panel" }, --, class = "Xfce4-notifyd" 
+    --{ rule_any = { class = "Xfce4-notifyd" }, --, name = "the-xfce4-panel"
     --  properties = { focus = false, focusable = false } },
 
     -- Set Firefox to always map on tags number 2 of screen 1.

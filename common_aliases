@@ -28,3 +28,5 @@ alias vimrc="vim ~/.vimrc"
 alias ls="ls -F --color=auto"
 
 alias pw="gpg ~/Documents/pw.txt.gpg; cat ~/Documents/pw.txt; rm -f ~/Documents/pw.txt"
+
+alias tt=todo.sh
