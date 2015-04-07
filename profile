@@ -22,8 +22,8 @@ if [ -d "$HOME/.bin" ] ; then
 fi
 
 
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR='gvim'
+export VISUAL='gvim'
 export PAGER='less'
 export BROWSER='firefox'
 
