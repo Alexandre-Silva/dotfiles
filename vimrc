@@ -177,7 +177,7 @@ set ffs=unix
 "===============================================================================
 set ai "Auto indent
 set si "Smart indent
-set nowrap                      " wrap long lines
+set wrap                      " wrap long lines
 set shiftwidth=4                " use indents of 4 spaces
 set tabstop=4                   " an indentation every four columnsvmap <C-c> "+yi
 set expandtab                   " tabs are spaces, not tabs" copy and paste shortcuts.

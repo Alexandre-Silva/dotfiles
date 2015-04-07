@@ -352,7 +352,8 @@ awful.rules.rules = {
                             "Alarm-clock-applet",
                             "Alarmclock",
                             "TeamSpeak 3",
-                            "File-roller"
+                            "File-roller",
+                            "KeePass2"
                             } },
       properties = { floating = true } },
 
