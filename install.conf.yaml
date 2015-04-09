@@ -15,7 +15,7 @@
 
     ~/.config/awesome: 
       create: true
-      path: config/awesome/
+      path: config/awesome-wm-config/
     ~/.config/base16-shell: 
       create: true
       path: config/base16-shell/
