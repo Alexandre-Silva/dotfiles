@@ -42,5 +42,6 @@
       create: true
       path: todo.sh
 
+    ~/.conkyrc: conkyrc
 - shell:
     - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]
