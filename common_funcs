@@ -14,3 +14,17 @@ function dot-mv () {
     ln --symbolic ~/dotfiles/$dot_fname $1
 
 }
+
+# Initial startup script, kills xfce-panel 
+# and inits firefoz thunderbird ....
+#
+function alex-init () {
+    pkill xfce4-panel 
+
+    sleep 0.2
+    echo 'customization.orig.restart()' | awesome-client
+
+    thunderbird & disown
+    firefox & disown
+    skype & disown
+}
