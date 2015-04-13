@@ -30,3 +30,6 @@ alias ls="ls -F --color=auto"
 alias pw="gpg ~/Documents/pw.txt.gpg; cat ~/Documents/pw.txt; rm -f ~/Documents/pw.txt"
 
 alias tt=todo.sh
+
+alias kinit="secret-tool lookup ist pass | kinit $(secret-tool lookup ist user) > /dev/null"
+
