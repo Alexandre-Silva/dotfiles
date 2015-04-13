@@ -497,7 +497,7 @@ do
 
     else
 
-        local tag = awful.tag.add("genesis",
+        local tag = awful.tag.add(os.getenv("USER"),
         {
             screen = 1,
             layout = customization.default.property.layout,
