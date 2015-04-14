@@ -27,4 +27,7 @@ function alex-init () {
     thunderbird & disown
     firefox & disown
     skype & disown
+    pkill xfsettingsd && xfsettingsd
+    { sleep 10 && kinit } & disown  
+
 }
