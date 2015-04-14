@@ -42,7 +42,7 @@ uppercase no # set to yes if you want all text to be in uppercase
 stippled_borders 3
 
 # border margins
-border_margin 9
+#border_margin 9
 
 # border width
 border_width 10
@@ -50,8 +50,10 @@ border_width 10
 # Default colors and also border colors, grey90 == #e5e5e5
 default_color grey
 
-own_window_colour brown
-own_window_transparent yes
+#own_window_transparent yes
+own_window_argb_visual yes 
+own_window_argb_value 0 # 0-255 0 transparent
+own_window_colour black
 
 # Text alignment, other possible values are commented
 #alignment top_left
