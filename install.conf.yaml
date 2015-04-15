@@ -16,6 +16,7 @@
     ~/.config/awesome: 
       create: true
       path: config/awesome-wm-config/
+
     ~/.config/base16-shell: 
       create: true
       path: config/base16-shell/
@@ -43,5 +44,7 @@
       path: todo.sh
 
     ~/.conkyrc: conkyrc
+
+    ~/.config/zathura: zathura
 - shell:
     - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]
