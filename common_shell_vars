@@ -20,3 +20,5 @@ export DOTFILES="$HOME/dotfiles"
 
 export TODOTXT_CFG_FILE="$DOTFILES/todo.cfg"
 export TODO_ACTIONS_DIR="$DOTFILES/todo.actions.d"
+
+[ -d "$HOME/.nim_install" ] && export PATH="$HOME/.nim_install/bin:$PATH"
