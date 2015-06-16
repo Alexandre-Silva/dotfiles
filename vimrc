@@ -52,8 +52,7 @@ Plugin 'kana/vim-textobj-user'              " lib of textobjs
 Plugin 'kana/vim-textobj-lastpat'           " motion for selected text (search hilight)
 Plugin 'bronson/vim-visual-star-search'     " * and # search for selected text in V-mode
 
-
-
+Plugin 'zah/nim.vim'
 
 if iCanHazVundle == 0
     echo "Installing Bundles, please ignore key map error messages"
@@ -320,7 +319,18 @@ autocmd BufEnter *.m    compiler mlint
 au FileType matlab set foldmethod=syntax foldcolumn=2 foldlevel=33
 au FileType matlab map <buffer> <silent> <F5> :w<CR>:!matlab -nodesktop -nospalsh -r "try, run(which('%')), pause, end, quit" <CR>\\|<ESC><ESC>
 
+" zah/nim.vim
+fun! JumpToDef()
+  if exists("*GotoDefinition_" . &filetype)
+    call GotoDefinition_{&filetype}()
+  else
+    exe "norm! \<C-]>"
+  endif
+endf
 
+" Jump to tag
+nn <M-g> :call JumpToDef()<cr>
+ino <M-g> <esc>:call JumpToDef()<cr>i
 
 
 "================================================================================
