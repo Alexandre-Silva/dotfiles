@@ -1,3 +1,4 @@
+#!/bin/bash
 # misc funcs for nothing and everything
 
 # movess "file" to dotfiles/"file"
@@ -28,6 +29,5 @@ function alex-init () {
     firefox & disown
     skype & disown
     pkill xfsettingsd && xfsettingsd
-    { sleep 10 && kinit } & disown  
-
+    (  sleep 10 && kinit  ) & disown  
 }
