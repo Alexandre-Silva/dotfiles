@@ -46,5 +46,8 @@
     ~/.conkyrc: conkyrc
 
     ~/.config/zathura: zathura
+
+    ~/.spacemacs: emacs/spacemacs
+
 - shell:
     - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]
