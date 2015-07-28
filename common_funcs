@@ -25,9 +25,11 @@ function alex-init () {
     sleep 0.2
     echo 'customization.orig.restart()' | awesome-client
 
-    thunderbird & disown
-    firefox & disown
-    skype & disown
+    thunderbird &>>"$HOME/.log/thunderbird.log" & disown
+    firefox &>>"$HOME/.log/firefox.log" & disown
+    skype &>>"$HOME/.log/skype.log" & disown
+    syncthing &>>"$HOME/.log/syncthing.log" & disown
+
     pkill xfsettingsd && xfsettingsd
     (  sleep 10 && kinit  ) & disown  
 }
