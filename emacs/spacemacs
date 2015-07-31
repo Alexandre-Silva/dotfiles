@@ -137,6 +137,7 @@ layers configuration."
     (spacemacs/toggle-menu-bar)
     (global-visual-line-mode t)
     (desktop-save-mode 1)
+    (desktop-read)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
