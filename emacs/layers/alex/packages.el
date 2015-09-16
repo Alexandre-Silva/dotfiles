@@ -337,8 +337,17 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                     ("MEETING" :foreground "forest green" :weight bold)
                     ("PHONE" :foreground "forest green" :weight bold))))
 
+      ;; Triggers that automatically assign tags to tasks based on state changes
+      (setq org-todo-state-tags-triggers
+            (quote (("CANCELLED" ("CANCELLED" . t))
+                    ("WAITING" ("WAITING" . t))
+                    ("HOLD" ("WAITING") ("HOLD" . t))
+                    (done ("WAITING") ("HOLD"))
+                    ("TODO" ("WAITING") ("CANCELLED") ("HOLD"))
+                    ("NEXT" ("WAITING") ("CANCELLED") ("HOLD"))
+                    ("DONE" ("WAITING") ("CANCELLED") ("HOLD")))))
 
-                                        ; Tags with fast selection keys
+      ;; Tags with fast selection keys
       (setq org-tag-alist (quote ((:startgroup)
                                   ("@work" . ?o)
                                   ("@home" . ?H)
@@ -433,6 +442,40 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
                              (org-agenda-skip-function 'bh/skip-non-archivable-tasks)
                              (org-tags-match-list-sublevels nil))))
                      nil))))
+
+                                        ; Targets include this file and any file contributing to the agenda - up to 9 levels deep
+      (setq org-refile-targets (quote ((nil :maxlevel . 9)
+                                       (org-agenda-files :maxlevel . 9))))
+
+                                        ; Use full outline paths for refile targets - we file directly with IDO
+      (setq org-refile-use-outline-path t)
+
+                                        ; Targets complete directly with IDO
+      (setq org-outline-path-complete-in-steps nil)
+
+                                        ; Allow refile to create parent tasks with confirmation
+      (setq org-refile-allow-creating-parent-nodes (quote confirm))
+
+                                        ; Use IDO for both buffer and file completion and ido-everywhere to t
+      ;;(setq org-completion-use-ido t)
+      ;;(setq ido-everywhere t)
+      ;;(setq ido-max-directory-size 100000)
+      ;;(ido-mode (quote both))
+
+      ;; Use the current window when visiting files and buffers with ido
+      ;;(setq ido-default-file-method 'selected-window)
+      ;;(setq ido-default-buffer-method 'selected-window)
+
+      ;; Use the current window for indirect buffer display
+      ;;(setq org-indirect-buffer-display 'current-window)
+
+      ;; Refile settings
+      ;; Exclude DONE state tasks from refile targets
+      (defun bh/verify-refile-target ()
+        "Exclude todo keywords with a done state from refile targets"
+        (not (member (nth 2 (org-heading-components)) org-done-keywords)))
+
+      (setq org-refile-target-verify-function 'bh/verify-refile-target)
 
       )
     )
