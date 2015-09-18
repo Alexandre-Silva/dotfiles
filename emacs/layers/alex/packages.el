@@ -13,7 +13,6 @@
 (defvar alex-packages
   '(
     org
-    nim-mode
     )
   "List of all packages to install and/or initialize. Built-in packages
 which require an initialization must be listed explicitly in the list.")
@@ -481,9 +480,3 @@ Skip project and sub-project tasks, habits, and loose non-project tasks."
     )
   )
 
-(defun alex/init-nim-mode ()
-  (use-package nim-mode
-    :defer t
-    :config
-    )
-  )
