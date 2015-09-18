@@ -246,7 +246,7 @@ local tools = {
 tools.browser.primary = os.getenv("BROWSER") or "chromium"
 tools.browser.secondary = ({chromium="firefox", firefox="chromium"})[tools.browser.primary]
 tools.editor.primary = os.getenv("EDITOR") or "gvim"
-tools.editor.secondary = "emacs"
+tools.editor.secondary = "emacs-24.5"
 
 local myapp = nil
 do
