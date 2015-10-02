@@ -129,7 +129,7 @@ before layers configuration."
   ;; User initialization goes here
   )
 
-(defun dotspacemacs/config ()
+(defun dotspacemacs/user-config ()
   "Configuration function.
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
@@ -165,6 +165,17 @@ layers configuration."
             scroll-conservatively 10000
             scroll-preserve-screen-position 1))
 
+  ;; file Auto-save
+  ;; Save all tempfiles in $HOME/.emacs_tmp/
+  (defconst emacs-tmp-dir (format "%s%s/" user-home-directory ".emacs_tmp" ))
+  (setq backup-directory-alist
+        `((".*" . ,emacs-tmp-dir)))
+  (setq auto-save-file-name-transforms
+        `((".*" ,emacs-tmp-dir t)))
+  (setq auto-save-list-file-prefix
+        emacs-tmp-dir)
+
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Org-mode stuff
   ;; more configs in alex/packages.el layer
@@ -173,7 +184,8 @@ layers configuration."
   (setq org-directory (expand-file-name "~/org"))
   (setq org-default-notes-file (concat org-directory "/notes.org"))
 
-  (setq org-agenda-files '("~/gtd"))
+  (setq org-agenda-files (file-expand-wildcards "~/gtd/*.org"))
+  ;;(setq org-agenda-files '("~/gtd"))
 
   (setq org-startup-indented nil)
 
@@ -214,7 +226,8 @@ layers configuration."
                 ("HOLD" :foreground "magenta" :weight bold)
                 ("CANCELLED" :foreground "forest green" :weight bold)
                 ("MEETING" :foreground "forest green" :weight bold)
-                ("PHONE" :foreground "forest green" :weight bold))))
+                ("PHONE" :foreground "forest green" :weight bold)
+                ("TICKLER" ))))
 
   ;; Triggers that automatically assign tags to tasks based on state changes
   (setq org-todo-state-tags-triggers
@@ -279,10 +292,15 @@ layers configuration."
   ;;(setq org-indirect-buffer-display 'current-window)
 
   (setq org-refile-target-verify-function 'bh/verify-refile-target)
+
+  ;;Remove clocked tasks with 0:00 duration
+  (setq org-clock-out-remove-zero-time-clocks t)
+  ;; Clock out when moving task to a done state
+  (setq org-clock-out-when-done t)
+
   )
 
-;; Do not write anything past this comment. This is where Emacs will
-;; auto-generate custom variable definitions.
+;; Do not write anything past this comment. This is where Emacs will ;; auto-generate custom variable definitions.
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
