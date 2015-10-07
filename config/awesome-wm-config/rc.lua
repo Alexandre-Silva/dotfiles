@@ -718,13 +718,13 @@ awful.key({modkey, "Control"}, "n", function () util.tag.rel_move(awful.tag.sele
 
 awful.key({ modkey,           }, "j",
 function ()
-    awful.client.focus.byidx(1)
+    awful.client.focus.byidx(-1)
     if client.focus then client.focus:raise() end
 end),
 
 awful.key({ modkey,           }, "k",
 function ()
-    awful.client.focus.byidx(-1)
+    awful.client.focus.byidx(1)
     if client.focus then client.focus:raise() end
 end),
 
