@@ -185,7 +185,8 @@ layers configuration."
   (setq org-default-notes-file (concat org-directory "/notes.org"))
 
   (setq org-agenda-files (file-expand-wildcards "~/gtd/*.org"))
-  ;;(setq org-agenda-files '("~/gtd"))
+  ;; removing reference file
+  (setq org-agenda-files (delete '"~/gtd/reference.org" org-agenda-files))
 
   (setq org-startup-indented nil)
 
@@ -311,6 +312,9 @@ layers configuration."
  '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
+ '(org-agenda-files
+   (quote
+    ("~/gtd/cadeiras.org" "~/gtd/gtd.org" "~/gtd/mcast.org" "~/gtd/nsat.org" "~/gtd/reference.org" "~/gtd/refile.org" "~/gtd/someday.org" "~/gtd/weeklyreview.org")))
  '(org-time-stamp-custom-formats (quote ("<%y/%m/%d %a>" . "<%y/%m/%d %a %H:%M>")))
  '(ring-bell-function (quote ignore) t))
 (custom-set-faces
