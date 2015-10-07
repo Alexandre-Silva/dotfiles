@@ -30,7 +30,7 @@ alias help=run-help
 
 # zsh options
 setopt AUTO_CD EXTENDED_GLOB RM_STAR_WAIT
-
+unsetopt share_history
 # ctrl-u does the same it did in bash.
 bindkey \^U backward-kill-line
 
