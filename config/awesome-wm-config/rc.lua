@@ -1,3 +1,5 @@
+-- vim:foldmethod=marker:foldlevel=0
+
 package.path = package.path .. ";./?/init.lua;"
 
 local gears = require("gears")
