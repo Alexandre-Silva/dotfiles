@@ -25,7 +25,7 @@ shopt -s checkwinsize
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
-#shopt -s globstar
+shopt -s globstar
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -126,9 +126,6 @@ fi
 retSmiley="\$(if [[ \$? == 0 ]]; then echo \"\[\033[0;32m\];)\"; else echo \"\[\033[0;31m\];(\"; fi)\[\033[00m\]"
 PS1="$retSmiley \[$Purple\]\A \[$Green\]\u@\h \[$Cyan\]\W\[$Green\]$\[$Color_Off\] "
 #PS2=$'\e[38;5;46m$PS2'
-
-# grep global **
-shopt -s globstar
 
 
 # pretty man#
