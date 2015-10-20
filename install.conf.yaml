@@ -15,11 +15,15 @@
 
     ~/.config/awesome: 
       create: true
-      path: config/awesome-wm-config/
+      path: config/awesome/
 
     ~/.config/base16-shell: 
       create: true
       path: config/base16-shell/
+
+    ~/.config/fontconfig: 
+      create: true
+      path: config/fontconfig/
 
     ~/.bashrc: bashrc
     ~/.bash_aliases: bash_aliases
