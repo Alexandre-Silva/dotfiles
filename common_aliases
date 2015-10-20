@@ -31,7 +31,8 @@ alias pw="gpg ~/Documents/pw.txt.gpg; cat ~/Documents/pw.txt; rm -f ~/Documents/
 
 alias tt=todo.sh
 
-alias kinit="secret-tool lookup ist pass | kinit $(secret-tool lookup ist user) > /dev/null"
+#alias kinit="secret-tool lookup ist pass | kinit $(secret-tool lookup ist user) > /dev/null"
+alias kinit-ist="kinit ist173968@IST.UTL.PT"
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -44,3 +45,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+#
+# the extra space allows for defined aliases to be transfered to other users env
+alias sudo="sudo "
