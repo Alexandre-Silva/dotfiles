@@ -25,6 +25,10 @@
       create: true
       path: config/fontconfig/
 
+    ~/.config/user-dirs.dirs: 
+      create: true
+      path: config/user-dirs.dirs
+
     ~/.bashrc: bashrc
     ~/.bash_aliases: bash_aliases
     ~/.bash_aliases_colors: bash_aliases_colors
