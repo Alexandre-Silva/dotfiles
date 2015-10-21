@@ -38,4 +38,3 @@ export GWT_HOME="$ECLIPSE_HOME/plugins/com.google.gwt.eclipse.sdkbundle_2.6.0/gw
 export JPDFBOOKMARKS_HOME=$HOME/.jpdfbookmarks
 #export PATH=$PATH:$JPDFBOOKMARKS_HOME/jpdfbookmarks
 #export PATH=$PATH:$JPDFBOOKMARKS_HOME/jpdfbookmarks_cli
-

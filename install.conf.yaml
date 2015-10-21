@@ -57,5 +57,7 @@
 
     ~/.spacemacs: emacs/spacemacs
 
+    ~/.xinitrc: xinitrc
+
 - shell:
     - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]
