@@ -17,6 +17,7 @@
                                        c-c++
                                        python
                                        latex
+                                       lua
                                        )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(org-pomodoro)
@@ -185,8 +186,12 @@ layers configuration."
   (setq org-default-notes-file (concat org-directory "/notes.org"))
 
   (setq org-agenda-files (file-expand-wildcards "~/gtd/*.org"))
-  ;; removing reference file
-  (setq org-agenda-files (delete '"~/gtd/reference.org" org-agenda-files))
+  (setq org-agenda-files-exclude (file-expand-wildcards "~/gtd/*.data.org"))
+  ;; removing data.org files
+  (dolist (element org-agenda-files-exclude nil)
+    (setq org-agenda-files (delete element org-agenda-files)))
+  
+  ;;(setq org-agenda-files (delete '"~/gtd/reference.org" org-agenda-files))
 
   (setq org-startup-indented nil)
 
@@ -213,10 +218,10 @@ layers configuration."
                  "* PHONE %? :PHONE:\n%U" :clock-in t :clock-resume t)
                 ("h" "Habit" entry (file "~/gtd/refile.org")
                  "* NEXT %?\n%U\nnSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n"))))
-  
-  
+
+
   (setq org-todo-keywords
-        (quote ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+        (quote ((sequence "NEXT(n)" "TODO(t)" "|" "DONE(d)")
                 (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING"))))
 
   (setq org-todo-keyword-faces
@@ -299,6 +304,20 @@ layers configuration."
   ;; Clock out when moving task to a done state
   (setq org-clock-out-when-done t)
 
+  (setq org-time-stamp-custom-formats (quote ("<%y/%m/%d %a>" "<%y/%m/%d %a %H:%M>" "<%d/%m/%y %a %H:%M>")))
+
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Evil binds
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; already set, but overriding org-mode bind for "^"
+  (define-key evil-normal-state-map (kbd "^") 'evil-first-non-blank)
+
+  (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
+  (define-key evil-normal-state-map (kbd "gj") 'evil-next-line)
+  (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
+  (define-key evil-normal-state-map (kbd "gk") 'evil-previous-line)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will ;; auto-generate custom variable definitions.
@@ -312,10 +331,6 @@ layers configuration."
  '(ahs-idle-interval 0.25)
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
- '(org-agenda-files
-   (quote
-    ("~/gtd/cadeiras.org" "~/gtd/gtd.org" "~/gtd/mcast.org" "~/gtd/nsat.org" "~/gtd/reference.org" "~/gtd/refile.org" "~/gtd/someday.org" "~/gtd/weeklyreview.org")))
- '(org-time-stamp-custom-formats (quote ("<%y/%m/%d %a>" . "<%y/%m/%d %a %H:%M>")))
  '(ring-bell-function (quote ignore) t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
