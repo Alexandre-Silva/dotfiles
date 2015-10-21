@@ -42,29 +42,6 @@ ZSH_THEME_GIT_PROMPT_DIRTY="${VCS_DIRTY_COLOR}✘ "
 ZSH_THEME_GIT_PROMPT_CLEAN="${VCS_CLEAN_COLOR}✔ "
 # ########## GIT ###########
 
-function precmd {
-    #gets the fortune
-    ps1_fortune () {
-        #Choose from all databases, regardless of whether they are considered "offensive"
-        fortune -a
-    }
-    #obtains the tip 
-    ps1_command_tip () {
-        wget -qO - http://www.commandlinefu.com/commands/random/plaintext | sed 1d | sed '/^$/d'
-    }  
-    prompt_header () {
-        if [[ "true" == "$ENABLE_COMMAND_TIP" ]]; then
-            ps1_command_tip
-        else
-            ps1_fortune
-        fi 
-    }   
-    PROMPT_HEAD="${RED_START}${PR_YELLOW}$(prompt_header)${PR_RESET}"
-    # set a simple variable to show when in screen
-    if [[ -n "${WINDOW}" ]]; then
-        SCREEN=""
-    fi
-}
 
 # Context: user@directory or just directory
 prompt_context () {
@@ -96,21 +73,6 @@ set_prompt () {
     RPROMPT=$return_code
 
     return
-    # ######### PROMPT #########
-    PROMPT='%{$fg[$NCOLOR]%}%n%{$fg[green]%}@%m%{$reset_color%} %~ \
-    $(git_prompt_info)\
-    $(svn_prompt_info)\
-    %{$fg[red]%}%(!.#.»)%{$reset_color%} '
-    PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
-    ePS1='${return_code}'
-
-    PROMPT='${PROMPT_HEAD}
-    ${RED_START}$(prompt_context)
-    ${GREEN_START_P1}'
-    RPROMPT='${PR_RESET}$(git_prompt_info)$(svn_prompt_info)${PR_YELLOW}%D{%R.%S %a %b %d %Y} ${GREEN_END}${PR_RESET}'
-    # Matching continuation prompt
-    PROMPT2='${GREEN_BASE_START}${PR_RESET} %_ ${GREEN_BASE_START}${PR_RESET} '
-    # ######### PROMPT #########
 }
 
 set_prompt
