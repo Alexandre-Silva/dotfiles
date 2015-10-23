@@ -29,6 +29,10 @@
       create: true
       path: config/user-dirs.dirs
 
+    ~/.config/ranger: 
+      create: true
+      path: config/ranger
+
     ~/.bashrc: bashrc
     ~/.bash_aliases: bash_aliases
     ~/.bash_aliases_colors: bash_aliases_colors

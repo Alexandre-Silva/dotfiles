@@ -1,2 +1,9 @@
 *.swp
 *~
+
+# Ranger specific ignores. As they are relative to the current user and dotfiles should be computer independent. (As most as possible)
+config/ranger/tagged
+config/ranger/bookmarks
+config/ranger/history
+
+
