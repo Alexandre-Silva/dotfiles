@@ -233,7 +233,7 @@ end
 
 --{{
 local tools = {
-    terminal = "urxvt",
+    terminal = "urxvtc",
     system = {
         filemanager = "nemo"
     },
