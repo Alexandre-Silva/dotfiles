@@ -63,5 +63,7 @@
 
     ~/.xinitrc: xinitrc
 
+    ~/.Xresources: Xresources
+
 - shell:
     - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]
