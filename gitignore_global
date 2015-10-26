@@ -55,4 +55,8 @@ Thumbs.db
 *.mtc
 *.mtc1
 *.out
+*.glsdefs
+*.nlo
+*.nls
+*.txss
 *.synctex.gz
