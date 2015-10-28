@@ -18,6 +18,10 @@ fi
 
 export DOTFILES="$HOME/dotfiles"
 
+# dircolors sets the outputed of ls and such programs, in a more clear colour.
+[ -f "$DOTFILES/dircolors" ] && eval `dircolors $DOTFILES/dircolors`
+
+
 export TODOTXT_CFG_FILE="$DOTFILES/todo.cfg"
 export TODO_ACTIONS_DIR="$DOTFILES/todo.actions.d"
 
