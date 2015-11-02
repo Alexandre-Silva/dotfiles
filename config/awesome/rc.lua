@@ -893,21 +893,21 @@ end),
 --    awful.util.spawn("mpc stop")
 --end),
 --
---awful.key({}, "XF86AudioRaiseVolume", function ()
---    awful.util.spawn("amixer sset Master 5%+")
---end),
+awful.key({}, "XF86AudioRaiseVolume", function ()
+    awful.util.spawn("amixer sset Master 5%+")
+end),
 --
 --awful.key({ modkey }, "XF86AudioRaiseVolume", function ()
 --    awful.util.spawn("amixer sset Mic 5%+")
 --end),
 --
---awful.key({}, "XF86AudioLowerVolume", function ()
---    awful.util.spawn("amixer sset Master 5%-")
---end),
+awful.key({}, "XF86AudioLowerVolume", function ()
+    awful.util.spawn("amixer sset Master 5%-")
+end),
 --
---awful.key({}, "XF86AudioMute", function ()
---    awful.util.spawn("amixer sset Master toggle")
---end),
+awful.key({}, "XF86AudioMute", function ()
+    awful.util.spawn("amixer sset Master toggle")
+end),
 --
 --awful.key({}, "XF86AudioMicMute", function ()
 --    awful.util.spawn("amixer sset Mic toggle")
@@ -921,13 +921,13 @@ end),
 --    awful.util.spawn("cheese")
 --end),
 --
---awful.key({}, "XF86MonBrightnessUp", function ()
---    awful.util.spawn("xbacklight -inc 10")
---end),
---
---awful.key({}, "XF86MonBrightnessDown", function ()
---    awful.util.spawn("xbacklight -dec 10")
---end),
+awful.key({}, "XF86MonBrightnessUp", function ()
+    awful.util.spawn("xbacklight -inc 10")
+end),
+
+awful.key({}, "XF86MonBrightnessDown", function ()
+    awful.util.spawn("xbacklight -dec 10")
+end),
 --
 --awful.key({}, "XF86WLAN", function ()
 --    awful.util.spawn("nm-connection-editor")
@@ -956,61 +956,61 @@ end),
 
 --- hacks for Thinkpad W530 FN mal-function
 
-awful.key({ modkey }, "F10", function ()
-    awful.util.spawn("mpc prev")
-end),
-
-awful.key({ modkey }, "F11", function ()
-    awful.util.spawn("mpc toggle")
-end),
-
-awful.key({ modkey }, "F12", function ()
-    awful.util.spawn("mpc next")
-end),
-
-awful.key({ modkey }, "Home", function ()
-    awful.util.spawn("mpc seek -5%")
-end),
-
-awful.key({ modkey }, "End", function ()
-    awful.util.spawn("mpc stop")
-end),
-
-awful.key({ modkey }, "Insert", function ()
-    awful.util.spawn("mpc seek +5%")
-end),
-
-awful.key({ modkey, "Control" }, "Left", function ()
-    awful.util.spawn("mpc prev")
-end),
-
-awful.key({ modkey, "Control" }, "Down", function ()
-    awful.util.spawn("mpc toggle")
-end),
-
-awful.key({ modkey, "Control" }, "Right", function ()
-    awful.util.spawn("mpc next")
-end),
-
-awful.key({ modkey, "Control" }, "Up", function ()
-    awful.util.spawn("gnome-alsamixer")
-end),
-
-awful.key({ modkey, "Shift" }, "Left", function ()
-    awful.util.spawn("mpc seek -1%")
-end),
-
-awful.key({ modkey, "Shift" }, "Right", function ()
-    awful.util.spawn("mpc seek +1%")
-end),
-
-awful.key({ modkey, "Shift" }, "Down", function ()
-    awful.util.spawn("mpc seek -10%")
-end),
-
-awful.key({ modkey, "Shift" }, "Up", function ()
-    awful.util.spawn("mpc seek +10%")
-end),
+--awful.key({ modkey }, "F10", function ()
+--    awful.util.spawn("mpc prev")
+--end),
+--
+--awful.key({ modkey }, "F11", function ()
+--    awful.util.spawn("mpc toggle")
+--end),
+--
+--awful.key({ modkey }, "F12", function ()
+--    awful.util.spawn("mpc next")
+--end),
+--
+--awful.key({ modkey }, "Home", function ()
+--    awful.util.spawn("mpc seek -5%")
+--end),
+--
+--awful.key({ modkey }, "End", function ()
+--    awful.util.spawn("mpc stop")
+--end),
+--
+--awful.key({ modkey }, "Insert", function ()
+--    awful.util.spawn("mpc seek +5%")
+--end),
+--
+--awful.key({ modkey, "Control" }, "Left", function ()
+--    awful.util.spawn("mpc prev")
+--end),
+--
+--awful.key({ modkey, "Control" }, "Down", function ()
+--    awful.util.spawn("mpc toggle")
+--end),
+--
+--awful.key({ modkey, "Control" }, "Right", function ()
+--    awful.util.spawn("mpc next")
+--end),
+--
+--awful.key({ modkey, "Control" }, "Up", function ()
+--    awful.util.spawn("gnome-alsamixer")
+--end),
+--
+--awful.key({ modkey, "Shift" }, "Left", function ()
+--    awful.util.spawn("mpc seek -1%")
+--end),
+--
+--awful.key({ modkey, "Shift" }, "Right", function ()
+--    awful.util.spawn("mpc seek +1%")
+--end),
+--
+--awful.key({ modkey, "Shift" }, "Down", function ()
+--    awful.util.spawn("mpc seek -10%")
+--end),
+--
+--awful.key({ modkey, "Shift" }, "Up", function ()
+--    awful.util.spawn("mpc seek +10%")
+--end),
 
 nil
 
