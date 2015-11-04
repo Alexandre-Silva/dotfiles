@@ -52,6 +52,8 @@ fi
 # Set keyboard as us-international with dead keys
 setxkbmap -layout us -variant altgr-intl
 
+# activate numlock
+numlockx &
 
 ################################################################################
 # start the session
