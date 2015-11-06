@@ -1,5 +1,8 @@
-#!/bin/bash
+# dotfiles/shell/rc
+# loads all files in dotfiles/shell/rc.d
 
-for f in $(rc.d); do 
+[ -z $DOTFILES ] && printf "dotfiles/shell/rc\nvar DOTFILES is not defined" && exit
+
+for f in $(find $DOTFILES"/shell/rc.d" -type f -name "*.sh" ); do 
     . $f
 done
