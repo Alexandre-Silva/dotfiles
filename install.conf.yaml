@@ -4,7 +4,7 @@
   - [git submodule update --init, Installing/updating submodules]
   - [mkdir -p ~/.todo, Creating .todo dir]
   -
-    command: [./install-oh-my-zsh, Installing/updating oh-my-zsh]
+    command: [./shell/scripts/install-oh-my-zsh, Installing/updating oh-my-zsh]
     stdout: true
 
 - link:
@@ -33,31 +33,18 @@
       create: true
       path: config/ranger
 
-    ~/.bashrc: bashrc
-    ~/.bash_aliases: bash_aliases
-    ~/.bash_aliases_colors: bash_aliases_colors
+    ~/.bashrc: shell/bashrc
+    ~/.zshrc: shell/zshrc
 
-    ~/.common_aliases: common_aliases
-    ~/.common_funcs: common_funcs
-    ~/.common_shell_vars: common_shell_vars
-
-    ~/.zshrc: zshrc
-
-    ~/.oh-my-zshrc: oh-my-zshrc
-
-    ~/.profile: profile
-    ~/.zprofile: zprofile
+    ~/.profile: shell/profile
+    ~/.zprofile: shell/zprofile
 
     ~/.gitconfig: gitconfig
     ~/.gitignore_global: gitignore_global
 
-    ~/.bin/todo.sh: 
-      create: true
-      path: todo.sh
-
     ~/.conkyrc: conkyrc
 
-    ~/.config/zathura: zathura
+    ~/.config/zathura: config/zathura
 
     ~/.spacemacs: emacs/spacemacs
 

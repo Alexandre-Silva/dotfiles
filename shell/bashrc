@@ -72,25 +72,10 @@ xterm*|rxvt*)
     ;;
 esac
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# Functions definitions.
-
-if [ -f ~/.common_funcs ]; then
-    . ~/.common_funcs
-fi
-
-# shell specific vars definitions.
-if [ -f ~/.common_shell_vars ]; then
-    . ~/.common_shell_vars
-fi
+# loads funcs, aliases and shell vars
+rc=$DOTFILES"/shell/rc"
+[ -f $rc ] && source $rc
 
 
 # enable programmable completion features (you don't need to enable

@@ -40,6 +40,8 @@ export JPDFBOOKMARKS_HOME=$HOME/.jpdfbookmarks
 #export PATH=$PATH:$JPDFBOOKMARKS_HOME/jpdfbookmarks_cli
 
 
+[ -d ~/dotfiles ] && export DOTFILES $HOME"/dotfiles"
+
 ################################################################################
 # SYSTEM STUFF
 ################################################################################

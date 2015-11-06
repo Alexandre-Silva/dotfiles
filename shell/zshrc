@@ -3,6 +3,10 @@
 # Only for interactive shells.
 [[ -o interactive ]] || exit 0
 
+# loads funcs, aliases and shell vars
+rc=$DOTFILES"/shell/rc"
+[ -f $rc ] && source $rc
+
 
 FRAMEWORK=oh-my-zsh
 if [ $FRAMEWORK = prezto ];then
@@ -15,8 +19,8 @@ if [ $FRAMEWORK = prezto ];then
 elif [ $FRAMEWORK = oh-my-zsh ];then
 
     # Source oh-my-zsh
-    if [ -r $HOME/.oh-my-zshrc ];then
-        source $HOME/.oh-my-zshrc
+    if [ -r $DOTFILES/shell/oh-my-zshrc ];then
+        source $DOTFILES/shell/oh-my-zshrc
     fi
 fi
 
@@ -34,21 +38,6 @@ unsetopt share_history
 # ctrl-u does the same it did in bash.
 bindkey \^U backward-kill-line
 
-# common and misc aliases
-if [ -f ~/.common_aliases ]; then
-    source ~/.common_aliases
-fi
-
-# Functions definitions.
-if [ -f ~/.common_funcs ]; then
-    . ~/.common_funcs
-fi
-
-
-# shell specific vars definitions.
-if [ -f ~/.common_shell_vars ]; then
-    . ~/.common_shell_vars
-fi
 
 # Machine local confs
 if [ -f ~/.zshrc_local ]; then
