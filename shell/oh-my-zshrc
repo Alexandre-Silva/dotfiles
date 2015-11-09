@@ -49,7 +49,7 @@ ZSH_THEME="mah-theme"
 plugins=(git git-prompt git-super-prompt tmux command-not-found common-aliases pretty-man gradle svn)
 
 case "$DISTRIBUTION" in
-    *ubuntu|Ubuntu)
+    *ubuntu|Ubuntu|Debian)
     plugins+=debian
     ;;
 
