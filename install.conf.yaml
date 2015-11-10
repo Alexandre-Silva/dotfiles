@@ -52,5 +52,7 @@
 
     ~/.Xresources: Xresources
 
+    ~/.bin/AL: shell/scripts/AL.sh
+
 - shell:
     - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]
