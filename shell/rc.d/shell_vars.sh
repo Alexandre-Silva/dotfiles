@@ -16,10 +16,9 @@ if [ $TERM != "linux" ]; then
 fi
 
 
-export DOTFILES="$HOME/dotfiles"
-
 # dircolors sets the outputed of ls and such programs, in a more clear colour.
-[ -f "$DOTFILES/dircolors" ] && eval `dircolors $DOTFILES/dircolors`
+d=$DOTFILES"/dircolors"
+[ -f "$d" ] && eval "$(dircolors $d)" || echo "$d does not exist"
 
 
 export TODOTXT_CFG_FILE="$DOTFILES/todo.cfg"

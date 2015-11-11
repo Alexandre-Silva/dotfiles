@@ -39,6 +39,12 @@ unsetopt share_history
 bindkey \^U backward-kill-line
 
 
+# Workaround #
+# Make zsh autocomplete respect dircolors.
+# https://github.com/robbyrussell/oh-my-zsh/issues/1563
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+
 # Machine local confs
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
