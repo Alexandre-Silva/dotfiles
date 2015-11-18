@@ -55,6 +55,15 @@ setxkbmap -layout us -variant altgr-intl
 # activate numlock
 numlockx &
 
+# The typematic delay indicates the amount of time (typically in miliseconds) a
+# key needs to be pressed in order for the repeating process to begin. After the
+# repeating process has been triggered, the character will be repeated with a
+# certain frequency (usually given in Hz) specified by the typematic rate. The
+# typematic delay in the virtual console is not affected by these settings. 
+
+# xset r rate <delay> <rate>
+xset r rate 200 45
+
 ################################################################################
 # start the session
 ################################################################################
