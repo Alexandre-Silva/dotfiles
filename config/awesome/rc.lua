@@ -342,7 +342,9 @@ menu = mymainmenu })
 mytextclock = wibox.widget.textbox()
 
 -- http://awesome.naquadah.org/wiki/Bashets
-bashets.register("date.sh", {widget=mytextclock, update_time=1, format="$1 <span fgcolor='red'>$2</span> <small>$3$4</small> <b>$5<small>$6</small></b>"})
+-- bashets/date.sh
+-- date +"%a %d-%b-%Y %z %Z %I:%M:%S %p"
+bashets.register("date.sh", {widget=mytextclock, update_time=1, format="<span fgcolor='red'>$2</span> <small>$1</small> <b>$5<small>$6</small></b>"})
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -416,7 +418,7 @@ for s = 1, screen.count() do
     mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
 
     -- Create the wibox
-    mywibox[s] = awful.wibox({ position = "top", screen = s })
+    mywibox[s] = awful.wibox({ position = "top", height = "18", screen = s })
 
     -- Widgets that are aligned to the left
     local left_layout = wibox.layout.fixed.horizontal()
