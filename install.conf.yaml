@@ -53,7 +53,7 @@
     ~/.Xresources: Xresources
 
     ~/.bin/AL: shell/scripts/AL.sh
-    ~/.bin/ranger: shell/scripts/ranger.sh
+    ~/.bin/rangerl: shell/scripts/rangerl.sh
     ~/.bin/shellcd: shell/scripts/shellcd.sh
 
 - shell:

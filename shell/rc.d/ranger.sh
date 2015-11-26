@@ -12,7 +12,14 @@
 # original directory.
 
 function ranger-cd {
-    tempfile="$(mktemp -t tmp.XXXXXX)"
+    local opts=""
+
+    if [ -n "$XDG_RUNTIME_DIR" ]; then
+        [ -d "$XDG_RUNTIME_DIR/ranger" ] || mkdir "$XDG_RUNTIME_DIR/ranger"
+        opts="--tmpdir=$XDG_RUNTIME_DIR/ranger"
+    fi
+
+    tempfile="$(mktemp $opts -t last-dir.XXXXXX)"
     /usr/bin/ranger --choosedir="$tempfile" "${@:-$(pwd)}"
     test -f "$tempfile" &&
     if [ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]; then
@@ -21,6 +28,15 @@ function ranger-cd {
     rm -f -- "$tempfile"
 }
 
+function ranger {
+    # Start new ranger instance only if it's not running in current shell
+    [ -n "$RANGER_LEVEL" ] && exit
+    ranger-cd "$@"
+}
+
+alias rg=ranger
+alias rgl=rangerl # script for gui launcher (e.g. awesome)
+
 # This binds Ctrl-O to ranger-cd:
-[ -n "$BASH_VERSION" ] && bind '"\C-o":"ranger-cd\C-m"'
-[ -n "$ZSH_VERSION" ] && bindkey -s '^o' '^Uranger-cd^M'
+[ -n "$BASH_VERSION" ] && bind '"\C-o":"ranger\C-m"'
+[ -n "$ZSH_VERSION" ] && bindkey -s '^o' '^Uranger^M'
