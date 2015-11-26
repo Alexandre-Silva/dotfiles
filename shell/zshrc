@@ -49,3 +49,6 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
+
+# ranger Synchronize path
+[ -n "$RANGERCD" ] && unset RANGERCD && ranger-cd

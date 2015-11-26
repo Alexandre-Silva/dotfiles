@@ -53,6 +53,8 @@
     ~/.Xresources: Xresources
 
     ~/.bin/AL: shell/scripts/AL.sh
+    ~/.bin/ranger: shell/scripts/ranger.sh
+    ~/.bin/shellcd: shell/scripts/shellcd.sh
 
 - shell:
     - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]
