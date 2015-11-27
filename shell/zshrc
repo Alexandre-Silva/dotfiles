@@ -52,3 +52,5 @@ fi
 
 # ranger Synchronize path
 [ -n "$RANGERCD" ] && unset RANGERCD && ranger-cd
+
+return 0
