@@ -265,14 +265,13 @@ URxvt*perl-ext-common: default,clipboard
 ! URxvt*override-redirect: boolean
 
 ! Turn on/off ISO 14755 (default enabled).
-URxvt*iso14755: false
+URxvt*iso14755: False
 
 ! Turn on/off ISO 14755 5.2 mode (default enabled).
 ! URxvt*iso14755_52: boolean
 
-
-URxvt*keysym.Shift-Control-V: perl:clipboard:paste
-
+URxvt*.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt*.keysym.Shift-Control-V: perl:clipboard:paste
 
 ! Fontconfig settings
 ! see https://wiki.archlinux.org/index.php/Font_configuration#Fontconfig_configuration
