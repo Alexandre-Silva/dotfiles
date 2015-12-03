@@ -29,7 +29,8 @@
 	editor = vim
 
 [merge]
-	tool = vimdiff
+	tool = kdiff3
+	conflictstyle = diff3
 
 # Allow local customizations in the .gitconfig_local file
 [include]
