@@ -5,19 +5,12 @@
 # and inits firefoz thunderbird ....
 #
 function alex-init () {
-    pkill xfce4-panel 
+    progs=( thunderbird firefox skype keepass )
 
-    sleep 0.2
-    echo 'customization.orig.restart()' | awesome-client
-
-    thunderbird &>>"$HOME/.log/thunderbird.log" & disown
-    firefox &>>"$HOME/.log/firefox.log" & disown
-    skype &>>"$HOME/.log/skype.log" & disown
-    syncthing &>>"$HOME/.log/syncthing.log" & disown
-    pnmixer &>>"$HOME/.log/pnmixer.log" & disown
-
-    pkill xfsettingsd && xfsettingsd
-    #(  sleep 10 && kinit  ) & disown  
+    for p in ${progs[@]}; do
+        echo $p
+        $p &>>"$HOME/.log/$p.log" & disown
+    done
 }
 
 
