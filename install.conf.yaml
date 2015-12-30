@@ -21,9 +21,9 @@
       create: true
       path: config/base16-shell/
 
-    ~/.config/fontconfig: 
-      create: true
-      path: config/fontconfig/
+#    ~/.config/fontconfig: 
+#      create: true
+#      path: config/fontconfig/
 
     ~/.config/user-dirs.dirs: 
       create: true
@@ -53,8 +53,8 @@
     ~/.Xresources: Xresources
 
     ~/.bin/AL: shell/scripts/AL.sh
-    ~/.bin/rangerl: shell/scripts/rangerl.sh
     ~/.bin/shellcd: shell/scripts/shellcd.sh
+    ~/.bin/zathura-sync: shell/scripts/zathura-sync.sh
 
 - shell:
     - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]

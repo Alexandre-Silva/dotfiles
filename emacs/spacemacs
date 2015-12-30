@@ -337,6 +337,20 @@ layers configuration."
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
   (define-key evil-normal-state-map (kbd "gk") 'evil-previous-line)
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Latex layer stuff
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;;type SPC m v the pdf viewer will highlight the line which you are editing with yellow color. Furthermore, you can press shift and command together and click on the pdf file, it will automatically jump to corresponding line in the tex file.
+  (setq TeX-source-correlate-mode t)
+  (setq TeX-source-correlate-start-server t)
+  (setq TeX-source-correlate-method 'synctex)
+  (setq TeX-view-program-list
+        '(("Okular" "okular --unique %o#src:%n%b") ;; update to "okular --unique %o#src:%n`pwd`/./%b"
+          ("Skim" "displayline -b -g %n %o %b")
+          ("Zathura" "zathura-sync %n:1:%b %o")))
+  (cond
+   ((spacemacs/system-is-linux) (setq TeX-view-program-selection '((output-pdf "Zathura")))))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Misc
