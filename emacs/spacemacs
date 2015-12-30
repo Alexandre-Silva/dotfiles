@@ -14,11 +14,10 @@
                                        alex
                                        org
                                        shell
-                                       c-c++
                                        python
                                        auto-completion
+                                       perspectives
                                        latex
-                                       lua
                                        )
    ;; A list of packages and/or extensions that will not be install and loaded.
    dotspacemacs-excluded-packages '(org-pomodoro)
@@ -168,14 +167,9 @@ layers configuration."
             scroll-preserve-screen-position 1))
 
   ;; file Auto-save
-  ;; Save all tempfiles in $HOME/.emacs_tmp/
-  (defconst emacs-tmp-dir (format "%s%s/" user-home-directory ".emacs_tmp" ))
-  (setq backup-directory-alist
-        `((".*" . ,emacs-tmp-dir)))
-  (setq auto-save-file-name-transforms
-        `((".*" ,emacs-tmp-dir t)))
-  (setq auto-save-list-file-prefix
-        emacs-tmp-dir)
+  ;; files are saved in emacs.d/.cache/auto-save
+  (setq auto-save-inteval 50)
+  (setq auto-save-timeout 3)
 
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -191,7 +185,7 @@ layers configuration."
   ;; removing data.org files
   (dolist (element org-agenda-files-exclude nil)
     (setq org-agenda-files (delete element org-agenda-files)))
-  
+
   ;;(setq org-agenda-files (delete '"~/gtd/reference.org" org-agenda-files))
 
   (setq org-startup-indented nil)
@@ -315,7 +309,7 @@ layers configuration."
             (mapcar (lambda (keywords)
                       (let ((todo-seq
                              (-map (lambda (x) (first (split-string  x "(")))
-                                   (rest keywords)))) 
+                                   (rest keywords))))
                         (cl-position-if (lambda (x) (string= x todo)) todo-seq)))
                     org-todo-keywords))))
 
@@ -342,6 +336,14 @@ layers configuration."
   (define-key evil-normal-state-map (kbd "gj") 'evil-next-line)
   (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
   (define-key evil-normal-state-map (kbd "gk") 'evil-previous-line)
+
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Misc
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;;automatically save (without asking) before you compile or recompile.
+  (setq compilation-ask-about-save nil)
 
   )
 
