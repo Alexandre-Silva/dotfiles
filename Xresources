@@ -69,7 +69,8 @@
 
 ! Select the fonts to be used. This is a comma separated list of font names that are checked in order when trying to find glyphs for characters. The first font defines the cell size for characters; other fonts might be smaller, but not (in
 ! URxvt*font: fontlist
-URxvt*font: xft:Inconsolatazi4:size=11
+URxvt*font: xft:Inconsolatazi4:size=11:antialias=true:hinting=true,xft:Bitstream Vera Sans:pixelsize=14:antialias=true:hinting=true
+
 
 ! URxvt*boldFont: fontlist
 
