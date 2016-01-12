@@ -91,7 +91,7 @@ function ec() {
 # can also pass in -n if you want to have the shell return right away
 
 function et() {
-    exec emacsclient -a "" -t "$@" 
+    emacsclient -a "" -t "$@" 
 }
 
 
