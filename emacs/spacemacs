@@ -33,6 +33,7 @@ values."
      ;; version-control
      emacs-lisp
      alex
+     calfw
      org
      shell
      python
@@ -440,6 +441,7 @@ layers configuration."
   (defun my/org-sort-entries ()
     (interactive)
     (org-sort-entries nil ?f #'my/org-sort-key))
+
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Evil binds
