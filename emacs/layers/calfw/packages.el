@@ -11,6 +11,13 @@
 
 ;;; Commentary:
 
+;; calfw homepage
+;; https://github.com/kiwanami/emacs-calfw
+;;
+;; usage example of use-package and calfw
+;; https://github.com/tumashu/emacs-helper/blob/master/eh-misc.el
+
+
 ;; See the Spacemacs documentation and FAQs for instructions on how to implement
 ;; a new layer:
 ;;
