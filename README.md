@@ -1,6 +1,6 @@
 # dotfiles
 
-Just my dotfile, now mush else to say. So here here is a cat.
+Just my dotfile, now much else to say. So here's a cat...
 ```
     /\__/\
    /`    '\
