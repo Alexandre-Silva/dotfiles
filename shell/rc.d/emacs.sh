@@ -1,18 +1,18 @@
-#!/bin/bash - 
+#!/bin/bash -
 #===============================================================================
 #
 #          FILE: emacs.sh
-# 
-#         USAGE: ./emacs.sh 
-# 
-#   DESCRIPTION: 
-# 
+#
+#         USAGE: ./emacs.sh
+#
+#   DESCRIPTION:
+#
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
 #          BUGS: ---
 #         NOTES: ---
-#        AUTHOR: YOUR NAME (), 
-#  ORGANIZATION: 
+#        AUTHOR: YOUR NAME (),
+#  ORGANIZATION:
 #       CREATED: 08-01-2016 09:06
 #      REVISION:  ---
 #===============================================================================
@@ -91,7 +91,7 @@ function ec() {
 # can also pass in -n if you want to have the shell return right away
 
 function et() {
-    emacsclient -a "" -t "$@" 
+    emacsclient -a "" -t "$@"
 }
 
 
