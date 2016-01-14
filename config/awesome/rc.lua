@@ -52,7 +52,7 @@ customization.default.wallpaper_change_interval = 60
 
 customization.option.wallpaper_change_p = true
 
---theme.wallpaper = "~/Pictures/Wallpapers/Dark-Green-Abstract-High-Quality-HD-Wallpaper-Desktop.jpg" 
+--theme.wallpaper = "~/Pictures/Wallpapers/Dark-Green-Abstract-High-Quality-HD-Wallpaper-Desktop.jpg"
 
 naughty.config.presets.low.opacity = customization.default.property.default_naughty_opacity
 naughty.config.presets.normal.opacity = customization.default.property.default_naughty_opacity
@@ -91,7 +91,7 @@ end
 -- {{{
 -- HACK! prevent Awesome start autostart items multiple times in a session
 -- cause: in-place restart by awesome.restart, xrandr change
--- idea: 
+-- idea:
 -- * create a file /tmp/awesome-autostart-once when first time "dex" autostart items (at the end of this file)
 -- * only "rm" this file when awesome.quit
 
@@ -154,7 +154,7 @@ do
 
             -- save tags for each client
             awful.util.mkdir(awesome_restart_tags_fname)
-            -- !! avoid awful.util.spawn_with_shell("mkdir -p " .. awesome_restart_tags_fname) 
+            -- !! avoid awful.util.spawn_with_shell("mkdir -p " .. awesome_restart_tags_fname)
             -- race condition (whether awesome_restart_tags_fname is created) due to asynchrony of "spawn_with_shell"
             for _, c in ipairs(client.get()) do
                 local client_id = c.pid .. '-' .. c.window
@@ -215,7 +215,7 @@ do
 
     customization.timer.change_wallpaper:connect_signal("timeout", customization.func.change_wallpaper)
 
-    customization.timer.change_wallpaper:connect_signal("property::timeout", 
+    customization.timer.change_wallpaper:connect_signal("property::timeout",
     function ()
         customization.timer.change_wallpaper:stop()
         customization.timer.change_wallpaper:start()
@@ -485,7 +485,7 @@ do
         end
 
         for s = 1, screen.count() do
-            local fname = awesome_restart_tags_fname .. "-selected." .. s 
+            local fname = awesome_restart_tags_fname .. "-selected." .. s
             f = io.open(fname, "r")
             if f then
                 local tag = awful.tag.gettags(s)[tonumber(f:read("*l"))]
@@ -505,8 +505,8 @@ do
             layout = customization.default.property.layout,
             mwfact = customization.default.property.mwfact,
             nmaster = customization.default.property.nmaster,
-            ncol = customization.default.property.ncol, 
-        } 
+            ncol = customization.default.property.ncol,
+        }
         )
         awful.tag.viewonly(tag)
 
@@ -516,9 +516,9 @@ do
             layout = customization.default.property.layout,
             mwfact = customization.default.property.mwfact,
             nmaster = customization.default.property.nmaster,
-            ncol = customization.default.property.ncol, 
-        } 
-        ) 
+            ncol = customization.default.property.ncol,
+        }
+        )
 
     end
 end
@@ -543,11 +543,11 @@ awful.key({ modkey, "Control" }, "r", awesome.restart),
 
 awful.key({ modkey, "Shift"   }, "q", awesome.quit),
 
-awful.key({ modkey }, "\\", function () 
-    local info = "Version: " .. awesome.version 
+awful.key({ modkey }, "\\", function ()
+    local info = "Version: " .. awesome.version
     info = info ..  "\n" .. "Release: " .. awesome.release
     info = info ..  "\n" .. "Config: " .. awesome.conffile
-    info = info ..  "\n" .. "Config Version: " .. customization.config.version 
+    info = info ..  "\n" .. "Config Version: " .. customization.config.version
     info = info ..  "\n" .. "Config Help: " .. customization.config.help_url
     if awesome.composite_manager_running then
         info = info .. "\n" .. "<span fgcolor='red'>a composite manager is running</span>"
@@ -630,7 +630,7 @@ awful.key({modkey}, "F4", function()
     )
 end),
 
-awful.key({ modkey }, "c", function () 
+awful.key({ modkey }, "c", function ()
     awful.util.spawn(tools.editor.primary .. " " .. awful.util.getdir("config") .. "/rc.lua" )
 end),
 
@@ -648,7 +648,7 @@ awful.key({modkey}, "a",
 function ()
     local scr = mouse.screen
     local sel_idx = awful.tag.getidx()
-    local t = util.tag.add(nil, 
+    local t = util.tag.add(nil,
     {
         screen = scr,
         index = sel_idx and sel_idx+1 or 1,
@@ -663,7 +663,7 @@ awful.key({modkey, "Shift"}, "a",
 function ()
     local scr = mouse.screen
     local sel_idx = awful.tag.getidx()
-    local t = util.tag.add(nil, 
+    local t = util.tag.add(nil,
     {
         screen = scr,
         index = sel_idx and sel_idx or 1,
@@ -692,7 +692,7 @@ awful.key({modkey,}, "n", awful.tag.viewnext),
 awful.key({modkey,}, "z", awful.tag.history.restore),
 
 awful.key({modkey,}, "g",
-function () 
+function ()
     local keywords = {}
     local scr = mouse.screen
     for _, t in ipairs(awful.tag.gettags(scr)) do -- only the current screen
@@ -710,9 +710,9 @@ end),
 
 --- move
 
-awful.key({modkey, "Control"}, "p", function () util.tag.rel_move(awful.tag.selected(), -1) end), 
+awful.key({modkey, "Control"}, "p", function () util.tag.rel_move(awful.tag.selected(), -1) end),
 
-awful.key({modkey, "Control"}, "n", function () util.tag.rel_move(awful.tag.selected(), 1) end), 
+awful.key({modkey, "Control"}, "n", function () util.tag.rel_move(awful.tag.selected(), 1) end),
 
 -- client management
 
@@ -753,7 +753,7 @@ awful.key({modkey, "Shift"}, "p", function () util.client.rel_send(-1) end),
 awful.key({modkey, "Shift"}, "n", function () util.client.rel_send(1) end),
 
 awful.key({modkey, "Shift"}, "g",
-function () 
+function ()
     local keywords = {}
     local scr = mouse.screen
     for _, t in ipairs(awful.tag.gettags(scr)) do -- only the current screen
@@ -774,7 +774,7 @@ function ()
 end),
 
 awful.key({modkey, "Control", "Shift"}, "g",
-function () 
+function ()
     local keywords = {}
     local scr = mouse.screen
     for _, t in ipairs(awful.tag.gettags(scr)) do -- only the current screen
@@ -813,7 +813,7 @@ awful.key({ modkey, "Control" }, "h",     function () awful.tag.incncol(-1) end)
 
 --- misc
 
-awful.key({ modkey, "Shift" }, "`",     function ()  
+awful.key({ modkey, "Shift" }, "`",     function ()
     awful.titlebar.toggle(client.focus)
 end),
 
@@ -873,7 +873,7 @@ awful.key({ modkey, "Mod1", }, "v", function ()
     awful.util.spawn("virtualbox")
 end),
 
-awful.key({modkey, "Shift" }, "/", function() 
+awful.key({modkey, "Shift" }, "/", function()
     awful.util.spawn("kmag")
 end),
 
@@ -1224,7 +1224,7 @@ root.keys(globalkeys)
 awful.rules.rules = {
 
     -- All clients will match this rule.
-    { 
+    {
         rule = { },
         properties = {
             border_width = beautiful.border_width,
@@ -1234,22 +1234,23 @@ awful.rules.rules = {
             keys = clientkeys,
             buttons = clientbuttons,
             opacity = customization.default.property.default_naughty_opacity,
+            size_hints_honor = false,
         }
     },
 
-    { 
+    {
         rule = { class = "MPlayer" },
-        properties = { 
+        properties = {
             floating = true,
             opacity = 1,
-        } 
+        }
     },
 
-    { 
+    {
         rule = { class = "gimp" },
-        properties = { 
-            floating = true, 
-        }, 
+        properties = {
+            floating = true,
+        },
     },
 
     --[[

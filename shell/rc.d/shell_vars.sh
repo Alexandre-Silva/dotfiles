@@ -1,8 +1,8 @@
 # ~/.common_shell_vars variables for all shells (bash and zsh)
 
-# Set colour related env vars 
+# Set colour related env vars
 if [ $TERM != "linux" ]; then
-    if [ -z "$TMUX" ]; then  
+    if [ -z "$TMUX" ]; then
         if [ -e /usr/share/terminfo/x/xterm+256color ]; then
             export TERM='xterm-256color'
         else
