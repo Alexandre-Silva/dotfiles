@@ -16,7 +16,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 alias slFE="while true; do sl;done"
 alias fuck='sudo !!'
-alias pgrap="pdfgrep"
 
 
 ### ps ###
