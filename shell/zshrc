@@ -4,7 +4,7 @@
 [[ -o interactive ]] || exit 0
 
 # loads funcs, aliases and shell vars
-rc=$DOTFILES"/shell/rc"
+rc=$DOTFILES"/shell/rc.sh"
 [ -f $rc ] && source $rc
 
 
@@ -43,7 +43,6 @@ bindkey \^U backward-kill-line
 # Make zsh autocomplete respect dircolors.
 # https://github.com/robbyrussell/oh-my-zsh/issues/1563
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
 
 # Machine local confs
 if [ -f ~/.zshrc_local ]; then

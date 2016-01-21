@@ -1,14 +1,15 @@
 #!/bin/python3
 
+import argparse
 from http import HTTPStatus
 import http.server as hs
 import http.client as hc
 import urllib.request as ur
 import shutil
 
-PORT = 8000
-REPO = 'melpa.org'
 UAGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1"
+
+args = None
 
 class UserAgentMangler(hs.BaseHTTPRequestHandler):
 
@@ -22,8 +23,8 @@ class UserAgentMangler(hs.BaseHTTPRequestHandler):
         con = None
         con_open = False
         try:
-            # inits connection to REPO (e.g: elpa.gnu.org)
-            con = hc.HTTPConnection(REPO)
+            # inits connection to args.server (e.g: elpa.gnu.org)
+            con = hc.HTTPConnection(args.server)
             con.putrequest(req_type, self.path)
             con_open = True
 
@@ -42,7 +43,7 @@ class UserAgentMangler(hs.BaseHTTPRequestHandler):
                     con.putheader(hname, hvalue)
             con.endheaders()
 
-            # Returns the response's headers from REPO to the caller
+            # Returns the response's headers from args.server to the caller
             response = con.getresponse()
             self.send_response(HTTPStatus.OK)
             for h,v in response.getheaders():
@@ -57,16 +58,31 @@ class UserAgentMangler(hs.BaseHTTPRequestHandler):
                 con.close()
                 con_open = False
 
-try:
+def parse_options() -> None:
+    parser = argparse.ArgumentParser(description="HTTP proxy wich mangles UserAgent")
+
+    parser.add_argument("server", type=str, help="The address of the intended server")
+    parser.add_argument("-p", "--port", type=int, default=0, help="The local port the mangler binds to")
+    parser.add_argument("-b", "--bind", type=str, default='', help="The local interface's ip address the mangler binds to")
+
+    global args
+    args = parser.parse_args()
+
+def main() -> None:
     #Create a web server and define the handler to manage the
     #incoming request
-    server = hs.HTTPServer(('', PORT), UserAgentMangler)
+    server = hs.HTTPServer((args.bind, args.port), UserAgentMangler)
 
-    print('Started httpserver on port ' , PORT)
+    print('Started httpserver on ' , server.socket.getsockname())
 
     #Wait forever for incoming htto requests
     server.serve_forever()
 
-except KeyboardInterrupt:
-    print('^C received, shutting down the web server')
-    server.socket.close()
+if __name__ == '__main__':
+    try:
+        parse_options()
+        main()
+
+    except KeyboardInterrupt:
+        print('^C received, shutting down the web server')
+        server.socket.close()

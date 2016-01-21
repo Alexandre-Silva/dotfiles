@@ -18,7 +18,7 @@ fi
 
 # dircolors sets the outputed of ls and such programs, in a more clear colour.
 d=$DOTFILES"/dircolors"
-[ -f "$d" ] && eval "$(dircolors $d)" || echo "$d does not exist"
+[ -f "$d" ] && eval `dircolors $d` || echo "$d does not exist"
 
 
 export TODOTXT_CFG_FILE="$DOTFILES/todo.cfg"
