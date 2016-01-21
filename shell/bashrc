@@ -74,7 +74,7 @@ esac
 
 
 # loads funcs, aliases and shell vars
-rc=$DOTFILES"/shell/rc"
+rc=$DOTFILES"/shell/rc.sh"
 [ -f $rc ] && source $rc
 
 
