@@ -233,7 +233,7 @@ end
 
 --{{
 local tools = {
-    terminal = "urxvtc",
+    terminal = os.getenv("TERMCMD") or "xterm",
     system = {
         filemanager = "nemo"
     },

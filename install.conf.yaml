@@ -13,25 +13,29 @@
     ~/.vimrc: vimrc
     ~/.gvimrc: gvimrc
 
-    ~/.config/awesome: 
+    ~/.config/awesome:
       create: true
-      path: config/awesome/
+      path: config/awesome
 
-    ~/.config/base16-shell: 
+    ~/.config/base16-shell:
       create: true
       path: config/base16-shell/
 
-#    ~/.config/fontconfig: 
+#    ~/.config/fontconfig:
 #      create: true
 #      path: config/fontconfig/
 
-    ~/.config/user-dirs.dirs: 
+    ~/.config/user-dirs.dirs:
       create: true
       path: config/user-dirs.dirs
 
-    ~/.config/ranger: 
+    ~/.config/ranger:
       create: true
       path: config/ranger
+
+    ~/.config/termite:
+      create: true
+      path: config/termite
 
     ~/.bashrc: shell/bashrc
     ~/.zshrc: shell/zshrc

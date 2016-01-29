@@ -31,7 +31,7 @@ export EDITOR='gvim'
 export VISUAL='gvim'
 export PAGER='less'
 export BROWSER='firefox'
-export TERMCMD='urxvtc'
+export TERMCMD='termite'
 
 #Merdas uteis em geral
 export GIT_HOME="$HOME/.git"
