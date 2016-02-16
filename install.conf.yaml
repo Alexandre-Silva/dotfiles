@@ -59,6 +59,9 @@
     ~/.bin/AL: shell/scripts/AL.sh
     ~/.bin/shellcd: shell/scripts/shellcd.sh
     ~/.bin/zathura-sync: shell/scripts/zathura-sync.sh
+    ~/.bin/ec: shell/scripts/emacs-ec.sh
+    ~/.bin/et: shell/scripts/emacs-et.sh
+    ~/.bin/es: shell/scripts/emacs-es.sh
 
 - shell:
     - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]
