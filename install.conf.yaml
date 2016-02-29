@@ -63,5 +63,5 @@
     ~/.bin/et: shell/scripts/emacs-et.sh
     ~/.bin/es: shell/scripts/emacs-es.sh
 
-- shell:
-    - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]
+#- shell:
+#    - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]
