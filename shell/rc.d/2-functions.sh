@@ -26,3 +26,18 @@ containsElement ()
     for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
     return 1
 }
+
+
+function pdfgrep-xargs () {
+    local args=("$@")
+
+    if [ ${#args} -ne 2 ] ; then
+        printf "usage pdfgrep-xargs <find starting point> <grep string>"
+        return
+    fi
+
+    local startingPoint=${args[1]}
+    local grepStr=${args[2]}
+
+    find "$startingPoint" -iname "*.pdf" -print0 | xargs --null -L 1 --max-procs=4 pdfgrep -Hn "$grepStr"
+}
