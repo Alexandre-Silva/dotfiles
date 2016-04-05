@@ -294,6 +294,9 @@ layers configuration."
   (setq auto-save-inteval 50)
   (setq auto-save-timeout 3)
 
+  ;; associate file extensions with modes
+  (add-to-list 'auto-mode-alist '("\\PKGBUILD\\'" . shell-script-mode))
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Org-mode stuff
   ;; more configs in alex/packages.el layer
