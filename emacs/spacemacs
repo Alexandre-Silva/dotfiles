@@ -294,6 +294,16 @@ layers configuration."
   (setq auto-save-inteval 50)
   (setq auto-save-timeout 3)
 
+  ;; Backups
+  (setq
+   backup-by-copying t                     ; don't clobber symlinks
+   backup-directory-alist
+   '(("." . "~/emacs.d/.cache/backup"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)                      ; use versioned backups
+
   ;; associate file extensions with modes
   (add-to-list 'auto-mode-alist '("\\PKGBUILD\\'" . shell-script-mode))
 
