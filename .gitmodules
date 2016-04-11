@@ -1,3 +1,6 @@
 [submodule "dotbot"]
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
+[submodule "duraconf"]
+	path = duraconf
+	url = git@github.com:ioerror/duraconf.git
