@@ -96,16 +96,3 @@ fi
 retSmiley="\$(if [[ \$? == 0 ]]; then echo \"\[\033[0;32m\];)\"; else echo \"\[\033[0;31m\];(\"; fi)\[\033[00m\]"
 PS1="$retSmiley \[$Purple\]\A \[$Green\]\u@\h \[$Cyan\]\W\[$Green\]$\[$Color_Off\] "
 #PS2=$'\e[38;5;46m$PS2'
-
-
-# pretty man#
-man() {
-    env LESS_TERMCAP_mb=$'\E[01;31m' \
-    LESS_TERMCAP_md=$'\E[01;38;5;74m' \
-    LESS_TERMCAP_me=$'\E[0m' \
-    LESS_TERMCAP_se=$'\E[0m' \
-    LESS_TERMCAP_so=$'\E[0;30;47m' \
-    LESS_TERMCAP_ue=$'\E[0m' \
-    LESS_TERMCAP_us=$'\E[04;38;5;146m' \
-    man "$@"
-}
