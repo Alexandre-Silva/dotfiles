@@ -47,6 +47,7 @@
     ~/.Xresources: Xresources
 
     ~/.bin/AL: shell/scripts/AL.sh
+    ~/.bin/AL_alarm: shell/scripts/AL_alarm.sh
     ~/.bin/shellcd: shell/scripts/shellcd.sh
     ~/.bin/zathura-sync: shell/scripts/zathura-sync.sh
     ~/.bin/ec: shell/scripts/emacs-ec.sh

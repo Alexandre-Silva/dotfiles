@@ -1253,6 +1253,13 @@ awful.rules.rules = {
         },
     },
 
+    {
+        rule = { class = "Xdialog" },
+        properties = {
+            floating = true,
+        },
+    },
+
     --[[
     Set Firefox to always map on tags number 2 of screen 1.
     { rule = { class = "Firefox" },

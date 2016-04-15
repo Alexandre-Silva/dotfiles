@@ -1,8 +1,8 @@
-#!/bin/bash - 
+#!/bin/bash -
 #===============================================================================
 #
 #          FILE: AL.sh
-# 
+#
 #          Usage:
 #          	AL [@] delay [message timeout]]
 #          	where @ denotes absolute time
@@ -12,25 +12,29 @@
 #
 #           Defaults to 5 minutes delay: "ALARM"
 #           Message defaults to "ALARM"
-# 
-#   DESCRIPTION: Issue an alarm using at and xmessage
-# 
+#
+#   DESCRIPTION: Issue an alarm using at and xmessage.
+#                at executes AL_alarm at given time which includes a sound.
+#
 #       OPTIONS: ---
 #  REQUIREMENTS: ---
 #          BUGS: ---
 #         NOTES: ---
-#        AUTHOR: YOUR NAME (), 
-#  ORGANIZATION: 
+#        AUTHOR: YOUR NAME (),
+#  ORGANIZATION:
 #       CREATED: 28-10-2015 10:11
 #      REVISION:  ---
 #===============================================================================
-# 
+#
 
 PREFIX="now + "
 SUFFIX=" minutes"
 DELAY=15
 MSG='ALARM'
-TO=60
+#TO=60
+TO=0
+
+function BELL() { while true; do play -q /usr/share/sounds/freedesktop/stereo/bell.oga; sleep 2; done }
 
 if [ "$1" == "-h" ] || [ "$1" == "--help" ]
 then
@@ -63,7 +67,8 @@ then
 fi
 
 # Xdialog Version
-echo "BELL;DISPLAY=:0 Xdialog --timeout $TO --msgbox "\"$MSG\"" 0 0" | at $PREFIX$DELAY$SUFFIX
+#echo "$BELL &; DISPLAY=:0 Xdialog --timeout $TO --msgbox "\"$MSG\"" 0 0; kill %1" | at $PREFIX$DELAY$SUFFIX
+echo "AL_alarm $TO $MSG" | at $PREFIX$DELAY$SUFFIX
 
 # xmessage version
 # echo "BELL;DISPLAY=:0 xmessage -button OK -default OK -timeout $TO ""$MSG""" | at $PREFIX$DELAY$SUFFIX
