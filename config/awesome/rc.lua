@@ -1025,6 +1025,11 @@ clientkeys = awful.util.table.join(
 
 awful.key({ modkey, "Shift"   }, "c",      function (c) c:kill()                         end),
 
+awful.key({ modkey, "Shift"   }, "Delete", function (c)
+    -- kill -9 X window in focus
+    awful.util.spawn_with_shell("killwindow.sh")
+end),
+
 awful.key({ modkey,           }, "f",      function (c) c.fullscreen = not c.fullscreen  end),
 
 awful.key({ modkey,           }, "m",
