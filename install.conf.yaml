@@ -53,6 +53,7 @@
     ~/.bin/et: shell/scripts/emacs-et.sh
     ~/.bin/es: shell/scripts/emacs-es.sh
     ~/.bin/killwindow.sh: shell/scripts/killwindow.sh
+    ~/.bin/plantuml: shell/scripts/plantuml.sh
 
 #- shell:
 #    - [vim -c "PluginUpdate" -c "quitall", Installing/updating vim plugins]
