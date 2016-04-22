@@ -1,3 +1,4 @@
+# -*- mode: Shell-script -*-
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
@@ -46,20 +47,34 @@ ZSH_THEME="mah-theme"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-prompt git-super-prompt tmux command-not-found common-aliases pretty-man gradle svn pyenv)
+plugins=(
+    git
+    git-prompt
+    git-super-prompt
+    command-not-found
+    common-aliases
+    pretty-man
+    gradle
+    svn
+    pyenv
+)
+
+[[ -x /usr/bin/tmux ]] && pluggins+=(tmux)
+
+
 
 case "$DISTRIBUTION" in
     *ubuntu|Ubuntu|Debian)
-    plugins+=debian
-    ;;
+        plugins+=debian
+        ;;
 
     Arch|arch)
-    plugins+=archlinux
-    ;;
+        plugins+=archlinux
+        ;;
 
     *)
-    echo "Warning unknow distro: $DISTRIBUTION"
-    ;;
+        echo "Warning unknow distro: $DISTRIBUTION"
+        ;;
 esac
 
 source $ZSH/oh-my-zsh.sh

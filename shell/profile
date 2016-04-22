@@ -53,4 +53,7 @@ _jpdf=$HOME"/.jpdfbookmarks"
 ################################################################################
 
 # defines de Linux distribution of the current machine. E.g. Arch
-export DISTRIBUTION="$(lsb_release --id --short)"
+
+DISTRIBUTION=""
+[[ -x /usr/bin/lsb_release ]] && DISTRIBUTION="$(lsb_release --id --short)"
+export DISTRIBUTION
