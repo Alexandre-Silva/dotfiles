@@ -29,8 +29,7 @@ alias pa="p -fe"
 unset	PS_FORMAT
 
 ### Raspberry-pi related alias ###
-alias mount-pi_music='pkill -9 sshfs; fusermount -u /mnt/pi_music; sshfs pi@soulcasa.ddns.net:/media/HDD1/share/music/ /mnt/pi_music -p 2222 -o IdentityFile=~/.ssh/id_rsa'
-alias tunnel-pi_nas='ssh -L 10445:localhost:445 -f -C -N pi &'
+alias tunnel.pi_nas='ssh -L 10445:localhost:445 -f -C -N pi &'
 
 ### TMUX ###
 alias t-n="tmux new"
