@@ -62,20 +62,28 @@ function mount.pi_music () {
     local target=pi@soulcasa.ddns.net:/media/HDD1/share/music/
     local mntPoint=/mnt/pi_music
 
-    out=$(mountpoint /mnt/pi_music 1>/dev/null 2>&1)
-    if $?; then
-        printf "Already mounted \n exiting"
-        exit
+    out=$(mountpoint $mntPoint 2>&1)
+    if [ $? -eq 0 ]; then
+        echo $out
+        return
     else
-        if [ $out != "" ] ; then
-            printf $out
-            printf "try: \n pkill sshfs; sudo umount -l /mnt"
+        if [[ $out != $mntPoint" is not a mountpoint" ]] ; then
+            echo $out
+            echo "try: pkill sshfs; sudo umount -l /mnt"
+            return
         fi
     fi
 
+    echo "mounting..."
     #sshfs -o allow_other -o reconnect -o ServerAliveInterval=15 pi@soulcasa.ddns.net:/media/HDD1/share/music/  -p 2222 -o IdentityFile=$HOME"/.ssh/id_rsa"
     sudo sshfs \
          -o allow_other -o reconnect -o ServerAliveInterval=15 \
          -p 2222 -o IdentityFile=$HOME"/.ssh/id_rsa" -C \
          $target $mntPoint
+
+    if [ $? -eq 0 ]; then
+        echo "Success"
+    else
+        echo "Failure: " $?
+    fi
 }
