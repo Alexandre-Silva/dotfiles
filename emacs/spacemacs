@@ -355,54 +355,55 @@ layers configuration."
 
   ;; Add vimish-fold packge to evil
   ;; add vim like folding and {{{ }}} folds
+  (vimish-fold-global-mode 1)
+
   (use-package vimish-fold
     :defer t
     :init
-    (spacemacs|use-package-add-hook evil
-      :post-config
-      (progn
-        (evil-define-command evil-create-fold ()
-          "Create a fold from the current region.
+    (setq vimish-fold-dir "/home/alex/.emacs.d/.cache/vimish-fold/")
+    :config
+    (progn
+      (evil-define-command evil-create-fold ()
+        "Create a fold from the current region.
 See also `evil-delete-fold'."
-          (evil-fold-action evil-fold-list :create))
+        (evil-fold-action evil-fold-list :create))
 
-        (evil-define-command evil-delete-fold ()
-          "Delete a fold under point.
+      (evil-define-command evil-delete-fold ()
+        "Delete a fold under point.
 See also `evil-create-fold'."
-          (evil-fold-action evil-fold-list :delete))
+        (evil-fold-action evil-fold-list :delete))
 
-        (defun -my/add-create-delete (filter)
-          (setq value2ch (car (remove-if-not (lambda (e) (equal (car e) filter)) evil-fold-list)))
+      (defun -my/add-create-delete (filter)
+        (setq value2ch (car (remove-if-not (lambda (e) (equal (car e) filter)) evil-fold-list)))
 
-          (append '(:create nil :delete nil)
-                  (cdr value2ch))
+        (append '(:create nil :delete nil)
+                (cdr value2ch))
 
-          (setq value2ch (cons (car value2ch)
-                               (append '(:create nil :delete nil)
-                                       (cdr value2ch)))))
-
-
-        ;; keybinds
-        (define-key evil-normal-state-map "zd" 'evil-delete-fold)
-        (define-key evil-visual-state-map "zf" 'evil-create-fold)
-
-        (add-to-list 'evil-fold-list
-                     '((vimish-fold-mode)
-                       :create     ,(lambda ()
-                                      (vimish-fold (region-beginning) (region-end)))
-                       :delete     vimish-fold-delete
-                       :open-all   vimish-fold-unfold-all
-                       :close-all  nil
-                       :toggle     vimish-fold-toggle
-                       :open       vimish-fold-unfold
-                       :open-rec   nil
-                       :close      vimish-fold))
+        (setq value2ch (cons (car value2ch)
+                             (append '(:create nil :delete nil)
+                                     (cdr value2ch)))))
 
 
-        (-my/add-create-delete '(outline-mode outline-minor-mode org-mode markdown-mode))
-        (-my/add-create-delete '(hs-minor-mode))))
+      ;; keybinds
+      (define-key evil-normal-state-map "zd" 'evil-delete-fold)
+      (define-key evil-visual-state-map "zf" 'evil-create-fold)
 
-    (vimish-fold-global-mode 1))
+      (add-to-list 'evil-fold-list
+                   '((vimish-fold-mode)
+                     :create     (lambda ()
+                                   (vimish-fold (region-beginning) (region-end)))
+                     :delete     vimish-fold-delete
+                     :open-all   vimish-fold-unfold-all
+                     :close-all  nil
+                     :toggle     vimish-fold-toggle
+                     :open       vimish-fold-unfold
+                     :open-rec   nil
+                     :close      vimish-fold))
+
+
+      (-my/add-create-delete '(outline-mode outline-minor-mode org-mode markdown-mode))
+      (-my/add-create-delete '(hs-minor-mode))))
+
 
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
