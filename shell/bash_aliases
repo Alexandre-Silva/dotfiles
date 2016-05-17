@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 if [ -f ~/.bash_aliases_colors ]; then
     . ~/.bash_aliases_colors
 fi
@@ -33,4 +35,3 @@ unset	PS_FORMAT
 alias t-n="tmux new"
 alias t-a="tmux attach"
 alias t-l="tmux ls"
-

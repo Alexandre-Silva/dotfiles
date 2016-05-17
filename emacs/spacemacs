@@ -29,7 +29,7 @@ values."
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
      (spell-checking :variables spell-checking-enable-by-default nil)
-     syntax-checking
+     (syntax-checking :variables syntax-checking-enable-by-default t)
      (auto-completion :variables
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip nil)
@@ -396,6 +396,11 @@ layers configuration."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Misc
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+  (setq hs-special-modes-alist
+        (cons '(lua-mode "{{{" "}}}" "/[*/]" nil nil)
+              hs-special-modes-alist))
 
   ;;automatically save (without asking) before you compile or recompile.
   (setq compilation-ask-about-save nil)

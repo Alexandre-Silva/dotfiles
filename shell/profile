@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # -*- mode: sh -*-
 
 # ~/.profile: executed by the command interpreter for login shells.
@@ -13,8 +14,9 @@
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-	. "$HOME/.bashrc"
+    bashrc="$HOME/.bashrc"
+    if [ -f "$bashrc" ]; then
+        source "$bashrc"
     fi
 fi
 
@@ -46,7 +48,7 @@ _jpdf=$HOME"/.jpdfbookmarks"
 #export PATH=$PATH:$JPDFBOOKMARKS_HOME/jpdfbookmarks_cli
 
 
-[ -d $HOME"/dotfiles" ] && export DOTFILES=$HOME"/dotfiles"
+[ -d "$HOME/dotfiles" ] && export DOTFILES="$HOME/dotfiles"
 
 ################################################################################
 # SYSTEM STUFF
