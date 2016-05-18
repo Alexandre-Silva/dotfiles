@@ -31,45 +31,64 @@ values."
      (spell-checking :variables spell-checking-enable-by-default nil)
      (syntax-checking :variables syntax-checking-enable-by-default t)
      (auto-completion :variables
+
+                      ;; complete: completes with the current selection
+                      ;; nil: does nothing
+                      auto-completion-return-key-behavior nil
+
+                      ;; complete: completes with the current selection
+                      ;; cycle: completes the common prefix and cycle between candidates
+                      ;; nil: does nothing
+                      auto-completion-tab-key-behavior 'cycle
+
+                      ;; A string of two characters denoting a key sequence that
+                      ;; will perform a complete action if the sequence as been
+                      ;; entered quickly enough. If its value is nil then the
+                      ;; feature is disabled.
+                      auto-completion-complete-with-key-sequence nil
+                      auto-completion-complete-with-key-sequence-delay 0.1
+
+                      auto-completion-private-snippets-directory "~/dotfiles/emacs/snippets"
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip nil)
 
-     ;; version-control
 
-     eyebrowse
-     emacs-lisp
-     ;; themes-megapack
-     shell
+   ;; version-control
 
-     alex
-     calfw
+   eyebrowse
+   emacs-lisp
+   ;; themes-megapack
+   shell
 
-     org
-     python
-     latex
-     nim
-     lua
-     ess ; R
-     )
-   ;; List of additional packages that will be installed without being
-   ;; wrapped in a layer. If you need some configuration for these
-   ;; packages, then consider creating a layer. You can also put the
-   ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages
-   '(
-     zenburn-theme
-     )
+   alex
+   calfw
 
-   ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(
-                                    org-pomodoro
-                                    clojure-snippets
-                                    )
+   org
+   python
+   latex
+   nim
+   lua
+   ess ; R
+   )
+  ;; List of additional packages that will be installed without being
+  ;; wrapped in a layer. If you need some configuration for these
+  ;; packages, then consider creating a layer. You can also put the
+  ;; configuration in `dotspacemacs/user-config'.
+  dotspacemacs-additional-packages
+  '(
+    zenburn-theme
+    )
 
-   ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
-   ;; are declared in a layer which is not a member of
-   ;; the list `dotspacemacs-configuration-layers'. (default t)
-   dotspacemacs-delete-orphan-packages t))
+  ;; A list of packages and/or extensions that will not be install and loaded.
+  dotspacemacs-excluded-packages '(
+                                   org-pomodoro
+                                   clojure-snippets
+                                   )
+
+  ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
+  ;; are declared in a layer which is not a member of
+  ;; the list `dotspacemacs-configuration-layers'. (default t)
+  dotspacemacs-delete-orphan-packages t))
 
 (defun dotspacemacs/init ()
   "Initialization function.
