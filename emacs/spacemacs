@@ -52,7 +52,6 @@ values."
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip nil)
 
-
      ;; version-control
 
      eyebrowse
@@ -72,6 +71,7 @@ values."
      rust
      shell-scripts
      )
+
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
@@ -79,13 +79,15 @@ values."
    dotspacemacs-additional-packages
    '(
      zenburn-theme
+     vimish-fold
      )
 
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '(
-                                    org-pomodoro
-                                    clojure-snippets
-                                    )
+   dotspacemacs-excluded-packages
+   '(
+     org-pomodoro
+     clojure-snippets
+     )
 
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
@@ -348,6 +350,59 @@ layers configuration."
   (set-terminal-parameter nil 'background-mode 'dark)
   (set-frame-parameter nil 'background-mode 'dark)
   (spacemacs/load-theme 'zenburn)
+
+
+
+  ;; Add vimish-fold packge to evil
+  ;; add vim like folding and {{{ }}} folds
+  (use-package vimish-fold
+    :defer t
+    :init
+    (spacemacs|use-package-add-hook evil
+      :post-config
+      (progn
+        (evil-define-command evil-create-fold ()
+          "Create a fold from the current region.
+See also `evil-delete-fold'."
+          (evil-fold-action evil-fold-list :create))
+
+        (evil-define-command evil-delete-fold ()
+          "Delete a fold under point.
+See also `evil-create-fold'."
+          (evil-fold-action evil-fold-list :delete))
+
+        (defun -my/add-create-delete (filter)
+          (setq value2ch (car (remove-if-not (lambda (e) (equal (car e) filter)) evil-fold-list)))
+
+          (append '(:create nil :delete nil)
+                  (cdr value2ch))
+
+          (setq value2ch (cons (car value2ch)
+                               (append '(:create nil :delete nil)
+                                       (cdr value2ch)))))
+
+
+        ;; keybinds
+        (define-key evil-normal-state-map "zd" 'evil-delete-fold)
+        (define-key evil-visual-state-map "zf" 'evil-create-fold)
+
+        (add-to-list 'evil-fold-list
+                     '((vimish-fold-mode)
+                       :create     ,(lambda ()
+                                      (vimish-fold (region-beginning) (region-end)))
+                       :delete     vimish-fold-delete
+                       :open-all   vimish-fold-unfold-all
+                       :close-all  nil
+                       :toggle     vimish-fold-toggle
+                       :open       vimish-fold-unfold
+                       :open-rec   nil
+                       :close      vimish-fold))
+
+
+        (-my/add-create-delete '(outline-mode outline-minor-mode org-mode markdown-mode))
+        (-my/add-create-delete '(hs-minor-mode))))
+
+    (vimish-fold-global-mode 1))
 
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
