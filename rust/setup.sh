@@ -1,7 +1,13 @@
 #!/usr/bin/bash
 
-p="$HOME/.local/src/rust"
-[ -d "$p" ] && export RUST_SRC_PATH="$p" || echo "ERROR: rust source not found."
+function main() {
+    local p="$HOME/.local/src/rust"
+    [ -d "$p" ] && export RUST_SRC_PATH="$p" || echo "ERROR: rust source not found."
+    unset p
 
-cargo_bin="$HOME/.cargo/bin"
-[ -d "$cargo_bin" ] && export PATH="$PATH:$cargo_bin"
+
+    local cargo_bin="$HOME/.cargo/bin"
+    [ -d "$cargo_bin" ] && export PATH="$PATH:$cargo_bin"
+}
+
+main
