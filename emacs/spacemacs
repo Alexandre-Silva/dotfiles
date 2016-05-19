@@ -360,7 +360,7 @@ layers configuration."
   (use-package vimish-fold
     :defer t
     :init
-    (setq vimish-fold-dir "/home/alex/.emacs.d/.cache/vimish-fold/")
+    (setq vimish-fold-dir "~/.emacs.d/.cache/vimish-fold/")
     :config
     (progn
       (evil-define-command evil-create-fold ()
