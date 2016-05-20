@@ -53,43 +53,44 @@ values."
                       auto-completion-enable-help-tooltip nil)
 
 
-   ;; version-control
+     ;; version-control
 
-   eyebrowse
-   emacs-lisp
-   ;; themes-megapack
-   shell
+     eyebrowse
+     emacs-lisp
+     ;; themes-megapack
+     shell
 
-   alex
-   calfw
+     alex
+     calfw
 
-   org
-   python
-   latex
-   nim
-   lua
-   ess ; R
-   rust
-   )
-  ;; List of additional packages that will be installed without being
-  ;; wrapped in a layer. If you need some configuration for these
-  ;; packages, then consider creating a layer. You can also put the
-  ;; configuration in `dotspacemacs/user-config'.
-  dotspacemacs-additional-packages
-  '(
-    zenburn-theme
-    )
+     org
+     python
+     latex
+     nim
+     lua
+     ess ; R
+     rust
+     shell-scripts
+     )
+   ;; List of additional packages that will be installed without being
+   ;; wrapped in a layer. If you need some configuration for these
+   ;; packages, then consider creating a layer. You can also put the
+   ;; configuration in `dotspacemacs/user-config'.
+   dotspacemacs-additional-packages
+   '(
+     zenburn-theme
+     )
 
-  ;; A list of packages and/or extensions that will not be install and loaded.
-  dotspacemacs-excluded-packages '(
-                                   org-pomodoro
-                                   clojure-snippets
-                                   )
+   ;; A list of packages and/or extensions that will not be install and loaded.
+   dotspacemacs-excluded-packages '(
+                                    org-pomodoro
+                                    clojure-snippets
+                                    )
 
-  ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
-  ;; are declared in a layer which is not a member of
-  ;; the list `dotspacemacs-configuration-layers'. (default t)
-  dotspacemacs-delete-orphan-packages t))
+   ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
+   ;; are declared in a layer which is not a member of
+   ;; the list `dotspacemacs-configuration-layers'. (default t)
+   dotspacemacs-delete-orphan-packages t))
 
 (defun dotspacemacs/init ()
   "Initialization function.
@@ -284,6 +285,8 @@ any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
 
   (setq-default rust-enable-racer t)
+
+  (add-hook 'after-init-hook #'global-flycheck-mode)
   )
 
 (defun dotspacemacs/user-config ()
