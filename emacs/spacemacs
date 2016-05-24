@@ -34,7 +34,7 @@ values."
 
                       ;; complete: completes with the current selection
                       ;; nil: does nothing
-                      auto-completion-return-key-behavior nil
+                      auto-completion-return-key-behavior 'complete
 
                       ;; complete: completes with the current selection
                       ;; cycle: completes the common prefix and cycle between candidates
