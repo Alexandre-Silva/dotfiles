@@ -1,4 +1,4 @@
-#!/bin/bash - 
+#!/bin/bash -
 #
 # misc configs for ranger file manager
 # refs:
@@ -36,7 +36,3 @@ function ranger {
 
 alias rg=ranger
 alias rgl=rangerl # script for gui launcher (e.g. awesome)
-
-# This binds Ctrl-O to ranger-cd:
-[ -n "$BASH_VERSION" ] && bind '"\C-o":"ranger\C-m"'
-[ -n "$ZSH_VERSION" ] && bindkey -s '^o' '^Uranger^M'
