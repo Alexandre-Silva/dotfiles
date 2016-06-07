@@ -5,28 +5,17 @@ packages=(
     "pm:cargo"
 )
 
-
-
-install() {
+st_install() {
     __rs_init
 
-    # get sources via PKGBUILD
-    curl -sSf "$ARCH_PKGBUILD" > PKGBUILD
-    makepkg --nobuild --nodeps
-
-    # cp downloaded sources to SRC
-    [ -d "$SRC" ] && rm --recursive --force "$SRC"
-    mkdir --verbose --parents "$SRC"
-    source ./PKGBUILD
-    cp --recursive "src/rustc-$pkgver/src/"* "$SRC"
-
+    __rs_install_sources
     __rs_install_racer
 
     __rs_clean
     return 0
 }
 
-profile() {
+st_profile() {
     __rs_init
 
     export RUST_SRC_PATH="$SRC"
@@ -47,6 +36,31 @@ profile() {
 __rs_init() {
     SRC="$HOME/.local/src/rust"
     ARCH_PKGBUILD='https://git.archlinux.org/svntogit/community.git/plain/trunk/PKGBUILD?h=packages/rust'
+
+    __rs_install_sources() {
+        # get sources via PKGBUILD
+        curl -sSf "$ARCH_PKGBUILD" > PKGBUILD
+        local upstream_sum=$(md5sum "PKGBUILD" | cut -d " " -f 1)
+
+        local local_sum=
+        [ -f "$SRC/PKGBUILD" ] && local_sum=$(md5sum "$SRC/PKGBUILD" | cut -d " " -f 1)
+
+        if [ "$local_sum" = "$upstram_sum" ]; then
+            echo "Updating Rust sources"
+
+            makepkg --nobuild --nodeps
+
+            # cp downloaded sources to SRC
+            [ -d "$SRC" ] && rm --recursive --force "$SRC"
+            mkdir --verbose --parents "$SRC"
+            source ./PKGBUILD
+            cp --recursive "src/rustc-$pkgver/src/"* "$SRC"
+            cp ./PKGBUILD "$SRC"
+
+        else
+            echo "Rust sources up-to-date"
+        fi
+    }
 
     __rs_install_racer() {
         pattern_cargo='^.*\(([0-9]+\.[0-9]+\.[0-9]+)\).*$'
@@ -82,17 +96,16 @@ __rs_init() {
         printf "Racer <installed>/<cargo's> version: %s/%s\n" "$version_racer" "$version_cargo"
 
         if [[ "$version_cargo" == "$version_racer" ]]; then
-            echo "Version match"
             return 0
         else
-            echo "Version mis-match"
-            #cargo uninstall racer && cargo install racer
+            echo "Updating racer"
+            cargo uninstall racer && cargo install racer
             return $?
         fi
     }
 }
 
 __rs_clean() {
-    unset SRC ARCH_PKGBUILD
-    unset -f __rs_install_racer
+    btr_unset SRC ARCH_PKGBUILD
+    btr_unset_f __rs_install_racer __rs_install_sources
 }
