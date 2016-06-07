@@ -35,3 +35,7 @@
 # Allow local customizations in the .gitconfig_local file
 [include]
     path = ~/.gitconfig_local
+[status]
+	submoduleSummary = true
+[diff]
+	submodule = log
