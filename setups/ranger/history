@@ -1,0 +1,50 @@
+rename cadeiras.org
+rename gtd.org_archive
+rename nsat.org_archive
+rename orgzly.org
+rename personal.org
+rename reference.org
+rename reference.data.org
+rename refile.org
+rename someday.org
+mkdir progress
+
+open_with 
+mkdir slides
+rename Cloud.Computing_Theory.and.Practice.1ed.pdf
+rename Virtual.Machines-Versatile.Platforms.for.Systems.and.Processes.pdf
+mkdir porj
+rename proj
+mkdir papers
+mkdir @tools
+search ss
+search ssh
+mkdir code
+rename creating.a.auto-scaler.in.AWS.pdf
+rename pedro-AWS-keys.pem
+cd /usr/share/sounds/
+open_with 1
+rename declaracao_irs_propinas_15-16.jpg
+mkdir arquitecture
+rename architecture
+rename GS_arq_cache.draw.png
+search .git
+mkdir python
+rename ppl
+rename sdes
+mkdir images
+rename scripts.sh
+rename Documentation
+rename Software
+mkdir Hardware
+rename tex_common
+rename src
+mkdir shell
+delete
+mkdir ADM
+cd /home/alex/.emacs.d
+search fly
+cd .emacs.d
+search flyc
+rename arqs-gsHybrid.draw.png
+set vcs_aware true
