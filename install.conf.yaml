@@ -13,9 +13,6 @@
     stdout: true
 
 - link:
-    ~/.vimrc: vimrc
-    ~/.gvimrc: gvimrc
-
     ~/.config/awesome: config/awesome
     ~/.config/base16-shell: config/base16-shell/
     ~/.config/user-dirs.dirs: config/user-dirs.dirs

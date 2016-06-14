@@ -1,0 +1,10 @@
+packages=(
+    "pm:gvim"
+)
+
+links=(
+    "$DOTFILES/setups/vim/vimrc" ~/.vimrc
+    "$DOTFILES/setups/vim/gvimrc" ~/.gvimrc
+)
+
+function st_install() { vim -c "PluginUpdate" -c "quitall" ; }
