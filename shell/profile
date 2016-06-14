@@ -41,15 +41,13 @@ export TERMCMD='termite'
 #Merdas uteis em geral
 export GIT_HOME="$HOME/.git"
 
-# jpdfboorkmarks
-
-_jpdf=$HOME"/.jpdfbookmarks"
-[ -n "$_jpdf" ] && export JPDFBOOKMARKS_HOME=$_jpdf
-#export PATH=$PATH:$JPDFBOOKMARKS_HOME/jpdfbookmarks
-#export PATH=$PATH:$JPDFBOOKMARKS_HOME/jpdfbookmarks_cli
-
 
 [ -d "$HOME/dotfiles" ] && export DOTFILES="$HOME/dotfiles"
+
+export ADM="$DOTFILES/shell/lib/ADM"
+function adm() {
+    . "$ADM/adm.sh" "$@"
+}
 
 ################################################################################
 # SYSTEM STUFF
