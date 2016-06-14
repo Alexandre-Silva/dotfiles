@@ -13,8 +13,6 @@
     stdout: true
 
 - link:
-    ~/.config/awesome: config/awesome
-    ~/.config/base16-shell: config/base16-shell/
     ~/.config/user-dirs.dirs: config/user-dirs.dirs
     ~/.config/ranger: config/ranger
     ~/.config/termite: config/termite
