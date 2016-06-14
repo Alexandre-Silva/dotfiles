@@ -13,8 +13,6 @@
     stdout: true
 
 - link:
-    ~/.tmux.conf: tmux.conf
-
     ~/.vimrc: vimrc
     ~/.gvimrc: gvimrc
 
