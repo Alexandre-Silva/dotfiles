@@ -13,7 +13,6 @@
     stdout: true
 
 - link:
-    ~/.config/user-dirs.dirs: config/user-dirs.dirs
     ~/.config/ranger: config/ranger
     ~/.config/termite: config/termite
     ~/.config/zathura: config/zathura
