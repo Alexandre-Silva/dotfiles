@@ -1,5 +1,3 @@
-[[ -n "$ZSH_VERSION" ]] && emulate zsh
-
 packages=(
     "pm:ranger"
 
@@ -14,6 +12,3 @@ packages=(
 links=(
     {"$DOTFILES/setups/",~"/.config/"}ranger
 )
-
-
-[[ -n "$ZSH_VERSION" ]] && emulate bash
