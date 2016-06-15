@@ -8,23 +8,12 @@
 - shell:
   - [git submodule update --remote --recursive, Installing/updating submodules]
   - [mkdir -p ~/.todo, Creating .todo dir]
-  -
-    command: [./shell/scripts/install-oh-my-zsh, Installing/updating oh-my-zsh]
-    stdout: true
 
 - link:
-    ~/.config/ranger: config/ranger
     ~/.config/termite: config/termite
-    ~/.config/zathura: config/zathura
 #    ~/.config/fontconfig: config/fontconfig/
     ~/.gnupg/gpg.conf: config/gnupg/gpg.conf
     ~/.gnupg/dirmngr.conf: config/gnupg/dirmngr.conf
-
-    ~/.bashrc: shell/bashrc
-    ~/.zshrc: shell/zshrc
-
-    ~/.profile: shell/profile
-    ~/.zprofile: shell/zprofile
 
     ~/.gitconfig: gitconfig
     ~/.gitignore_global: gitignore_global

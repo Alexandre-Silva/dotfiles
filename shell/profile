@@ -11,26 +11,16 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# if running bash
-if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    bashrc="$HOME/.bashrc"
-    if [ -f "$bashrc" ]; then
-        # shellcheck source=/dev/null
-        source "$bashrc"
-    fi
-fi
 
 
 ################################################################################
-# USER STUFF
+# CONFIGS
 ################################################################################
 
 # set PATH so it includes user's private bin if it exists
 if [ -d "$HOME/.bin" ] ; then
     PATH="$HOME/.bin:$PATH"
 fi
-
 
 export EDITOR='et'
 export VISUAL='et'
@@ -41,20 +31,27 @@ export TERMCMD='termite'
 #Merdas uteis em geral
 export GIT_HOME="$HOME/.git"
 
-
 [ -d "$HOME/dotfiles" ] && export DOTFILES="$HOME/dotfiles"
 
+# defines de Linux distribution of the current machine. E.g. Arch
+export DISTRIBUTION=""
+[[ -x /usr/bin/lsb_release ]] && DISTRIBUTION="$(lsb_release --id --short)"
+
+
+# ADM Related stuff
 export ADM="$DOTFILES/shell/lib/ADM"
 function adm() {
     . "$ADM/adm.sh" "$@"
 }
 
-################################################################################
-# SYSTEM STUFF
-################################################################################
+adm profiles
 
-# defines de Linux distribution of the current machine. E.g. Arch
-
-DISTRIBUTION=""
-[[ -x /usr/bin/lsb_release ]] && DISTRIBUTION="$(lsb_release --id --short)"
-export DISTRIBUTION
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    bashrc="$HOME/.bashrc"
+    if [ -f "$bashrc" ]; then
+        # shellcheck source=/dev/null
+        source "$bashrc"
+    fi
+fi

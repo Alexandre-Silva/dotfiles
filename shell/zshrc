@@ -32,11 +32,16 @@ autoload run-help-svn
 autoload run-help-svk
 alias help=run-help
 
+
 # zsh options
 setopt AUTO_CD EXTENDED_GLOB
 unsetopt share_history
 # ctrl-u does the same it did in bash.
 bindkey \^U backward-kill-line
+
+
+# runs all setup's st_rc target
+adm rcs
 
 
 # Workaround #
