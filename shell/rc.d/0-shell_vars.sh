@@ -11,20 +11,13 @@ if [ $TERM != "linux" ]; then
     fi
 
 	# Base16 Shell
-	BASE16_SHELL="$HOME/.config/base16-shell/base16-bright.dark.sh"
+	BASE16_SHELL="$DOTFILES/shell/lib/base16-shell/base16-bright.dark.sh"
 	[[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 fi
 
-
 # dircolors sets the outputed of ls and such programs, in a more clear colour.
-d=$DOTFILES"/dircolors"
+d=$DOTFILES"/shell/dircolors"
 [ -f "$d" ] && eval `dircolors $d` || echo "$d does not exist"
-
-
-export TODOTXT_CFG_FILE="$DOTFILES/todo.cfg"
-export TODO_ACTIONS_DIR="$DOTFILES/todo.actions.d"
-
-[ -d "$HOME/.nim_install" ] && export PATH="$HOME/.nim_install/bin:$PATH"
 
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe.sh ] && eval "$(SHELL=/bin/sh lesspipe.sh)"
