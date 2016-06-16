@@ -12,7 +12,7 @@ fi
 echo "Creating symlinks"
 ln --symbolic --verbose --force "$HOME/dotfiles/shell/oh-my-zsh-custom/themes" --target-directory="$ZSH/custom/"
 
-for custom_plugin in $(ls $HOME/dotfiles/oh-my-zsh-custom/plugins/); do
+for custom_plugin in $(ls $HOME/dotfiles/shell/oh-my-zsh-custom/plugins/); do
     ln --symbolic --verbose --force "$HOME/dotfiles/shell/oh-my-zsh-custom/plugins/$custom_plugin"  --target-directory="$ZSH/custom/plugins/"
 done
 
