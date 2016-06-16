@@ -3,5 +3,5 @@ package=(
 )
 
 links=(
-    "$DOTFILES/setups/awesome/" ~"/.config/awesome"
+    {"$DOTFILES/setups/",~"/.config/"}awesome
 )
