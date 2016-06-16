@@ -44,6 +44,7 @@ function adm() {
     . "$ADM/adm.sh" "$@"
 }
 
+# executes all st_profiles in all setup.sh's
 adm profiles
 
 # if running bash

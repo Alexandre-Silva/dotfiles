@@ -1,5 +1,6 @@
 packages=( )
 
 links=(
-    {"$DOTFILES/setups/xorg/",~"/."}{xinit,Xresources}
+    {"$DOTFILES/setups/xorg/",~"/."}xinitrc
+    {"$DOTFILES/setups/xorg/",~"/."}Xresources
 )

@@ -40,7 +40,6 @@ mkdir Hardware
 rename tex_common
 rename src
 mkdir shell
-delete
 mkdir ADM
 cd /home/alex/.emacs.d
 search fly
@@ -48,3 +47,4 @@ cd .emacs.d
 search flyc
 rename arqs-gsHybrid.draw.png
 set vcs_aware true
+delete

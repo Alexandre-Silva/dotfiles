@@ -2,7 +2,7 @@
 
 packages=(
     "pm:base-devel"
-    "ranger"
+    "pm:ranger"
 )
 
 AUR_COWER_GIT="https://aur.archlinux.org/cower.git"
