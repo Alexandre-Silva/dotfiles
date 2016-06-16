@@ -6,11 +6,11 @@ packages=(
 
 
 links=(
-    "$DOTFILES/shell/bashrc" ~/.bashrc
-    "$DOTFILES/shell/profile" ~/.profile
+    {"$DOTFILES/shell/",~/.}profile
+    {"$DOTFILES/shell/",~/.}bashrc
 
-    "$DOTFILES/shell/zshrc" ~/.zshrc
-    "$DOTFILES/shell/zprofile" ~/.zprofile
+    {"$DOTFILES/shell/",~/.}zprofile
+    {"$DOTFILES/shell/",~/.}zshrc
 )
 
 st_install() {
