@@ -1,0 +1,4 @@
+
+function st_profile() {
+         [ -d "$HOME/.nim_install" ] && export PATH="$HOME/.nim_install/bin:$PATH"
+}
