@@ -1,16 +1,4 @@
 - link:
 #    ~/.config/fontconfig: config/fontconfig/
-    ~/.gnupg/gpg.conf: config/gnupg/gpg.conf
-    ~/.gnupg/dirmngr.conf: config/gnupg/dirmngr.conf
 
     ~/.conkyrc: conkyrc
-
-    ~/.bin/AL: shell/scripts/AL.sh
-    ~/.bin/AL_alarm: shell/scripts/AL_alarm.sh
-    ~/.bin/shellcd: shell/scripts/shellcd.sh
-    ~/.bin/zathura-sync: shell/scripts/zathura-sync.sh
-    ~/.bin/ec: shell/scripts/emacs-ec.sh
-    ~/.bin/et: shell/scripts/emacs-et.sh
-    ~/.bin/es: shell/scripts/emacs-es.sh
-    ~/.bin/killwindow.sh: shell/scripts/killwindow.sh
-    ~/.bin/plantuml: shell/scripts/plantuml.sh
