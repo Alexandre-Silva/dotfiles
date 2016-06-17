@@ -10,5 +10,3 @@ __compose_links() {
     done
 }
 __compose_links
-
-echo "${links[@]}"
