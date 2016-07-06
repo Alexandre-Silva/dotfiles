@@ -16,6 +16,9 @@ st_install() {
 }
 
 st_profile() {
+    # Verifies if rust.setup.sh was installed
+    which rustc cargo >/dev/null 2>&1 || return 0
+
     __rs_init
 
     export RUST_SRC_PATH="$SRC"
