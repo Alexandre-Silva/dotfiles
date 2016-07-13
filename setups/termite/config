@@ -7,16 +7,15 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-font = Monospace 9
-font = Inconsolatazi4 11
-font = envypn 13
+#font = Inconsolatazi4 11
+font = Inconsolata-g 9
 scrollback_lines = 1000
 search_wrap = true
 #icon_name = terminal
 #geometry = 640x480
 
 # "system", "on" or "off"
-cursor_blink = on
+cursor_blink = system
 
 # "block", "underline" or "ibeam"
 cursor_shape = block
@@ -32,15 +31,15 @@ cursor_shape = block
 
 [colors]
 #cursor = #dcdccc
-foreground = #dcdccc
-foreground_bold = #ffffff
-background = #3f3f3f
+#foreground = #dcdccc
+#foreground_bold = #ffffff
+#background = #3f3f3f
 
 # 20% background transparency (requires a compositor)
 #background = rgba(63, 63, 63, 0.8)
 
 # if unset, will reverse foreground and background
-highlight = #2f2f2f
+#highlight = #2f2f2f
 
 # colors from color0 to color254 can be set
 color0 = #3f3f3f
@@ -61,7 +60,7 @@ color14 = #93e0e3
 color15 = #ffffff
 
 [hints]
-#font = Monospace 12
+#font = SourceCodePro 11
 #foreground = #dcdccc
 #background = #3f3f3f
 #active_foreground = #e68080
