@@ -63,6 +63,7 @@ values."
      calfw
 
      org
+     c-c++
      python
      latex
      lua
