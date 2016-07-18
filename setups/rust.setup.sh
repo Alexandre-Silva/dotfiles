@@ -48,7 +48,8 @@ __rs_init() {
         local local_sum=
         [ -f "$SRC/PKGBUILD" ] && local_sum=$(md5sum "$SRC/PKGBUILD" | cut -d " " -f 1)
 
-        if [ "$local_sum" = "$upstram_sum" ]; then
+        echo $local_sum $upstream_sum
+        if [[ "$local_sum" != "$upstream_sum" ]]; then
             echo "Updating Rust sources"
 
             makepkg --nobuild --nodeps
