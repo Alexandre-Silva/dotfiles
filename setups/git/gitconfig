@@ -1,45 +1,49 @@
 [user]
-	name = Alexandre-Silva
-	email = alexandre.si.moes.lva@gmail.com
+name = Alexandre-Silva
+email = alexandre.si.moes.lva@gmail.com
 
-[push]
-	default = simple
+[status]
+submoduleSummary = true
 
-[color]
-	ui = auto
-	status = auto
-	diff = auto
-	interactive = auto
-
-[color "grep"]
-    match = cyan bold
-    selected = blue
-    context = normal
-    filename = magenta
-    linenumber = green
-    separator = yellow
-    function = blue
-    branch = auto
-
-[grep]
-    lineNumber = true
+[diff]
+submodule = log
 
 [core]
-    excludesfile = ~/.gitignore_global
-	editor = vim
+excludesfile = ~/.gitignore_global
+editor = vim
 
 [merge]
-	tool = kdiff3
-	conflictstyle = diff3
+tool = kdiff3
+conflictstyle = diff3
+
+[push]
+default = simple
+
+[pull]
+rebase = preserve
 
 # Allow local customizations in the .gitconfig_local file
 [include]
-    path = ~/.gitconfig_local
-[status]
-	submoduleSummary = true
-[diff]
-	submodule = log
-[pull]
-	rebase = preserve
+path = ~/.gitconfig_local
+
 [alias]
-	spull = "! __git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
+spull = "! __git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
+
+[color]
+ui = auto
+status = auto
+diff = auto
+interactive = auto
+
+[grep]
+lineNumber = true
+
+[color "grep"]
+match = cyan bold
+selected = blue
+context = normal
+filename = magenta
+linenumber = green
+separator = yellow
+function = blue
+branch = auto
