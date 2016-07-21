@@ -10,7 +10,7 @@ submodule = log
 
 [core]
 excludesfile = ~/.gitignore_global
-editor = vim
+editor = vi # fallback, by default uses $GIT_EDITOR
 
 [merge]
 tool = kdiff3
