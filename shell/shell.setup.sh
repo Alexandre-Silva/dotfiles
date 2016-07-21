@@ -7,7 +7,9 @@ packages=(
 )
 
 
-links=()
+links=(
+    "$DOTFILES/shell/lib/mo/mo" ~/.bin/mo
+)
 
 for f in profile bashrc zprofile zshrc; do
     links+=( {"$DOTFILES/shell/",~/.}"$f" )

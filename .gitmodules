@@ -10,3 +10,6 @@
 [submodule "shell/lib/ADM"]
 	path = shell/lib/ADM
 	url = ssh://git@github.com/Alexandre-Silva/ADM
+[submodule "shell/lib/mo"]
+	path = shell/lib/mo
+	url = https://github.com/tests-always-included/mo

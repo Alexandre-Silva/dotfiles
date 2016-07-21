@@ -7,9 +7,8 @@ allow_bold = true
 dynamic_title = true
 urgent_on_bell = true
 clickable_url = true
-#font = Inconsolatazi4 11
-font = Inconsolata-g 9
-scrollback_lines = 1000
+font = Inconsolata-g {{FONT_SIZE}}
+scrollback_lines = 10000
 search_wrap = true
 #icon_name = terminal
 #geometry = 640x480
@@ -20,13 +19,16 @@ cursor_blink = system
 # "block", "underline" or "ibeam"
 cursor_shape = block
 
-# $BROWSER is used by default
-#browser = firefox
+# $BROWSER is used by default if set, with xdg-open as a fallback
+#browser = xdg-open
 
 # set size hints for the window
 #size_hints = false
 
-# emit escape sequences for other keys modified by Control
+# Hide links that are no longer valid in url select overlay mode
+filter_unmatched_urls = true
+
+# emit escape sequences for extra modified keys
 #modify_other_keys = false
 
 [colors]
@@ -60,7 +62,7 @@ color14 = #93e0e3
 color15 = #ffffff
 
 [hints]
-#font = SourceCodePro 11
+#font = Inconsolata-g 13
 #foreground = #dcdccc
 #background = #3f3f3f
 #active_foreground = #e68080
