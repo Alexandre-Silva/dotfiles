@@ -1,3 +1,5 @@
+#!/bin/bash
+
 packages=(
     "pm:zsh"
     "pm:zsh-completions"
@@ -5,13 +7,12 @@ packages=(
 )
 
 
-links=(
-    {"$DOTFILES/shell/",~/.}profile
-    {"$DOTFILES/shell/",~/.}bashrc
+links=()
 
-    {"$DOTFILES/shell/",~/.}zprofile
-    {"$DOTFILES/shell/",~/.}zshrc
-)
+for f in profile bashrc zprofile zshrc; do
+    links+=( {"$DOTFILES/shell/",~/.}"$f" )
+done
+
 
 st_install() {
     "$DOTFILES/bin/sh/install-oh-my-zsh"
