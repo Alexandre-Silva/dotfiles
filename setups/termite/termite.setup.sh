@@ -11,7 +11,7 @@ links=(
 st_install() {
     local here="$DOTFILES/setups/termite"
 
-    if [[ "$(hostname)" -eq "alex-desktop" ]]; then
+    if [[ "$(hostname)" == "alex-desktop" ]]; then
         local font=11
     else
         local font=9
