@@ -36,9 +36,9 @@ EOF
     sudo mv --force --verbose pacman.conf.tmp /etc/pacman.conf
 
     local packs=()
-    for p in "freetype2","fontconfig","cairo";do
+    for p in "freetype2" "fontconfig" "cairo";do
         packs+=( "$p-infinality-ultimate")
-        done
+    done
 
     sudo pacman -S "${packs[*]}"
 }
