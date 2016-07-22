@@ -32,9 +32,19 @@ EOF
 
     sudo pacman-key --lsign-key 962DDE58
 
-    cat /etc/pacman.conf "$DOTFILES/setups/fonts/infinality.pacconf" >pacman.conf.tmp
-    sudo mv --force --verbose pacman.conf.tmp /etc/pacman.conf
+    # Verify if multilb is not active. if its not then the [multilib] section
+    # cant still be present but commented out
+    cp "$DOTFILES/setups/fonts/infinality.pacconf" ./
+    if ! grep -E '^\[multilib\]$' /etc/pacman.conf ; then
+        sed --in-place=.bak 's/^\(.*multilib.*\)$/#\0/' infinality.pacconf
+    fi
 
+    # join base pacman.conf with Infinality repos configs
+    cat /etc/pacman.conf infinality.pacconf >pacman.conf.tmp
+    sudo mv --force --verbose pacman.conf.tmp /etc/pacman.conf
+    sudo chown root:root /etc/pacman.conf
+
+    # Install infinality packages
     local packs=()
     for p in "freetype2" "fontconfig" "cairo";do
         packs+=( "$p-infinality-ultimate")
