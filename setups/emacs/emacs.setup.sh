@@ -2,6 +2,7 @@
 
 packages=(
     "pm:emacs"
+    "pm:aspell"{,-en,-pt}
 )
 
 links=(
@@ -13,7 +14,7 @@ links=(
 
 function st_install() {
     if [[ -d "$HOME/.emacs.d/" ]]; then
-        "Updating Spacemacs"
+        echo "Updating Spacemacs"
         git -C "$HOME/.emacs.d" pull
 
     else
@@ -21,4 +22,3 @@ function st_install() {
         git clone ssh://git@github.com/syl20bnr/spacemacs "$HOME/.emacs.d"
     fi
 }
-
