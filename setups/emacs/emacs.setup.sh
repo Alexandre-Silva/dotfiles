@@ -3,6 +3,7 @@
 packages=(
     "pm:emacs"
     "pm:aspell"{,-en,-pt}
+    "pm:yapf" # Python style guide checker
 )
 
 links=(
