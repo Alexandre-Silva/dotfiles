@@ -1,0 +1,16 @@
+#!bin/bash
+
+#TODO eventaully create a single .Xresource with urxvt configs and link it here
+
+packages=( "pm:rxvt-unicode"{,-terminfo} )
+
+__config="${XDG_CONFIG_HOME:-$HOME/.config}"
+
+links=(
+    {"$DOTFILES/setups/urxvtd","$__config/systemd/user"}/urxvtd.service
+    {"$DOTFILES/setups/urxvtd","$__config/systemd/user"}/urxvtd.socket
+)
+
+st_install () {
+    systemctl --user daemon-reload
+}
