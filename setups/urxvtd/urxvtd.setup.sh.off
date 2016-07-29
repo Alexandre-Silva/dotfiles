@@ -5,7 +5,6 @@
 packages=( "pm:rxvt-unicode"{,-terminfo} )
 
 __config="${XDG_CONFIG_HOME:-$HOME/.config}"
-
 links=(
     {"$DOTFILES/setups/urxvtd","$__config/systemd/user"}/urxvtd.service
     {"$DOTFILES/setups/urxvtd","$__config/systemd/user"}/urxvtd.socket
