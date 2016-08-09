@@ -4,22 +4,47 @@ packages=(
     "pm:emacs"
     "pm:aspell"{,-en,-pt}
     "pm:yapf" # Python style guide checker
+    "aur:libtinfo" # needed for ycmd
 )
 
 links=(
     {"$DOTFILES/setups/emacs/",~"/."}spacemacs
-    {"$DOTFILES/setups/emacs/",~"/.bin/"}ec
-    {"$DOTFILES/setups/emacs/",~"/.bin/"}et
-    {"$DOTFILES/setups/emacs/",~"/.bin/"}es
 )
 
-function st_install() {
-    if [[ -d "$HOME/.emacs.d/" ]]; then
-        echo "Updating Spacemacs"
-        git -C "$HOME/.emacs.d" pull
+for l in ec et es; do
+    links+=( {"$DOTFILES/setups/emacs/",~"/.bin/"}$l )
+done
 
-    else
-        "Cloning Spacemacs"
-        git clone ssh://git@github.com/syl20bnr/spacemacs "$HOME/.emacs.d"
-    fi
+
+function st_install() {
+    _git_install() {
+        local name="$1"
+        local target="$2"
+        local url="$3"
+
+        if [[ -d "$target" ]]; then
+            echo "Updating $name"
+            git -C "$target" pull
+
+        else
+            echo "Cloning $name"
+            git clone "$url" "$target"
+        fi
+
+        git -C "$target" spull
+    }
+
+    # Fix for ycmd/libtinfo wihch only provides soft links for libtinfo.so.6
+    sudo ln --force --symbolic --verbose /usr/lib/libtinfo.so /usr/lib/libtinfo.so.5
+
+    _git_install Spacemacs "$HOME/.emacs.d/" "ssh://git@github.com/syl20bnr/spacemacs"
+
+    local ycmd_home="$HOME/.local/share/ycmd"
+    _git_install YCMD "$ycmd_home" "https://github.com/Valloric/ycmd"
+
+    "$ycmd_home"/build.py --clang-completer
+}
+
+st_profile() {
+    export YCMD_HOME="$HOME/.local/share/ycmd"
 }
