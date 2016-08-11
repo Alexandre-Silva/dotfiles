@@ -13,6 +13,26 @@ function alex-init () {
     done
 }
 
+function alex-desktop-init () {
+    local progs=(
+        firefox
+        thunderbird
+        "$TERMCMD -e canto-curses"
+        teamspeak3
+        ec
+        nvidia-settings
+    )
+
+    for p in "${progs[@]}"; do
+        echo "$p"
+        "$p" &>>"$HOME/.log/$p.log" & disown
+    done
+
+    sleep 5
+    nvidia-settings --assign "[gpu:0]/GPUGraphicsClockOffset[2]=-60"
+    nvidia-settings --assign "[gpu:0]/GPUMemoryTransferRateOffset[2]=-80"
+}
+
 
 # show files whenever entering a dir
 function cd { builtin cd "$@" && ls; }
