@@ -5,9 +5,9 @@
 # and inits firefoz thunderbird ....
 #
 function alex-init () {
-    progs=( thunderbird firefox skype keepass )
+    progs=( thunderbird firefox keepass )
 
-    for p in ${progs[@]}; do
+    for p in "${progs[@]}"; do
         echo $p
         $p &>>"$HOME/.log/$p.log" & disown
     done
