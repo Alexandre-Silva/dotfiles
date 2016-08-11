@@ -53,7 +53,7 @@ values."
                       auto-completion-enable-help-tooltip nil)
 
      (ycmd :variables ycmd-server-command (list "python"
-                                                (contat (getenv "YCMD_HOME")
+                                                (concat (getenv "YCMD_HOME")
                                                         "/ycmd")))
 
      ;; version-control
@@ -148,6 +148,7 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(
+                         ;; gruvbox
                          zenburn
                          monokai
                          solarized-dark
@@ -510,6 +511,11 @@ See also `evil-create-fold'."
  '(ahs-inhibit-face-list nil)
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t)
+ '(safe-local-variable-values
+   (quote
+    ((python-mode add-to-list
+                  (quote python-shell-extra-pythonpaths)
+                  (file-truename "src")))))
  '(vc-follow-symlinks nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
