@@ -25,7 +25,7 @@ function alex-desktop-init () {
 
     for p in "${progs[@]}"; do
         echo "$p"
-        "$p" &>>"$HOME/.log/$p.log" & disown
+        $p &>>"$HOME/.log/$p.log" & disown
     done
 
     sleep 5
