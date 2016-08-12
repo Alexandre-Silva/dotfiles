@@ -74,6 +74,7 @@ values."
      ess ; R
      rust
      shell-scripts
+     elm
      )
 
    ;; List of additional packages that will be installed without being
@@ -513,7 +514,11 @@ See also `evil-create-fold'."
  '(ring-bell-function (quote ignore) t)
  '(safe-local-variable-values
    (quote
-    ((python-mode add-to-list
+    ((eval setq projectile-project-compilation-cmd
+           (concat
+            (projectile-project-root)
+            "/Software/scripts.sh build"))
+     (python-mode add-to-list
                   (quote python-shell-extra-pythonpaths)
                   (file-truename "src")))))
  '(vc-follow-symlinks nil))
