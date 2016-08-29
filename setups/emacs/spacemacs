@@ -435,7 +435,7 @@ See also `evil-create-fold'."
 
 
   ;; Adds "C-M-i" as the complete key in python mode/layer
-  (spacemacs|use-package-add-hook python
+  (spacemacs|use-package-add-hook c
     :post-config
     (progn
       (bind-key* (kbd "C-M-i") 'company-complete)))
@@ -484,8 +484,17 @@ See also `evil-create-fold'."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; YCMD
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (spacemacs|use-package-add-hook c
+    :post-config
+    (company-ycmd-setup))
   (add-hook 'c-mode-hook 'ycmd-mode)
+  ;; c++ mode should already have this
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; C-C++
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (spacemacs/set-leader-keys-for-major-mode 'c-mode "=" 'clang-format-buffer)
+  (spacemacs/set-leader-keys-for-major-mode 'c++-mode "=" 'clang-format-buffer)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Misc
@@ -514,7 +523,18 @@ See also `evil-create-fold'."
  '(ring-bell-function (quote ignore) t)
  '(safe-local-variable-values
    (quote
-    ((eval setq projectile-project-compilation-cmd
+    ((eval add-to-list
+           (quote python-shell-extra-pythonpaths)
+           (file-truename "src/python"))
+     (eval progn
+           (setq projectile-project-compilation-cmd
+                 (concat
+                  (projectile-project-root)
+                  "/Software/scripts.sh build"))
+           (add-to-list
+            (quote python-shell-extra-pythonpaths)
+            (file-truename "src/python")))
+     (eval setq projectile-project-compilation-cmd
            (concat
             (projectile-project-root)
             "/Software/scripts.sh build"))
