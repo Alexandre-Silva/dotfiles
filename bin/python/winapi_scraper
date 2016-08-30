@@ -1,0 +1,49 @@
+#!/usr/bin/env python
+
+"""
+This script scrapes winehq d3dx10 implementation percentage
+and writes to refile.org when new api call are implemented.
+"""
+
+import requests
+from bs4 import BeautifulSoup
+from pathlib import Path
+
+save_file = Path.home().joinpath('.cache/winapi')
+org_refile = Path.home().joinpath('gtd/refile.org')
+
+
+def main():
+    doc = requests.get('https://www.winehq.org/winapi_stats')
+    soup = BeautifulSoup(doc.text, 'html.parser')
+
+    # parses html in search of d3dx10_43 row
+    dx10_43 = list(
+        filter(lambda row: row.contents[1].string.startswith('d3dx10_43'),
+               soup.find_all('tr')))
+    tds = list(dx10_43[0].find_all('td'))
+    current = "{} {}".format(tds[0].string, tds[2].string)
+    current_percent = tds[2].string
+
+    # reads saved file
+    saved = ""
+    saved_percent = "n/a"
+    if save_file.exists():
+        with save_file.open("r") as f:
+            saved = f.read()
+        saved_percent = list(saved.split(' '))[1]
+
+    # update save file and refile.org
+    if (current != saved):
+        with org_refile.open('a') as f:
+            template = "* {}, {} --> {}"
+            to_write = template.format(tds[0].string, saved_percent, current_percent)
+            f.write(to_write)
+
+        # save new implementation percentage
+        with save_file.open('w') as f:
+            f.write(current)
+
+
+if __name__ == '__main__':
+    main()
