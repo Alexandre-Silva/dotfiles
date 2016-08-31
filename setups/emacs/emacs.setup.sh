@@ -5,10 +5,13 @@ packages=(
     "pm:aspell"{,-en,-pt}
     "pm:yapf" # Python style guide checker
     "aur:libtinfo" # needed for ycmd
+    "aur:global" # GNU tags. Source code tag system (use it to query a tags databse)
+    "aur:universal-ctags-git" # used to actually create tags database (better than GNU tags)
 )
 
 links=(
     {"$DOTFILES/setups/emacs/",~"/."}spacemacs
+    /usr/share/gtags/gtags.conf ~/.globalrc
 )
 
 for l in ec et es; do
