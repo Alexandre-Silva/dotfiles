@@ -2,6 +2,6 @@
 *~
 
 # Ranger specific ignores. As they are relative to the current user and dotfiles should be computer independent. (As most as possible)
-setups/ranger/tagged
-setups/ranger/bookmarks
-setups/ranger/history
+setups/ranger/config/tagged
+setups/ranger/config/bookmarks
+setups/ranger/config/history
