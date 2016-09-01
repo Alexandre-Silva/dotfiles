@@ -58,7 +58,11 @@ if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
 
-# ranger Synchronize path
-[ -n "$RANGERCD" ] && unset RANGERCD && ranger-cd
+# If RC_HOOK is set, the variable will be range as a shell command after loading of rc files.
+if [ -n "$RC_HOOK" ]; then
+    __hook="$RC_HOOK"
+    unset RC_HOOK
+    $__hook
+fi
 
 return 0
