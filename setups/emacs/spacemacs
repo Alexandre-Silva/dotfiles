@@ -522,12 +522,24 @@ See also `evil-create-fold'."
  '(ahs-idle-timer 0 t)
  '(ahs-inhibit-face-list nil)
  '(paradox-github-token t)
- ;; '(projectile-tags-backend (quote ggtags))
- ;; '(projectile-tags-command "gtags --gtagslabel=ctags")
  '(ring-bell-function (quote ignore) t)
  '(safe-local-variable-values
    (quote
-    ((eval add-to-list
+    ((eval let
+           ((py-path
+             (file-truename "src/python")))
+           (unless
+               (member py-path python-shell-extra-pythonpaths)
+             (add-to-list python-shell-extra-pythonpaths py-path)))
+     (eval let
+           ((py-path
+             (file-truename "src/python")))
+           (unless
+               (member py-path
+                       (quote python-shell-extra-pythonpaths))
+             (add-to-list
+              (quote python-shell-extra-pythonpaths))))
+     (eval add-to-list
            (quote python-shell-extra-pythonpaths)
            (file-truename "src/python"))
      (eval progn
