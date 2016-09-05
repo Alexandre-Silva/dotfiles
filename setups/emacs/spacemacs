@@ -523,40 +523,6 @@ See also `evil-create-fold'."
  '(ahs-inhibit-face-list nil)
  '(paradox-github-token t)
  '(ring-bell-function (quote ignore) t)
- '(safe-local-variable-values
-   (quote
-    ((eval let
-           ((py-path
-             (file-truename "src/python")))
-           (unless
-               (member py-path python-shell-extra-pythonpaths)
-             (add-to-list python-shell-extra-pythonpaths py-path)))
-     (eval let
-           ((py-path
-             (file-truename "src/python")))
-           (unless
-               (member py-path
-                       (quote python-shell-extra-pythonpaths))
-             (add-to-list
-              (quote python-shell-extra-pythonpaths))))
-     (eval add-to-list
-           (quote python-shell-extra-pythonpaths)
-           (file-truename "src/python"))
-     (eval progn
-           (setq projectile-project-compilation-cmd
-                 (concat
-                  (projectile-project-root)
-                  "/Software/scripts.sh build"))
-           (add-to-list
-            (quote python-shell-extra-pythonpaths)
-            (file-truename "src/python")))
-     (eval setq projectile-project-compilation-cmd
-           (concat
-            (projectile-project-root)
-            "/Software/scripts.sh build"))
-     (python-mode add-to-list
-                  (quote python-shell-extra-pythonpaths)
-                  (file-truename "src")))))
  '(vc-follow-symlinks nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
