@@ -4,6 +4,7 @@ packages=(
     "pm:emacs"
     "pm:aspell"{,-en,-pt}
     "pm:yapf" # Python style guide checker
+    "pm:clang-tools-extra"
     "aur:libtinfo" # needed for ycmd
     "aur:global" # GNU tags. Source code tag system (use it to query a tags databse)
     "aur:universal-ctags-git" # used to actually create tags database (better than GNU tags)
