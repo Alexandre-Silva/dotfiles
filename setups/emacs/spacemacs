@@ -410,6 +410,22 @@ See also `evil-create-fold'."
       (-my/add-create-delete '(outline-mode outline-minor-mode org-mode markdown-mode))
       (-my/add-create-delete '(hs-minor-mode))))
 
+  (defun my/vimish-fold-create-marker ( )
+    "For each {{{ }}} pair in the buffer, a fold is created using
+vimish-fold."
+    (interactive)
+    (save-excursion
+      (goto-char (point-min))
+      (while (re-search-forward "{{{" (point-max) t)
+        (let ((beg (point))
+              (end nil))
+          (when (not (re-search-forward "}}}" (point-max) t))
+            (error "\"{{{\" has no matching \"}}}\""))
+          (setq end (point))
+          (condition-case nil
+              (vimish-fold beg end)
+            (error nil))
+          (goto-char end)))))
 
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
