@@ -9,4 +9,4 @@
 	url = https://github.com/tests-always-included/mo
 [submodule "setups/awesome"]
 	path = setups/awesome
-	url = ssh://git@github.com/Alexandre-Silva/awesome-wm-config
+	url = https://github.com/Alexandre-Silva/awesome-wm-config
