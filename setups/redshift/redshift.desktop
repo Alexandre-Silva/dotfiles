@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Name=Redshift
+Comment=launch redshift
+TryExec=redshift
+Exec=redshift
+OnlyShowIn=awesome

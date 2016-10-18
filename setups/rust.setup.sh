@@ -5,6 +5,8 @@ packages=(
     "pm:cargo"
 )
 
+links=()
+
 st_install() {
     __rs_init
 
