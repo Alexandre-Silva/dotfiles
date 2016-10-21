@@ -29,8 +29,8 @@ function alex-desktop-init () {
     done
 
     sleep 5
-    nvidia-settings --assign "[gpu:0]/GPUGraphicsClockOffset[2]=-75"
-    nvidia-settings --assign "[gpu:0]/GPUMemoryTransferRateOffset[2]=-95"
+    nvidia-settings --assign "[gpu:0]/GPUGraphicsClockOffset[2]=-90"
+    nvidia-settings --assign "[gpu:0]/GPUMemoryTransferRateOffset[2]=-110"
 }
 
 
