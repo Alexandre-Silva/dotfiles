@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 
 packages=(
-    "pm:rust"{,-docs,-racer}
+    "pm:rust"{,fmt,-docs,-racer}
     "aur:rust-src"
     "pm:cargo"
 )
