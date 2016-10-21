@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -100,7 +101,7 @@ values."
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
-                                      vimish-fold
+                                      evil-vimish-fold
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -403,56 +404,12 @@ layers configuration."
 
 
 
-  ;; Add vimish-fold packge to evil
+  ;; Config {,evil-}vimish-fold packages
   ;; add vim like folding and {{{ }}} folds
-  (vimish-fold-global-mode 1)
-
   (use-package vimish-fold
     :defer t
     :init
-    (setq vimish-fold-dir "~/.emacs.d/.cache/vimish-fold/")
-    :config
-    (progn
-      (evil-define-command evil-create-fold ()
-        "Create a fold from the current region.
-See also `evil-delete-fold'."
-        (evil-fold-action evil-fold-list :create))
-
-      (evil-define-command evil-delete-fold ()
-        "Delete a fold under point.
-See also `evil-create-fold'."
-        (evil-fold-action evil-fold-list :delete))
-
-      (defun -my/add-create-delete (filter)
-        (setq value2ch (car (remove-if-not (lambda (e) (equal (car e) filter)) evil-fold-list)))
-
-        (append '(:create nil :delete nil)
-                (cdr value2ch))
-
-        (setq value2ch (cons (car value2ch)
-                             (append '(:create nil :delete nil)
-                                     (cdr value2ch)))))
-
-
-      ;; keybinds
-      (define-key evil-normal-state-map "zd" 'evil-delete-fold)
-      (define-key evil-visual-state-map "zf" 'evil-create-fold)
-
-      (add-to-list 'evil-fold-list
-                   '((vimish-fold-mode)
-                     :create     (lambda ()
-                                   (vimish-fold (region-beginning) (region-end)))
-                     :delete     vimish-fold-delete
-                     :open-all   vimish-fold-unfold-all
-                     :close-all  nil
-                     :toggle     vimish-fold-toggle
-                     :open       vimish-fold-unfold
-                     :open-rec   nil
-                     :close      vimish-fold))
-
-
-      (-my/add-create-delete '(outline-mode outline-minor-mode org-mode markdown-mode))
-      (-my/add-create-delete '(hs-minor-mode))))
+    (setq vimish-fold-dir "~/.emacs.d/.cache/vimish-fold/"))
 
   (defun my/vimish-fold-create-marker ( )
     "For each {{{ }}} pair in the buffer, a fold is created using
@@ -470,6 +427,8 @@ vimish-fold."
               (vimish-fold beg end)
             (error nil))
           (goto-char end)))))
+
+  (evil-vimish-fold-mode 1)
 
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -568,9 +527,6 @@ vimish-fold."
   ;;automatically save (without asking) before you compile or recompile.
   (setq compilation-ask-about-save nil)
 
-  ;; Don't litter my init file
-  (setq custom-file "~/.emacs.d/.cache/custom-set.el")
-  (load custom-file 'noerror)
 
   )
 
@@ -579,4 +535,9 @@ vimish-fold."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:background nil)))))
+
+
+;; Don't litter my init file
+(setq custom-file "~/.emacs.d/.cache/custom-set.el")
+(load custom-file 'noerror)
