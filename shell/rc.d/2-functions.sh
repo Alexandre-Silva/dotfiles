@@ -5,7 +5,7 @@
 # and inits firefoz thunderbird ....
 #
 function alex-init () {
-    progs=( thunderbird firefox keepass )
+    progs=( thunderbird firefox keepassx2 )
 
     for p in "${progs[@]}"; do
         echo $p
