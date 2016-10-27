@@ -16,7 +16,6 @@ function alex-init () {
 function alex-desktop-init () {
     local progs=(
         firefox
-        thunderbird
         "$TERMCMD -e canto-curses"
         teamspeak3
         ec
