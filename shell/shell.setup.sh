@@ -19,3 +19,9 @@ done
 st_install() {
     "$DOTFILES/bin/sh/install-oh-my-zsh"
 }
+
+st_rc() {
+    # loads funcs, aliases and shell vars
+    rc=$DOTFILES"/shell/rc.sh"
+    [ -f "$rc" ] && . "$rc"
+}

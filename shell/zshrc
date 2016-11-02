@@ -3,16 +3,11 @@
 # Only for interactive shells.
 [[ -o interactive ]] || exit 0
 
-function adm() {
-    . "$ADM/adm.sh" "$@"
-}
+# Function to run as sourced instead of normal executed shell script
+function adm() { . "$ADM/adm.sh" "$@" }
 
 # runs all setup's st_rc target
 adm rcs
-
-# loads funcs, aliases and shell vars
-rc=$DOTFILES"/shell/rc.sh"
-[ -f $rc ] && source $rc
 
 
 FRAMEWORK=oh-my-zsh
@@ -46,8 +41,6 @@ unsetopt share_history
 # ctrl-u does the same it did in bash.
 bindkey \^U backward-kill-line
 
-
-
 # Workaround #
 # Make zsh autocomplete respect dircolors.
 # https://github.com/robbyrussell/oh-my-zsh/issues/1563
@@ -58,7 +51,7 @@ if [ -f ~/.zshrc_local ]; then
     source ~/.zshrc_local
 fi
 
-# If RC_HOOK is set, the variable will be range as a shell command after loading of rc files.
+# If RC_HOOK is set, the variable will be executed as a shell command after loading of rc files.
 if [ -n "$RC_HOOK" ]; then
     __hook="$RC_HOOK"
     unset RC_HOOK
