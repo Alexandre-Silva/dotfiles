@@ -11,7 +11,7 @@ case $- in
     *) return;;
 esac
 
-if hash fasd 2>/dev/null; then
+if hash tmux 2>/dev/null; then
     # Auto-start TMUX when in SSH session.
     if [ "$SSH_CONNECTION" ] && [ -z "$TMUX" ];then
         tmux has-session -t ssh &>/dev/null && exec tmux attach -t ssh || exec tmux new -s ssh
