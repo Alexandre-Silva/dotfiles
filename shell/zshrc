@@ -3,12 +3,18 @@
 # Only for interactive shells.
 [[ -o interactive ]] || exit 0
 
+if hash fasd 2>/dev/null; then
+    # Auto-start TMUX when in SSH session.
+    if [ "$SSH_CONNECTION" ] && [ -z "$TMUX" ];then
+        tmux has-session -t ssh &>/dev/null && exec tmux attach -t ssh || exec tmux new -s ssh
+    fi
+fi
+
 # Function to run as sourced instead of normal executed shell script
 function adm() { . "$ADM/adm.sh" "$@" }
 
 # runs all setup's st_rc target
 adm rcs
-
 
 FRAMEWORK=oh-my-zsh
 if [ $FRAMEWORK = prezto ];then
