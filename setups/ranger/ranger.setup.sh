@@ -14,8 +14,8 @@ packages=(
 )
 
 links=(
-    {"$DOTFILES/setups/ranger/config",~"/.config/ranger"}
-    {"$DOTFILES/setups/ranger/",~"/.bin/"}rangerl
+    {"$DOTFILES/setups/ranger/config",$HOME"/.config/ranger"}
+    {"$DOTFILES/setups/ranger/",$HOME"/.bin/"}rangerl
 )
 
 function st_rc() {

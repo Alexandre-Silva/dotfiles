@@ -3,6 +3,6 @@ packages=(
 )
 
 links=(
-    {"$DOTFILES/setups/redshift/",~"/.config/"}redshift.conf
-    {"$DOTFILES/setups/redshift/",~"/.config/autostart/"}redshift.desktop
+    {"$DOTFILES/setups/redshift/",$HOME"/.config/"}redshift.conf
+    {"$DOTFILES/setups/redshift/",$HOME"/.config/autostart/"}redshift.desktop
 )

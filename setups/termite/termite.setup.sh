@@ -5,7 +5,7 @@ packages=(
 )
 
 links=(
-    {"$DOTFILES/setups/",~"/.config/"}termite
+    {"$DOTFILES/setups/",$HOME"/.config/"}termite
 )
 
 st_install() {

@@ -5,6 +5,6 @@ packages=(
 )
 
 links=(
-    {"$DOTFILES/setups/",~"/.config/"}htop
-    {"$DOTFILES/setups/htop/",~"/.bin/"}htopl
+    {"$DOTFILES/setups/",$HOME"/.config/"}htop
+    {"$DOTFILES/setups/htop/",$HOME"/.bin/"}htopl
 )

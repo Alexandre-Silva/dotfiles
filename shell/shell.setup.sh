@@ -8,11 +8,11 @@ packages=(
 
 
 links=(
-    "$DOTFILES/shell/lib/mo/mo" ~/.bin/mo
+    "$DOTFILES/shell/lib/mo/mo" $HOME/.bin/mo
 )
 
 for f in profile bashrc zprofile zshrc; do
-    links+=( {"$DOTFILES/shell/",~/.}"$f" )
+    links+=( {"$DOTFILES/shell/",$HOME/.}"$f" )
 done
 
 

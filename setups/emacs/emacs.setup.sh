@@ -12,12 +12,12 @@ packages=(
 )
 
 links=(
-    {"$DOTFILES/setups/emacs/",~"/."}spacemacs
-    /usr/share/gtags/gtags.conf ~/.globalrc
+    {"$DOTFILES/setups/emacs/",$HOME"/."}spacemacs
+    /usr/share/gtags/gtags.conf $HOME/.globalrc
 )
 
 for l in ec et es; do
-    links+=( {"$DOTFILES/setups/emacs/",~"/.bin/"}$l )
+    links+=( {"$DOTFILES/setups/emacs/",$HOME"/.bin/"}$l )
 done
 
 

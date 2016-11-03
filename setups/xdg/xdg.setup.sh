@@ -4,5 +4,5 @@ packages=(
 )
 
 links=(
-    {"$DOTFILES/setups/xdg/",~"/.config/"}user-dirs.dirs
+    {"$DOTFILES/setups/xdg/",$HOME"/.config/"}user-dirs.dirs
 )

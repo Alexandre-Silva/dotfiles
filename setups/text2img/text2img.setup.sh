@@ -6,5 +6,5 @@ packages=(
 )
 
 links=(
-    "$DOTFILES/setups/text2img/plantuml" ~/.bin/plantuml
+    "$DOTFILES/setups/text2img/plantuml" $HOME/.bin/plantuml
 )

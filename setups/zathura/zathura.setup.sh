@@ -4,5 +4,5 @@ packages=(
 )
 
 links=(
-    {"$DOTFILES/setups/",~"/.config/"}zathura
+    {"$DOTFILES/setups/",$HOME"/.config/"}zathura
 )

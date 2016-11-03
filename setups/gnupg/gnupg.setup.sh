@@ -3,6 +3,6 @@ packages=(
 )
 
 links=(
-    {"$DOTFILES/setups/gnupg/",~"/.gnupg/"}gpg.conf
-    {"$DOTFILES/setups/gnupg/",~"/.gnupg/"}dirmngr.conf
+    {"$DOTFILES/setups/gnupg/",$HOME"/.gnupg/"}gpg.conf
+    {"$DOTFILES/setups/gnupg/",$HOME"/.gnupg/"}dirmngr.conf
 )

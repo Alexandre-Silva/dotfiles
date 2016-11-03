@@ -5,8 +5,8 @@ packages=(
 )
 
 links=(
-    {"$DOTFILES/setups/xscreensaver/",~"/."}xscreensaver
-    {"$DOTFILES/setups/xscreensaver/",~"/.config/systemd/user/"}xscreensaver.service
+    {"$DOTFILES/setups/xscreensaver/",$HOME"/."}xscreensaver
+    {"$DOTFILES/setups/xscreensaver/",$HOME"/.config/systemd/user/"}xscreensaver.service
 )
 
 st_install(){

@@ -3,8 +3,8 @@ packages=(
 )
 
 links=(
-    {"$DOTFILES/setups/tmux/",~"/."}tmux.conf
-    {"$DOTFILES/setups/tmux",~"/.bin"}/tlist-keys.sh
+    {"$DOTFILES/setups/tmux/",$HOME"/."}tmux.conf
+    {"$DOTFILES/setups/tmux",$HOME"/.bin"}/tlist-keys.sh
 )
 
 function st_install() { return 0; }
