@@ -12,7 +12,7 @@ function st_install() {
         makepkg --needed --noconfirm --syncdeps --rmdeps --install
     }
 
-    if [[ "$(uname -m)" =$HOME armv* ]]; then
+    if [[ "$(uname -m)" =~ armv* ]]; then
         sudo pacman -S cower;
     else
         git clone $AUR_COWER_GIT
