@@ -81,7 +81,7 @@ values."
      shell
 
      alex
-     calfw
+     ;; calfw
 
      org
      c-c++
