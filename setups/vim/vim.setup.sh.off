@@ -1,10 +1,18 @@
 packages=(
-    "pm:gvim"
+    "pm:neovim"
 )
 
 links=(
-    "$DOTFILES/setups/vim/vimrc" ~/.vimrc
-    "$DOTFILES/setups/vim/gvimrc" ~/.gvimrc
+    $DOTFILES"/setups/vim/vimrc" $HOME"/.vimrc"
+    $DOTFILES"/setups/vim/gvimrc" $HOME"/.gvimrc"
+
+    $HOME/{.vimrc,.config/nvim/nvimrc}
+    $HOME/{.gvimrc,.config/nvim/ngvimrc}
 )
 
 function st_install() { vim -c "PluginUpdate" -c "quitall" ; }
+
+function st_rc() {
+    alias vi=nvim
+    alias vim=nvim
+}
