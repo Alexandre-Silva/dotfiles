@@ -1,3 +1,3 @@
 # dotfiles
 
-Just my dotfile, now much else to say.
+Just my dotfile, not much else to say.
