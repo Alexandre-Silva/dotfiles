@@ -6,8 +6,8 @@ links=(
     $DOTFILES"/setups/vim/vimrc" $HOME"/.vimrc"
     $DOTFILES"/setups/vim/gvimrc" $HOME"/.gvimrc"
 
-    $HOME/{.vimrc,.config/nvim/nvimrc}
-    $HOME/{.gvimrc,.config/nvim/ngvimrc}
+    $HOME/{.vimrc,.config/nvim/init.vim}
+    $HOME/{.gvimrc,.ngvimrc}
 )
 
 function st_install() { vim -c "PluginUpdate" -c "quitall" ; }
