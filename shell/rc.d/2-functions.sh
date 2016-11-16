@@ -19,7 +19,7 @@ function alex-desktop-init () {
         "$TERMCMD -e canto-curses"
         teamspeak3
         ec
-        nvidia-settings
+        nvidia-fan-curve.sh
     )
 
     for p in "${progs[@]}"; do
