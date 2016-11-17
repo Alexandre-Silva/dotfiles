@@ -42,7 +42,7 @@ export DISTRIBUTION=""
 export ADM="$DOTFILES/shell/lib/ADM"
 
 # executes all st_profiles in all setup.sh's
-. "$ADM/adm.sh" profiles
+. "$ADM/adm.sh" profiles --quiet
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
