@@ -38,7 +38,6 @@ function main {
 
     log '-------- Start --------'
     while true; do
-
         gputemp=$(nvidia-settings -q GPUCoreTemp | awk -F ":" 'NR==2{print $3}' | sed 's/[^0-9]*//g')
         newfanspeed=$(temp2speed.py "${gputemp}" "${temp2speed_map[@]}")
         nvidia-settings -a "[fan:0]/GPUTargetFanSpeed=${newfanspeed}" >/dev/null || clean_up
