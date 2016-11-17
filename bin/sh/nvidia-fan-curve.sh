@@ -18,43 +18,38 @@ function calc_curve {
     if [ $i -eq 0 ];then
         echo 0
     else
-        echo "${speed[$i-1]} + (${speed[$i]} - ${speed[$i-1]}) / ((${temps[$i]} - ${temps[$i-1]}) / ($gputemp - ${temps[$i-1]}))" | bc 
+        echo "${speed[$i-1]} + (${speed[$i]} - ${speed[$i-1]}) / ((${temps[$i]} - ${temps[$i-1]}) / ($gputemp - ${temps[$i-1]}))" | bc
     fi
 }
 
-trap clean_up SIGHUP SIGINT SIGTERM
+function main {
+    #logfile=$HOME/.cache/nvidia_fan_curve.log
+    local step=5s
 
-#logfile=$HOME/.cache/nvidia_fan_curve.log
-step=10s
+    local temp2speed_map=(
+        # C° %
+        45 5
+        50 20
+        60 50
+        85 100
+    )
 
-temps=( 45 50 60 80 100 ) # C°
-speed=( 5  20 50 80 90  ) # %
+    prepare
 
-prepare
+    log '-------- Start --------'
+    while true; do
 
-log '-------- Start --------' 
-while true; do
+        gputemp=$(nvidia-settings -q GPUCoreTemp | awk -F ":" 'NR==2{print $3}' | sed 's/[^0-9]*//g')
+        newfanspeed=$(temp2speed.py "${gputemp}" "${temp2speed_map[@]}")
+        # nvidia-settings -a "[fan:0]/GPUTargetFanSpeed=${newfanspeed}" >/dev/null || clean_up
+        echo ${newfanspeed}
 
-    gputemp=$(nvidia-settings -q GPUCoreTemp | awk -F ":" 'NR==2{print $3}' | sed 's/[^0-9]*//g')
-    newfanspeed=0
+        log "temp: ${gputemp}C\tfan: ${newfanspeed}%"
 
-    for i in $(seq 0 $((${#temps[@]} - 1))); do
-        if [ "$gputemp" -eq "${temps[$i]}" ]; then
-            newfanspeed="${speed[$i]}"
-            break
-        elif [ "$gputemp" -lt "${temps[$i]}" ]; then
-            newfanspeed=$(calc_curve)
-            break
-        fi
+        sleep $step
     done
+}
 
-    nvidia-settings -a "[fan:0]/GPUTargetFanSpeed=${newfanspeed}" >/dev/null || clean_up
-    log "temp: ${gputemp}C\tfan: ${newfanspeed}%"
-
-    sleep $step 
-
-done
-
+trap clean_up SIGHUP SIGINT SIGTERM
+main "$@"
 clean_up # Should not reach here
-
-
