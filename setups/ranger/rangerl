@@ -1,2 +1,2 @@
 #!/bin/sh
-RC_HOOK='ranger-cd' $TERMCMD
+$TERMCMD --exec=ranger

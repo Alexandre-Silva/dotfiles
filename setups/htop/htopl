@@ -1,2 +1,2 @@
 #!/bin/bash
-RC_HOOK='htop' $TERMCMD
+$TERMCMD --exec=htop
