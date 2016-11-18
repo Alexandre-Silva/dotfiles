@@ -64,5 +64,9 @@ color20 = #d0d0d0
 color21 = #f5f5f5'
     fi
 
+    # this comments out the cursor parameter to prevent the cursor from having
+    # the same colour as the text (when it's over text)
+    colors="$(sed 's/^cursor\ \{1,\}= #[0-9a-fA-F]\{6\}$/# \0/' <<< "${colors}")"
+
     FONT_SIZE=$font COLORS="${colors}" mo "$here/config.mo" >"$here/config"
 }
