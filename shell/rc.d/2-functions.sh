@@ -5,7 +5,7 @@
 # and inits firefoz thunderbird ....
 #
 function alex-init () {
-    progs=( thunderbird firefox keepassx2 )
+    progs=( thunderbird firefox keepassx2 canto-cursesl )
 
     for p in "${progs[@]}"; do
         echo $p
@@ -16,7 +16,7 @@ function alex-init () {
 function alex-desktop-init () {
     local progs=(
         firefox
-        "$TERMCMD -e canto-curses"
+        canto-cursesl
         teamspeak3
         ec
         nvidia-fan-curve.sh

@@ -31,6 +31,7 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     markdown
      html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -81,7 +82,7 @@ values."
      shell
 
      alex
-     ;; calfw
+     calfw
 
      org
      c-c++
