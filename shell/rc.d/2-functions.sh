@@ -16,7 +16,7 @@ function alex-init () {
 function alex-nvidia-config {
     local offset="$1"
     nvidia-settings --assign "[gpu:0]/GPUGraphicsClockOffset[2]=${offset}"
-    nvidia-settings --assign "[gpu:0]/GPUMemoryTransferRateOffset[2]=$(( $offset * 2 ))"
+    nvidia-settings --assign "[gpu:0]/GPUMemoryTransferRateOffset[2]=$(( offset * 2 ))"
 }
 
 function alex-desktop-init () {
