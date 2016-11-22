@@ -13,13 +13,21 @@ function alex-init () {
     done
 }
 
+function alex-nvidia-config {
+    local offset="$1"
+    nvidia-settings --assign "[gpu:0]/GPUGraphicsClockOffset[2]=${offset}"
+    nvidia-settings --assign "[gpu:0]/GPUMemoryTransferRateOffset[2]=$(( $offset * 2 ))"
+}
+
 function alex-desktop-init () {
+    sleep 5
+
     local progs=(
         firefox
         canto-cursesl
-        teamspeak3
         ec
         nvidia-fan-curve.sh
+        teamspeak3
     )
 
     for p in "${progs[@]}"; do
@@ -27,9 +35,7 @@ function alex-desktop-init () {
         $p &>>"$HOME/.log/$p.log" & disown
     done
 
-    sleep 5
-    nvidia-settings --assign "[gpu:0]/GPUGraphicsClockOffset[2]=-130"
-    nvidia-settings --assign "[gpu:0]/GPUMemoryTransferRateOffset[2]=-260"
+    alex-nvidia-config -60
 }
 
 
