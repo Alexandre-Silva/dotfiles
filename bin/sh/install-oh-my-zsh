@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-if [ -n "$ZSH" ]; then
+if [ -n "$ZSH" ] && [ -d "${ZSH}" ]; then
     echo "Oh-my-zsh already installed."
     . "$ZSH/tools/upgrade.sh"
 else
