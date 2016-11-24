@@ -35,7 +35,7 @@ function alex-desktop-init () {
         $p &>>"$HOME/.log/$p.log" & disown
     done
 
-    alex-nvidia-config -60
+    alex-nvidia-config -100
 }
 
 

@@ -23,7 +23,7 @@ function calc_curve {
 }
 
 function main {
-    #logfile=$HOME/.cache/nvidia_fan_curve.log
+    logfile=$HOME/.log/nvidia_fan_curve.log
     local step=5s
 
     local temp2speed_map=(
