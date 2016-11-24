@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+# exit on error
+set -e
+
 if [ -n "$ZSH" ] && [ -d "${ZSH}" ]; then
     echo "Oh-my-zsh already installed."
     . "$ZSH/tools/upgrade.sh"
