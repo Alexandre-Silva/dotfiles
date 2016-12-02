@@ -1,2 +1,2 @@
 #!/bin/bash
-$TERMCMD --exec=htop
+exec $TERMCMD --exec=htop

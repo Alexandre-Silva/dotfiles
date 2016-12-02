@@ -1,2 +1,2 @@
 #!/bin/sh
-$TERMCMD --exec=ranger
+exec $TERMCMD --exec=ranger
