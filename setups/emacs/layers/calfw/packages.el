@@ -70,8 +70,8 @@ Each entry is either:
   (use-package calfw
     :config
 
-    (use-package calfw-cal :ensure calfw)
-    (use-package calfw-ical :ensure calfw)
+    ;; (use-package calfw-cal :ensure calfw)
+    ;; (use-package calfw-ical :ensure calfw)
     (use-package calfw-org :ensure calfw)
     (setq cfw:org-overwrite-default-keybinding t)
     ))
