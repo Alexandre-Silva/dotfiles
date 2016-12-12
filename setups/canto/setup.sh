@@ -2,6 +2,7 @@
 
 packages=(
     aur:canto-{daemon,curses}
+    pm:rsync
 )
 
 links=(
