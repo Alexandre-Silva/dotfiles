@@ -53,7 +53,7 @@ containsElement ()
 }
 
 
-function pdfgrep-xargs () {
+function pdfgrep.xargs () {
     local args=("$@")
 
     if [ ${#args} -ne 2 ] ; then

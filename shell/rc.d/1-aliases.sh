@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # ~/.common_aliases common for all shells (such as bash and zsh)
 
 alias vimrc="vim ~/.vimrc"
@@ -43,7 +44,7 @@ alias tsr=restore-trash
 alias tse=trash-empty
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
+if  hash dircolors &>/dev/null; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
     alias dir='dir --color=auto'
@@ -53,5 +54,3 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-
-alias fix-redshift='xrandr -o inverted && xrandr -o normal'

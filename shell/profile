@@ -35,7 +35,7 @@ export GIT_HOME="$HOME/.git"
 
 # defines de Linux distribution of the current machine. E.g. Arch
 export DISTRIBUTION=""
-[[ -x /usr/bin/lsb_release ]] && DISTRIBUTION="$(lsb_release --id --short)"
+hash lsb_release &>/dev/null && DISTRIBUTION="$(lsb_release --id --short)"
 
 
 # ADM Related stuff
