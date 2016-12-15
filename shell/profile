@@ -11,7 +11,25 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
+################################################################################
+# HELPERS
+################################################################################
 
+# Assigns and exports the 1st value to variable `var` from the list `values` which exists in path
+# $1 var: Name of the variable
+# $2.. values: The list of values to test and set
+function prio_assign {
+    local args=( "$@" )
+    local var="$1"
+    local values=( "${args[@]:1}" )
+
+    for v in "${values[@]}" ; do
+        if hash "${v}" &>/dev/null ; then
+            export ${var}="${v}"
+            break
+        fi
+    done
+}
 
 ################################################################################
 # CONFIGS
@@ -22,13 +40,17 @@ if [ -d "$HOME/.bin" ] ; then
     PATH="$HOME/.bin:$PATH"
 fi
 
-export EDITOR='et'
-export VISUAL='et'
+editor_prio=( nvim vim vi nano )
+if hash emacs &>/dev/null; then
+    editor_prio=( et "${editor_prio[@]}" )
+fi
+
+prio_assign EDITOR "${editor_prio[@]}"
+prio_assign BROWSER firefox chrome-stable chromium
+export VISUAL="${EDITOR}"
 export PAGER='less'
-export BROWSER='firefox'
 export TERMCMD='termite'
 
-#Merdas uteis em geral
 export GIT_HOME="$HOME/.git"
 
 [ -d "$HOME/dotfiles" ] && export DOTFILES="$HOME/dotfiles"
@@ -37,8 +59,6 @@ export GIT_HOME="$HOME/.git"
 export DISTRIBUTION=""
 hash lsb_release &>/dev/null && DISTRIBUTION="$(lsb_release --id --short)"
 
-
-# ADM Related stuff
 export ADM="$DOTFILES/shell/lib/ADM"
 
 # executes all st_profiles in all setup.sh's
