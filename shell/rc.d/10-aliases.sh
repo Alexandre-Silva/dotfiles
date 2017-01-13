@@ -1,28 +1,4 @@
 #!/usr/bin/env bash
-# ~/.common_aliases common for all shells (such as bash and zsh)
-
-################################################################################
-### System
-################################################################################
-
-alias lsblk='lsblk -o name,model,fstype,size,label,uuid,mountpoint'
-
-# the extra space allows for defined aliases to be transfered to other users env
-alias sudo="sudo "
-
-### ps ###
-PS_FORMAT="pid,ppid,tty,rtprio,stat,pcpu,pmem,comm"
-
-alias psm="ps -u $(whoami) -o $PS_FORMAT"
-alias psa="ps -eo $PS_FORMAT"
-alias pm="ps -fu $(whoami) "
-alias pa="p -fe"
-
-unset	PS_FORMAT
-
-# du - disk usage
-alias du="du --human-readable"
-
 
 ################################################################################
 ### User
@@ -68,3 +44,26 @@ fi
 alias server.http='python3 -m http.server'
 alias server.ftp='python3 -m pyftpdlib -w'
 alias server.vnc='x11vnc -forever -nopw -display $DISPLAY'
+
+
+################################################################################
+### System
+################################################################################
+
+alias lsblk='lsblk -o name,model,fstype,size,label,uuid,mountpoint'
+
+# the extra space allows for defined aliases to be transfered to other users env
+alias sudo="sudo "
+
+### ps ###
+PS_FORMAT="pid,ppid,tty,rtprio,stat,pcpu,pmem,comm"
+
+alias psm="ps -u $(whoami) -o $PS_FORMAT"
+alias psa="ps -eo $PS_FORMAT"
+alias pm="ps -fu $(whoami) "
+alias pa="p -fe"
+
+unset	PS_FORMAT
+
+# du - disk usage
+alias du="du --human-readable"

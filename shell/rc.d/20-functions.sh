@@ -1,9 +1,8 @@
 #!/bin/bash
-# misc funcs for nothing and everything
 
-# Initial startup script, kills xfce-panel
-# and inits firefoz thunderbird ....
-#
+################################################################################
+### User
+################################################################################
 function alex-init () {
     progs=( thunderbird firefox keepassx2 canto-cursesl )
 
@@ -27,7 +26,7 @@ function alex-desktop-init () {
         canto-cursesl
         ec
         nvidia-fan-curve.sh
-	discord-canary
+	      discord-canary
     )
 
     for p in "${progs[@]}"; do
@@ -111,4 +110,26 @@ function mount.pi_music () {
     else
         echo "Failure: " $?
     fi
+}
+
+
+################################################################################
+### System
+################################################################################
+
+# Get current host related info.
+function ii(){
+    &>/dev/null hash grc && local g=grc
+
+    echo -e "\nYou are logged on ${BRed}$(hostname)"
+    echo -e "\n${BRed}Additionnal information:$NC " ; uname -a
+    echo -e "\n${BRed}Users logged on:$NC " ; w -hs |
+        cut -d " " -f1 | sort | uniq
+    echo -e "\n${BRed}Current date :$NC " ; date
+    echo -e "\n${BRed}Machine stats :$NC " ; uptime
+    echo -e "\n${BRed}Memory stats :$NC " ; free -h
+    echo -e "\n${BRed}Diskspace :$NC " ; $g df -h / $HOME
+    echo -e "\n${BRed}WAN IP Address :$NC" ; dig +short myip.opendns.com @resolver1.opendns.com
+    echo -e "\n${BRed}Open connections :$NC "; $g netstat -np46l 2>/dev/null;
+    echo
 }
