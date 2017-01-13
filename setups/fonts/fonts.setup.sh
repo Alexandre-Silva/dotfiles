@@ -1,6 +1,42 @@
 #!/bin/bash
 
+packages=(
+    pm:{cairo,fontconfig,freetype2,jdk8-openjdk,jre8-openjdk,jre8-openjdk-headless}
+)
+
+links=()
+
 function st_install() {
+    # sudo ln -s /etc/fonts/conf.avail/11-lcdfilter-default.conf /etc/fonts/conf.d
+    # sudo ln -s /etc/fonts/conf.avail/10-sub-pixel-rgb.conf /etc/fonts/conf.d
+    # sudo ln -s /etc/fonts/conf.avail/10-hinting-slight.conf  /etc/fonts/conf.d
+
+    local here="${DOTFILES}/setups/fonts"
+
+    checked_cp() {
+       local from="$1"
+       local to="$1"
+
+       if [[ -e "${to}" ]]; then
+           local from_hash="$(md5sum "${from}" | cut -d ' ' -f 1 )"
+           local to_hash="$(md5sum "${to}" | cut -d ' ' -f 1 )"
+           if [[ "${to_hash}" != "${to_hash}" ]]; then
+               warn "${to} exists and but is different from ${to}."
+               warn "Therefore no changes will be made."
+           fi
+       else
+           sudo cp --force --verbose "${from}" "${to}"
+       fi
+    }
+
+    # dealing with local.conf
+    checked_cp "${here}/local.conf" "/etc/fonts/local.conf"
+    # jre font fix
+    checked_cp "${here}/jre-fonts.sh" "/etc/profile.d/"
+}
+
+
+install_infinality() {
     # If Infinality is present in pacman.conf we assume that the repos are installed
     grep "Infinality" /etc/pacman.conf >/dev/null && return 0
 
