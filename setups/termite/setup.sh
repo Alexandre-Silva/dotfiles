@@ -16,7 +16,7 @@ st_install() {
     if [[ "$(hostname)" == "alex-desktop" ]]; then
         local font=11
     else
-        local font=9
+        local font=11
     fi
 
     if hash base16-builder 2>/dev/null; then
