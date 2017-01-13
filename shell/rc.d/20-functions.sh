@@ -122,14 +122,14 @@ function ii(){
     &>/dev/null hash grc && local g=grc
 
     echo -e "\nYou are logged on ${BRed}$(hostname)"
-    echo -e "\n${BRed}Additionnal information:$NC " ; uname -a
-    echo -e "\n${BRed}Users logged on:$NC " ; w -hs |
+    echo -e "\n${BRed}Additionnal information:$Color_Off " ; uname -a
+    echo -e "\n${BRed}Users logged on:$Color_Off " ; w -hs |
         cut -d " " -f1 | sort | uniq
-    echo -e "\n${BRed}Current date :$NC " ; date
-    echo -e "\n${BRed}Machine stats :$NC " ; uptime
-    echo -e "\n${BRed}Memory stats :$NC " ; free -h
-    echo -e "\n${BRed}Diskspace :$NC " ; $g df -h / $HOME
-    echo -e "\n${BRed}WAN IP Address :$NC" ; dig +short myip.opendns.com @resolver1.opendns.com
-    echo -e "\n${BRed}Open connections :$NC "; $g netstat -np46l 2>/dev/null;
+    echo -e "\n${BRed}Current date :$Color_Off " ; date
+    echo -e "\n${BRed}Machine stats :$Color_Off " ; uptime
+    echo -e "\n${BRed}Memory stats :$Color_Off " ; free -h
+    echo -e "\n${BRed}Diskspace :$Color_Off " ; $g df -h / $HOME
+    echo -e "\n${BRed}WAN IP Address :$Color_Off" ; dig +short myip.opendns.com @resolver1.opendns.com
+    echo -e "\n${BRed}Open connections :$Color_Off "; $g netstat -np46l 2>/dev/null;
     echo
 }
