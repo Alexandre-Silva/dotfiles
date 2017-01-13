@@ -4,6 +4,10 @@ packages=(
     "pm:zsh"
     "pm:zsh-completions"
     "pm:zsh-doc"
+
+    # For misc cmds/functions
+    "pm:python-pyftpdlib"
+    "pm:trash-cli"
 )
 
 
