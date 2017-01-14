@@ -26,7 +26,7 @@ function alex-desktop-init () {
         canto-cursesl
         ec
         nvidia-fan-curve.sh
-	      discord-canary
+	      discord
     )
 
     for p in "${progs[@]}"; do
