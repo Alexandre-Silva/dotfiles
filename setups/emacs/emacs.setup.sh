@@ -40,9 +40,6 @@ function st_install() {
         git -C "$target" spull
     }
 
-    # Fix for ycmd/libtinfo wihch only provides soft links for libtinfo.so.6
-    sudo ln --force --symbolic --verbose /usr/lib/libtinfo.so /usr/lib/libtinfo.so.5
-
     _git_install Spacemacs "$HOME/.emacs.d/" "ssh://git@github.com/syl20bnr/spacemacs"
 
     local ycmd_home="$HOME/.local/share/ycmd"
