@@ -62,7 +62,7 @@ hash lsb_release &>/dev/null && DISTRIBUTION="$(lsb_release --id --short)"
 export ADM="$DOTFILES/shell/lib/ADM"
 
 # executes all st_profiles in all setup.sh's
-. "$ADM/adm.sh" profiles
+source "$ADM/adm.sh" profile --recursive "${DOTFILES}"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then

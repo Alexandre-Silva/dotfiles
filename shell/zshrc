@@ -11,10 +11,10 @@ if hash tmux 2>/dev/null; then
 fi
 
 # Function to run as sourced instead of normal executed shell script
-function adm() { . "$ADM/adm.sh" "$@" }
+function adm() { source "$ADM/adm.sh" "$@" ; }
 
 # runs all setup's st_rc target
-adm rc --recursive
+adm rc --recursive "${DOTFILES}"
 
 FRAMEWORK=oh-my-zsh
 if [ $FRAMEWORK = prezto ];then

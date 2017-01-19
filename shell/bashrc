@@ -82,10 +82,10 @@ case "$TERM" in
         ;;
 esac
 
-function adm() { . "$ADM/adm.sh" "$@" }
+function adm() { source "$ADM/adm.sh" "$@" ; }
 
 # runs all setup's st_rc target
-adm rc --recursive
+adm rc --recursive "${DOTFILES}"
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
