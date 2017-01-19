@@ -82,12 +82,10 @@ case "$TERM" in
         ;;
 esac
 
-function adm() {
-    . "$ADM/adm.sh" "$@"
-}
+function adm() { . "$ADM/adm.sh" "$@" }
 
 # runs all setup's st_rc target
-adm rcs --quiet
+adm rcs
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
