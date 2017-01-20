@@ -14,7 +14,7 @@ st_install() {
     local here="$DOTFILES/setups/termite"
 
     if [[ "$(hostname)" == "alex-desktop" ]]; then
-        local font=11
+        local font=13
     else
         local font=11
     fi
