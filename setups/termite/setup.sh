@@ -2,8 +2,8 @@
 
 packages=(
     "pm:termite"
+    "pm:ttf-inconsolata"
     "npm:base16-builder"  # for getting up-to-date theme coulours
-    "aur:ttf-inconsolata-g"
 )
 
 links=(
