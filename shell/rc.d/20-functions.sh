@@ -35,6 +35,7 @@ function alex-desktop-init () {
     done
 
     alex-nvidia-config -130
+    xset m 1/1 0
 }
 
 
