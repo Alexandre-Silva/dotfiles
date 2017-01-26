@@ -99,9 +99,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(
-                                      evil-vimish-fold
-                                      )
+   dotspacemacs-additional-packages '()
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -302,7 +300,7 @@ values."
    dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
-   dotspacemacs-folding-method 'evil
+   dotspacemacs-folding-method 'origami
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -405,35 +403,6 @@ layers configuration."
   ;; (set-terminal-parameter nil 'background-mode 'dark)
   ;; (set-frame-parameter nil 'background-mode 'dark)
   ;; (spacemacs/load-theme 'zenburn)
-
-
-
-  ;; Config {,evil-}vimish-fold packages
-  ;; add vim like folding and {{{ }}} folds
-  (use-package vimish-fold
-    :defer t
-    :init
-    (setq vimish-fold-dir "~/.emacs.d/.cache/vimish-fold/"))
-
-  (defun my/vimish-fold-create-marker ( )
-    "For each {{{ }}} pair in the buffer, a fold is created using
-vimish-fold."
-    (interactive)
-    (save-excursion
-      (goto-char (point-min))
-      (while (re-search-forward "{{{" (point-max) t)
-        (let ((beg (point))
-              (end nil))
-          (when (not (re-search-forward "}}}" (point-max) t))
-            (error "\"{{{\" has no matching \"}}}\""))
-          (setq end (point))
-          (condition-case nil
-              (vimish-fold beg end)
-            (error nil))
-          (goto-char end)))))
-
-  (evil-vimish-fold-mode 1)
-
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Org-mode stuff
