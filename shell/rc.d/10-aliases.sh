@@ -67,3 +67,5 @@ unset	PS_FORMAT
 
 # du - disk usage
 alias du="du --human-readable"
+
+alias ip="ip --color"
