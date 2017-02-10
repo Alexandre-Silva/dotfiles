@@ -1,48 +1,73 @@
 #!/usr/bin/env python
-
 """
 This script scrapes winehq d3dx10 implementation percentage
 and writes to refile.org when new api call are implemented.
 """
 
+import json
 import requests
 from bs4 import BeautifulSoup
 from pathlib import Path
 
-save_file = Path.home().joinpath('.cache/winapi')
-org_refile = Path.home().joinpath('gtd/refile.org')
+SAVE_FILE = Path.home().joinpath('.cache/winapi')
+ORG_REFILE = Path.home().joinpath('gtd/refile.org')
+RELEVANT_LIB_NAMES = ('d3dx10_43', 'd3dx11_42', 'd3dx11_43')
+
+ORG_NOTIFY_TEMPLATE = "* {}, {} --> {}\n"
+
+
+def is_relevant_row(row):
+    row_name = row.contents[1].string
+    for lname in RELEVANT_LIB_NAMES:
+        if row_name.startswith(lname): return True
+
+    return False
 
 
 def main():
     doc = requests.get('https://www.winehq.org/winapi_stats')
     soup = BeautifulSoup(doc.text, 'html.parser')
 
-    # parses html in search of d3dx10_43 row
-    dx10_43 = list(
-        filter(lambda row: row.contents[1].string.startswith('d3dx10_43'),
-               soup.find_all('tr')))
-    tds = list(dx10_43[0].find_all('td'))
-    current = "{} {}".format(tds[0].string, tds[2].string)
-    current_percent = tds[2].string
+    # parses html in search of relevant rows
+    rows = list(filter(is_relevant_row, soup.find_all('tr')))
+
+    # saves percentages of relevant rows
+    percents = {}
+    for row in rows:
+        tds = list(row.find_all('td'))
+
+        lib_name = tds[0].string
+        lib_percent = tds[2].string
+
+        percents[lib_name] = lib_percent
 
     # reads saved file
-    saved = ""
-    saved_percent = "n/a"
-    if save_file.exists():
-        with save_file.open("r") as f:
-            saved = f.read()
-        saved_percent = list(saved.split(' '))[1]
+    percents_saved = {}
+    if SAVE_FILE.exists():
+        try:
+            with SAVE_FILE.open("r") as f:
+                percents_saved = json.load(f)
 
-    # update save file and refile.org
-    if (current != saved):
-        with org_refile.open('a') as f:
-            template = "* {}, {} --> {}"
-            to_write = template.format(tds[0].string, saved_percent, current_percent)
-            f.write(to_write)
+        except json.JSONDecodeError:
+            percents_saved = {}
 
-        # save new implementation percentage
-        with save_file.open('w') as f:
-            f.write(current)
+    to_write = ""
+
+    for rlib in RELEVANT_LIB_NAMES:
+        latest_prc = percents[rlib]
+        saved_prc = percents_saved.get(rlib, "n/a")
+
+        if (latest_prc != saved_prc):
+            to_write += ORG_NOTIFY_TEMPLATE.format(rlib, saved_prc,
+                                                   latest_prc)
+
+    #write in org file to notify me
+    with ORG_REFILE.open('a') as f:
+        f.write("\n" + to_write)
+
+    # save new implementation percentage
+    with SAVE_FILE.open('w') as f:
+        json.dump(percents_saved, f)
 
 
 if __name__ == '__main__':
