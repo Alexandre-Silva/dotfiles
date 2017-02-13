@@ -61,13 +61,14 @@ def main():
             to_write += ORG_NOTIFY_TEMPLATE.format(rlib, saved_prc,
                                                    latest_prc)
 
+
     #write in org file to notify me
     with ORG_REFILE.open('a') as f:
         f.write("\n" + to_write)
 
     # save new implementation percentage
     with SAVE_FILE.open('w') as f:
-        json.dump(percents_saved, f)
+        json.dump(percents, f)
 
 
 if __name__ == '__main__':
