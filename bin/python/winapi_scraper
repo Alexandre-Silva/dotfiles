@@ -9,9 +9,11 @@ import requests
 from bs4 import BeautifulSoup
 from pathlib import Path
 
+STATS_URL = 'https://www.winehq.org/winapi_stats'
+RELEVANT_LIB_NAMES = ('d3dx10_43', 'd3dx11_42', 'd3dx11_43')
+
 SAVE_FILE = Path.home().joinpath('.cache/winapi')
 ORG_REFILE = Path.home().joinpath('gtd/refile.org')
-RELEVANT_LIB_NAMES = ('d3dx10_43', 'd3dx11_42', 'd3dx11_43')
 
 ORG_NOTIFY_TEMPLATE = "* {}, {} --> {}\n"
 
@@ -25,7 +27,7 @@ def is_relevant_row(row):
 
 
 def main():
-    doc = requests.get('https://www.winehq.org/winapi_stats')
+    doc = requests.get(STATS_URL)
     soup = BeautifulSoup(doc.text, 'html.parser')
 
     # parses html in search of relevant rows
