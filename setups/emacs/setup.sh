@@ -3,13 +3,15 @@
 packages=(
     "pm:emacs"
     "pm:aspell"{,-en,-pt}
-    "pm:yapf" # Python style guide checker
+    "pm:yapf"                 # Python style guide checker
     "pm:clang-tools-extra"
-    "pm:cmake" # for ycmd
-    "aur:libtinfo" # needed for ycmd
-    "aur:global" # GNU tags. Source code tag system (use it to query a tags databse)
-    "aur:universal-ctags-git" # used to actually create tags database (better than GNU tags)
+    "pm:cmake"                # for ycmd
     "pm:ttf-inconsolata"
+    "aur:libtinfo"            # needed for ycmd
+    "aur:global"              # GNU tags. Source code tag system (use it to query a tags databse)
+    "aur:universal-ctags-git" # used to actually create tags database (alternative to GNU tags)
+    "pip:trepan3k"            # better python debugger
+    "pip:xdis"                # undeclared dependency for trepan3k
 )
 
 links=(
