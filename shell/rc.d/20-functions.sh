@@ -4,7 +4,7 @@
 ### User
 ################################################################################
 function alex-init () {
-    progs=( thunderbird firefox keepassx2 canto-cursesl )
+    progs=( thunderbird firefox keepassxc canto-cursesl )
 
     for p in "${progs[@]}"; do
         echo $p
