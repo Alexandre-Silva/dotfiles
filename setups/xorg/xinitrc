@@ -38,10 +38,10 @@ fi
 ################################################################################
 
 if [ -d /etc/X11/xinit/xinitrc.d ] ; then
- for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
-  [ -x "$f" ] && . "$f"
- done
- unset f
+    for f in /etc/X11/xinit/xinitrc.d/?*.sh ; do
+        [ -x "$f" ] && . "$f"
+    done
+    unset f
 fi
 
 
@@ -59,10 +59,13 @@ numlockx &
 # key needs to be pressed in order for the repeating process to begin. After the
 # repeating process has been triggered, the character will be repeated with a
 # certain frequency (usually given in Hz) specified by the typematic rate. The
-# typematic delay in the virtual console is not affected by these settings. 
+# typematic delay in the virtual console is not affected by these settings.
 
 # xset r rate <delay> <rate>
 xset r rate 200 45
+
+screen_config=~/.screenlayout/default.sh
+[ -f "${screen_config}" ] && "${screen_config}"
 
 ################################################################################
 # start the session
@@ -78,13 +81,13 @@ echo "$session" > /tmp/session.var
 echo "$@" >> /tmp/session.var
 
 case "$session" in
-	twm		)
-		twm &
-		#xclock -geometry 50x50-1+1 &
-		xterm -geometry 80x50+494+51 &
-		xterm -geometry 80x20+494-0 &
-		exec xterm -geometry 80x66+0+0 -name login
-		;;
+	  twm		            )
+		    twm &
+		    #xclock -geometry 50x50-1+1 &
+		    xterm -geometry 80x50+494+51 &
+		    xterm -geometry 80x20+494-0 &
+		    exec xterm -geometry 80x66+0+0 -name login
+		    ;;
     awesome           ) exec awesome;;
     bspwm             ) exec bspwm;;
     catwm             ) exec catwm;;
@@ -107,6 +110,6 @@ case "$session" in
     xfce|xfce4        ) exec startxfce4;;
     xmonad            ) exec xmonad;;
 
-	# When all else fails...
-	*		) exec "$session" ;;
+	  # When all else fails...
+	  *		) exec "$session" ;;
 esac
