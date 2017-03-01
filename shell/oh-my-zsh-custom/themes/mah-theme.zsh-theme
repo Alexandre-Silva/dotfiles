@@ -45,7 +45,7 @@ ZSH_THEME_GIT_PROMPT_CLEAN="${VCS_CLEAN_COLOR}✔ "
 
 # Context: user@directory or just directory
 prompt_context () {
-    if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
+    if [[ -n "$SSH_CLIENT" ]]; then
         echo -n "${PR_RESET}%{$fg[$NCOLOR]%}$USER@%m${PR_RESET}${PR_BRIGHT_YELLOW} %~%<<${PR_RESET}"
     else
         echo -n "${PR_RESET}${PR_BRIGHT_YELLOW}%~%<<${PR_RESET}"
@@ -58,16 +58,16 @@ set_prompt () {
     autoload colors zsh/terminfo
     if [[ "$terminfo[colors]" -gt 8 ]]; then
         colors
-    fi 
+    fi
 
     local return_code="%(?..%{$fg[red]%}%? ↵%{$reset_color%})"
 
-    local prompt_info='$(prompt_context) $(git_super_status) $(svn_prompt_info)'
-    local prompt_trailer='%{$fg[red]%}%(!.#.»)%{$reset_color%}' 
+    local prompt_info="$(prompt_context)"' $(git_super_status) $(svn_prompt_info)'
+    local prompt_trailer='%{$fg[red]%}%(!.#.»)%{$reset_color%}'
 
 
-    PROMPT="%{$fg[red]%}╭─%{$reset_color%} $prompt_info 
-%{$fg[red]%}╰─%{$reset_color%}$prompt_trailer "
+    PROMPT="%{$fg[red]%}╭─%{$reset_color%} $prompt_info
+%{$fg[red]%}╰%{$reset_color%}$prompt_trailer "
 
     PROMPT2='%{$fg[red]%}\ %{$reset_color%}'
     RPROMPT=$return_code
