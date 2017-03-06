@@ -1,5 +1,6 @@
 #[macro_use]
 extern crate lazy_static;
+extern crate time;
 extern crate regex;
 
 use std::io;
@@ -8,9 +9,10 @@ use std::path::{Path, PathBuf};
 use std::fs::{File, DirBuilder};
 use std::ops::Fn;
 use regex::Regex;
+use time::Tm;
 
 lazy_static! {
-static ref BCK_RE: Regex = Regex::new(r"^.*~[0-9]{8}-[0-9]{6}.*$").unwrap();
+static ref BCK_RE: Regex = Regex::new(r"^.*~([0-9]{8}-[0-9]{6}).*$").unwrap();
 }
 
 #[derive(Debug)]
@@ -27,8 +29,8 @@ fn load_conf() -> Conf {
 }
 
 
-fn find<F>(file: &Path, cb: &F) -> io::Result<()>
-    where F: Fn(&Path)
+fn find<F>(file: &Path, cb: &mut F) -> io::Result<()>
+    where F: FnMut(&Path)
 {
     if file.is_dir() {
         for entry in file.read_dir()? {
@@ -53,6 +55,18 @@ fn test_setup(conf: &Conf) -> io::Result<()> {
     Ok(())
 }
 
+#[derive(Debug)]
+struct SyncFile {
+    bkp: PathBuf,
+    tm: Tm,
+}
+
+impl SyncFile {
+    fn new(pb: PathBuf, tm: Tm) -> SyncFile {
+        SyncFile { bkp: pb, tm: tm }
+    }
+}
+
 fn main() {
     let c = load_conf();
 
@@ -62,9 +76,16 @@ fn main() {
         return;
     }
 
+    let mut files_bkp = Vec::new();
+
     let _ = find(c.bkp.as_path(),
-                 &|pb: &Path| {
-                     let pb_str = pb.to_str().unwrap();
-                     println!("{} {}", BCK_RE.is_match(pb_str), pb_str);
-                 });
+                 &mut |pb: &Path| {
+        let pb_str = pb.to_str().unwrap();
+        if let Some(cap) = BCK_RE.captures(pb_str) {
+            if let Some(t) = time::strptime(&cap[1], "%Y%m%d-%H%M%S").ok() {
+                files_bkp.push(SyncFile::new(PathBuf::from(pb_str), t));
+            }
+        }
+    });
+
 }
