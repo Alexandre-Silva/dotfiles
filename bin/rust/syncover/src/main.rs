@@ -28,8 +28,8 @@ struct Conf {
 
 fn load_conf() -> Conf {
     Conf {
-        local: PathBuf::from("/tmp/synconver/local"),
-        bkp: PathBuf::from("/home/alex/dir-syncers/hdd-syncthing/.stversions"),
+        local: PathBuf::from("/home/alex/dir-syncers/syncthing/"),
+        bkp: PathBuf::from("/home/alex/dir-syncers/syncthing/.stversions"),
     }
 }
 
@@ -40,7 +40,11 @@ fn find<F>(file: &Path, cb: &mut F) -> io::Result<()>
     if file.is_dir() {
         for entry in file.read_dir()? {
             let f = entry?.path();
-            find(f.as_path(), cb)?;
+            if let Some(fname) = f.file_name() {
+                if fname != ".stversions" {
+                    find(f.as_path(), cb)?;
+                }
+            }
 
         }
     } else if file.is_file() {
@@ -103,16 +107,16 @@ fn main() {
         return;
     }
 
-    println!("{}",
-             BCK_RE.replace("/tmp/alex/.stversions/gtd/mcast~20160509-091951.org", ""));
-
-
     let mut files: FilesHM = HashMap::new();
+
+
+    let bkp_len = c.bkp.to_str().unwrap().len();
 
     find(c.bkp.as_path(),
          &mut |pb: &Path| {
 
-        let pb_str = pb.to_str().unwrap();
+        let (_, pb_str) = pb.to_str().unwrap().split_at(bkp_len + 1);
+
         if let Some(cap) = BCK_RE.captures(pb_str) {
             if let Some(t) = time::strptime(&cap[1], BCK_TS).ok() {
 
@@ -129,13 +133,14 @@ fn main() {
                 }
             }
         }
-
-        // let mut e = files.entry(k).or_insert(SyncFile::new(PathBuf::new()));
-        // files_bkp.push(SyncFile::new(PathBuf::from(pb_str), t));
-        // files.entry()
     });
 
+    for (k, _) in &files {
+        let kp = c.local.join(Path::new(k));
+        println!("{} {}", kp.exists(),kp.to_str().unwrap());
+    }
+
     // println!("{:?}", files);
-    println!("{:?}", files["/home/alex/dir-syncers/hdd-syncthing/.stversions/keepassDB.kdbx"])
+    // println!("{:?}", files["keepassDB.kdbx"])
 
 }
