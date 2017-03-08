@@ -493,6 +493,13 @@ layers configuration."
   (add-hook 'c-mode-hook 'ggtags-mode)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Realgud
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (add-hook 'realgud-short-key-mode-hook
+            (lambda ()
+              (spacemacs/set-leader-keys "or" realgud:shortkey-mode-map)))
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Misc
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (setq hs-special-modes-alist
