@@ -2,16 +2,18 @@
 extern crate lazy_static;
 extern crate time;
 extern crate regex;
+extern crate getopts;
 
-use std::ops::Deref;
-use std::string::String;
-use std::borrow::Cow;
-use std::borrow::Borrow;
-use std::collections::HashMap;
-use std::io;
-use std::path::{Path, PathBuf};
-use std::fs::{File, DirBuilder};
+use getopts::Options;
 use regex::Regex;
+use std::collections::HashMap;
+use std::env;
+use std::fs::{File, DirBuilder};
+use std::fs;
+use std::io;
+use std::ops::Deref;
+use std::path::{Path, PathBuf};
+use std::string::String;
 use time::Tm;
 
 lazy_static! {
@@ -24,15 +26,18 @@ static BCK_TS: &'static str = "%Y%m%d-%H%M%S";
 struct Conf {
     local: PathBuf,
     bkp: PathBuf,
+    only_deleted: bool,
 }
 
-fn load_conf() -> Conf {
-    Conf {
-        local: PathBuf::from("/home/alex/dir-syncers/syncthing/"),
-        bkp: PathBuf::from("/home/alex/dir-syncers/syncthing/.stversions"),
+impl Conf {
+    fn default() -> Conf {
+        Conf {
+            local: PathBuf::from("/home/alex/dir-syncers/syncthing/"),
+            bkp: PathBuf::from("/home/alex/dir-syncers/syncthing/.stversions"),
+            only_deleted: false,
+        }
     }
 }
-
 
 fn find<F>(file: &Path, cb: &mut F) -> io::Result<()>
     where F: FnMut(&Path)
@@ -55,8 +60,7 @@ fn find<F>(file: &Path, cb: &mut F) -> io::Result<()>
 }
 
 fn test_setup(conf: &Conf) -> io::Result<()> {
-    DirBuilder::new().recursive(true)
-        .create(&conf.local)?;
+    DirBuilder::new().recursive(true).create(&conf.local)?;
 
     File::create(conf.local.join("a.txt"))?;
     File::create(conf.local.join("b.txt"))?;
@@ -98,19 +102,50 @@ impl SyncFileBck {
 
 type FilesHM = HashMap<String, SyncFile>;
 
-fn main() {
-    let c = load_conf();
 
-    println!("");
-    if let Some(e) = test_setup(&c).err() {
-        println!("{}", e);
-        return;
-    }
+fn build_opts() -> Options {
+    let mut opts = Options::new();
+
+    opts.optflag("d", "deleted", "only show deleted files");
+    opts.optflag("h", "help", "print this help menu");
+
+    return opts;
+}
+
+fn parse_options(args: &Vec<String>, conf: &mut Conf) {
+    let opts = build_opts();
+
+    let matches = match opts.parse(&args[1..]) {
+        Ok(m) => m,
+        Err(f) => panic!(f.to_string()),
+    };
+
+    conf.only_deleted = matches.opt_present("d");
+}
+
+
+fn recover(shown: Vec<&String>, to_recover: Vec<u32>) {
+}
+
+fn main() {
+    let mut c = Conf::default();
+
+    let args: Vec<String> = env::args().collect();
+    let program = args[0].clone();
+    parse_options(&args, &mut c);
+
+    // println!("");
+    // if let Some(e) = test_setup(&c).err() {
+    //     println!("{}", e);
+    //     return;
+    // }
 
     let mut files: FilesHM = HashMap::new();
 
-
-    let bkp_len = c.bkp.to_str().unwrap().len();
+    let bkp_len = c.bkp
+        .to_str()
+        .unwrap()
+        .len();
 
     find(c.bkp.as_path(),
          &mut |pb: &Path| {
@@ -133,16 +168,39 @@ fn main() {
                 }
             }
         }
-    });
+         });
 
-    for (k, _) in &files {
-        let kp = c.local.join(Path::new(k));
-        if !kp.exists() {
-            println!("{} {}", kp.exists(), kp.to_str().unwrap());
-        }
+    // sorts each file.bcks from oldest to newest backup
+    for v in files.values_mut(){
+        v.bcks.sort_by(|a,b| a.tm.cmp(&b.tm)) ;
     }
 
-    // println!("{:?}", files);
-    // println!("{:?}", files["keepassDB.kdbx"])
+    let mut files2show: Vec<&String> = files.iter()
+        .map(|kv| kv.0)
+        .filter(|k| {
+                    let exists = c.local.join(Path::new(k)).exists();
+                    !(c.only_deleted && exists)
+                })
+        .collect();
 
+    files2show.sort();
+
+    for (i, file_path) in files2show.iter().enumerate() {
+        println!("{:3} {}", i, file_path);
+    }
+
+    let mut files2recover: Vec<usize> = Vec::new();
+    files2recover.push(3);
+
+    for index in &files2recover{
+        let sync_file = files.get(files2show[*index]).unwrap();
+
+        let from = c.bkp.join(sync_file.bcks[sync_file.bcks.len() - 1].path.clone());
+        let to = c.local.join(sync_file.path.clone());
+
+        println!("dry copy {} --> {}", from.to_str().unwrap(), to.to_str().unwrap());
+
+    }
+
+    // recover(&files2show, files2recover);
 }

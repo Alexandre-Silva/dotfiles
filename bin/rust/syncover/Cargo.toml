@@ -7,3 +7,4 @@ authors = ["alex"]
 regex = "0.2"
 lazy_static = "*"
 time = "0.1"
+getopts = "0.2"
