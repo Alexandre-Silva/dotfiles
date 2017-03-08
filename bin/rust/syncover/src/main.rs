@@ -137,7 +137,9 @@ fn main() {
 
     for (k, _) in &files {
         let kp = c.local.join(Path::new(k));
-        println!("{} {}", kp.exists(),kp.to_str().unwrap());
+        if !kp.exists() {
+            println!("{} {}", kp.exists(), kp.to_str().unwrap());
+        }
     }
 
     // println!("{:?}", files);
