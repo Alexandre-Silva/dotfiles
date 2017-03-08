@@ -28,6 +28,7 @@ path = ~/.gitconfig_local
 
 [alias]
 spull = "! __git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
+aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
 
 [color]
 ui = auto
