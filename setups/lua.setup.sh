@@ -8,5 +8,5 @@ packages=(
 st_profile() {
     # the subshell cmd outputs the something along the lines of: 'export
     # LUA_PATH=...' which is then evaluated.
-    eval "$(luarocks path --bin)"
+    hash luarocks &>/dev/null && eval "$(luarocks path --bin)"
 }
