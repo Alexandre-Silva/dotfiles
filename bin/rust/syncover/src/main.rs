@@ -10,7 +10,7 @@ use std::collections::HashMap;
 use std::env;
 use std::fs::{File, DirBuilder};
 use std::fs;
-use std::io;
+use std::io::{self, BufRead};
 use std::ops::Deref;
 use std::path::{Path, PathBuf};
 use std::string::String;
@@ -123,32 +123,13 @@ fn parse_options(args: &Vec<String>, conf: &mut Conf) {
     conf.only_deleted = matches.opt_present("d");
 }
 
-
-fn recover(shown: Vec<&String>, to_recover: Vec<u32>) {
-}
-
-fn main() {
-    let mut c = Conf::default();
-
-    let args: Vec<String> = env::args().collect();
-    let program = args[0].clone();
-    parse_options(&args, &mut c);
-
-    // println!("");
-    // if let Some(e) = test_setup(&c).err() {
-    //     println!("{}", e);
-    //     return;
-    // }
-
+fn scan_files(bkp: &Path) -> FilesHM {
     let mut files: FilesHM = HashMap::new();
 
-    let bkp_len = c.bkp
-        .to_str()
-        .unwrap()
-        .len();
+    let bkp_len = bkp.to_str().unwrap().len();
 
-    find(c.bkp.as_path(),
-         &mut |pb: &Path| {
+    let _ = find(bkp,
+                 &mut |pb: &Path| {
 
         let (_, pb_str) = pb.to_str().unwrap().split_at(bkp_len + 1);
 
@@ -168,37 +149,77 @@ fn main() {
                 }
             }
         }
-         });
+    });
 
     // sorts each file.bcks from oldest to newest backup
-    for v in files.values_mut(){
-        v.bcks.sort_by(|a,b| a.tm.cmp(&b.tm)) ;
+    for v in files.values_mut() {
+        v.bcks.sort_by(|a, b| a.tm.cmp(&b.tm));
     }
 
+    return files;
+}
+
+
+type FilesView<'a> = Vec<&'a String>;
+fn files_view<'a>(files: &'a FilesHM, conf: &Conf) -> FilesView<'a> {
     let mut files2show: Vec<&String> = files.iter()
         .map(|kv| kv.0)
         .filter(|k| {
-                    let exists = c.local.join(Path::new(k)).exists();
-                    !(c.only_deleted && exists)
+                    let exists = conf.local.join(Path::new(k)).exists();
+                    !(conf.only_deleted && exists)
                 })
         .collect();
 
     files2show.sort();
 
-    for (i, file_path) in files2show.iter().enumerate() {
+    return files2show;
+}
+
+fn files_view_print(filesv: &FilesView) {
+    for (i, file_path) in filesv.iter().enumerate() {
         println!("{:3} {}", i, file_path);
     }
+}
+
+fn files_select_controler(filesv: &FilesView) -> Vec<usize> {
+    println!("Select a file to recover:");
+
+    let mut line = String::new();
+    let _ = io::stdin().read_line(&mut line).expect("Could not read line");
+    let line = String::from(line.trim());
+    let selected_file: usize = line.parse().unwrap();
 
     let mut files2recover: Vec<usize> = Vec::new();
-    files2recover.push(3);
+    files2recover.push(selected_file);
 
-    for index in &files2recover{
-        let sync_file = files.get(files2show[*index]).unwrap();
+    return files2recover;
+}
+
+
+fn recover(shown: Vec<&String>, to_recover: Vec<u32>) {}
+
+fn main() {
+    let mut c = Conf::default();
+
+    let args: Vec<String> = env::args().collect();
+    let program = args[0].clone();
+    parse_options(&args, &mut c);
+
+    let files = scan_files(&c.bkp);
+    let filesv = files_view(&files, &c);
+
+    files_view_print(&filesv);
+    let files2recover= files_select_controler(&filesv);
+
+    for index in &files2recover {
+        let sync_file = files.get(filesv[*index]).unwrap();
 
         let from = c.bkp.join(sync_file.bcks[sync_file.bcks.len() - 1].path.clone());
         let to = c.local.join(sync_file.path.clone());
 
-        println!("dry copy {} --> {}", from.to_str().unwrap(), to.to_str().unwrap());
+        println!("dry copy {} \n     --> {}",
+                 from.to_str().unwrap(),
+                 to.to_str().unwrap());
 
     }
 
