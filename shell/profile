@@ -41,9 +41,7 @@ if [ -d "$HOME/.bin" ] ; then
 fi
 
 editor_prio=( nvim vim vi nano )
-if hash emacs &>/dev/null; then
-    editor_prio=( et "${editor_prio[@]}" )
-fi
+hash et &>/dev/null && editor_prio=( et "${editor_prio[@]}" )
 
 prio_assign EDITOR "${editor_prio[@]}"
 prio_assign BROWSER firefox chrome-stable chromium
