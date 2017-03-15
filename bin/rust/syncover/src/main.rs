@@ -11,7 +11,7 @@ use std::env;
 use std::fs::{File, DirBuilder};
 use std::fs;
 use std::io::{self, BufRead};
-use std::ops::Deref;
+use std::ops::{Deref, Index};
 use std::path::{Path, PathBuf};
 use std::string::String;
 use time::Tm;
@@ -196,7 +196,25 @@ fn files_select_controler(filesv: &FilesView) -> Vec<usize> {
 }
 
 
-fn recover(shown: Vec<&String>, to_recover: Vec<u32>) {}
+fn recover(files: &FilesHM, filesv: FilesView, to_recover: Vec<usize>, conf: &Conf) {
+    for index in &to_recover {
+        let sync_file: &SyncFile = files.get(filesv[*index]).unwrap();
+
+        let from = conf.bkp.join(sync_file.bcks[sync_file.bcks.len() - 1].path.clone());
+        let to = conf.local.join(sync_file.path.clone());
+
+        let result = match fs::copy(&from, &to) {
+            Ok(_) => "succeeded",
+            Err(_) => "failed",
+        };
+
+        println!("Copy {}\n |   {}\n `-> {}",
+                 result,
+                 from.to_str().unwrap(),
+                 to.to_str().unwrap());
+
+    }
+}
 
 fn main() {
     let mut c = Conf::default();
@@ -209,19 +227,8 @@ fn main() {
     let filesv = files_view(&files, &c);
 
     files_view_print(&filesv);
-    let files2recover= files_select_controler(&filesv);
-
-    for index in &files2recover {
-        let sync_file = files.get(filesv[*index]).unwrap();
-
-        let from = c.bkp.join(sync_file.bcks[sync_file.bcks.len() - 1].path.clone());
-        let to = c.local.join(sync_file.path.clone());
-
-        println!("dry copy {} \n     --> {}",
-                 from.to_str().unwrap(),
-                 to.to_str().unwrap());
-
-    }
+    let files2recover = files_select_controler(&filesv);
+    recover(&files, filesv, files2recover, &c);
 
     // recover(&files2show, files2recover);
 }
