@@ -229,6 +229,4 @@ fn main() {
     files_view_print(&filesv);
     let files2recover = files_select_controler(&filesv);
     recover(&files, filesv, files2recover, &c);
-
-    // recover(&files2show, files2recover);
 }
