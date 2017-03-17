@@ -4,9 +4,14 @@ packages=(
     "pm:emacs"
     "pm:aspell"{,-en,-pt}
     "pm:ttf-inconsolata"
-    "pm:yapf"                 # Python style guide checker and formater
     "aur:global"              # GNU tags. Source code tag system (use it to query a tags databse)
     "aur:universal-ctags-git" # used to actually create tags database (alternative to GNU tags)
+
+    # python
+    "pm:yapf"                 # Python style guide checker and formater
+    "pm:python-pylint"        # A Python source code analyzer which looks for
+                              # programming errors, helps enforcing a coding
+                              # standard and sniffs for some code smells
 
     # ycmd-layer
     "pm:clang-tools-extra"
