@@ -84,7 +84,8 @@ values."
      c-c++
      (python :variables
              python-test-runner 'pytest
-             python-enable-yapf-format-on-save t)
+             python-enable-yapf-format-on-save t
+             python-sort-imports-on-save t)
      latex
      lua
      ess ; R
