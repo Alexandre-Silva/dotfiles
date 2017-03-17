@@ -12,6 +12,9 @@ packages=(
     "pm:python-pylint"        # A Python source code analyzer which looks for
                               # programming errors, helps enforcing a coding
                               # standard and sniffs for some code smells
+    "pip:jedi"                # Python Auto-complete
+    "pip:json-rpc"            #                      related
+    "pip:service_factory"     #                              deps
 
     # ycmd-layer
     "pm:clang-tools-extra"
@@ -57,6 +60,9 @@ function st_install() {
     _git_install YCMD "$ycmd_home" "https://github.com/Valloric/ycmd"
 
     "$ycmd_home"/build.py --clang-completer
+
+    # ycmd depends in libtinfo.so.5 but in Arch it does not exist
+    sudo ln --symbolic --relative  --verbose /usr/lib/libtinfo.so.{6,5}
 }
 
 st_profile() {
