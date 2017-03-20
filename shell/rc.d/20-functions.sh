@@ -4,7 +4,12 @@
 ### User
 ################################################################################
 function alex-init () {
-    progs=( thunderbird firefox keepassxc canto-cursesl )
+    local progs=(
+        thunderbird
+        firefox
+        keepassxc
+        canto-cursesl
+    )
 
     for p in "${progs[@]}"; do
         echo $p
@@ -27,7 +32,8 @@ function alex-desktop-init () {
         ec
         nvidia-fan-curve.sh
         discord
-	thunderbird
+        keepassxc
+        thunderbird
     )
 
     for p in "${progs[@]}"; do
