@@ -24,6 +24,11 @@ packages=(
     # realgud-package
     "pip:trepan3k"            # better python debugger
     "pip:xdis"                # undeclared dependency for trepan3k
+
+    # javascript
+    "npm:tern"                # auto-complete
+    "npm:js-beautify"         # code formatter
+    "npm:jslint"             # linter
 )
 
 links=(

@@ -94,6 +94,7 @@ values."
      elm
      markdown
      html
+     javascript
      )
 
    ;; List of additional packages that will be installed without being
