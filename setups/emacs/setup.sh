@@ -61,8 +61,10 @@ function st_install() {
 
     "$ycmd_home"/build.py --clang-completer
 
-    # ycmd depends in libtinfo.so.5 but in Arch it does not exist
-    sudo ln --symbolic --relative  --verbose /usr/lib/libtinfo.so.{6,5}
+    # ycmd depends in libtinfo.so.5 but in ArchLinux it does not exist
+    if [[ ! -f /usr/lib/libtinfo.so.5 ]]; then
+        sudo ln --symbolic --relative  --verbose /usr/lib/libtinfo.so.{6,5}
+    fi
 }
 
 st_profile() {
