@@ -434,6 +434,10 @@ layers configuration."
     :post-config
     (progn
       (bind-key* (kbd "C-M-i") 'company-complete)))
+  (spacemacs|use-package-add-hook c++
+    :post-config
+    (progn
+      (bind-key* (kbd "C-M-i") 'company-complete)))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Evil binds
