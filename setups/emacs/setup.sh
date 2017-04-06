@@ -9,6 +9,7 @@ packages=(
 
     # python
     "pm:yapf"                 # Python style guide checker and formater
+    "pip:mypy"                # Python static type checker
     "pm:python-pylint"        # A Python source code analyzer which looks for
                               # programming errors, helps enforcing a coding
                               # standard and sniffs for some code smells
