@@ -29,7 +29,7 @@ packages=(
     # javascript
     "npm:tern"                # auto-complete
     "npm:js-beautify"         # code formatter
-    "npm:jslint"             # linter
+    "npm:eslint"              # linter
 )
 
 links=(
