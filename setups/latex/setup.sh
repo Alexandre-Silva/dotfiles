@@ -5,3 +5,7 @@ packages=(
     "pm:biber"
     "aur:pplatex-git"
 )
+
+links=(
+    "$DOTFILES/setups/latex/latexmkrc" "$HOME/.latexmkrc"
+)

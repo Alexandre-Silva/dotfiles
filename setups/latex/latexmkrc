@@ -1,0 +1,18 @@
+use File::Basename;
+
+add_cus_dep('glo', 'gls', 0, 'run_makeglossaries');
+add_cus_dep('acn', 'acr', 0, 'run_makeglossaries');
+
+sub run_makeglossaries {
+  my $dir = dirname($_[0]);
+  my $doc = basename($_[0]);
+
+  my $opt = "";
+
+  if ( $silent ) {
+    $opt = "-q";
+  };
+
+  system "makeglossaries $opt -d $dir $doc";
+}
+
