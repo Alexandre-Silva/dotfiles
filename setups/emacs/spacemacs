@@ -67,7 +67,7 @@ values."
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-sort-by-usage nil)
 
-     (ycmd :variables ycmd-server-command (list "python"
+     (ycmd :variables ycmd-server-command (list "python2"
                                                 (concat (getenv "YCMD_HOME")
                                                         "/ycmd")))
      gtags
