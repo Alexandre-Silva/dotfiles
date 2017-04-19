@@ -20,7 +20,6 @@ packages=(
     # ycmd-layer
     "pm:clang-tools-extra"
     "pm:cmake"                # for ycmd
-    # "aur:libtinfo"          # undeclared dep for ycmd
     "aur:vim-youcompleteme-git"
 
     # realgud-package
