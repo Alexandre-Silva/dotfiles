@@ -20,7 +20,8 @@ packages=(
     # ycmd-layer
     "pm:clang-tools-extra"
     "pm:cmake"                # for ycmd
-    "aur:libtinfo"            # undeclared dep for ycmd
+    # "aur:libtinfo"          # undeclared dep for ycmd
+    "aur:vim-youcompleteme-git"
 
     # realgud-package
     "pip:trepan3k"            # better python debugger
@@ -61,18 +62,8 @@ function st_install() {
     }
 
     _git_install Spacemacs "$HOME/.emacs.d/" "ssh://git@github.com/syl20bnr/spacemacs"
-
-    local ycmd_home="$HOME/.local/share/ycmd"
-    _git_install YCMD "$ycmd_home" "https://github.com/Valloric/ycmd"
-
-    "$ycmd_home"/build.py --clang-completer
-
-    # ycmd depends in libtinfo.so.5 but in ArchLinux it does not exist
-    if [[ ! -f /usr/lib/libtinfo.so.5 ]]; then
-        sudo ln --symbolic --relative  --verbose /usr/lib/libtinfo.so.{6,5}
-    fi
 }
 
 st_profile() {
-    export YCMD_HOME="$HOME/.local/share/ycmd"
+    export YCMD_HOME="/usr/share/vim/vimfiles/third_party/ycmd"
 }
