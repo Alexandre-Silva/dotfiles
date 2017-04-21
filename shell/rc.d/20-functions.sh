@@ -120,6 +120,45 @@ function mount.pi_music () {
     fi
 }
 
+# When a change to the monitored files is detected the command passed as argument is executed
+# Example: inotifyexec ./foo.txt -- cat ./foo.txt
+function inotifyexec() {
+    local args=("$@")
+
+    local i=1;
+    for arg in "${args[@]}"; do
+        [[ "$arg" == '--' ]] && break
+        (( i += 1 ))
+    done
+
+    local cmd=("${args[@]:0:(( $i - 1 ))}")
+    local files=("${args[@]:$i}")
+
+    if (( ${#cmd[@]} == 0 )); then
+        echo "ERROR: no files provided"
+        return
+    fi
+
+    if (( ${#files[@]} == 0 )); then
+        echo "ERROR: no files provided"
+        return
+    fi
+
+    stdbuf -oL inotifywait "${files[@]}" \
+           --event modify \
+           --monitor \
+           --recursive |
+        while IFS= read -r line
+        do
+            echo "Inotify: $line"
+            echo "Executing: ${cmd[*]}"
+            echo
+
+            ( "${cmd[@]}" )
+        done
+}
+
+
 
 ################################################################################
 ### System
