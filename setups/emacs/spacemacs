@@ -475,7 +475,15 @@ layers configuration."
   (setq TeX-view-program-list
         '(("Okular" "okular --unique %o#src:%n%b") ;; update to "okular --unique %o#src:%n`pwd`/./%b"
           ("Skim" "displayline -b -g %n %o %b")
-          ("Zathura" "zathura-sync %n:1:%b %o")))
+          ("Zathura" "zathura-sync %n:1:%b %o")
+          ("zathura"
+          ("zathura" (mode-io-correlate "-sync")
+            " "
+            (mode-io-correlate "%n:1:%b ")
+            "%o"))))
+
+
+
   (cond
    ((spacemacs/system-is-linux) (setq TeX-view-program-selection '((output-pdf "Zathura")))))
 
