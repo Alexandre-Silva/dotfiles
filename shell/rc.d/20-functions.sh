@@ -131,8 +131,8 @@ function inotifyexec() {
         (( i += 1 ))
     done
 
-    local cmd=("${args[@]:0:(( $i - 1 ))}")
-    local files=("${args[@]:$i}")
+    local files=("${args[@]:0:(( $i - 1 ))}")
+    local cmd=("${args[@]:$i}")
 
     if (( ${#cmd[@]} == 0 )); then
         echo "ERROR: no files provided"
