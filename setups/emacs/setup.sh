@@ -10,12 +10,14 @@ packages=(
     # python
     "pm:yapf"                 # Python style guide checker and formater
     "pip:mypy"                # Python static type checker
+    "pip:autoflake"           # RM unused imports and variables
     "pm:python-pylint"        # A Python source code analyzer which looks for
                               # programming errors, helps enforcing a coding
                               # standard and sniffs for some code smells
     "pip:jedi"                # Python Auto-complete
     "pip:json-rpc"            #                      related
     "pip:service_factory"     #                              deps
+    "pm:python-pytest"{,-cov} # PyTest module
 
     # ycmd-layer
     "pm:clang-tools-extra"
