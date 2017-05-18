@@ -1,3 +1,5 @@
+#!/usr/bin/bash
+
 packages=(
     "pm:neovim"
 )
@@ -13,7 +15,13 @@ links=(
 function st_install() { vim -c "PluginUpdate" -c "quitall" ; }
 
 function st_rc() {
-    alias vi=nvim
-    alias vim=nvim
     alias vimrc="vim ~/.vimrc"
+
+    if hash nvim &>/dev/null; then
+        alias vi=nvim
+        alias vim=nvim
+
+    elif hash vim &>/dev/null; then
+        alias vi=vim
+    fi
 }
