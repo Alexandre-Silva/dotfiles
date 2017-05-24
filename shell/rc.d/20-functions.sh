@@ -34,6 +34,8 @@ function alex-desktop-init () {
         discord
         keepassxc
         thunderbird
+        qbittorrent
+        syncthing-gtk
     )
 
     for p in "${progs[@]}"; do
