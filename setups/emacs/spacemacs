@@ -430,7 +430,7 @@ layers configuration."
 
   (setq org-agenda-files (file-expand-wildcards "~/gtd/*.org"))
   (setq org-agenda-files-exclude (file-expand-wildcards "~/gtd/*.data.org"))
-  (setq org-agenda-files-exclude "Getting Started with Orgzly.org")
+  (add-to-list 'org-agenda-files-exclude "~/gtd/Getting Started with Orgzly.org")
 
   ;; removing data.org files
   (dolist (element org-agenda-files-exclude nil)
