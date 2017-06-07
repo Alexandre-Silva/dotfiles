@@ -90,38 +90,6 @@ man() {
 }
 
 
-### Raspberry-pi related funcs ###
-
-function mount.pi_music () {
-    local target=pi@soulcasa.ddns.net:/media/HDD1/share/music/
-    local mntPoint=/mnt/pi_music
-
-    out=$(mountpoint $mntPoint 2>&1)
-    if [ $? -eq 0 ]; then
-        echo $out
-        return
-    else
-        if [[ $out != $mntPoint" is not a mountpoint" ]] ; then
-            echo $out
-            echo "try: pkill sshfs; sudo umount -l /mnt"
-            return
-        fi
-    fi
-
-    echo "mounting..."
-    #sshfs -o allow_other -o reconnect -o ServerAliveInterval=15 pi@soulcasa.ddns.net:/media/HDD1/share/music/  -p 2222 -o IdentityFile=$HOME"/.ssh/id_rsa"
-    sudo sshfs \
-         -o allow_other -o reconnect -o ServerAliveInterval=15 \
-         -p 2222 -o IdentityFile=$HOME"/.ssh/id_rsa" -C \
-         $target $mntPoint
-
-    if [ $? -eq 0 ]; then
-        echo "Success"
-    else
-        echo "Failure: " $?
-    fi
-}
-
 # When a change to the monitored files is detected the command passed as argument is executed
 # Example: inotifyexec ./foo.txt -- cat ./foo.txt
 function inotifyexec() {
