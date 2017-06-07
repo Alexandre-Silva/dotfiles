@@ -161,6 +161,15 @@ function inotifyexec() {
 }
 
 
+fuck() {
+    if [ "$UID" -eq 0 ]; then
+        eval "$(fc -ln -1)"
+    elif hash sudo && groups | egrep -q "\<(sudo|wheel)\>"; then
+        sudo "$(fc -ln -1)"
+    else
+        su -c "$(fc -ln -1)" root
+    fi
+}
 
 ################################################################################
 ### System
