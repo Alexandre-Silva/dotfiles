@@ -40,7 +40,8 @@ impl Conf {
 }
 
 fn find<F>(file: &Path, cb: &mut F) -> io::Result<()>
-    where F: FnMut(&Path)
+where
+    F: FnMut(&Path),
 {
     if file.is_dir() {
         for entry in file.read_dir()? {
@@ -128,8 +129,7 @@ fn scan_files(bkp: &Path) -> FilesHM {
 
     let bkp_len = bkp.to_str().unwrap().len();
 
-    let _ = find(bkp,
-                 &mut |pb: &Path| {
+    let _ = find(bkp, &mut |pb: &Path| {
 
         let (_, pb_str) = pb.to_str().unwrap().split_at(bkp_len + 1);
 
@@ -162,12 +162,13 @@ fn scan_files(bkp: &Path) -> FilesHM {
 
 type FilesView<'a> = Vec<&'a String>;
 fn files_view<'a>(files: &'a FilesHM, conf: &Conf) -> FilesView<'a> {
-    let mut files2show: Vec<&String> = files.iter()
+    let mut files2show: Vec<&String> = files
+        .iter()
         .map(|kv| kv.0)
         .filter(|k| {
-                    let exists = conf.local.join(Path::new(k)).exists();
-                    !(conf.only_deleted && exists)
-                })
+            let exists = conf.local.join(Path::new(k)).exists();
+            !(conf.only_deleted && exists)
+        })
         .collect();
 
     files2show.sort();
@@ -185,12 +186,13 @@ fn files_select_controler(filesv: &FilesView) -> Vec<usize> {
     println!("Select a file to recover:");
 
     let mut line = String::new();
-    let _ = io::stdin().read_line(&mut line).expect("Could not read line");
+    let _ = io::stdin().read_line(&mut line).expect(
+        "Could not read line",
+    );
     let line = String::from(line.trim());
-    let selected_file: usize = line.parse().unwrap();
-
-    let mut files2recover: Vec<usize> = Vec::new();
-    files2recover.push(selected_file);
+    let files2recover = line.split_whitespace()
+        .map(|token| token.parse::<usize>().unwrap())
+        .collect::<Vec<usize>>();
 
     return files2recover;
 }
@@ -200,7 +202,11 @@ fn recover(files: &FilesHM, filesv: FilesView, to_recover: Vec<usize>, conf: &Co
     for index in &to_recover {
         let sync_file: &SyncFile = files.get(filesv[*index]).unwrap();
 
-        let from = conf.bkp.join(sync_file.bcks[sync_file.bcks.len() - 1].path.clone());
+        let from = conf.bkp.join(
+            sync_file.bcks[sync_file.bcks.len() - 1]
+                .path
+                .clone(),
+        );
         let to = conf.local.join(sync_file.path.clone());
 
         let result = match fs::copy(&from, &to) {
@@ -208,11 +214,12 @@ fn recover(files: &FilesHM, filesv: FilesView, to_recover: Vec<usize>, conf: &Co
             Err(_) => "failed",
         };
 
-        println!("Copy {}\n |   {}\n `-> {}",
-                 result,
-                 from.to_str().unwrap(),
-                 to.to_str().unwrap());
-
+        println!(
+            "Copy {}\n |   {}\n `-> {}",
+            result,
+            from.to_str().unwrap(),
+            to.to_str().unwrap()
+        );
     }
 }
 
