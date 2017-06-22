@@ -95,6 +95,7 @@ values."
      markdown
      html
      javascript
+     systemd
      )
 
    ;; List of additional packages that will be installed without being
