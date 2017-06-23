@@ -12,7 +12,7 @@ links=(
     $HOME/{.gvimrc,.ngvimrc}
 )
 
-function st_install() { vim -c "PluginUpdate" -c "quitall" ; }
+function st_install() { nvim -c "PluginUpdate" -c "quitall" ; }
 
 function st_rc() {
     alias vimrc="vim ~/.vimrc"
