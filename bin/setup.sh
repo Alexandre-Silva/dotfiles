@@ -10,12 +10,17 @@ done < <(find "$DOTFILES/bin/sh/" -type f -executable -print0)
 
 
 function st_install() {
-    for app in "$DOTFILES/bin/rust/"*; do
-        (
-            cd "${app}"
-            cargo build --release
-            local app_name="$(basename "${app}")"
-            /bin/cp --verbose --force "${app}/target/release/${app_name}" "${HOME}/.bin/${app_name}"
-        )
-    done
+    if hash cargo &>/dev/null; then
+        for app in "$DOTFILES/bin/rust/"*; do
+            (
+                cd "${app}"
+                cargo build --release
+                local app_name="$(basename "${app}")"
+                /bin/cp \
+                    --verbose --force \
+                    "${app}/target/release/${app_name}" \
+                    "${HOME}/.bin/${app_name}"
+            )
+        done
+    fi
 }
