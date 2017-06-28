@@ -2,11 +2,11 @@ packages=()
 
 links=( {"$DOTFILES/bin/python/",$HOME"/.bin/"}temp2speed.py )
 
-find "$DOTFILES/bin/sh/" -type f -executable -print0 | while IFS= read -r -d '' file; do
+while IFS= read -r -d '' file; do
     local link_name="$HOME/.bin/$(basename "$file")"
 
     links+=( "$file" "$link_name" )
-done
+done < <(find "$DOTFILES/bin/sh/" -type f -executable -print0)
 
 
 function st_install() {
@@ -17,5 +17,5 @@ function st_install() {
             local app_name="$(basename "${app}")"
             /bin/cp --verbose --force "${app}/target/release/${app_name}" "${HOME}/.bin/${app_name}"
         )
-        done
+    done
 }
