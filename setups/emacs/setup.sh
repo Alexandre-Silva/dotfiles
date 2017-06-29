@@ -35,7 +35,7 @@ packages=(
 )
 
 links=(
-    {"$DOTFILES/setups/emacs/",$HOME"/."}spacemacs
+    {"$DOTFILES/setups/emacs/","$HOME/."}spacemacs
     /usr/share/gtags/gtags.conf $HOME/.globalrc
 )
 
