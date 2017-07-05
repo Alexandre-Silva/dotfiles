@@ -36,6 +36,7 @@ function alex-desktop-init () {
         thunderbird
         qbittorrent
         syncthing-gtk
+        steam
     )
 
     for p in "${progs[@]}"; do
