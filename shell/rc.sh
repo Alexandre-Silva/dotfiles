@@ -3,9 +3,14 @@
 
 [ -z $DOTFILES ] && printf "dotfiles/shell/rc\nvar DOTFILES is not defined" && return 1
 
-# for dependencies handling files in rc.d are loaded by 0-filenames.sh then 1-filenames.sh ...
-# files which do not start with '[0-9]-' are loaded last
-
-for f in $DOTFILES"/shell/rc.d/"* ; do
+# load all posis compatible files
+for f in $DOTFILES"/shell/rc.d/"*.sh ; do
     source "${f}"
 done
+
+
+if [[ -n $ZSH_VERSION ]]; then
+    for f in $DOTFILES"/shell/rc.d/"*.zsh ; do
+        source "${f}"
+    done
+fi

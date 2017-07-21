@@ -52,7 +52,7 @@ plugins=(
     git-prompt
     git-super-prompt
     command-not-found
-    common-aliases
+    # common-aliases
     pretty-man
     gradle
     svn
