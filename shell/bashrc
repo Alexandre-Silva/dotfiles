@@ -84,6 +84,10 @@ esac
 
 function adm() { source "$ADM/adm.sh" "$@" ; }
 
+# loads funcs, aliases and shell vars
+rc=$DOTFILES"/shell/rc.sh"
+[ -f "$rc" ] && . "$rc"
+
 # runs all setup's st_rc target
 adm rc --recursive "${DOTFILES}"
 
