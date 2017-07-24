@@ -53,7 +53,7 @@ plugins=(
     git-super-prompt
     command-not-found
     # common-aliases
-    pretty-man
+    # pretty-man
     gradle
     svn
     pyenv
