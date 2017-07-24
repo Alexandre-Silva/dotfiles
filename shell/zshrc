@@ -21,68 +21,13 @@ rc=$DOTFILES"/shell/rc.sh"
 [ -f "$rc" ] && . "$rc"
 
 FRAMEWORK=oh-my-zsh
-if [ $FRAMEWORK = prezto ];then
-
-    # Source Prezto.
-    if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-        source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-    fi
-
-elif [ $FRAMEWORK = oh-my-zsh ];then
-
-    # Source oh-my-zsh
-    if [ -r $DOTFILES/shell/oh-my-zshrc ];then
-        source $DOTFILES/shell/oh-my-zshrc
-    fi
-fi
-
-
-# Add help command
-autoload -U run-help
-autoload run-help-git
-autoload run-help-svn
-autoload run-help-svk
-alias help=run-help
-
-
-# zsh options
-setopt AUTO_CD EXTENDED_GLOB
-unsetopt share_history
-# ctrl-u does the same it did in bash.
-bindkey \^U backward-kill-line
-
-# Workaround #
-# Make zsh autocomplete respect dircolors.
-# https://github.com/robbyrussell/oh-my-zsh/issues/1563
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
-### From ninrod dotfiles: https://github.com/ninrod/dotfiles/blob/master/zsh/completions.zsh
-
-# case insensitive completion
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-
-### fuzzy completion
-# lifted from http://superuser.com/a/815317/555734
-# 0 -- vanilla completion (abc => abc)
-# 1 -- smart case completion (abc => Abc)
-# 2 -- word flex completion (abc => A-big-Car)
-# 3 -- full flex completion (abc => ABraCadabra)
-zstyle ':completion:*' matcher-list '' \
-       'm:{a-z\-}={A-Z\_}' \
-       'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
-       'r:[[:ascii:]]||[[:ascii:]]=** r:|=* m:{a-z\-}={A-Z\_}'
-
-# colors: magenta, green, blue,cyan, yellow, red
-zstyle ':completion:*:functions' ignored-patterns '_*'
-zstyle ':completion:*' format $'\n%F{yellow}Completing %d%f\n'
-zstyle ':completion:*' group-name ''
-
-### END ninrod completion
+case "${FRAMEWORK}" in
+    prezto) try_source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ;;
+    oh-my-zsh) try_source  "${DOTFILES}/shell/oh-my-zshrc" ;;
+esac
 
 # Machine local confs
-if [ -f ~/.zshrc_local ]; then
-    source ~/.zshrc_local
-fi
+try_source ~/.zshrc_local
 
 # If RC_HOOK is set, the variable will be executed as a shell command after loading of rc files.
 if [ -n "$RC_HOOK" ]; then

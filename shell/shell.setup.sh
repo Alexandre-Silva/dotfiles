@@ -23,5 +23,3 @@ done
 st_install() {
     "$DOTFILES/bin/sh/install-oh-my-zsh"
 }
-
-st_rc() {}

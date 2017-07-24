@@ -1,0 +1,11 @@
+# Add help command
+autoload -U run-help
+autoload run-help-git
+autoload run-help-svn
+autoload run-help-svk
+alias help=run-help
+
+
+# zsh options
+setopt AUTO_CD EXTENDED_GLOB
+unsetopt share_history
