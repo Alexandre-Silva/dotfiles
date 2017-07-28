@@ -65,7 +65,7 @@ function install-adm-base {
     set +e
 
     adm install "${DOTFILES}/shell/shell.setup.sh"
-    adm links
+    adm link
 
     chsh
 
