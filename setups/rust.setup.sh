@@ -3,7 +3,6 @@
 packages=(
     "pm:rust"{,fmt,-docs,-racer}
     "aur:rust-src"
-    "pm:cargo"
 )
 
 links=()
