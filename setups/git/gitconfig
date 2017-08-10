@@ -27,11 +27,14 @@ rebase = preserve
 path = ~/.gitconfig_local
 
 [alias]
-spull   = "! __git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
-aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
-recap   = "! git log --all --oneline --no-merges --author=\"$(git config user.name)\""
-today   = "! git log --since=00:00:00 --all --no-merges --oneline --author=\"$(git config user.name)\""
-local   = "! git log --oneline --no-merges \"$(git rev-parse --abbrev-ref --symbolic-full-name @{u})\"..HEAD"
+	spull   = "! __git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
+	aliases = !git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /' | sort
+	recap   = "! git log --all --oneline --no-merges --author=\"$(git config user.name)\""
+	today   = "! git log --since=00:00:00 --all --no-merges --oneline --author=\"$(git config user.name)\""
+	local   = "! git log --oneline --no-merges \"$(git rev-parse --abbrev-ref --symbolic-full-name @{u})\"..HEAD"
+	stsh    = stash --keep-index
+	staash  = stash --include-untracked
+	staaash = stash --all
 
 [color]
 ui = auto
