@@ -73,7 +73,6 @@ values."
      gtags
      ;; version-control
 
-     emacs-lisp
      themes-megapack
      shell
 
@@ -96,6 +95,8 @@ values."
      html
      javascript
      systemd
+     emacs-lisp
+     yaml
      )
 
    ;; List of additional packages that will be installed without being
