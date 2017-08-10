@@ -94,3 +94,75 @@ unset	PS_FORMAT
 alias du="du --human-readable"
 
 alias ip="ip --color"
+
+################################################################################
+### Arch
+### based on: https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/archlinux
+################################################################################
+if [[ "${DISTRIBUTION}" == Arch ]]; then
+
+    if hash pacaur &>/dev/null; then
+        PACMAN=pacaur
+    else
+        PACMAN='sudo pacman'
+    fi
+
+    alias pacfileupg="$PACMAN -Fy"
+    alias pacin="$PACMAN -S"
+    alias pacins="$PACMAN -U"
+    alias pacinsd="$PACMAN -S --asdeps"
+    alias pacloc="$PACMAN -Qi"
+    alias paclocs="$PACMAN -Qs"
+    alias paclst="$PACMAN -Qe"
+    alias pacmir="$PACMAN -Syy"
+    alias pacorph="$PACMAN -Qtd"
+    alias pacre="$PACMAN -R"
+    alias pacrem="$PACMAN -Rns"
+    alias pacrep="$PACMAN -Si"
+    alias pacreps="$PACMAN -Ss"
+    alias pacrmorphans="$PACMAN -Rs $(pacman -Qtdq)"
+    alias pacsu="$PACMAN -Syua --noconfirm"
+    alias pacupd="$PACMAN -Sy"
+    alias pacupg="$PACMAN -Syu"
+
+    paclist() {
+        # Source: https://bbs.archlinux.org/viewtopic.php?id=93683
+        LC_ALL=C pacman -Qei $(pacman -Qu | cut -d " " -f 1) | \
+            awk 'BEGIN {FS=":"} /^Name/{printf("\033[1;36m%s\033[1;37m", $2)} /^Description/{print $2}'
+    }
+
+    pacdisowned() {
+        emulate -L zsh
+
+        tmp=${TMPDIR-/tmp}/pacman-disowned-$UID-$$
+        db=$tmp/db
+        fs=$tmp/fs
+
+        mkdir "$tmp"
+        trap  'rm -rf "$tmp"' EXIT
+
+        pacman -Qlq | sort -u > "$db"
+
+        find /bin /etc /lib /sbin /usr ! -name lost+found \
+             \( -type d -printf '%p/\n' -o -print \) | sort > "$fs"
+
+        comm -23 "$fs" "$db"
+    }
+
+    pacmanallkeys() {
+        curl -s https://www.archlinux.org/people/{developers,trustedusers}/ | \
+            awk -F\" '(/pgp.mit.edu/) { sub(/.*search=0x/,""); print $1}' | \
+            xargs sudo pacman-key --recv-keys
+    }
+
+    pacmansignkeys() {
+        for key in $*; do
+            sudo pacman-key --recv-keys $key
+            sudo pacman-key --lsign-key $key
+            printf 'trust\n3\n' | sudo gpg --homedir /etc/pacman.d/gnupg \
+                                       --no-permission-warning --command-fd 0 --edit-key $key
+        done
+    }
+
+    unset PACMAN
+fi

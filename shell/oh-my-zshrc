@@ -65,9 +65,7 @@ case "$DISTRIBUTION" in
         plugins+=debian
         ;;
 
-    Arch|arch)
-        plugins+=archlinux
-        ;;
+    Arch|arch) ;;
 
     *)
         echo "Warning unknow distro: $DISTRIBUTION"
