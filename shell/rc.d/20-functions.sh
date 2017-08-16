@@ -30,7 +30,7 @@ function alex-desktop-init () {
         firefox
         canto-cursesl
         ec
-        nvidia-fan-curve.sh
+        # nvidia-fan-curve.sh
         discord
         keepassxc
         thunderbird
