@@ -9,3 +9,4 @@ alias help=run-help
 # zsh options
 setopt AUTO_CD EXTENDED_GLOB
 unsetopt share_history
+unsetopt inc_append_history
