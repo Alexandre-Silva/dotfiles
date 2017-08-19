@@ -2,6 +2,7 @@
 
 packages=(
     "pm:qbittorrent"
+    "pm:qbittorrent-nox"
 )
 
 links=()
