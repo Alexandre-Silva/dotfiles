@@ -120,7 +120,7 @@ if [[ "${DISTRIBUTION}" == Arch ]]; then
     alias pacrem="$PACMAN -Rns"
     alias pacrep="$PACMAN -Si"
     alias pacreps="$PACMAN -Ss"
-    alias pacrmorphans="$PACMAN -Rs $(pacman -Qtdq)"
+    alias pacrmorphans="$PACMAN"' -Rs $(pacman -Qtdq)'
     alias pacsu="$PACMAN -Syua --noconfirm"
     alias pacupd="$PACMAN -Sy"
     alias pacupg="$PACMAN -Syu"
@@ -132,8 +132,6 @@ if [[ "${DISTRIBUTION}" == Arch ]]; then
     }
 
     pacdisowned() {
-        emulate -L zsh
-
         tmp=${TMPDIR-/tmp}/pacman-disowned-$UID-$$
         db=$tmp/db
         fs=$tmp/fs
