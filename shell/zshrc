@@ -28,12 +28,7 @@ main() {
     # Machine local confs
     try_source ~/.zshrc_local
 
-    # If RC_HOOK is set, the variable will be executed as a shell command after loading of rc files.
-    if [ -n "$RC_HOOK" ]; then
-        __hook="$RC_HOOK"
-        unset RC_HOOK
-        $__hook
-    fi
+    return 0
 }
 
 profile_startuo() {
