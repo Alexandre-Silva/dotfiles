@@ -1,6 +1,11 @@
+#!/usr/env/env bash
+
 packages=()
 
-links=( {"$DOTFILES/bin/python/",$HOME"/.bin/"}temp2speed.py )
+links=(
+    {"$DOTFILES/bin/python/",$HOME"/.bin/"}temp2speed.py
+    {"$DOTFILES/bin/python/",$HOME"/.bin/"}parse_zsh_startup.py
+)
 
 while IFS= read -r -d '' file; do
     local link_name="$HOME/.bin/$(basename "$file")"

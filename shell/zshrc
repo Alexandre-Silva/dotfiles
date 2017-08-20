@@ -3,35 +3,59 @@
 # Only for interactive shells.
 [[ -o interactive ]] || exit 0
 
-# Auto-start TMUX when in SSH session.
-if hash tmux 2>/dev/null && [ "$SSH_CONNECTION" ] && [ -z "$TMUX" ]; then
-    tmux has-session -t ssh &>/dev/null && exec tmux attach -t ssh || exec tmux new -s ssh
-fi
+main() {
+    # Auto-start TMUX when in SSH session.
+    if hash tmux 2>/dev/null && [ "$SSH_CONNECTION" ] && [ -z "$TMUX" ]; then
+        tmux has-session -t ssh &>/dev/null && exec tmux attach -t ssh || exec tmux new -s ssh
+    fi
 
-# Function to run as sourced instead of normal executed shell script
-function adm() { source "$ADM/adm.sh" "$@" ; }
+    # Function to run as sourced instead of normal executed shell script
+    function adm() { source "$ADM/adm.sh" "$@" ; }
 
-# runs all setup's st_rc target
-adm rc --recursive "${DOTFILES}"
+    # runs all setup's st_rc target
+    adm rc --recursive "${DOTFILES}"
 
-# loads funcs, aliases and shell vars
-rc=$DOTFILES"/shell/rc.sh"
-[ -f "$rc" ] && . "$rc"
+    # loads funcs, aliases and shell vars
+    rc=$DOTFILES"/shell/rc.sh"
+    [ -f "$rc" ] && . "$rc"
 
-FRAMEWORK=oh-my-zsh
-case "${FRAMEWORK}" in
-    prezto) try_source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ;;
-    oh-my-zsh) try_source  "${DOTFILES}/shell/oh-my-zshrc" ;;
-esac
+    FRAMEWORK=oh-my-zsh
+    case "${FRAMEWORK}" in
+        prezto) try_source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ;;
+        oh-my-zsh) try_source  "${DOTFILES}/shell/oh-my-zshrc" ;;
+    esac
 
-# Machine local confs
-try_source ~/.zshrc_local
+    # Machine local confs
+    try_source ~/.zshrc_local
 
-# If RC_HOOK is set, the variable will be executed as a shell command after loading of rc files.
-if [ -n "$RC_HOOK" ]; then
-    __hook="$RC_HOOK"
-    unset RC_HOOK
-    $__hook
-fi
+    # If RC_HOOK is set, the variable will be executed as a shell command after loading of rc files.
+    if [ -n "$RC_HOOK" ]; then
+        __hook="$RC_HOOK"
+        unset RC_HOOK
+        $__hook
+    fi
+}
+
+profile_startuo() {
+    # http://zsh.sourceforge.net/Doc/Release/Prompt-Expansion.html
+    PS4=$'%D{%M%S%.} %N:%i> '
+    mkdir -p /tmp/zsh_profile
+    exec 3>&2 2>/tmp/zsh_profile/startup.$$.log
+    setopt xtrace prompt_subst
+
+    main || return 1
+
+    unsetopt xtrace
+    exec 2>&3 3>&-
+    for f in /tmp/zsh_profile/startup.*.log; do
+        echo $f
+        parse_zsh_startup.py $f
+        echo
+    done
+
+    return 0
+}
+
+main
 
 return 0
