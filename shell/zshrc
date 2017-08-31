@@ -9,6 +9,12 @@ main() {
         tmux has-session -t ssh &>/dev/null && exec tmux attach -t ssh || exec tmux new -s ssh
     fi
 
+    FRAMEWORK=oh-my-zsh
+    case "${FRAMEWORK}" in
+        prezto) try_source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ;;
+        oh-my-zsh) try_source  "${DOTFILES}/shell/oh-my-zshrc" ;;
+    esac
+
     # Function to run as sourced instead of normal executed shell script
     function adm() { source "$ADM/adm.sh" "$@" ; }
 
@@ -18,12 +24,6 @@ main() {
     # loads funcs, aliases and shell vars
     rc=$DOTFILES"/shell/rc.sh"
     [ -f "$rc" ] && . "$rc"
-
-    FRAMEWORK=oh-my-zsh
-    case "${FRAMEWORK}" in
-        prezto) try_source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ;;
-        oh-my-zsh) try_source  "${DOTFILES}/shell/oh-my-zshrc" ;;
-    esac
 
     # Machine local confs
     try_source ~/.zshrc_local

@@ -4,6 +4,7 @@ packages=(
     "pm:zsh"
     "pm:zsh-completions"
     "pm:zsh-doc"
+    "pm:zsh-syntax-highlighting"
 
     # For misc cmds/functions
     "pm:python-pyftpdlib"
