@@ -44,7 +44,7 @@ function alex-desktop-init () {
         $p &>>"$HOME/.log/$p.log" & disown
     done
 
-    alex-nvidia-config -130
+    # alex-nvidia-config -130
     xset m 1/1 0
 }
 
