@@ -88,9 +88,6 @@ function adm() { source "$ADM/adm.sh" "$@" ; }
 rc=$DOTFILES"/shell/rc.sh"
 [ -f "$rc" ] && . "$rc"
 
-# runs all setup's st_rc target
-adm rc --recursive "${DOTFILES}"
-
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
