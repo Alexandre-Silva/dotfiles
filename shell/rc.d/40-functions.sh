@@ -23,44 +23,8 @@ function alex-nvidia-config {
     nvidia-settings --assign "[gpu:0]/GPUMemoryTransferRateOffset[2]=$(( offset * 2 ))"
 }
 
-function alex-desktop-init () {
-    sleep 5
-
-    local progs=(
-        firefox
-        canto-cursesl
-        ec
-        # nvidia-fan-curve.sh
-        discord
-        keepassxc
-        thunderbird
-        qbittorrent
-        syncthing-gtk
-        steam
-    )
-
-    for p in "${progs[@]}"; do
-        echo "$p"
-        $p &>>"$HOME/.log/$p.log" & disown
-    done
-
-    # alex-nvidia-config -130
-    xset m 1/1 0
-}
-
-
 # show files whenever entering a dir
 function cd { builtin cd "$@" && ls; }
-
-
-# verifies if $1 existe in array on $2
-# in python it would be if $1 in $2; something
-containsElement ()
-{
-    local e
-    for e in "${@:2}"; do [[ "$e" == "$1" ]] && return 0; done
-    return 1
-}
 
 
 function pdfgrep.xargs () {
