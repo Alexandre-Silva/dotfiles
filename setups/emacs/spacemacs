@@ -79,23 +79,23 @@ values."
      alex
      ;; calfw
 
-     org
-     c-c++
      (python :variables
              python-test-runner 'pytest
              python-enable-yapf-format-on-save nil
              python-sort-imports-on-save nil)
+     c-c++
+     ;; elm
+     emacs-lisp
+     ;; ess ; R
+     ;; html
+     ;; javascript
      latex
      lua
-     ess ; R
+     markdown
+     org
      rust
      shell-scripts
-     elm
-     markdown
-     html
-     javascript
      systemd
-     emacs-lisp
      yaml
      )
 
