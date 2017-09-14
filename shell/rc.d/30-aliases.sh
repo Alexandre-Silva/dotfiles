@@ -99,12 +99,11 @@ alias ip="ip --color"
 ### Arch
 ### based on: https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/archlinux
 ################################################################################
-if [[ "${DISTRIBUTION}" == Arch ]]; then
+if hash pacman &>/dev/null; then
+    PACMAN='sudo pacman'
 
     if hash pacaur &>/dev/null; then
         PACMAN=pacaur
-    else
-        PACMAN='sudo pacman'
     fi
 
     alias pacfileupg="$PACMAN -Fy"
