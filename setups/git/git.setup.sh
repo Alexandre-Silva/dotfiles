@@ -44,4 +44,6 @@ st_rc() {
 
     alias gsb='git status -sb'
     alias gst='git status'
+
+    alias grh='git reset HEAD'
 }
