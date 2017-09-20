@@ -10,3 +10,6 @@
 [submodule "setups/awesome"]
 	path = setups/awesome
 	url = https://github.com/Alexandre-Silva/awesome-wm-config
+[submodule "shell/lib/fast-syntax-highlighting"]
+	path = shell/lib/fast-syntax-highlighting
+	url = https://github.com/zdharma/fast-syntax-highlighting
