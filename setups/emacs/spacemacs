@@ -428,35 +428,37 @@ layers configuration."
   ;; Org-mode stuff
   ;; more configs in alex/packages.el layer
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (with-eval-after-load 'org
 
-  (setq org-directory (expand-file-name "~/org"))
-  (setq org-default-notes-file (concat org-directory "/notes.org"))
+    (setq org-directory (expand-file-name "~/org"))
+    (setq org-default-notes-file (concat org-directory "/notes.org"))
 
-  (setq org-agenda-files (file-expand-wildcards "~/gtd/*.org"))
-  (setq org-agenda-files-exclude (file-expand-wildcards "~/gtd/*.data.org"))
-  (add-to-list 'org-agenda-files-exclude "~/gtd/Getting Started with Orgzly.org")
+    (setq org-agenda-files (file-expand-wildcards "~/gtd/*.org"))
+    (setq org-agenda-files-exclude (file-expand-wildcards "~/gtd/*.data.org"))
+    (add-to-list 'org-agenda-files-exclude "~/gtd/Getting Started with Orgzly.org")
 
-  ;; removing data.org files
-  (dolist (element org-agenda-files-exclude nil)
-    (setq org-agenda-files (delete element org-agenda-files)))
+    ;; removing data.org files
+    (dolist (element org-agenda-files-exclude nil)
+      (setq org-agenda-files (delete element org-agenda-files)))
 
-  ;;(setq org-agenda-files (delete '"~/gtd/reference.org" org-agenda-files))
+    ;;(setq org-agenda-files (delete '"~/gtd/reference.org" org-agenda-files))
 
-  (setq org-startup-indented nil)
+    (setq org-startup-indented nil)
 
-  (define-key global-map "\C-cc" 'org-capture)
-  (global-set-key (kbd "\C-ca") 'org-agenda)
+    (define-key global-map "\C-cc" 'org-capture)
+    (global-set-key (kbd "\C-ca") 'org-agenda)
 
 
-  ;; Adds "C-M-i" as the complete key in python mode/layer
-  (spacemacs|use-package-add-hook c
-    :post-config
-    (progn
-      (bind-key* (kbd "C-M-i") 'company-complete)))
-  (spacemacs|use-package-add-hook c++
-    :post-config
-    (progn
-      (bind-key* (kbd "C-M-i") 'company-complete)))
+    ;; Adds "C-M-i" as the complete key in python mode/layer
+    (spacemacs|use-package-add-hook c
+      :post-config
+      (progn
+        (bind-key* (kbd "C-M-i") 'company-complete)))
+    (spacemacs|use-package-add-hook c++
+      :post-config
+      (progn
+        (bind-key* (kbd "C-M-i") 'company-complete)))
+  )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Evil binds
