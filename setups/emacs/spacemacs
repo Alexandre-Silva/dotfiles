@@ -72,6 +72,7 @@ values."
                                                         "/ycmd")))
      gtags
      ;; version-control
+     ;; git
 
      themes-megapack
      shell
@@ -357,6 +358,7 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+
   )
 
 (defun dotspacemacs/user-config ()
@@ -462,7 +464,7 @@ layers configuration."
         (bind-key* (kbd "C-M-i") 'company-complete)))
 
     (load "config-org")
-  )
+    )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Evil binds
@@ -487,14 +489,14 @@ layers configuration."
   (setq TeX-view-program-list
         '(("Okular" "okular --unique %o#src:%n%b") ;; update to "okular --unique %o#src:%n`pwd`/./%b"
           ("Skim" "displayline -b -g %n %o %b")
-          ("Zathura" "zathura-sync %n:1:%b %o")
+          ;; ("Zathura" "zathura-sync %n:1:%b %o")
           ("zathura"
-          ("zathura" (mode-io-correlate "-sync")
+           ("zathura" (mode-io-correlate "-sync")
             " "
             (mode-io-correlate "%n:1:%b ")
             "%o"))))
 
-
+  (add-hook 'LaTeX-mode-hook (lambda () (spacemacs/toggle-spelling-checking-on)))
 
   (cond
    ((spacemacs/system-is-linux) (setq TeX-view-program-selection '((output-pdf "Zathura")))))
