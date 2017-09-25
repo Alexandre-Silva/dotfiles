@@ -54,3 +54,6 @@ linenumber = green
 separator = yellow
 function = blue
 branch = auto
+
+[diff "pandoc2md"]
+    textconv=pandoc --to=markdown
