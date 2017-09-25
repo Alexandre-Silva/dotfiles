@@ -4,6 +4,7 @@ packages=(
     'pm:mesa'
     'pm:lib32-mesa '
     'pm:xf86-video-amdgpu'
+    'om:xf86-video-ati'
     'aur:radeon-profile-git' # details, overclocking and fan control
 
     # for hardware acceleration stuff see: https://wiki.archlinux.org/index.php/Hardware_video_acceleration
