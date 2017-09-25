@@ -76,7 +76,6 @@ values."
      themes-megapack
      shell
 
-     alex
      ;; calfw
 
      (python :variables
@@ -365,6 +364,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
 
+  ;; Personal config files
+  (add-to-list 'load-path (concat (getenv "DOTFILES") "/setups/emacs/el.d/"))
+
   ;; spacemacs
   (setq-default evil-escape-key-sequence "zm")
 
@@ -458,6 +460,8 @@ layers configuration."
       :post-config
       (progn
         (bind-key* (kbd "C-M-i") 'company-complete)))
+
+    (load "config-org")
   )
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
