@@ -56,4 +56,11 @@ function = blue
 branch = auto
 
 [diff "pandoc2md"]
-    textconv=pandoc --to=markdown
+  textconv=pandoc --to=markdown
+
+[diff "spreadsheet2csv"]
+  textconv=spreadsheet2csv
+  cachetextconv=true
+
+[diff "color"]
+  textconv=pygmentize

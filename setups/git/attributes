@@ -1,0 +1,20 @@
+* text=auto !eol
+
+*.txt text
+*.md  text
+
+# empty file used to track directories
+*/.placeholder -text
+
+*.pdf  -text -diff
+*.STEP -text -diff
+
+*.xls  -text diff=spreadsheet2csv
+*.xlsx -text diff=spreadsheet2csv
+*.xlsm -text diff=spreadsheet2csv
+*.ods  -text diff=spreadsheet2csv
+
+*.rtf  -text diff=pandoc2md
+*.docx -text diff=pandoc2md
+*.doc  -text diff=pandoc2md
+*.odt  -text diff=pandoc2md

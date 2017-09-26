@@ -1,10 +1,11 @@
 packages=(
     "pm:git"
+    "pm:pygmentize"
 )
 
 links=(
-    {"$DOTFILES/setups/git/",$HOME/.}gitconfig
-    {"$DOTFILES/setups/git/",$HOME/.}gitignore_global
+    "$DOTFILES"/setups/git/ $HOME/.config/git
+    "$DOTFILES"/setups/git/spreadsheet2csv $HOME/.bin/spreadsheet2csv
 )
 
 st_profile() {

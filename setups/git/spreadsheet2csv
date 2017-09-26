@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+IFS=$'\n\t'
+
+main () {
+    local filepath="${1}"
+    local filename="$(basename "${1}")"
+    local tmpdir="/tmp/soffice${UID}"
+
+    mkdir --parents "${tmpdir}"
+    soffice --headless --convert-to csv "${filepath}" --outdir "${tmpdir}" &>/dev/null
+    cat "${tmpdir}/${filename%.*}.csv"
+    rm "${filepath}" # clean-up
+}
+
+main "$@"
