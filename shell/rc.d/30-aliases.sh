@@ -61,6 +61,7 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias slFE="while true; do sl;done"
 
 #trash-cli
+alias tp=trash-put
 alias th-put=trash-put
 alias th-list=trash-list
 alias th-trash=restore-trash
