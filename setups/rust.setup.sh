@@ -10,6 +10,7 @@ links=()
 
 st_install() {
     rustup default stable
+    rustup completions zsh > ~/.zfunctions/_rustup
 }
 
 st_profile() {
