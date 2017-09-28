@@ -1,0 +1,11 @@
+[Unit]
+Description=Radicale server
+After=syslog.target network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/radicale -f
+User=%i
+
+[Install]
+WantedBy=multi-user.target
