@@ -1,11 +1,16 @@
 #!/usr/bin/bash
 
 packages=(
-    "pm:rust"{,fmt,-docs,-racer}
+    "pm:rustup"
+    "pm:rust"{fmt,-docs,-racer}
     "aur:rust-src"
 )
 
 links=()
+
+st_install() {
+    rustup default stable
+}
 
 st_profile() {
     export RUST_SRC_PATH="/usr/src/rust/src"
