@@ -111,6 +111,7 @@ values."
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
                                     ess-R-object-popup
+                                    org-projectile
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
@@ -366,6 +367,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
 
+  ;; FIX for helm-bookmark-map is void
+  ;; see: https://github.com/syl20bnr/spacemacs/issues/9549
+  (require 'helm-bookmark)
+
   ;; Personal config files
   (add-to-list 'load-path (concat (getenv "DOTFILES") "/setups/emacs/el.d/"))
 
@@ -430,7 +435,6 @@ layers configuration."
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Org-mode stuff
-  ;; more configs in alex/packages.el layer
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (with-eval-after-load 'org
 
@@ -452,19 +456,22 @@ layers configuration."
     (define-key global-map "\C-cc" 'org-capture)
     (global-set-key (kbd "\C-ca") 'org-agenda)
 
-
-    ;; Adds "C-M-i" as the complete key in python mode/layer
-    (spacemacs|use-package-add-hook c
-      :post-config
-      (progn
-        (bind-key* (kbd "C-M-i") 'company-complete)))
-    (spacemacs|use-package-add-hook c++
-      :post-config
-      (progn
-        (bind-key* (kbd "C-M-i") 'company-complete)))
-
     (load "config-org")
     )
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Auto-comple layer
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;; Adds "C-M-i" as the complete key in python mode/layer
+  (spacemacs|use-package-add-hook c
+    :post-config
+    (progn
+      (bind-key* (kbd "C-M-i") 'company-complete)))
+  (spacemacs|use-package-add-hook c++
+    :post-config
+    (progn
+      (bind-key* (kbd "C-M-i") 'company-complete)))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Evil binds
