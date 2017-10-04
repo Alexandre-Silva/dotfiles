@@ -367,9 +367,9 @@ before packages are loaded. If you are unsure, you should try in setting them in
  This function is called at the very end of Spacemacs initialization after
 layers configuration."
 
-  ;; FIX for helm-bookmark-map is void
-  ;; see: https://github.com/syl20bnr/spacemacs/issues/9549
-  (require 'helm-bookmark)
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; Overall
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
   ;; Personal config files
   (add-to-list 'load-path (concat (getenv "DOTFILES") "/setups/emacs/el.d/"))
@@ -427,11 +427,25 @@ layers configuration."
   ;; associate file extensions with modes
   (add-to-list 'auto-mode-alist '("\\PKGBUILD\\'" . shell-script-mode))
 
+  (setq hs-special-modes-alist
+        (cons '(lua-mode "{{{" "}}}" "/[*/]" nil nil)
+              hs-special-modes-alist))
+
+  ;;automatically save (without asking) before you compile or recompile.
+  (setq compilation-ask-about-save nil)
+
+  (dolist (hook '(LaTeX-mode-hook org-mode-hook))
+    (add-hook hook (lambda () (spacemacs/toggle-spelling-checking-on))))
+
   ;; themes-megapack bug workaroung
   ;; when starting emacs usign emaclient themes-megapack incorrectly sets the font size
   ;; (set-terminal-parameter nil 'background-mode 'dark)
   ;; (set-frame-parameter nil 'background-mode 'dark)
   ;; (spacemacs/load-theme 'zenburn)
+
+  ;; FIX for helm-bookmark-map is void
+  ;; see: https://github.com/syl20bnr/spacemacs/issues/9549
+  (require 'helm-bookmark)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Org-mode stuff
@@ -503,8 +517,6 @@ layers configuration."
             (mode-io-correlate "%n:1:%b ")
             "%o"))))
 
-  (add-hook 'LaTeX-mode-hook (lambda () (spacemacs/toggle-spelling-checking-on)))
-
   (cond
    ((spacemacs/system-is-linux) (setq TeX-view-program-selection '((output-pdf "Zathura")))))
 
@@ -545,17 +557,6 @@ layers configuration."
   (add-hook 'realgud-short-key-mode-hook
             (lambda ()
               (spacemacs/set-leader-keys "or" realgud:shortkey-mode-map)))
-
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  ;; Misc
-  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (setq hs-special-modes-alist
-        (cons '(lua-mode "{{{" "}}}" "/[*/]" nil nil)
-              hs-special-modes-alist))
-
-  ;;automatically save (without asking) before you compile or recompile.
-  (setq compilation-ask-about-save nil)
-
 
   )
 
