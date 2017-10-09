@@ -8,6 +8,9 @@ packages=(
     # For misc cmds/functions
     "pm:python-pyftpdlib"
     "pm:trash-cli"
+
+    # better find
+    "aur:fd-rs"
 )
 
 
