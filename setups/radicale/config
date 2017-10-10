@@ -33,13 +33,13 @@ hosts = 0.0.0.0:5232
 #timeout = 10
 
 # SSL flag, enable HTTPS protocol
-#ssl = False
+ssl = True
 
 # SSL certificate path
-#certificate = /etc/ssl/radicale.cert.pem
+certificate = /etc/ssl/private/radicale.cert.pem
 
 # SSL private key
-#key = /etc/ssl/radicale.key.pem
+key = /etc/ssl/private/radicale.key.pem
 
 # CA certificate for validating clients. This can be used to secure
 # TCP traffic between Radicale and a reverse proxy
