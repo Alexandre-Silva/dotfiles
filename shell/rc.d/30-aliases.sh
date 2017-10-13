@@ -66,8 +66,8 @@ alias th-trash=restore-trash
 alias th-empty=trash-empty
 
 # Misc servers
-alias server.http='python3 -m http.server'
-alias server.ftp='python3 -m pyftpdlib -w'
+alias server.http='python -m http.server'
+alias server.ftp='python -m pyftpdlib -w'
 alias server.vnc='x11vnc -forever -nopw -display $DISPLAY'
 
 ################################################################################
