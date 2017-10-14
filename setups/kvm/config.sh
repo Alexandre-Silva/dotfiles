@@ -6,6 +6,8 @@
 # modprobe.d/vfio.conf - bind kernel module to graphics card
 # mkinitcpio.conf - has configs for forcing the correct module load order
 
+# add user to input and kvm group
+
 packages=(
     qemu libvirt ovmf # The VM and shit
     virt-manager      # Desktop user interface for managing virtual machines
