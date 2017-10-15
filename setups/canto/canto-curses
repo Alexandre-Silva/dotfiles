@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+LC_ALL=$LANG /usr/bin/canto-curses
