@@ -17,7 +17,7 @@ packages=(
     "pm:jedi"                 # Python Auto-complete related deps
     # "pip:json-rpc"
     # "pip:service_factory"
-    "pm:python-pytest"{,-cov} # PyTest module
+    "pm:python-pytest"{,-cov,-xdist} # PyTest module, coverage and parallel test plugin
 
     # ycmd-layer
     "pm:clang-tools-extra"
