@@ -62,6 +62,7 @@ done
 
 # 17. Copy to clipboard
 cat file.txt | xclip -selection clipboard
+
 # 18. Spell and grammar check in Latex
 # You may need to install the following: sudo apt-get install diction texlive-extra-utils
 detex file.tex | diction -bs
