@@ -50,7 +50,7 @@ function install-dotfiles {
     echo "---- Fetching dotfiles"
 
     if [[ -d ${DOTFILES} ]]; then
-        echo "----- ${DOTFILES} dir already exists. Assuming it's the correct latest one and skyping."
+        echo "----- ${DOTFILES} dir already exists. Assuming it's the correct latest one and skipping."
     else
         git clone --recursive --progress ${DOTFILES_REPO} ${DOTFILES}
     fi
