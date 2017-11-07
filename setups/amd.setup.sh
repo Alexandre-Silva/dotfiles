@@ -1,20 +1,18 @@
 #!/usr/bin/env bash
 
+depends=( "${ADM_DIR}/hardware_acceleration.setup.sh" )
+
 packages=(
     'pm:mesa'
-    'pm:lib32-mesa '
+    'pm:lib32-mesa'
     'pm:xf86-video-amdgpu'
     'om:xf86-video-ati'
     'aur:radeon-profile-git' # details, overclocking and fan control
 
-    # for hardware acceleration stuff see: https://wiki.archlinux.org/index.php/Hardware_video_acceleration
-    'pm:libva-mesa-driver'
-    'pm:vdpauinfo'
+    # hardware accel stuff
     'pm:mesa-vdpau'
     'pm:lib32-mesa-vdpau'
 
-    'pm:libva-vdpau-driver'
-    'pm:libva-utils'
 )
 
 pm_profile() {
