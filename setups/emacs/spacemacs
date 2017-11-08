@@ -444,10 +444,6 @@ layers configuration."
   ;; (set-frame-parameter nil 'background-mode 'dark)
   ;; (spacemacs/load-theme 'zenburn)
 
-  ;; FIX for helm-bookmark-map is void
-  ;; see: https://github.com/syl20bnr/spacemacs/issues/9549
-  (require 'helm-bookmark)
-
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Org-mode stuff
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
