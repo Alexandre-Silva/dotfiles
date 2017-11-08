@@ -14,7 +14,7 @@ packages=(
     "pm:python-pylint"        # A Python source code analyzer which looks for
                               # programming errors, helps enforcing a coding
                               # standard and sniffs for some code smells
-    "pm:jedi"                 # Python Auto-complete related deps
+    "pm:python-jedi"          # Python Auto-complete related deps
     # "pip:json-rpc"
     # "pip:service_factory"
     "pm:python-pytest"{,-cov,-xdist} # PyTest module, coverage and parallel test plugin
