@@ -105,6 +105,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '(
                                       realgud
+                                      atomic-chrome
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -558,6 +559,10 @@ layers configuration."
             (lambda ()
               (spacemacs/set-leader-keys "or" realgud:shortkey-mode-map)))
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; atomic-chrome: emacs plugin for GhostText for Firefox
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (atomic-chrome-start-server)
   )
 
 (custom-set-faces
