@@ -1,10 +1,12 @@
 #!/usr/bin/bash
 
-packages=(
-    "pm:firefox"
-)
+__FF_HOME=( ~/.mozilla/firefox/*.default )
+if [ -e "${__FF_HOME}" ]; then
+    packages=(
+        "pm:firefox"
+    )
 
-links=(
-    /usr/share/gtags/gtags.conf $HOME/.globalrc
-    "${ADM_DIR}/userChrome.css" ~/.mozilla/firefox/*.default/chrome/userChrome.css
-)
+    links=(
+        "${ADM_DIR}/userChrome.css" "${__FF_HOME}/chrome/userChrome.css"
+    )
+fi
