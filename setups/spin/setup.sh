@@ -1,5 +1,9 @@
 #!/usr/bin/bash
 
+## NOTICE ##
+# spinSpider related code comes from:
+# https://code.google.com/archive/p/jspin/
+
 packages=(
     "aur:spin"
 )
