@@ -9,8 +9,8 @@ packages=(
     "pm:python-pyftpdlib"
     "pm:trash-cli"
 
-    # better find
-    "aur:fd-rs"
+    "aur:fd-rs" # better find
+    "aur:entr"  # executed cmd on file changes
 )
 
 

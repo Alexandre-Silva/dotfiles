@@ -57,40 +57,10 @@ man() {
 
 # When a change to the monitored files is detected the command passed as argument is executed
 # Example: inotifyexec ./foo.txt -- cat ./foo.txt
+# Depreacated in favor of entr
 function inotifyexec() {
-    local args=("$@")
-
-    local i=1;
-    for arg in "${args[@]}"; do
-        [[ "$arg" == '--' ]] && break
-        (( i += 1 ))
-    done
-
-    local files=("${args[@]:0:(( $i - 1 ))}")
-    local cmd=("${args[@]:$i}")
-
-    if (( ${#cmd[@]} == 0 )); then
-        echo "ERROR: no files provided"
-        return
-    fi
-
-    if (( ${#files[@]} == 0 )); then
-        echo "ERROR: no files provided"
-        return
-    fi
-
-    stdbuf -oL inotifywait "${files[@]}" \
-           --event modify \
-           --monitor \
-           --recursive |
-        while IFS= read -r line
-        do
-            echo "Inotify: $line"
-            echo "Executing: ${cmd[*]}"
-            echo
-
-            ( "${cmd[@]}" )
-        done
+    echo "Use entr instead!!!"
+    exit 1
 }
 
 
