@@ -3,7 +3,7 @@
 ################################################################################
 ### User
 ################################################################################
-function alex-init () {
+alex-init() {
     local progs=(
         thunderbird
         firefox
@@ -17,17 +17,17 @@ function alex-init () {
     done
 }
 
-function alex-nvidia-config {
+alex-nvidia-config() {
     local offset="$1"
     nvidia-settings --assign "[gpu:0]/GPUGraphicsClockOffset[2]=${offset}"
     nvidia-settings --assign "[gpu:0]/GPUMemoryTransferRateOffset[2]=$(( offset * 2 ))"
 }
 
 # show files whenever entering a dir
-function cd { builtin cd "$@" && ls; }
+cd() { builtin cd "$@" && ls; }
 
 
-function pdfgrep.xargs () {
+pdfgrep.xargs() {
     local args=("$@")
 
     if [ ${#args} -ne 2 ] ; then
@@ -58,7 +58,7 @@ man() {
 # When a change to the monitored files is detected the command passed as argument is executed
 # Example: inotifyexec ./foo.txt -- cat ./foo.txt
 # Depreacated in favor of entr
-function inotifyexec() {
+inotifyexec() {
     echo "Use entr instead!!!"
     exit 1
 }
@@ -79,7 +79,7 @@ fuck() {
 ################################################################################
 
 # Get current host related info.
-function ii(){
+ii() {
     &>/dev/null hash grc && local g=grc
 
     echo -e "\nYou are logged on ${BRed}$(hostname)"
