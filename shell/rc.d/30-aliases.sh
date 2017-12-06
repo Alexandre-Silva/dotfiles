@@ -94,6 +94,8 @@ alias du="du --human-readable"
 
 alias ip="ip --color"
 
+alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
+
 ################################################################################
 ### Arch
 ### based on: https://github.com/robbyrussell/oh-my-zsh/tree/master/plugins/archlinux
