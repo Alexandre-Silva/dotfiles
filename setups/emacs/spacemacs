@@ -40,7 +40,6 @@ values."
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     helm
      (spell-checking :variables spell-checking-enable-by-default nil)
      (syntax-checking :variables syntax-checking-enable-by-default t)
      (auto-completion :variables
@@ -70,6 +69,7 @@ values."
      (ycmd :variables ycmd-server-command (list "python2"
                                                 (concat (getenv "YCMD_HOME")
                                                         "/ycmd")))
+     helm
      gtags
      ;; version-control
      ;; git
@@ -97,6 +97,7 @@ values."
      shell-scripts
      systemd
      yaml
+     html
      )
 
    ;; List of additional packages that will be installed without being
