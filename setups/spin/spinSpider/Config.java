@@ -8,21 +8,21 @@ public class Config {
     static final String VERSION = "6.0";
 
     // Properties data structure is used for command names
-    // Initialize properties from file or create file or from defaults 
+    // Initialize properties from file or create file or from defaults
     static final String CONFIG_FILE = "config.cfg";
-	public static final String[] names = { "", "-trail-1", "-trail-2", "-automata" }; 
+	public static final String[] names = { "", "-trail-1", "-trail-2", "-automata" };
 
     static public void setDefaultProperties(
     		java.util.Properties properties) {
       // Spin version: format changed with Spin 6
       properties.put("VERSION", "6");
 
-    	properties.put("C_COMPILER", "c:\\mingw\\bin\\gcc.exe");
-    	properties.put("SPIN",       "bin\\spin.exe");
-    	properties.put("PAN",        "pan.exe");
-    	properties.put("DOT",        "bin\\dot.exe");
+    	properties.put("C_COMPILER", "gcc");
+    	properties.put("SPIN",       "spin");
+    	properties.put("PAN",        "pan");
+    	properties.put("DOT",        "dot");
     }
-    
+
     static public void init(java.util.Properties properties) {
     	setDefaultProperties(properties);
     	try {
@@ -36,8 +36,8 @@ public class Config {
     static final int INITIAL = 100;	      // For ArrayLists
     static final int DELTA = 1000;        // For node offset in automata
 
-    static final String TITLE = 
-    	"SpinSpider Version " + VERSION + 
+    static final String TITLE =
+    	"SpinSpider Version " + VERSION +
         " Copyright 2005-7 (GNU GPL) by Moti Ben-Ari.";
 
     static final String USAGE =
@@ -59,18 +59,18 @@ public class Config {
     static final String dotTrailBold  = " style = bold";
     static final String dotTrailColor = " color = red";
 
-    static final String[] smallDotPrologue = { 
+    static final String[] smallDotPrologue = {
         "\tgraph [size=\"12.5,7.5\",ranksep=.20];",
         "\tnode [shape=box,fontname=Helvetica,fontsize=10];",
         "\tnode [width=1.25,height=0.75,fixedsize=true];"
     };
 
-    static final String[] largeDotPrologue = { 
+    static final String[] largeDotPrologue = {
         "\tgraph [size=\"16,12\",ranksep=.25];",
         "\tnode [shape=box,fontname=Helvetica,fontsize=14];",
         "\tnode [width=1.6,height=1.2,fixedsize=true];"
     };
-    static final String[] automataDotPrologue = { 
+    static final String[] automataDotPrologue = {
         "\tgraph [size=\"16,12\",ranksep=.4];",
         "\tnode [shape=circle,fontname=Helvetica,fontsize=14];",
         "\tedge [fontname=Helvetica,fontsize=14];"

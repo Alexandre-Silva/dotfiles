@@ -3,7 +3,7 @@ set -euo pipefail
 IFS=$'\n\t'
 
 main() {
-    java -cp "${DOTFILES}/setups/spin" spinSpider.SpinSpider
+    java -cp "${DOTFILES}/setups/spin" spinSpider.SpinSpider "$@"
 }
 
 main "$@"
