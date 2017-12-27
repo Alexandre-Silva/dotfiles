@@ -98,6 +98,7 @@ values."
      systemd
      yaml
      html
+     docker
      )
 
    ;; List of additional packages that will be installed without being
