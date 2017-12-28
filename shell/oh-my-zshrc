@@ -52,7 +52,6 @@ plugins=(
     git-super-prompt
     gradle
     svn
-    pyenv
 )
 
 [[ -x /usr/bin/tmux ]] && pluggins+=(tmux)
