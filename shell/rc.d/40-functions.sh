@@ -24,7 +24,7 @@ alex-nvidia-config() {
 }
 
 # show files whenever entering a dir
-cd() { builtin cd "$@" && ls; }
+# cd() { builtin cd "$@" && ls; }
 
 
 pdfgrep.xargs() {
