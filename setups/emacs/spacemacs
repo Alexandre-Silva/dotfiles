@@ -66,9 +66,7 @@ values."
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-sort-by-usage nil)
 
-     (ycmd :variables ycmd-server-command (list "python2"
-                                                (concat (getenv "YCMD_HOME")
-                                                        "/ycmd")))
+     (ycmd :variables ycmd-server-command (list "python2" (concat (getenv "YCMD_HOME") "/ycmd")))
      helm
      gtags
      ;; version-control
@@ -83,7 +81,7 @@ values."
              python-test-runner 'pytest
              python-enable-yapf-format-on-save nil
              python-sort-imports-on-save nil)
-     c-c++
+     (c-c++ :variables c-c++-enable-clang-support t)
      ;; elm
      emacs-lisp
      ;; ess ; R
@@ -536,10 +534,10 @@ layers configuration."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; YCMD
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (spacemacs|use-package-add-hook c
-    :post-config
-    (company-ycmd-setup))
-  (add-hook 'c-mode-hook 'ycmd-mode)
+  ;; (spacemacs|use-package-add-hook c
+  ;;   :post-config
+  ;;   (company-ycmd-setup))
+  ;; (add-hook 'c-mode-hook 'ycmd-mode)
   ;; c++ mode should already have this
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -556,6 +554,7 @@ layers configuration."
   (add-hook 'realgud-short-key-mode-hook
             (lambda ()
               (spacemacs/set-leader-keys "or" realgud:shortkey-mode-map)))
+  (setq realgud-safe-mode nil)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; atomic-chrome: emacs plugin for GhostText for Firefox
