@@ -36,7 +36,6 @@ values."
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ;; git
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -97,6 +96,7 @@ values."
      yaml
      html
      docker
+     git
      )
 
    ;; List of additional packages that will be installed without being
@@ -560,6 +560,12 @@ layers configuration."
   ;; atomic-chrome: emacs plugin for GhostText for Firefox
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (atomic-chrome-start-server)
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; atomic-chrome: emacs plugin for GhostText for Firefox
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (global-git-commit-mode t) ;; Use Spacemacs as =$EDITOR= for editing git commits messages
+
   )
 
 (custom-set-faces
