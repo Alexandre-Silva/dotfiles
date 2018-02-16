@@ -5,8 +5,8 @@
 # This implements a lightweight remote sync based around rsync to a remote
 # server, or copying to mounted filesystem, etc.
 
-# ENABLED = False
-ENABLED = True
+ENABLED = False
+# ENABLED = True
 
 # SSH
 # For ssh based rsync (remote hosts) you should have key authentication setup
