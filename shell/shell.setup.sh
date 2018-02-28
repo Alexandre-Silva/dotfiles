@@ -8,8 +8,7 @@ packages=(
     # For misc cmds/functions
     "pm:python-pyftpdlib"
     "pm:trash-cli"
-
-    "aur:fd-rs" # better find
+    "pm:fd" # better find
     "aur:entr"  # executed cmd on file changes
 )
 
