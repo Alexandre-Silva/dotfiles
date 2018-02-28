@@ -7,8 +7,8 @@ set -e
 
 BASE_PACKAGES=( git )
 DOTFILES_REPO="https://github.com/Alexandre-Silva/dotfiles"
-DOTFILES="${HOME}/dotfiles"
-ADM="${DOTFILES}/shell/lib/ADM"
+export DOTFILES="${HOME}/dotfiles"
+export ADM="${DOTFILES}/shell/lib/ADM"
 
 
 ################################################################################
@@ -62,12 +62,8 @@ function install-dotfiles {
 function install-adm-base {
     echo "---- Installing base setup.sh and links"
 
-    set +e
-
     adm install "${DOTFILES}/shell/shell.setup.sh"
     adm link
-
-    chsh
 
     echo "---- Done"
     echo ""
