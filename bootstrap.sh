@@ -3,12 +3,11 @@
 ################################################################################
 ## CONFIGS
 ################################################################################
-set -e
 
 BASE_PACKAGES=( git )
 DOTFILES_REPO="https://github.com/Alexandre-Silva/dotfiles"
-export DOTFILES="${HOME}/dotfiles"
-export ADM="${DOTFILES}/shell/lib/ADM"
+[ -z "$DOTFILES" ] && export DOTFILES="${HOME}/dotfiles"
+[ -z "$ADM" ]      && export ADM="${DOTFILES}/shell/lib/ADM"
 
 
 ################################################################################
