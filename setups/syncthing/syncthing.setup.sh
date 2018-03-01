@@ -1,6 +1,6 @@
 #!/bin/bash
 
-packages=( "pm:syncthing"{,-gtk,-inotify} )
+packages=( "pm:syncthing"{,-gtk} )
 
 __config="${XDG_CONFIG_HOME:-$HOME/.config}"
 links=(
