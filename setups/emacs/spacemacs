@@ -433,8 +433,11 @@ layers configuration."
         (cons '(lua-mode "{{{" "}}}" "/[*/]" nil nil)
               hs-special-modes-alist))
 
-  ;;automatically save (without asking) before you compile or recompile.
+  ;; automatically save (without asking) before you compile or recompile.
   (setq compilation-ask-about-save nil)
+
+  ;; Always follow symbolinc link to git-controlled source files
+  (setq vc-follow-symlinks t)
 
   (dolist (hook '(LaTeX-mode-hook org-mode-hook))
     (add-hook hook (lambda () (spacemacs/toggle-spelling-checking-on))))
