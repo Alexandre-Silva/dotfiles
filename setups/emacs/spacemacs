@@ -73,6 +73,7 @@ values."
 
      themes-megapack
      shell
+     (elfeed :variables rmh-elfeed-org-files (list "~/dotfiles_private/emacs/elfeeds.org"))
 
      ;; calfw
 
