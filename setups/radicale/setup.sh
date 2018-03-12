@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 packages=(
-    'aur:radicale'
+    'pm:radicale'
 
     # options
     'pm:python-passlib'
