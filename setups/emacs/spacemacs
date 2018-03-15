@@ -363,6 +363,13 @@ executes.
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
 
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; markdown-mode
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (spacemacs|use-package-add-hook flyspell
+    :pre-init
+    (add-hook 'markdown-mode-hook 'spacemacs/toggle-spelling-checking-on))
+
   )
 
 (defun dotspacemacs/user-config ()
