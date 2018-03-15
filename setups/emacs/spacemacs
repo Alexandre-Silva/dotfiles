@@ -449,6 +449,9 @@ layers configuration."
   ;; (set-frame-parameter nil 'background-mode 'dark)
   ;; (spacemacs/load-theme 'zenburn)
 
+
+  (setq default-tab-width 4)
+
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Org-mode stuff
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
