@@ -4,17 +4,15 @@
 ### User
 ################################################################################
 alex-init() {
-    local progs=(
-        thunderbird
-        firefox
-        keepassxc
-        canto-cursesl
-    )
+    function Arun() {
+        echo Runnning: "$@"
+        "$@" &>>"$HOME/.log/$1.log" & disown
+    }
 
-    for p in "${progs[@]}"; do
-        echo $p
-        $p &>>"$HOME/.log/$p.log" & disown
-    done
+    Arun thunderbird
+    Arun firefox
+    Arun keepassxc
+    Arun keepassxc
 }
 
 alex-nvidia-config() {
