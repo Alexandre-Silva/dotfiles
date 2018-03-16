@@ -14,3 +14,5 @@ for f in $DOTFILES"/shell/rc.d/"* ; do
         *) echo -2 "Invalid extension for file:$f"        ;;
     esac
 done
+
+return 0
