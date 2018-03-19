@@ -1,6 +1,7 @@
 packages=(
     "pm:git"
     "pm:pygmentize"
+    "pm:diff-so-fancy"
 )
 
 links=(

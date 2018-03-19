@@ -1,30 +1,31 @@
 [user]
-name = Alexandre-Silva
-email = alexandre.simoesilva@gmail.com
+	name = Alexandre-Silva
+	email = alexandre.simoesilva@gmail.com
 
 [status]
-submoduleSummary = true
+	submoduleSummary = true
 
 [diff]
-submodule = log
+	submodule = log
 
 [core]
-excludesfile = ~/.gitignore_global
-editor = vi # fallback, by default uses $GIT_EDITOR
+	excludesfile = ~/.gitignore_global
+	editor = vi # fallback, by default uses $GIT_EDITOR
+	pager = diff-so-fancy | less --tabs=4 -RFX
 
 [merge]
-tool = kdiff3
-conflictstyle = diff3
+	tool = kdiff3
+	conflictstyle = diff3
 
 [push]
-default = simple
+	default = simple
 
 [pull]
-rebase = preserve
+	rebase = preserve
 
 # Allow local customizations in the .gitconfig_local file
 [include]
-path = ~/.gitconfig_local
+	path = ~/.gitconfig_local
 
 [alias]
 	spull   = "! __git_spull() { git pull \"$@\" && git submodule sync --recursive && git submodule update --init --recursive; }; __git_spull"
@@ -37,30 +38,44 @@ path = ~/.gitconfig_local
 	staaash = stash --all
 
 [color]
-ui = auto
-status = auto
-diff = auto
-interactive = auto
+	ui = true
+	status = auto
+	diff = auto
+	interactive = auto
 
 [grep]
-lineNumber = true
+	lineNumber = true
 
 [color "grep"]
-match = cyan bold
-selected = blue
-context = normal
-filename = magenta
-linenumber = green
-separator = yellow
-function = blue
-branch = auto
+	match = cyan bold
+	selected = blue
+	context = normal
+	filename = magenta
+	linenumber = green
+	separator = yellow
+	function = blue
+	branch = auto
 
 [diff "pandoc2md"]
-  textconv=pandoc --to=markdown
+	textconv=pandoc --to=markdown
 
 [diff "spreadsheet2csv"]
-  textconv=spreadsheet2csv
-  cachetextconv=true
+	textconv=spreadsheet2csv
+	cachetextconv=true
 
 [diff "color"]
-  textconv=pygmentize
+	textconv=pygmentize
+
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
