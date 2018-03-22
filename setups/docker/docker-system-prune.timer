@@ -2,6 +2,7 @@
 Description=Run docker system prune weekly
 
 [Timer]
+RandomizedDelaySec=1h
 OnCalendar=monthly
 Persistent=true
 
