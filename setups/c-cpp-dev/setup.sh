@@ -2,8 +2,8 @@
 
 packages=(
     "pm:clang"
-    "pm:clang-tools-extra"
     "pm:llvm"
+    "pm:cmake"
 )
 
 links=(

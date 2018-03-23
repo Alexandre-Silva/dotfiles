@@ -20,7 +20,6 @@ packages=(
     "pm:python-pytest"{,-cov,-xdist} # PyTest module, coverage and parallel test plugin
 
     # ycmd-layer
-    "pm:clang-tools-extra"
     "pm:cmake"                # for ycmd
     "aur:vim-youcompleteme-git"
 
