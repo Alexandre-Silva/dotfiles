@@ -115,6 +115,7 @@ values."
    dotspacemacs-excluded-packages '(
                                     ess-R-object-popup
                                     org-projectile
+                                    savehist
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
    ;; Possible values are `used-only', `used-but-keep-unused' and `all'.
