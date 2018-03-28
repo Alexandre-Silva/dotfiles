@@ -107,19 +107,19 @@ if hash pacman &>/dev/null; then
         PACMAN=pacaur
     fi
 
-    alias pacfileupg="$PACMAN -Fy"
+    alias pacfileupg="$PACMAN -F --refresh"
     alias pacin="$PACMAN -S"
     alias pacins="$PACMAN -U"
     alias pacinsd="$PACMAN -S --asdeps"
-    alias pacloc="$PACMAN -Qi"
-    alias paclocs="$PACMAN -Qs"
-    alias paclst="$PACMAN -Qe"
+    alias pacloc="$PACMAN -Q --info"
+    alias paclocs="$PACMAN -Q --search"
+    alias paclst="$PACMAN -Q --explicit"
     alias pacmir="$PACMAN -Syy"
-    alias pacorph="$PACMAN -Qtd"
+    alias pacorph="$PACMAN -Q --unrequired --deps"
     alias pacre="$PACMAN -R"
-    alias pacrem="$PACMAN -Rns"
-    alias pacrep="$PACMAN -Si"
-    alias pacreps="$PACMAN -Ss"
+    alias pacrem="$PACMAN -R --unneeded --recursive"
+    alias pacrep="$PACMAN -S --info"
+    alias pacreps="$PACMAN -S --search"
     alias pacrmorphans="$PACMAN"' -Rs $(pacman -Qtdq)'
     alias pacsu="$PACMAN -Syua --noconfirm"
     alias pacupd="$PACMAN -Sy"
