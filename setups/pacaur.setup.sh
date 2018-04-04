@@ -22,5 +22,5 @@ function st_install() {
     git clone $AUR_PACAUR_GIT
     cd pacaur; lil_makepkg; cd ..
 
-    btr_unset lil_makepkg
+    btr_unset_f lil_makepkg
 }
