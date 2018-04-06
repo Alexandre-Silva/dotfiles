@@ -76,6 +76,42 @@ mkcd() {
     mkdir --parents "$@" && cd "$@"
 }
 
+l33t() {
+    while [[ "$is_done" -eq 0 ]]; do
+        local is_done=0
+        if [[ "$#" == 0 ]]; then
+            local read_arr_flg=''
+            [[ -n "$ZSH_VERSION" ]] && read_arr_flg='-A';
+            [[ -n "$BASH_VERSION" ]] && read_arr_flg='-a';
+
+            if read -r "${read_arr_flg}" words; then
+                echo done
+                is_done=1
+            else
+                echo not done
+            fi
+        else
+            local words=("$@")
+            is_done=1
+        fi
+
+        local words_leet=()
+        for word in "${words[@]}"; do
+            word="$(echo $word | sed "s/ed$/d/")"
+
+            word="$(echo $word | sed "s/s$/z/")"
+            word="$(echo $word | sed "s/cks/x/g;s/cke/x/g")"
+            word="$(echo $word | sed "s/a/@/g;s/e/3/g;s/o/0/g")"
+            word="$(echo $word | sed "s/^@/a/")"
+            word="$(echo $word |  tr "[[:lower:]]" "[[:upper:]]")"
+
+            words_leet+=( "$word" )
+        done
+
+        echo "${words_leet[@]}"
+    done
+}
+
 ################################################################################
 ### System
 ################################################################################
