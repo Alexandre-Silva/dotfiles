@@ -24,6 +24,8 @@ alex-nvidia-config() {
 # show files whenever entering a dir
 # cd() { builtin cd "$@" && ls; }
 
+# given a pdf returns the number for pages
+pdfinfo-pages () { pdfinfo "$@" | grep Pages | awk '{print $2}' }
 
 pdfgrep.xargs() {
     local args=("$@")
