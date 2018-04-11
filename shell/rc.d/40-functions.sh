@@ -12,7 +12,6 @@ alex-init() {
     Arun thunderbird
     Arun firefox
     Arun keepassxc
-    Arun keepassxc
 }
 
 alex-nvidia-config() {
