@@ -14,7 +14,11 @@ esac
 if hash tmux 2>/dev/null; then
     # Auto-start TMUX when in SSH session.
     if [ "$SSH_CONNECTION" ] && [ -z "$TMUX" ];then
-        tmux has-session -t ssh &>/dev/null && exec tmux attach -t ssh || exec tmux new -s ssh
+        if tmux has-session -t ssh &>/dev/null; then
+            exec tmux attach -t ssh
+        else
+            exec tmux new -s ssh
+        fi
     fi
 fi
 
@@ -57,12 +61,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	      # We have color support; assume it's compliant with Ecma-48
-	      # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	      # a case would tend to support setf rather than setaf.)
-	      color_prompt=yes
+	    # We have color support; assume it's compliant with Ecma-48
+	    # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+	    # a case would tend to support setf rather than setaf.)
+	    color_prompt=yes
     else
-	      color_prompt=
+	    color_prompt=
     fi
 fi
 
