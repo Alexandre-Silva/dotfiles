@@ -4,7 +4,7 @@ packages=( pm:docker )
 
 links=()
 
-for f in docker-system-prune.timer docker-system-prune.service; do
+for f in docker-gc.timer docker-gc.service; do
     links+=( "${ADM_DIR}/${f}" ~/.config/systemd/user/"${f}" )
 done
 
@@ -31,5 +31,5 @@ st_install() {
 
     sudo usermod -aG docker "$USER"
     systemctl --user daemon-reload
-    systemctl --user enable --now docker-system-prune.timer
+    systemctl --user enable --now docker-gc.timer
 }

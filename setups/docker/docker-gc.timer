@@ -1,5 +1,5 @@
 [Unit]
-Description=Run docker system prune weekly
+Description=Run docker-gc monthly
 
 [Timer]
 RandomizedDelaySec=1h
