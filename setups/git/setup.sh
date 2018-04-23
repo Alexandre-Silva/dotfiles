@@ -5,8 +5,9 @@ packages=(
 )
 
 links=(
-    "$DOTFILES"/setups/git/ $HOME/.config/git
-    "$DOTFILES"/setups/git/spreadsheet2csv $HOME/.bin/spreadsheet2csv
+    "$ADM_DIR"/ $HOME/.config/git
+    "$ADM_DIR"/spreadsheet2csv $HOME/.bin/spreadsheet2csv
+    "$ADM_DIR"/git-listobjectsbysize $HOME/.bin/git-listobjectsbysize
 )
 
 st_profile() {

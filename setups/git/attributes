@@ -18,3 +18,7 @@
 *.docx -text diff=pandoc2md
 *.doc  -text diff=pandoc2md
 *.odt  -text diff=pandoc2md
+
+*.fodt -text diff=odf2txt
+*.fods -text diff=odf2txt
+*.fodp -text diff=odf2txt

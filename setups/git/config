@@ -12,6 +12,7 @@
 	excludesfile = ~/.gitignore_global
 	editor = vi # fallback, by default uses $GIT_EDITOR
 	pager = diff-so-fancy | less --tabs=4 -RFX
+	autocrlf = input
 
 [merge]
 	tool = kdiff3
@@ -58,6 +59,11 @@
 
 [diff "pandoc2md"]
 	textconv=pandoc --to=markdown
+	cachetextconv = true
+
+[diff "odf2txt"]
+	textconv=odt2txt --raw-input
+	cachetextconv = true
 
 [diff "spreadsheet2csv"]
 	textconv=spreadsheet2csv
