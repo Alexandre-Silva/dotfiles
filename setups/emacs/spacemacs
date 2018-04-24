@@ -372,6 +372,12 @@ before packages are loaded. If you are unsure, you should try in setting them in
     :pre-init
     (add-hook 'markdown-mode-hook 'spacemacs/toggle-spelling-checking-on))
 
+
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  ;; magit
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+  (setq-default git-enable-magit-svn-plugin t)
+
   )
 
 (defun dotspacemacs/user-config ()
