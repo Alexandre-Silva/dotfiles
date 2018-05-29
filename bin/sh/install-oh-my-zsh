@@ -13,7 +13,10 @@ elif [ ! -e $HOME/.oh-my-zsh ]; then
     ZSH="$HOME/.oh-my-zsh"
 
     echo "Creating symlinks"
-    ln --symbolic --verbose --force "$HOME/dotfiles/shell/oh-my-zsh-custom/themes" --target-directory="$ZSH/custom/"
+
+    for theme in $HOME/dotfiles/shell/oh-my-zsh-custom/themes/*; do
+        ln --symbolic --verbose --force "$theme" "$ZSH/custom/plugins/"
+    done
 
     for custom_plugin in $(ls $HOME/dotfiles/shell/oh-my-zsh-custom/plugins/); do
         ln --symbolic --verbose --force "$HOME/dotfiles/shell/oh-my-zsh-custom/plugins/$custom_plugin"  --target-directory="$ZSH/custom/plugins/"
@@ -22,6 +25,6 @@ elif [ ! -e $HOME/.oh-my-zsh ]; then
     echo "Oh-my-zsh is ready to use."
 
 else
-
     echo "$HOME/.oh-my-zsh already exists skipping install of oh-my-zsh"
+
 fi
