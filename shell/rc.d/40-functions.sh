@@ -24,7 +24,9 @@ alex-nvidia-config() {
 # cd() { builtin cd "$@" && ls; }
 
 # given a pdf returns the number for pages
-pdfinfo-pages () { pdfinfo "$@" | grep Pages | awk '{print $2}' }
+pdfinfo-pages() {
+    pdfinfo "$@" | grep Pages | awk '{print $2}'
+}
 
 pdfgrep.xargs() {
     local args=("$@")
@@ -123,8 +125,7 @@ ii() {
 
     echo -e "\nYou are logged on ${BRed}$(hostname)"
     echo -e "\n${BRed}Additionnal information:$Color_Off " ; uname -a
-    echo -e "\n${BRed}Users logged on:$Color_Off " ; w -hs |
-        cut -d " " -f1 | sort | uniq
+    echo -e "\n${BRed}Users logged on:$Color_Off " ; w -hs | cut -d " " -f1 | sort | uniq
     echo -e "\n${BRed}Current date :$Color_Off " ; date
     echo -e "\n${BRed}Machine stats :$Color_Off " ; uptime
     echo -e "\n${BRed}Memory stats :$Color_Off " ; free -h
