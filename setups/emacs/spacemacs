@@ -470,7 +470,7 @@ layers configuration."
   ;; (spacemacs/load-theme 'zenburn)
 
 
-  (setq default-tab-width 4)
+  (setq-default tab-width 4)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Org-mode stuff
