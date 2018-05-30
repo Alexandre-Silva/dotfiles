@@ -15,12 +15,16 @@ function st_install() {
     if [[ "$(uname -m)" =~ armv* ]]; then
         sudo pacman -S cower;
     else
-        git clone $AUR_COWER_GIT
-        cd cower; lil_makepkg; cd ..
+        if ! hash cower &>/dev/null; then
+            git clone $AUR_COWER_GIT
+            cd cower; lil_makepkg; cd ..
+        fi
     fi
 
-    git clone $AUR_PACAUR_GIT
-    cd pacaur; lil_makepkg; cd ..
+    if ! hash cower &>/dev/null; then
+        git clone $AUR_PACAUR_GIT
+        cd pacaur; lil_makepkg; cd ..
+    fi
 
     btr_unset_f lil_makepkg
 }
