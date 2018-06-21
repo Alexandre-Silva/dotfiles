@@ -87,3 +87,5 @@
 	whitespace = red reverse
 [log]
 	follow = true
+[fetch]
+	prune = true
