@@ -34,6 +34,7 @@
 	recap   = "! git log --all --oneline --no-merges --author=\"$(git config user.name)\""
 	today   = "! git log --since=00:00:00 --all --no-merges --oneline --author=\"$(git config user.name)\""
 	local   = "! git log --oneline --no-merges \"$(git rev-parse --abbrev-ref --symbolic-full-name @{u})\"..HEAD"
+    oldest-ancestor = !zsh -c 'diff --old-line-format='' --new-line-format='' <(git rev-list --first-parent "${1:-master}") <(git rev-list --first-parent "${2:-HEAD}") | head -1' -
 	stsh    = stash --keep-index
 	staash  = stash --include-untracked
 	staaash = stash --all
