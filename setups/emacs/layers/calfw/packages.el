@@ -37,7 +37,10 @@
 ;;; Code:
 
 (defconst calfw-packages
-  '(calfw)
+  '(
+    calfw
+    calfw-org
+    )
   "The list of Lisp packages required by the calfw layer.
 
 Each entry is either:
@@ -68,13 +71,15 @@ Each entry is either:
 
 (defun calfw/init-calfw ()
   (use-package calfw
-    :config
+    ))
 
-    ;; (use-package calfw-cal :ensure calfw)
-    ;; (use-package calfw-ical :ensure calfw)
-    (use-package calfw-org :ensure calfw)
+(defun calfw/init-calfw-org ()
+  (use-package calfw-org
+    :ensure calfw
+    :config
     (setq cfw:org-overwrite-default-keybinding t)
     ))
+
 
 
 ;;; packages.el ends here

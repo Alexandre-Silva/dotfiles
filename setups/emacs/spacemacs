@@ -76,7 +76,7 @@ values."
      shell
      (elfeed :variables rmh-elfeed-org-files (list "~/dotfiles_private/emacs/elfeeds.org"))
 
-     ;; calfw
+     calfw
 
      (python :variables
              python-test-runner 'pytest
@@ -115,7 +115,7 @@ values."
    ;; A list of packages that will not be installed and loaded.
    dotspacemacs-excluded-packages '(
                                     ess-R-object-popup
-                                    org-projectile
+                                    ;; org-projectile
                                     savehist
                                     )
    ;; Defines the behaviour of Spacemacs when installing packages.
