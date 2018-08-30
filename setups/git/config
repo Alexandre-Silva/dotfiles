@@ -1,6 +1,6 @@
 [user]
 	name = Alexandre-Silva
-	email = alexandre.simoesilva@gmail.com
+	email = alexandre.s.silva@posteo.net
 
 [status]
 	submoduleSummary = true
@@ -11,7 +11,6 @@
 [core]
 	excludesfile = ~/.gitignore_global
 	editor = vi # fallback, by default uses $GIT_EDITOR
-	pager = diff-so-fancy | less --tabs=4 -RFX
 	autocrlf = input
 
 [merge]
@@ -58,17 +57,9 @@
 	function = blue
 	branch = auto
 
-[diff "pandoc2md"]
-	textconv=pandoc --to=markdown
-	cachetextconv = true
-
-[diff "odf2txt"]
-	textconv=odt2txt --raw-input
-	cachetextconv = true
-
-[diff "spreadsheet2csv"]
-	textconv=spreadsheet2csv
-	cachetextconv=true
+[pager]
+	pager = diff-so-fancy | less --tabs=1,5 -RFX
+	diff = diff-so-fancy | less --tabs=1,5 -RFX
 
 [diff "color"]
 	textconv=pygmentize
@@ -86,7 +77,21 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+
 [log]
 	follow = true
+
 [fetch]
 	prune = true
+
+[diff "pandoc2md"]
+	textconv=pandoc --to=markdown
+	cachetextconv = true
+
+[diff "odf2txt"]
+	textconv=odt2txt --raw-input
+	cachetextconv = true
+
+[diff "spreadsheet2csv"]
+	textconv=spreadsheet2csv
+	cachetextconv=true

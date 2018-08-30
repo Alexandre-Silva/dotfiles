@@ -94,7 +94,9 @@ alias du="du --human-readable"
 
 alias ip="ip --color"
 
-alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
+if hash bat &>/dev/null; then alias cat='bat'; fi
+if hash prettyping &>/dev/null; then alias ping='prettyping --nolegend'; fi
+if hash ncdu &>/dev/null; then alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"; fi
 
 ################################################################################
 ### Arch
@@ -164,3 +166,5 @@ if hash pacman &>/dev/null; then
 
     unset PACMAN
 fi
+
+alias grub-update='grub-mkconfig -o /boot/grub/grub.cfg'
