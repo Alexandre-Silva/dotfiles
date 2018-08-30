@@ -14,6 +14,7 @@ packages=(
     "pm:ncdu" # better du
     "pm:tldr" # Simplified and community-driven man pages. https://tldr.sh/
     "pm:jq" # jq is a lightweight and flexible command-line JSON processor. https://stedolan.github.io/jq/
+    "pm:fzf" # A command-line fuzzy finder. https://github.com/junegunn/fzf
     "aur:entr"  # executed cmd on file changes
 )
 
