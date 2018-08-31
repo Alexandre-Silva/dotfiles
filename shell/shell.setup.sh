@@ -10,7 +10,7 @@ packages=(
     "pm:trash-cli"
     "pm:fd" # better find
     "pm:bat" # cat++
-    "pm:prettyping" # better ping
+    "aur:prettyping" # better ping
     "pm:ncdu" # better du
     "pm:tldr" # Simplified and community-driven man pages. https://tldr.sh/
     "pm:jq" # jq is a lightweight and flexible command-line JSON processor. https://stedolan.github.io/jq/
