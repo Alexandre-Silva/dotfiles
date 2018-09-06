@@ -110,6 +110,7 @@ if hash pacman &>/dev/null; then
     fi
 
     alias pacfileupg="$PACMAN -F --refresh"
+    alias pacfile="pkgfile"
     alias pacin="$PACMAN -S"
     alias pacins="$PACMAN -U"
     alias pacinsd="$PACMAN -S --asdeps"
