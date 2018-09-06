@@ -2,6 +2,7 @@
 
 packages=(
     "pm:python"
+    "pm:python-pipenv"
     "aur:pyenv"
 )
 
@@ -14,5 +15,38 @@ st_profile() {
     if which pyenv &> /dev/null; then
         eval "$(pyenv init -)"
         eval "$(pyenv virtualenv-init -)"
+    fi
+}
+
+st_rc() {
+    if which pipenv &> /dev/null; then
+        # NOTE: Instead of using the comment snippet below, we copy pasted it
+        # and removed the auto-load ... && compinit since it's already done
+        # latter on. Also note that doing it here wouldn't break anything but
+        # would perceivable slow it down.
+
+        # eval "$(pipenv --completion)"
+
+        if [[ -n $ZSH_VERSION ]]; then
+            _pipenv() {
+                eval $(env COMMANDLINE="${words[1,$CURRENT]}" _PIPENV_COMPLETE=complete-zsh  pipenv)
+            }
+            if [[ "$(basename ${(%):-%x})" != "_pipenv" ]]; then
+                # autoload -U compinit && compinit
+                compdef _pipenv pipenv
+            fi
+
+        elif [[ -n $BASH_VERSION ]]; then
+            _pipenv_completion() {
+                local IFS=$'\t'
+                COMPREPLY=( $( env COMP_WORDS="${COMP_WORDS[*]}" \
+                                   COMP_CWORD=$COMP_CWORD \
+                                   _PIPENV_COMPLETE=complete-bash $1 ) )
+                return 0
+            }
+
+            complete -F _pipenv_completion -o default pipenv
+        fi
+
     fi
 }
