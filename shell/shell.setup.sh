@@ -1,6 +1,9 @@
 #!/bin/bash
 
 packages=(
+    "pm:bash"
+    "pm:bash-completion"
+
     "pm:zsh"
     "pm:zsh-completions"
     "pm:zsh-doc"
