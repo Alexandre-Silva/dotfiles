@@ -15,6 +15,10 @@ st_profile() {
 }
 
 st_rc() {
+    if ! hash kitty >/dev/null 2>&1 ; then
+        return 0;
+    fi
+
     if [ -n "$ZSH_VERSION" ]; then
         # Completion for kitty
         kitty + complete setup zsh | source /dev/stdin
