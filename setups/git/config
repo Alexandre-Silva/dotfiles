@@ -55,7 +55,6 @@
 	linenumber = green
 	separator = yellow
 	function = blue
-	branch = auto
 
 [pager]
 	pager = diff-so-fancy | less --tabs=1,5 -RFX
