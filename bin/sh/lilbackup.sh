@@ -41,15 +41,21 @@ lilbackup() {
         RSYNC "${extra_args[@]}" "$sourcedir" "$backupDirNew"
     done
 
-    echo "GC: removing old backups"
-    # regen list due to new backup dir
-    backupDirAll=( "$backupDirRoot/"* )
-    while [[ ${#backupDirAll[@]} -gt $NUM_BACKUPS ]]; do
-        local backupDirOldest="${backupDirAll[0]}" # selects oldest dir
-        echo rm --recursive --force "$backupDirOldest"
-        rm --recursive --force "$backupDirOldest"
+    if [[ -f "$backupDirRoot/.yesImSure" ]]; then
+        echo "GC: removing old backups"
+        # regen list due to new backup dir
         backupDirAll=( "$backupDirRoot/"* )
-    done
+        while [[ ${#backupDirAll[@]} -gt $NUM_BACKUPS ]]; do
+            local backupDirOldest="${backupDirAll[0]}" # selects oldest dir
+            echo rm --recursive --force "$backupDirOldest"
+            rm --recursive --force "$backupDirOldest"
+            backupDirAll=( "$backupDirRoot/"* )
+        done
+    else
+        echo "GC: skipping" >&2
+        echo "Please confirm that this is the root backup dir by creating the file:" >&2
+        echo "$backupDirRoot/.yesImSure" >&2
+    fi
 
     pacman -Q --explicit | awk '{print $1}' > "$backupDirNew/pacman.pcklist.txt"
 
