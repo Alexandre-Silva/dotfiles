@@ -4,9 +4,20 @@ IFS=$'\n\t'
 
 NUM_BACKUPS=5
 
-RSYNC=(rsync --archive --hard-links --delete)
+RSYNC_ARGS=(--archive --hard-links --delete)
 
-main() {
+RSYNC() {
+    echo "RUNNING:" rsync "${RSYNC_ARGS[@]}" "$@"
+    rsync "${RSYNC_ARGS[@]}" "$@"
+}
+
+LN(){
+    echo "RUNNING:" ln --force --symbolic "$@"
+    ln --force --symbolic "$@"
+}
+
+
+lilbackup() {
     local sourcedir="$1"
     local backupDirRoot="$2"
 
@@ -16,14 +27,14 @@ main() {
     local backupDirAll=( "$backupDirRoot/"* )
     local backupDirOld="${backupDirAll[-1]}" # selects newest dir (name is ordered by timestamp)
     local backupDirNew="$backupDirRoot/$(date -u +'%Y-%m-%d_%H:%M:%S')" # gens new dir with timetamp
+    local backupDirNewestLn="$backupDirRoot/.newest" # symbolic link to newest dir
 
     local extra_args=()
     if [[ -d "$backupDirOld" ]]; then
         extra_args+=( --link-dest="$backupDirOld" )
     fi
 
-    echo "RUNNING:" "${RSYNC[@]}" "${extra_args[@]}" "$sourcedir" "$backupDirNew"
-    "${RSYNC[@]}" "${extra_args[@]}" "$sourcedir" "$backupDirNew"
+    RSYNC "${extra_args[@]}" "$sourcedir" "$backupDirNew"
 
     echo "GC: removing old backups"
     # regen list due to new backup dir
@@ -34,7 +45,10 @@ main() {
         rm --recursive --force "$backupDirOldest"
         backupDirAll=( "$backupDirRoot/"* )
     done
+
+    if [[ -e "$backupDirNewestLn" ]]; then rm --force "$backupDirNewestLn"; fi
+    LN "$backupDirNew" "$backupDirNewestLn"
 }
 
 
-main "$@"
+lilbackup "$@"
