@@ -47,8 +47,7 @@ lilbackup() {
         backupDirAll=( "$backupDirRoot/"* )
         while [[ ${#backupDirAll[@]} -gt $NUM_BACKUPS ]]; do
             local backupDirOldest="${backupDirAll[0]}" # selects oldest dir
-            echo rm --recursive --force "$backupDirOldest"
-            rm --recursive --force "$backupDirOldest"
+            RUNLOG rm --recursive --force "$backupDirOldest"
             backupDirAll=( "$backupDirRoot/"* )
         done
     else
