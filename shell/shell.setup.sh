@@ -19,6 +19,7 @@ packages=(
     "pm:jq" # jq is a lightweight and flexible command-line JSON processor. https://stedolan.github.io/jq/
     "pm:fzf" # A command-line fuzzy finder. https://github.com/junegunn/fzf
     "aur:entr"  # executed cmd on file changes
+    "pm:fasd"  # Fasd offers quick access to files and directories for POSIX shells.
 )
 
 
