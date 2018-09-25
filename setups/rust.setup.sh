@@ -10,11 +10,12 @@ links=()
 
 st_install() {
     rustup default stable
+    rustup component add rust-src
     rustup completions zsh > ~/.zfunctions/_rustup
 }
 
 st_profile() {
-    export RUST_SRC_PATH="/usr/src/rust/src"
+    export RUST_SRC_PATH="$HOME/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 
     local cargo_bin="$HOME/.cargo/bin"
     if [ -d "$cargo_bin" ]; then
