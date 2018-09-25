@@ -27,11 +27,8 @@ links=(
     "$DOTFILES/shell/lib/mo/mo" $HOME/.bin/mo
 )
 
+depends=("$DOTFILES/setups/oh-my-zsh/setup.sh")
+
 for f in profile bashrc zprofile zshrc; do
     links+=( {"$DOTFILES/shell/",$HOME/.}"$f" )
 done
-
-
-st_install() {
-    "$DOTFILES/bin/sh/install-oh-my-zsh"
-}
