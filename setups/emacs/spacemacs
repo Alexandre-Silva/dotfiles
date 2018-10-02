@@ -437,6 +437,17 @@ layers configuration."
   (put 'evil-ex-history 'history-length 50)
   (put 'kill-ring 'history-length 25)
 
+  ;; jit-lock
+  (setq jit-lock-stealth-time 16
+	    jit-lock-defer-time 0.05
+	    jit-lock-defer-contextually t
+	    jit-lock-stealth-nice 0.5)
+  (setq-default font-lock-multiline t)
+
+
+  ;; FIX for major slowness issue
+  (setq dotspacemacs-mode-line-unicode-symbols nil)
+
   ;; Backups
   (setq
    backup-by-copying t                     ; don't clobber symlinks
