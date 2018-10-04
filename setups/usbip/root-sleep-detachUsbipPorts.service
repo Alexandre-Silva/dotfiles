@@ -1,0 +1,10 @@
+[Unit]
+Description=Due to a some bug, the kernel freezes on sleep if usbip ports are attached. This hook detachs all of them before sleeping.
+Before=sleep.target
+
+[Service]
+Type=simple
+ExecStart=/home/alex/dotfiles/setups/usbip/usbip-detachAll.sh
+
+[Install]
+WantedBy=sleep.target
