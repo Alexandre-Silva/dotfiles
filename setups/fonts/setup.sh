@@ -13,5 +13,6 @@ packages=(
     aur:nerd-fonts-complete
     aur:ttf-google-fonts-git
     aur:ttf-mac-fonts
+    aur:ttf-ms-fonts
     # aur:ttf-oxygen
 )
