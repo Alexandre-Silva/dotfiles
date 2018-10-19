@@ -1,3 +1,9 @@
 decode_as_entries
 recent
 recent_common
+
+# ISTsat-1 protocols. Thse should be soft links to Software repo
+plugins/etp.lua
+plugins/ri2c.lua
+
+
