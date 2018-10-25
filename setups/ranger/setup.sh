@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # misc configs for ranger file manager
 # refs:
 #   /usr/share/doc/ranger/examples/bash_automatic_cd.sh
