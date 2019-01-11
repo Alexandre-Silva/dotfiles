@@ -6,6 +6,4 @@ for port in "${ports[@]}"; do
     usbip detach --port $port
 done
 
-echo executed >/tmp/usbip.txt
-
-sleep 1
+sleep 2

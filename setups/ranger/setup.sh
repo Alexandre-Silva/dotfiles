@@ -51,6 +51,6 @@ function st_rc() {
         ranger-cd "$@"
     }
 
-    alias rg=ranger
+    alias rgr=ranger
     alias rgl=rangerl # script for gui launcher (e.g. awesome)
 }
