@@ -12,6 +12,8 @@ alex-init() {
     Arun thunderbird
     Arun firefox
     Arun keepassxc
+    Arun discord
+    Arun spotify-wrapper.sh
 }
 
 alex-nvidia-config() {
