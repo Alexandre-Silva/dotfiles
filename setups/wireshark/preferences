@@ -1,4 +1,4 @@
-# Configuration file for Wireshark 2.6.3.
+# Configuration file for Wireshark 2.6.4.
 #
 # This file is regenerated each time preferences are saved within
 # Wireshark. Making manual changes should be safe, however.
@@ -161,6 +161,10 @@
 # TRUE or FALSE (case-insensitive)
 #gui.interfaces_show_hidden: FALSE
 
+# Show remote interfaces in the interface selection
+# TRUE or FALSE (case-insensitive)
+#gui.interfaces_remote_display: TRUE
+
 # Hide the given interface types in the startup list
 # A string
 #gui.interfaces_hidden_types: 
@@ -215,19 +219,19 @@
 
 # Packet list hidden columns
 # List all columns to hide in the packet list.
-#gui.column.hidden: 
+gui.column.hidden: 
 
 # Packet list column format
 # Each pair of strings consists of a column title and its format
 gui.column.format: 
 	"No.", "%m",
 	"Delta", "%Rt",
-	"Time", "%t",
+	"Time", "%At",
 	"Source", "%s",
 	"Destination", "%d",
-	"Protocol", "%p",
 	"Length", "%L",
 	"CumSize", "%B",
+	"Protocol", "%p",
 	"Info", "%i"
 
 ####### User Interface: Font ########
@@ -410,7 +414,7 @@ gui.column.format:
 
 # Remote capture filter
 # A string
-#extcap.sshdump.remotefilter: not ((host fe80::7f69:62ab:fb0:16e0 or host 2001:690:2100:1016:2c68:f1e8:da64:912 or host fe80::a9e:1ff:feed:51c4 or host 2001:690:2100:1081:a9e:1ff:feed:51c4 or host 172.17.0.1 or host 194.210.221.176 or host 193.136.167.190) and port 22)
+#extcap.sshdump.remotefilter: not ((host fe80::f988:803e:f90:97b4 or host 2001:690:2100:1081:31ea:e4db:1323:1f77 or host 172.17.0.1 or host 193.136.167.112) and port 22)
 
 # Packets to capture
 # A string
@@ -474,7 +478,7 @@ gui.column.format:
 
 # Remote capture filter
 # A string
-#extcap.ciscodump.remotefilter: deny tcp host fe80::7f69:62ab:fb0:16e0 any eq 22, deny tcp any eq 22 host fe80::7f69:62ab:fb0:16e0, deny tcp host 2001:690:2100:1016:2c68:f1e8:da64:912 any eq 22, deny tcp any eq 22 host 2001:690:2100:1016:2c68:f1e8:da64:912, deny tcp host fe80::a9e:1ff:feed:51c4 any eq 22, deny tcp any eq 22 host fe80::a9e:1ff:feed:51c4, deny tcp host 2001:690:2100:1081:a9e:1ff:feed:51c4 any eq 22, deny tcp any eq 22 host 2001:690:2100:1081:a9e:1ff:feed:51c4, deny tcp host 172.17.0.1 any eq 22, deny tcp any eq 22 host 172.17.0.1, deny tcp host 194.210.221.176 any eq 22, deny tcp any eq 22 host 194.210.221.176, deny tcp host 193.136.167.190 any eq 22, deny tcp any eq 22 host 193.136.167.190, permit ip any any
+#extcap.ciscodump.remotefilter: deny tcp host fe80::f988:803e:f90:97b4 any eq 22, deny tcp any eq 22 host fe80::f988:803e:f90:97b4, deny tcp host 2001:690:2100:1081:31ea:e4db:1323:1f77 any eq 22, deny tcp any eq 22 host 2001:690:2100:1081:31ea:e4db:1323:1f77, deny tcp host 172.17.0.1 any eq 22, deny tcp any eq 22 host 172.17.0.1, deny tcp host 193.136.167.112 any eq 22, deny tcp any eq 22 host 193.136.167.112, permit ip any any
 
 # Packets to capture
 # A string
@@ -1927,6 +1931,19 @@ gui.column.format:
 # TRUE or FALSE (case-insensitive)
 #fp_mux.call_heur_fp: TRUE
 
+# Whether the FPM dissector is enabled or not
+# TRUE or FALSE (case-insensitive)
+#fpm.enabled: TRUE
+
+# Whether the FPM packet's content should be dissected or not
+# TRUE or FALSE (case-insensitive)
+#fpm.subdissect: TRUE
+
+# The debug printing level
+# One of: Disabled, Level 1, Level 2
+# (case-insensitive).
+#fpm.debug: Level 1
+
 # Encapsulation
 # One of: FRF 3.2/Cisco HDLC, GPRS Network Service, Raw Ethernet
 # (case-insensitive).
@@ -3023,6 +3040,19 @@ gui.column.format:
 # Decode the spare bits of the SIO as the MSU priority (a national option in ITU)
 # TRUE or FALSE (case-insensitive)
 #mtp3.itu_priority: FALSE
+
+# The debug printing level
+# One of: Disabled, Level 1, Level 2
+# (case-insensitive).
+#mydns.debug: Level 1
+
+# The UDP port number for MyDNS
+# A decimal number
+#mydns.port: 65333
+
+# Whether heuristic dissection is enabled or not
+# TRUE or FALSE (case-insensitive)
+#mydns.heur: FALSE
 
 # Whether the MySQL dissector should reassemble MySQL buffers spanning multiple TCP segments. To use this option, you must also enable "Allow subdissectors to reassemble TCP streams" in the TCP protocol settings.
 # TRUE or FALSE (case-insensitive)
