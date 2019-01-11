@@ -3,8 +3,14 @@
 packages=(
     "pm:python"
     "pm:python-pipenv"
+    "pip:poetry"
     "aur:pyenv"
 )
+
+st_install() {
+    poetry completions zsh > ~/.zfunctions/_poetry
+    sudo poetry completions bash > /etc/bash_completion.d/poetry.bash-completion
+}
 
 st_profile() {
     PATH="$(python -m site --user-base)/bin:${PATH}"
