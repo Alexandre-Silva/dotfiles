@@ -1,0 +1,10 @@
+[Unit]
+Description=Mangakakalot RSS Scraper
+After=network.target
+
+[Service]
+ExecStart=/home/alex/.bin/mangakakalot-rss
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

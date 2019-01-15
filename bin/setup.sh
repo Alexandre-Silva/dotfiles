@@ -2,16 +2,13 @@
 
 packages=()
 
-links=(
-    {"$DOTFILES/bin/python/",$HOME"/.bin/"}temp2speed.py
-    {"$DOTFILES/bin/python/",$HOME"/.bin/"}parse_zsh_startup.py
-)
+links=()
 
 while IFS= read -r -d '' file; do
     local link_name="$HOME/.bin/$(basename "$file")"
 
     links+=( "$file" "$link_name" )
-done < <(find "$DOTFILES/bin/sh/" -type f -executable -print0)
+done < <(find "$DOTFILES/bin/sh/" "$DOTFILES/bin/python/" -type f -executable -print0)
 
 
 function st_install() {
