@@ -1,7 +1,10 @@
+#!/usr/bin/env python3
+
 import os
 import sys
 import cfscrape
-from bs4 import *
+from bs4 import BeautifulSoup
+import re
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -14,6 +17,29 @@ def help():
     Leave blank for exit
     ###################################################### """
     print(msg)
+
+
+# CHAPTER_NAME_RE = re.compile(r'^\w+ Vol.11 Chapter 71: \(\W+\) - Mangakakalot.com')
+CHAPTER_NAME_RE = re.compile(
+    r'^.+ Vol.(\d+) Chapter (\d+): (.+) - Mangakakalot.com')
+
+
+def format_chapter_name(title: str) -> str:
+    match = CHAPTER_NAME_RE.match(title)
+    if match is None:
+        return None
+
+    volume, chapter, name = match.groups()
+    volume, chapter = int(volume), int(chapter)
+
+    return f'V{volume:02}.C{chapter:03}: {name}'
+
+
+_formated = format_chapter_name(
+    'Kishuku Gakkou No Juliet Vol.11 Chapter 71: Romio And The Freshmen II - Mangakakalot.com'
+)
+_expected = 'V11.C071: Romio And The Freshmen II'
+assert _formated == _expected
 
 
 def main():
@@ -35,9 +61,11 @@ def main():
             tag.findAll('img') for tag in soup.findAll('div', id="vungdoc")
         ]
 
+        chapter_name = format_chapter_name(soup.title.string)
+
         def download_image(image_response, image_number, url):
             file_extension = url.split('.')[-1]
-            path_directory = "{}/{}/{}/".format(out_dir, serie, chapter)
+            path_directory = "{}/{}/{}/".format(out_dir, serie, chapter_name)
             file_name = "{}.{}".format("%03d" % (image_number, ),
                                        file_extension)
 
