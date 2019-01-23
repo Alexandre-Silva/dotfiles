@@ -5,6 +5,7 @@ import sys
 import cfscrape
 from bs4 import BeautifulSoup
 import re
+from typing import Optional
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -23,9 +24,24 @@ def help():
 CHAPTER_NAME_RE = re.compile(
     r'^.+ Vol.(\d+) Chapter (\d+): (.+) - Mangakakalot.com')
 
+CHAPTER_NAME_OLD_RE = re.compile(r'^.+ Chapter (\d+)\ ?: (.+) - \w+.com')
 
-def format_chapter_name(title: str) -> str:
+
+def format_chapter_name_old(title: str) -> Optional[str]:
+    match = CHAPTER_NAME_OLD_RE.match(title)
+
+    if match is None:
+        return None
+
+    chapter, name = match.groups()
+    chapter = int(chapter)
+
+    return f'VXX.C{chapter:03}: {name}'
+
+
+def format_chapter_name_new(title: str) -> Optional[str]:
     match = CHAPTER_NAME_RE.match(title)
+
     if match is None:
         return None
 
@@ -35,10 +51,25 @@ def format_chapter_name(title: str) -> str:
     return f'V{volume:02}.C{chapter:03}: {name}'
 
 
+def format_chapter_name(title: str) -> Optional[str]:
+    for fn in [format_chapter_name_new, format_chapter_name_old]:
+        name = fn(title)
+        if name is not None:
+            return name
+
+    return None
+
+
 _formated = format_chapter_name(
     'Kishuku Gakkou No Juliet Vol.11 Chapter 71: Romio And The Freshmen II - Mangakakalot.com'
 )
 _expected = 'V11.C071: Romio And The Freshmen II'
+assert _formated == _expected
+
+_formated = format_chapter_name(
+    'Kaguya-sama Wa Kokurasetai - Tensai-tachi No Renai Zunousen Chapter 21 : Kaguya Wants To Have Held Online For Free - MangaNelo.com'
+)
+_expected = 'VXX.C021: Kaguya Wants To Have Held Online For Free'
 assert _formated == _expected
 
 
@@ -62,6 +93,7 @@ def main():
         ]
 
         chapter_name = format_chapter_name(soup.title.string)
+        assert chapter_name is not None
 
         def download_image(image_response, image_number, url):
             file_extension = url.split('.')[-1]
