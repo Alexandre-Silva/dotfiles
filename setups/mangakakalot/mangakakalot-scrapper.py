@@ -21,14 +21,14 @@ def help():
 
 
 # CHAPTER_NAME_RE = re.compile(r'^\w+ Vol.11 Chapter 71: \(\W+\) - Mangakakalot.com')
-CHAPTER_NAME_RE = re.compile(
-    r'^.+ Vol.(\d+) Chapter (\d+): (.+) - Mangakakalot.com')
+CHAPTER_NAME_1_RE = re.compile(
+    r'^.+ Vol.(\d+) Chapter (\d+)\ ?:? (.+) - \w+.com')
 
-CHAPTER_NAME_OLD_RE = re.compile(r'^.+ Chapter (\d+)\ ?: (.+) - \w+.com')
+CHAPTER_NAME_2_RE = re.compile(r'^.+ Chapter (\d+)\ ?:? (.+) - \w+.com')
 
 
-def format_chapter_name_old(title: str) -> Optional[str]:
-    match = CHAPTER_NAME_OLD_RE.match(title)
+def format_chapter_name_2(title: str) -> Optional[str]:
+    match = CHAPTER_NAME_2_RE.match(title)
 
     if match is None:
         return None
@@ -39,8 +39,8 @@ def format_chapter_name_old(title: str) -> Optional[str]:
     return f'VXX.C{chapter:03}: {name}'
 
 
-def format_chapter_name_new(title: str) -> Optional[str]:
-    match = CHAPTER_NAME_RE.match(title)
+def format_chapter_name_1(title: str) -> Optional[str]:
+    match = CHAPTER_NAME_1_RE.match(title)
 
     if match is None:
         return None
@@ -52,9 +52,16 @@ def format_chapter_name_new(title: str) -> Optional[str]:
 
 
 def format_chapter_name(title: str) -> Optional[str]:
-    for fn in [format_chapter_name_new, format_chapter_name_old]:
+    for fn in [
+            format_chapter_name_1,
+            format_chapter_name_2,
+    ]:
         name = fn(title)
         if name is not None:
+            name = name.replace('Online For Free', '')
+            name = name.strip()
+            if name.endswith(':'):
+                name += ' NA'
             return name
 
     return None
@@ -69,7 +76,13 @@ assert _formated == _expected
 _formated = format_chapter_name(
     'Kaguya-sama Wa Kokurasetai - Tensai-tachi No Renai Zunousen Chapter 21 : Kaguya Wants To Have Held Online For Free - MangaNelo.com'
 )
-_expected = 'VXX.C021: Kaguya Wants To Have Held Online For Free'
+_expected = 'VXX.C021: Kaguya Wants To Have Held'
+assert _formated == _expected
+
+_formated = format_chapter_name(
+    'Kaguya-sama Wa Kokurasetai - Tensai-tachi No Renai Zunousen Vol.6 Chapter 60 Online For Free - MangaNelo.com'
+)
+_expected = 'V06.C060: NA'
 assert _formated == _expected
 
 
