@@ -38,7 +38,7 @@ def add_entries(fg: DefaultFeed, entries: Iterable[Tuple[str, str]]) -> None:
         )
 
 
-def feed_fetch(url) -> str:
+def feed_fetch_mangakakalot(url) -> str:
     print(f'Fetching {url}')
 
     scrape = cfscrape.create_scraper()
@@ -46,6 +46,7 @@ def feed_fetch(url) -> str:
     soup = BeautifulSoup(html, features='lxml')
 
     # print([tag for tag in soup.findAll('div', class_="chapter-list")])
+    # print(soup.find('div'))
     chapter_list = soup.find('div', class_="chapter-list").findAll('a')
 
     fg = feed()
@@ -54,11 +55,63 @@ def feed_fetch(url) -> str:
     return fg.writeString("iso-8859-1")
 
 
+def feed_fetch_mangadex(manga_id: int) -> str:
+    print(f'Fetching mangadex {manga_id}')
+
+    scrape = cfscrape.create_scraper()
+
+    manga_meta = scrape.get(
+        'https://mangadex.org/api/',
+        params={
+            'id': manga_id,
+            'type': 'manga'
+        },
+    )
+    if not manga_meta.ok:
+        print('Error fetching meta data for id:', manga_id)
+        return None
+
+    manga_meta = manga_meta.json()
+    title = manga_meta['manga']['title']
+
+    fg = DefaultFeed(
+        title=f'mangadex - {title}',
+        link=f'https://mangadex.org/title/{manga_id}',
+        description=f'Simple feed via scrapping for mangadex - {title}',
+        logo=f'https://mangadex.org/images/manga/{manga_id}.jpg',
+        language='en',
+    )
+
+    chapters = ((f'Chapter {chapter["chapter"]}: {chapter["title"]}',
+                 f'https://mangadex.org/chapter/{chapter_id}')
+                for chapter_id, chapter in manga_meta['chapter'].items()
+                if chapter['lang_code'] == 'gb')
+
+    add_entries(fg, chapters)
+
+    return fg.writeString("iso-8859-1")
+
+
 class RSSHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         manga = self.path
-        url = f'https://mangakakalot.com/manga{manga}'
-        response = feed_fetch(url)
+
+        if manga.startswith('/mangadex/'):
+            manga_id = int(manga.replace('/mangadex/', ''))
+            response = feed_fetch_mangadex(manga_id)
+
+        elif manga.startswith('/mangakakalot/'):
+            manga_name = manga.replace('/mangakakalot/', '')
+            url = f'https://mangakakalot.com/manga/{manga_name}'
+            response = feed_fetch_mangakakalot(url)
+
+        else:
+            print("Invalid path")
+            response = None
+
+        if response is None:
+            self.send_response(500)
+            return
 
         self.send_response(200)
         self.send_header("Content-type", "text/xml")
