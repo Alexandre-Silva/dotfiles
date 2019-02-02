@@ -10,6 +10,7 @@ packages=(
 st_install() {
     poetry completions zsh > ~/.zfunctions/_poetry
     sudo poetry completions bash > /etc/bash_completion.d/poetry.bash-completion
+    curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 }
 
 st_profile() {
@@ -21,6 +22,10 @@ st_profile() {
     if which pyenv &> /dev/null; then
         eval "$(pyenv init -)"
         eval "$(pyenv virtualenv-init -)"
+    fi
+
+    if [[ -d ~/.poetry ]]; then
+        export PATH="$HOME/.poetry/bin:$PATH"
     fi
 }
 
