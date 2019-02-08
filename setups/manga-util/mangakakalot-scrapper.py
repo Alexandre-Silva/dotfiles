@@ -110,7 +110,7 @@ def main():
 
         def download_image(image_response, image_number, url):
             file_extension = url.split('.')[-1]
-            path_directory = "{}/{}/{}/".format(out_dir, serie, chapter_name)
+            path_directory = "{}/{}/".format(out_dir, chapter_name)
             file_name = "{}.{}".format("%03d" % (image_number, ),
                                        file_extension)
 
