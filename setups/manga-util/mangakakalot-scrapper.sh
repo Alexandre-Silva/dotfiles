@@ -22,3 +22,6 @@ for chapter in "$tmp/"* ; do
     images=( "$chapter"/* )
     convert "${images[@]}" "$out_file"
 done
+
+# cleanup
+rm -rf "$tmp"
