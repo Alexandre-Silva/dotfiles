@@ -102,7 +102,7 @@ class RSSHandler(BaseHTTPRequestHandler):
 
         elif manga.startswith('/mangakakalot/'):
             manga_name = manga.replace('/mangakakalot/', '')
-            url = f'https://mangakakalot.com/manga/{manga_name}'
+            url = f'https://manganelo.com/manga/{manga_name}'
             response = feed_fetch_mangakakalot(url)
 
         else:
