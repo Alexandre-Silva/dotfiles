@@ -59,11 +59,12 @@ def main():
         volume = int(result['volume'])
         chapter = int(result['chapter'])
         name = result['title']
+        server = result['server']
         chapter_name = f'V{volume:02}.C{chapter:03}: {name}'
 
         chapter_hash = result['hash']
         image_list = [
-            f'https://mangadex.org/data/{chapter_hash}/{name}'
+            f'{server}{chapter_hash}/{name}'
             for name in result['page_array']
         ]
 
