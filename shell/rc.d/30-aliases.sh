@@ -105,8 +105,8 @@ if hash ncdu &>/dev/null; then alias du="ncdu --color dark -rr -x --exclude .git
 if hash pacman &>/dev/null; then
     PACMAN='sudo pacman'
 
-    if hash pacaur &>/dev/null; then
-        PACMAN=pacaur
+    if hash pikaur &>/dev/null; then
+        PACMAN=pikaur
     fi
 
     alias pacfileupg="$PACMAN -F --refresh"

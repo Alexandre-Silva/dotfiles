@@ -61,7 +61,7 @@ function install-dotfiles {
 function install-adm-base {
     echo "---- Installing base setup.sh and links"
 
-    adm install "${DOTFILES}/setups/pacaur.setup.sh"
+    adm install "${DOTFILES}/setups/pikaur.setup.sh"
     adm install "${DOTFILES}/shell/shell.setup.sh"
     adm link
 
