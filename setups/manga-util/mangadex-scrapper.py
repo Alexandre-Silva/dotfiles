@@ -56,7 +56,7 @@ def main():
 
         result = result.json()
 
-        volume = int(result['volume'])
+        volume = int(result['volume']) if result['volume'].isdecimal() else 99
         chapter = int(result['chapter'])
         name = result['title']
         server = result['server']
