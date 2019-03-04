@@ -71,7 +71,7 @@ values."
      ;; version-control
      ;; git
 
-     nlinum ; faster line numbers
+     ;; nlinum ; faster line numbers
      themes-megapack
      shell
      (elfeed :variables rmh-elfeed-org-files (list "~/dotfiles_private/emacs/elfeeds.org"))
@@ -323,7 +323,7 @@ values."
    ;;                       text-mode
    ;;   :size-limit-kb 1000)
    ;; (default nil)
-   dotspacemacs-line-numbers '(:relative t)
+   dotspacemacs-line-numbers nil
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'origami
@@ -388,6 +388,11 @@ layers configuration."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Overall
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+  ;; emacs 26 line numbers
+  (setq display-line-numbers-type 'relative)
+  (add-hook 'text-mode-hook #'display-line-numbers-mode)
+  (add-hook 'prog-mode-hook #'display-line-numbers-mode)
 
   ;; Personal config files
   (add-to-list 'load-path (concat (getenv "DOTFILES") "/setups/emacs/el.d/"))
