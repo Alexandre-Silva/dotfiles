@@ -11,10 +11,14 @@ if [ "${TERM}" != "linux" ]; then
         fi
     fi
 
-	# Base16 Shell
-	export BASE16_SHELL="$DOTFILES/shell/lib/base16-shell"
-  theme="$BASE16_SHELL/scripts/base16-bright.sh"
-	[[ -s $theme ]] && source "$theme"
+
+    # Don't set colours if ssh session (since it should already be set)
+    if [ ! "$SSH_CONNECTION" ]; then
+        # Base16 Shell
+        export BASE16_SHELL="$DOTFILES/shell/lib/base16-shell"
+        theme="$BASE16_SHELL/scripts/base16-bright.sh"
+        [[ -s $theme ]] && source "$theme"
+    fi
 fi
 
 # dircolors sets the outputed of ls and such programs, in a more clear colour.
