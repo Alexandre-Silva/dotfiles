@@ -55,6 +55,7 @@ def main():
             sys.exit(1)
 
         result = result.json()
+        print(result)
 
         volume = int(result['volume']) if result['volume'].isdecimal() else 99
         chapter = int(result['chapter'])
@@ -64,7 +65,7 @@ def main():
 
         chapter_hash = result['hash']
         image_list = [
-            f'{server}{chapter_hash}/{name}'
+            f'https://mangadex.org{server}{chapter_hash}/{name}'
             for name in result['page_array']
         ]
 
