@@ -15,16 +15,22 @@ parse_codec() {
 }
 
 main(){
-    local file="$1"
+    local args=( "$@" )
+
+    local file="${args[0]}"
+    local host="${args[1]}"
+    local target="${args[2]}"
     local format=$(parse_codec "$file")
 
     if [[ $format = AVC:8 ]] || [[ $format = HEVC:8 ]]; then
+        rsync -rult "$file" "$host":"$target"
         notify-send "Copy to OC2 done";
+
     else
         notify-send "Encoding & transferring: $file"
 
-            # ffmpeg -i "$file" -c:v libx265 -vf format=yuv420p -c:a copy -f matroska - \
-                    # | ssh pi 'cat > "/mnt/hdd/share/quick/The Tale of the Princess Kaguya.mkv"'
+        ffmpeg -i "$file" -c:v libx265 -vf format=yuv420p -c:a copy -f matroska - \
+            | ssh $host "cat > '""${target}""/$(basename "${file}")'"
 
         notify-send "Encoding & transferring complete: $file"
 
