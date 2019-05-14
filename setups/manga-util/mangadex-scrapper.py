@@ -62,10 +62,13 @@ def main():
         name = result['title']
         server = result['server']
         chapter_name = f'V{volume:02}.C{chapter:03}: {name}'
-
         chapter_hash = result['hash']
+
+        if not server.startswith('http'):
+            server = f'https://mangadex.org{server}'
+
         image_list = [
-            f'https://mangadex.org{server}{chapter_hash}/{name}'
+            f'{server}{chapter_hash}/{name}'
             for name in result['page_array']
         ]
 

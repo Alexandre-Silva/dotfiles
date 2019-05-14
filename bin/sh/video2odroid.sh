@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-# AVC --> x264
-# HEVC --> x265
+# AVC --> h264
+# HEVC --> h265
 
 
 parse_codec() {
