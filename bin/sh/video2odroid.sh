@@ -6,37 +6,37 @@
 
 parse_codec() {
     local format=$(mediainfo --Output=JSON "$1" \
-                       | jq '.media.track | map(select(."@type" == "Video"))[0].Format')
+                       | jq -r '.media.track | map(select(."@type" == "Video"))[0].Format')
 
     local bitdepth=$(mediainfo --Output=JSON "$1" \
-                         | jq '.media.track | map(select(."@type" == "Video"))[0].BitDepth')
+                         | jq -r '.media.track | map(select(."@type" == "Video"))[0].BitDepth')
 
-    echo "$format:$bitdepth" | sed 's/\"//g'
+    echo "$format:$bitdepth"
 }
 
-main(){
+main() {
     local args=( "$@" )
+    local files=( "${args[@]:0:-2}" )
+    local host="${args[-2]}"
+    local target="${args[-1]}"
 
-    local file="${args[0]}"
-    local host="${args[1]}"
-    local target="${args[2]}"
-    local format=$(parse_codec "$file")
+    for file in "${files[@]}"; do
+        local format=$(parse_codec "$file")
 
-    if [[ $format = AVC:8 ]] || [[ $format = HEVC:8 ]]; then
-        rsync -rult "$file" "$host":"$target"
-        notify-send "Copy to OC2 done";
+        if [[ $format = AVC:8 ]] || [[ $format = HEVC:8 ]]; then
+            rsync -rult "$file" "$host":"$target"
+            notify-send "Copy to OC2 done"
 
-    else
-        notify-send "Encoding & transferring: $file"
+        else
+            notify-send "Encoding & transferring: $file"
 
-        ffmpeg -i "$file" -c:v libx265 -vf format=yuv420p -c:a copy -f matroska - \
-            | ssh $host "cat > '""${target}""/$(basename "${file}")'"
+            ffmpeg -i "$file" -c:v libx265 -vf format=yuv420p -preset fast -c:a copy -f matroska - \
+                | ssh $host "cat > '""${target}""/$(basename "${file}")'"
 
-        notify-send "Encoding & transferring complete: $file"
-
-    fi
+            notify-send "Encoding & transferring complete: $file"
+        fi
+    done
 
 }
-
 
 main "$@"
