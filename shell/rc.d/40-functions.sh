@@ -3,27 +3,6 @@
 ################################################################################
 ### User
 ################################################################################
-alex-init() {
-    function Arun() {
-        echo Runnning: "$@"
-        "$@" &>>"$HOME/.log/$1.log" & disown
-    }
-
-    Arun thunderbird
-    Arun firefox
-    Arun keepassxc
-    Arun discord
-    Arun spotify-wrapper.sh
-}
-
-alex-nvidia-config() {
-    local offset="$1"
-    nvidia-settings --assign "[gpu:0]/GPUGraphicsClockOffset[2]=${offset}"
-    nvidia-settings --assign "[gpu:0]/GPUMemoryTransferRateOffset[2]=$(( offset * 2 ))"
-}
-
-# show files whenever entering a dir
-# cd() { builtin cd "$@" && ls; }
 
 # given a pdf returns the number for pages
 pdfinfo-pages() {
