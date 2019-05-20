@@ -16,7 +16,8 @@ parse_codec() {
 
 main() {
     local args=( "$@" )
-    local files=( "${args[@]:0:-2}" )
+    local files_len=$(( "${#args[@]}" - 2 ))
+    local files=( "${args[@]:0:$files_len}" )
     local host="${args[-2]}"
     local target="${args[-1]}"
 
