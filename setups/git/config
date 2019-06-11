@@ -21,7 +21,7 @@
 	default = simple
 
 [pull]
-	rebase = preserve
+	rebase = true
 
 # Allow local customizations in the .gitconfig_local file
 [include]
