@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euo pipefail
+IFS=$'\n\t'
+
+
+main() {
+    local args=("$@")
+    local pw="$(secret-tool lookup keepass pw)"
+    echo "$pw" | keepassxc-cli "${args[0]}" -q "$KPCLI_DB" "${args[@]:1}"
+}
+
+main "$@"
