@@ -2,10 +2,13 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-
 main() {
     local args=("$@")
     local pw="$(secret-tool lookup keepass pw)"
+    if [[ $? != 0 ]] || [[ -z "$pw" ]]; then
+        echo "Failed to unlock secret-tool or retrieve keepass password" >&2
+        exit 1
+    fi
     echo "$pw" | keepassxc-cli "${args[0]}" -q "$KPCLI_DB" "${args[@]:1}"
 }
 
