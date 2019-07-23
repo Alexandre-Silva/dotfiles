@@ -86,7 +86,3 @@ rc=$DOTFILES"/shell/rc.sh"
 retSmiley="\$(if [[ \$? == 0 ]]; then echo \"\[\033[0;32m\];)\"; else echo \"\[\033[0;31m\];(\"; fi)\[\033[00m\]"
 PS1="$retSmiley \[$Purple\]\A \[$Green\]\u@\h \[$Cyan\]\W\[$Green\]$\[$Color_Off\] "
 #PS2=$'\e[38;5;46m$PS2'
-
-
-# execute local stuff
-echo try_source "${XDG_CONFIG_HOMEE:-$HOME/.config}"/shell/rc.sh

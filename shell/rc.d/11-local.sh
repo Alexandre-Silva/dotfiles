@@ -1,1 +1,1 @@
-try_source "${XDG_CONFIG_HOME:-$HOME/.config}/shellrc_local"
+try_source "${XDG_CONFIG_HOME:-$HOME/.config}/shell/rc.sh"
