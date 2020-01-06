@@ -61,7 +61,7 @@ def feed_fetch_mangadex(manga_id: int) -> str:
     scrape = cfscrape.create_scraper()
 
     manga_meta = scrape.get(
-        'https://mangadex.org/api/',
+        'https://mangadex.cc/api/',
         params={
             'id': manga_id,
             'type': 'manga'
@@ -76,14 +76,14 @@ def feed_fetch_mangadex(manga_id: int) -> str:
 
     fg = DefaultFeed(
         title=f'mangadex - {title}',
-        link=f'https://mangadex.org/title/{manga_id}',
+        link=f'https://mangadex.cc/title/{manga_id}',
         description=f'Simple feed via scrapping for mangadex - {title}',
-        logo=f'https://mangadex.org/images/manga/{manga_id}.jpg',
+        logo=f'https://mangadex.cc/images/manga/{manga_id}.jpg',
         language='en',
     )
 
     chapters = ((f'Chapter {chapter["chapter"]}: {chapter["title"]}',
-                 f'https://mangadex.org/chapter/{chapter_id}')
+                 f'https://mangadex.cc/chapter/{chapter_id}')
                 for chapter_id, chapter in manga_meta['chapter'].items()
                 if chapter['lang_code'] == 'gb')
 

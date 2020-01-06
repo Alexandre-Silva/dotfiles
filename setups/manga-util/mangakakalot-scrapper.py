@@ -106,7 +106,8 @@ def main():
         ]
 
         chapter_name = format_chapter_name(soup.title.string)
-        assert chapter_name is not None
+        if chapter_name is None:
+            chapter_name = "NAME NOT FOUND"
 
         def download_image(image_response, image_number, url):
             file_extension = url.split('.')[-1]
