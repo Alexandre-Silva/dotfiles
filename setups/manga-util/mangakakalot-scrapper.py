@@ -102,7 +102,7 @@ def main():
         soup = BeautifulSoup(html, features='lxml')
 
         image_list = [
-            tag.findAll('img') for tag in soup.findAll('div', id="vungdoc")
+            tag.findAll('img') for tag in soup.findAll('div', class_="container-chapter-reader")
         ]
 
         chapter_name = format_chapter_name(soup.title.string)
