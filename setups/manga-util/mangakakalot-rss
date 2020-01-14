@@ -47,7 +47,7 @@ def feed_fetch_mangakakalot(url) -> str:
 
     # print([tag for tag in soup.findAll('div', class_="chapter-list")])
     # print(soup.find('div'))
-    chapter_list = soup.find('div', class_="chapter-list").findAll('a')
+    chapter_list = soup.find('div', class_="panel-story-chapter-list").findAll('a')
 
     fg = feed()
     add_entries(fg, ((c.contents[0], c['href']) for c in chapter_list))
