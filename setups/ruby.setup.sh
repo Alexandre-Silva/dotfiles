@@ -2,13 +2,15 @@
 
 packages=(
     "pm:ruby"
+    "pm:ruby-docs"
+    "pm:ruby-rdoc"
+    "pm:rubygems"
 )
 
 links=()
 
 st_profile() {
-    GEM_BIN="$HOME/.gem/ruby/2.7.0/bin"
-    if [ -d "$GEM_BIN}"]; then
-        export PATH="$GEM_BIN:$PATH"
+    if hash ruby &>/dev/null; then
+        PATH="$PATH:$(ruby -e 'puts Gem.user_dir')/bin"
     fi
 }
