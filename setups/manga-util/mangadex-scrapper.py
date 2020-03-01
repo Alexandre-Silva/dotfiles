@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import time
 import sys
 import cfscrape
 from bs4 import BeautifulSoup
@@ -41,13 +42,20 @@ def main():
     chapters = [chapter_num2id[chapter] for chapter in chapters]
 
     for chapter in chapters:
-        result = scrape.get(
-            'https://mangadex.cc/api/',
-            params={
-                'id': chapter,
-                'type': 'chapter'
-            },
-        )
+        while True:
+            result = scrape.get(
+                'https://mangadex.cc/api/',
+                params={
+                    'id': chapter,
+                    'type': 'chapter'
+                },
+            )
+            if result.status_code == 500:
+                print("error code 500: waiting 5 secs before trying again")
+                time.sleep(5)
+                continue
+
+            break
 
         if not result.ok:
             print("ERROR: failed to fetch meta data")
@@ -61,7 +69,7 @@ def main():
         chapter = int(result['chapter'])
         name = result['title']
         server = result['server']
-        chapter_name = f'V{volume:02}.C{chapter:03}: {name}'
+        chapter_name = f'C{chapter:03}: {name}'
         chapter_hash = result['hash']
 
         if not server.startswith('http'):
