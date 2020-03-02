@@ -34,7 +34,7 @@ def main():
     print("Manga:", manga_meta['manga']['title'])
 
     chapter_num2id = {
-        chapter['chapter']: int(key)
+        chapter['chapter']: key
         for key, chapter in manga_meta['chapter'].items()
         if chapter['lang_code'] == 'gb'
     }
@@ -65,12 +65,20 @@ def main():
         result = result.json()
         print(result)
 
+        chapter_hash = result['hash']
         volume = int(result['volume']) if result['volume'].isdecimal() else 99
-        chapter = int(result['chapter'])
+        chapter = result['chapter']
         name = result['title']
         server = result['server']
-        chapter_name = f'C{chapter:03}: {name}'
-        chapter_hash = result['hash']
+
+        chapter_split = chapter.split('.')
+        if len(chapter_split) == 1:
+            chapter_num = int(chapter)
+            chapter_name = f'C{chapter_num:03}: {name}'
+        else:
+            chapter_num, chapter_sub = chapter_split
+            chapter_num, chapter_sub = int(chapter_num), int(chapter_sub)
+            chapter_name = f'C{chapter_num:03}.{chapter_sub}: {name}'
 
         if not server.startswith('http'):
             server = f'https://mangadex.cc{server}'
