@@ -7,3 +7,5 @@
 setups/ranger/config/tagged
 setups/ranger/config/bookmarks
 setups/ranger/config/history
+
+.mypy_cache/
