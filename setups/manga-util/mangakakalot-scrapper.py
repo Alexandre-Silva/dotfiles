@@ -26,6 +26,19 @@ CHAPTER_NAME_1_RE = re.compile(
 
 CHAPTER_NAME_2_RE = re.compile(r'^.+ Chapter (\d+)\ ?:? (.+) - \w+.com')
 
+CHAPTER_NAME_3_RE = re.compile(r'^.+ Chapter (\d+)\ ?:? (.+) - Manganelo')
+
+
+def format_chapter_name_3(title: str) -> Optional[str]:
+    match = CHAPTER_NAME_3_RE.match(title)
+
+    if match is None:
+        return None
+
+    chapter, name = match.groups()
+    chapter = int(chapter)
+
+    return f'VXX.C{chapter:03}: {name}'
 
 def format_chapter_name_2(title: str) -> Optional[str]:
     match = CHAPTER_NAME_2_RE.match(title)
@@ -55,6 +68,7 @@ def format_chapter_name(title: str) -> Optional[str]:
     for fn in [
             format_chapter_name_1,
             format_chapter_name_2,
+            format_chapter_name_3,
     ]:
         name = fn(title)
         if name is not None:
@@ -108,6 +122,7 @@ def main():
         chapter_name = format_chapter_name(soup.title.string)
         if chapter_name is None:
             chapter_name = "NAME NOT FOUND"
+
 
         def download_image(image_response, image_number, url):
             file_extension = url.split('.')[-1]
