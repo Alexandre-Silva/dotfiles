@@ -27,7 +27,19 @@ CHAPTER_NAME_1_RE = re.compile(
 CHAPTER_NAME_2_RE = re.compile(r'^.+ Chapter (\d+)\ ?:? (.+) - \w+.com')
 
 CHAPTER_NAME_3_RE = re.compile(r'^.+ Chapter (\d+)\ ?:? (.+) - Manganelo')
+CHAPTER_NAME_4_RE = re.compile(r'^.+ Chapter (\d+) - Manganelo')
 
+
+def format_chapter_name_4(title: str) -> Optional[str]:
+    match = CHAPTER_NAME_4_RE.match(title)
+
+    if match is None:
+        return None
+
+    chapter = match[1]
+    chapter = int(chapter)
+
+    return f'C{chapter:03}:'
 
 def format_chapter_name_3(title: str) -> Optional[str]:
     match = CHAPTER_NAME_3_RE.match(title)
@@ -38,7 +50,7 @@ def format_chapter_name_3(title: str) -> Optional[str]:
     chapter, name = match.groups()
     chapter = int(chapter)
 
-    return f'VXX.C{chapter:03}: {name}'
+    return f'C{chapter:03}: {name}'
 
 def format_chapter_name_2(title: str) -> Optional[str]:
     match = CHAPTER_NAME_2_RE.match(title)
@@ -49,7 +61,7 @@ def format_chapter_name_2(title: str) -> Optional[str]:
     chapter, name = match.groups()
     chapter = int(chapter)
 
-    return f'VXX.C{chapter:03}: {name}'
+    return f'C{chapter:03}: {name}'
 
 
 def format_chapter_name_1(title: str) -> Optional[str]:
@@ -61,7 +73,7 @@ def format_chapter_name_1(title: str) -> Optional[str]:
     volume, chapter, name = match.groups()
     volume, chapter = int(volume), int(chapter)
 
-    return f'V{volume:02}.C{chapter:03}: {name}'
+    return f'C{chapter:03}: {name}'
 
 
 def format_chapter_name(title: str) -> Optional[str]:
@@ -69,6 +81,7 @@ def format_chapter_name(title: str) -> Optional[str]:
             format_chapter_name_1,
             format_chapter_name_2,
             format_chapter_name_3,
+            format_chapter_name_4,
     ]:
         name = fn(title)
         if name is not None:
@@ -78,26 +91,35 @@ def format_chapter_name(title: str) -> Optional[str]:
                 name += ' NA'
             return name
 
+    print(title)
+
     return None
 
 
 _formated = format_chapter_name(
     'Kishuku Gakkou No Juliet Vol.11 Chapter 71: Romio And The Freshmen II - Mangakakalot.com'
 )
-_expected = 'V11.C071: Romio And The Freshmen II'
+_expected = 'C071: Romio And The Freshmen II'
 assert _formated == _expected
 
 _formated = format_chapter_name(
     'Kaguya-sama Wa Kokurasetai - Tensai-tachi No Renai Zunousen Chapter 21 : Kaguya Wants To Have Held Online For Free - MangaNelo.com'
 )
-_expected = 'VXX.C021: Kaguya Wants To Have Held'
+_expected = 'C021: Kaguya Wants To Have Held'
 assert _formated == _expected
 
 _formated = format_chapter_name(
     'Kaguya-sama Wa Kokurasetai - Tensai-tachi No Renai Zunousen Vol.6 Chapter 60 Online For Free - MangaNelo.com'
 )
-_expected = 'V06.C060: NA'
+_expected = 'C060: NA'
 assert _formated == _expected
+
+_formated = format_chapter_name(
+    'Bokutachi Wa Benkyou Ga Dekinai Chapter 11 - Manganelo'
+)
+_expected = 'C011: NA'
+assert _formated == _expected
+
 
 
 def main():
