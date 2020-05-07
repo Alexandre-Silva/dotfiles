@@ -7,6 +7,8 @@ import cfscrape
 from bs4 import BeautifulSoup
 import re
 from typing import Optional
+import requests
+import OpenSSL
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -89,7 +91,13 @@ def main():
 
         for i, img_url in enumerate(image_list):
             print(f'Fetching {chapter_name} page {i+1}/{len(image_list)}')
-            image_response = scrape.get(img_url)
+            while True:
+                try:
+                    image_response = scrape.get(img_url, timeout=15.0)
+                    break
+                except (requests.exceptions.Timeout, OpenSSL.SSL.WantReadError, requests.exceptions.ConnectionError, requests.exceptions.ChunkedEncodingError):
+                    print('Timeout, retrying')
+                    pass
 
             file_extension = img_url.split('.')[-1]
             path_directory = "{}/{}/".format(out_dir, chapter_name)
