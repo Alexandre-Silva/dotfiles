@@ -96,18 +96,22 @@ class RSSHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         manga = self.path
 
-        if manga.startswith('/mangadex/'):
-            manga_id = int(manga.replace('/mangadex/', ''))
-            response = feed_fetch_mangadex(manga_id)
+        try:
+            if manga.startswith('/mangadex/'):
+                manga_id = int(manga.replace('/mangadex/', ''))
+                response = feed_fetch_mangadex(manga_id)
 
-        elif manga.startswith('/mangakakalot/'):
-            manga_name = manga.replace('/mangakakalot/', '')
-            url = f'https://manganelo.com/manga/{manga_name}'
-            response = feed_fetch_mangakakalot(url)
+            elif manga.startswith('/mangakakalot/'):
+                manga_name = manga.replace('/mangakakalot/', '')
+                url = f'https://manganelo.com/manga/{manga_name}'
+                response = feed_fetch_mangakakalot(url)
 
-        else:
-            print("Invalid path")
-            response = None
+            else:
+                print("Invalid path")
+                response = None
+        except:
+            print('error for ' + manga)
+            raise
 
         if response is None:
             self.send_response(500)
