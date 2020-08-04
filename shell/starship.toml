@@ -6,6 +6,9 @@ disabled = true
 [battery]
 disabled = true
 
+[character]
+symbol = "⊳"
+
 [cmd_duration]
 show_milliseconds = true
 
