@@ -20,11 +20,16 @@ packages=(
     "pm:fzf" # A command-line fuzzy finder. https://github.com/junegunn/fzf
     "aur:entr"  # executed cmd on file changes
     "pm:fasd"  # Fasd offers quick access to files and directories for POSIX shells.
+    "aur:starship-bin" # The minimal, blazing-fast, and infinitely customizable prompt for any shell!
+    "pm:sd" # sd is an intuitive find & replace CLI.
 )
 
 
 links=(
     "$DOTFILES/shell/lib/mo/mo" $HOME/.bin/mo
+    "$DOTFILES/shell/lib/mo/mo" $HOME/.bin/mo
+
+    {"$DOTFILES/shell/",${XDG_CONFIG_HOME:-$HOME/.config}/}starship.toml
 )
 
 depends=("$DOTFILES/setups/oh-my-zsh/setup.sh")

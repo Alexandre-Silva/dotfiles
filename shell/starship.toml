@@ -1,0 +1,131 @@
+# refer to https://starship.rs/config
+
+[aws]
+disabled = true
+
+[battery]
+disabled = true
+
+[cmd_duration]
+show_milliseconds = true
+
+[conda]
+disabled = true
+
+[directory]
+truncation_length = 8
+
+[dotnet]
+disabled = true
+
+[elixir]
+disabled = true
+
+[elm]
+disabled = true
+
+[env_var]
+disabled = true
+# variable = "SHELL"
+# default = "unknown shell"
+# prefix = "SHELL: "
+
+[erlang]
+disabled = true
+
+[git_branch]
+
+[git_commit]
+
+[git_state]
+
+[git_status]
+ahead = "↑"
+behind = "↓"
+
+conflicted_count.enabled = true
+untracked_count.enabled = true
+stashed_count.enabled = true
+modified_count.enabled = true
+staged_count.enabled = true
+renamed_count.enabled = true
+deleted_count.enabled = true
+show_sync_count = true
+
+[golang]
+disabled = true
+
+[hostname]
+disabled = true
+
+[java]
+disabled = true
+
+[jobs]
+
+[kubernetes]
+
+[line_break]
+disabled = false
+
+[memory_usage]
+disabled = true
+
+[hg_branch]
+disabled = true
+
+[nim]
+disabled = true
+
+[nix_shell]
+disabled = true
+
+[nodejs]
+
+[package]
+symbol = "Pkg: "
+
+[ocaml]
+disabled = true
+
+[php]
+disabled = true
+
+[python]
+symbol = "Py: "
+style = "bold fg:bright-green"
+
+[ruby]
+symbol = "🔺 "
+
+[rust]
+symbol = "⚙ "
+
+[singularity]
+disabled = true
+
+[terraform]
+disabled = true
+
+[time]
+disabled = true
+
+[username]
+
+[zig]
+disabled = true
+
+# [custom.foo]
+# command = "echo foo"  # shows output of command
+# files = ["foo"]       # can specify filters
+# when = """ test "$HOME" == "$PWD" """
+# prefix = " transcending "
+
+# [custom.time]
+# command = "time /T"
+# files = ["*.pst"]
+# prefix = "transcending "
+# shell = ["pwsh.exe", "-NoProfile", "-Command", "-"]
+
+[purescript]
+disabled = true

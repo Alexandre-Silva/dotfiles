@@ -1,5 +1,17 @@
 #!/usr/bin/bash
 
+links=()
+
+if [ -n "$ZSH" ] && [ -d "${ZSH}" ]; then
+    for plugin in "$DOTFILES/setups/oh-my-zsh/plugins/"*; do
+        links+=( "$plugin" "$ZSH/custom/plugins/$(basename $plugin)" )
+    done
+
+    for theme in "$ADM_DIR/themes/"*; do
+        links+=( "$theme" "$ZSH/custom/themes/$(basename $theme)" )
+    done
+fi
+
 st_install() {
     if [ -n "$ZSH" ] && [ -d "${ZSH}" ]; then
         echo "Oh-my-zsh already installed."
@@ -15,12 +27,4 @@ st_install() {
         echo "$HOME/.oh-my-zsh already exists skipping install of oh-my-zsh"
 
     fi
-
-    for plugin in "$ADM_DIR/plugins/"*; do
-        adm_link "$plugin" "$ZSH/custom/plugins/$(basename $plugin)"
-    done
-
-    for theme in "$ADM_DIR/themes/"*; do
-        adm_link "$theme" "$ZSH/custom/themes/$(basename $theme)"
-    done
 }
