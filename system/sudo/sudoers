@@ -121,3 +121,5 @@ Cmnd_Alias  SHELL       =   /usr/bin/zsh, /usr/bin/bash
 
 ## Inputting a incorrect password results in insults
 Defaults insults
+
+# end of config
