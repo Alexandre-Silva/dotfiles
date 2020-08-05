@@ -13,12 +13,12 @@ packages=(
     "pm:trash-cli"
     "pm:fd" # better find
     "pm:bat" # cat++
-    "aur:prettyping" # better ping
+    "pm:prettyping" # better ping
     "pm:ncdu" # better du
     "pm:tldr" # Simplified and community-driven man pages. https://tldr.sh/
     "pm:jq" # jq is a lightweight and flexible command-line JSON processor. https://stedolan.github.io/jq/
     "pm:fzf" # A command-line fuzzy finder. https://github.com/junegunn/fzf
-    "aur:entr"  # executed cmd on file changes
+    "pm:entr"  # executed cmd on file changes
     "pm:fasd"  # Fasd offers quick access to files and directories for POSIX shells.
     "aur:starship-bin" # The minimal, blazing-fast, and infinitely customizable prompt for any shell!
     "pm:sd" # sd is an intuitive find & replace CLI.
