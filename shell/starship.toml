@@ -59,7 +59,7 @@ show_sync_count = true
 disabled = true
 
 [hostname]
-disabled = true
+disabled = false
 
 [java]
 disabled = true

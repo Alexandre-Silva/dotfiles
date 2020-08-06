@@ -12,4 +12,4 @@ packages=(
     pm:pigz # drop in replacemente for gzip with parallel compression
 )
 
-links=( "${ADM_DIR}/pacman" "${XDG_CONFIG_HOME:-$HOME/.config}/pacman")
+links=( "${ADM_DIR}/pacman" "${XDG_CONFIG_HOME:-$HOME/.config}/pacman" )
