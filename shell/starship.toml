@@ -17,6 +17,7 @@ disabled = true
 
 [directory]
 truncation_length = 8
+style = "bold yellow"
 
 [dotnet]
 disabled = true
