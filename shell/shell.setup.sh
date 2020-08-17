@@ -22,6 +22,7 @@ packages=(
     "pm:fasd"  # Fasd offers quick access to files and directories for POSIX shells.
     "aur:starship-bin" # The minimal, blazing-fast, and infinitely customizable prompt for any shell!
     "pm:sd" # sd is an intuitive find & replace CLI.
+    "pm:ripgrep" # better grep
 )
 
 
