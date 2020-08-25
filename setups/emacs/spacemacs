@@ -74,7 +74,7 @@ values."
      ;; nlinum ; faster line numbers
      themes-megapack
      shell
-     (elfeed :variables rmh-elfeed-org-files (list "~/dotfiles_private/emacs/elfeeds.org"))
+     (elfeed :variables rmh-elfeed-org-files (list "~/.elfeeds.org"))
 
      calfw
 
@@ -113,6 +113,7 @@ values."
                                       realgud
                                       atomic-chrome
                                       yasnippet-snippets
+                                      elfeed-org
                                       )
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
@@ -600,7 +601,7 @@ layers configuration."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   (global-git-commit-mode t) ;; Use Spacemacs as =$EDITOR= for editing git commits messages
 
-
+  (elfeed-org)
   )
 
 ;; Don't litter my init file
