@@ -77,7 +77,10 @@ case "$session" in
 		    xterm -geometry 80x20+494-0 &
 		    exec xterm -geometry 80x66+0+0 -name login
 		    ;;
-    awesome           ) exec awesome;;
+    awesome           ) 
+        unset LUA_PATH
+        unset LUA_CPATH
+        exec awesome;;
     bspwm             ) exec bspwm;;
     catwm             ) exec catwm;;
     cinnamon          ) exec cinnamon-session;;
