@@ -82,7 +82,8 @@ rc=$DOTFILES"/shell/rc.sh"
 [ -f "$rc" ] && . "$rc"
 
 # cursor da consola
-#PS1=$"\W/:»"
+#PS1=$"\W/:ÃÂ»"
 retSmiley="\$(if [[ \$? == 0 ]]; then echo \"\[\033[0;32m\];)\"; else echo \"\[\033[0;31m\];(\"; fi)\[\033[00m\]"
 PS1="$retSmiley \[$Purple\]\A \[$Green\]\u@\h \[$Cyan\]\W\[$Green\]$\[$Color_Off\] "
 #PS2=$'\e[38;5;46m$PS2'
+
