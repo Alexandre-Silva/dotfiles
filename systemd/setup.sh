@@ -17,5 +17,7 @@ st_install() {
 
     systemctl --user link "${DOTFILES}/systemd/socks5@.service"
 
+    systemctl --user link "${DOTFILES}/systemd/tunnel-sshd@.service"
+
     systemctl --user daemon-reload
 }
