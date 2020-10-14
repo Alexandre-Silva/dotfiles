@@ -20,4 +20,9 @@ st_install() {
     systemctl --user link "${DOTFILES}/systemd/tunnel-sshd@.service"
 
     systemctl --user daemon-reload
+
+
+    sudo systemctl link "${DOTFILES}/systemd/tunnel-sshd2@.service"
+
+    sudo systemctl daemon-reload
 }

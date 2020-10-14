@@ -1,0 +1,13 @@
+[Unit]
+Description=Creates and maintains a reverse ssh tunnel for SSH access to this machine via $REMOTE
+After=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/default/tunnel-ssh-%i
+ExecStart=/usr/bin/autossh -NT -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -i $IDENTITY_FILE -R *:$PORT:localhost:22 $REMOTE
+Restart=always
+RestartSec=15
+
+[Install]
+WantedBy=multi-user.target
