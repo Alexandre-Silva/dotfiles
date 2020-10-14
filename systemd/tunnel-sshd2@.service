@@ -5,7 +5,8 @@ After=network.target
 [Service]
 Type=simple
 EnvironmentFile=/etc/default/tunnel-ssh-%i
-ExecStart=/usr/bin/autossh -NT -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -i $IDENTITY_FILE -R *:$PORT:localhost:22 $REMOTE
+User=%i
+ExecStart=/usr/bin/autossh -NT -M 0 -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3" -R $BIND_ADDRESSES $REMOTE
 Restart=always
 RestartSec=15
 
