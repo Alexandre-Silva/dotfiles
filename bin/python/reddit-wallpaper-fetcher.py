@@ -75,7 +75,7 @@ def fetch_posts(url: str) -> List[Post]:
     for c in index['data']['children']:
         p = c['data']
 
-        if p['is_meta'] or p['post_hint'] != 'image':
+        if p['is_meta'] or p.get('post_hint') != 'image':
             continue
 
         p = Post(p['title'], int(p['score']), p['url'], p)
