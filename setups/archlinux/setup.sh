@@ -10,6 +10,7 @@ depends=(
 packages=(
     pm:pacman-contrib
     pm:pigz # drop in replacemente for gzip with parallel compression
+    pm:ntp
     aur:kernel-modules-hook
 )
 
@@ -20,4 +21,5 @@ st_install() {
     # for kernel-modules-hook
     sudo systemctl daemon-reload
     sudo systemctl enable linux-modules-cleanup
+    sudo systemctl enable --now ntpd
 }
