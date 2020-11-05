@@ -5,6 +5,7 @@ packages=(
     pm:lib
     pm:xdotool
     pm:libcurl-gnutls
+    pm:dunst
 )
 
 links=()
