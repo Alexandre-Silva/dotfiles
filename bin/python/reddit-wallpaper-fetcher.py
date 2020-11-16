@@ -27,7 +27,7 @@ class Post():
     @property
     def fname(self):
         ext = self.url.split('.')[-1]
-        title = self.title
+        title = self.title[:128] # truncate long names
         return f'{title}.{ext}'
 
     def __str__(self):
