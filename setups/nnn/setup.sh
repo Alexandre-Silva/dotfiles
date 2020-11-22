@@ -4,7 +4,7 @@ packages=(
     'pm:nnn'
 )
 
-links=( "${ADM_DIR}" "CONFIG_DIR=${XDG_CONFIG_HOME:-$HOME/.config}/nnn/" )
+links=( "${ADM_DIR}" "${XDG_CONFIG_HOME:-$HOME/.config}/nnn/" )
 
 st_install() {
     curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs | sh
