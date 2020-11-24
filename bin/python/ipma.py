@@ -359,14 +359,14 @@ def forecast(location, auto_update):
     out = ipma.forecast_3parts(location)
 
     # headers = ('day', 'part', 'tempo', 'probChuva', 'vento', 'ventoDir')
-    headers = ['a', 'b', 'c']
+    # headers = ['a', 'b', 'c']
     rows = ((
         '{} {}'.format(f['time'].strftime('%d %a'), f['part']),
         '{}, {}%'.format(f['tempo'], int(f['probabilidadePrecipita'])),
         '{:>2} {:4.1f}'.format(f.get('ddVento', ''), f.get('ffVento', 0.0)),
     ) for f in out)
 
-    click.echo(tb(rows, headers, disable_numparse=True))
+    click.echo(tb(rows, tablefmt='plain', disable_numparse=True))
 
 
 def main():
