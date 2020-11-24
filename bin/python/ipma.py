@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 
-import os
-from datetime import datetime
 import json
-import sys
-import requests
-import cfscrape
-from tabulate import tabulate
+import os
 import pprint
-from bs4 import BeautifulSoup
-import re
-from typing import Optional, List
+import sys
+from datetime import datetime, timedelta
 from pathlib import Path
+from typing import List, Optional
+
+import click
+import requests
+import tabulate
+from tabulate import tabulate as tb
+
+tabulate.PRESERVE_WHITESPACE = True
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 CACHE_DIR = Path(os.getenv('XDG_CACHE_DIR', '~/.cache/')).expanduser()
@@ -28,13 +30,10 @@ URL_LOCATIONS = f'{URL_API}/public-data/forecast/locations.json'
 URL_WARNINGS = f'{URL_API}/public-data/warnings/warnings_www.json'
 URL_FORECASTS = f'{URL_API}/public-data/forecast/aggregate'
 
-#### ENV params ####
-LOCATIONS = os.getenv('IPMA_LOCATIONS', '')  #
-
 pp = pprint.PrettyPrinter(indent=4)
 
 
-def fetch_static() -> dict:
+def fetch_static_maps() -> dict:
     types = [
         ('rain', URL_RAINTYPES),
         ('wind', URL_WINDTYPES),
@@ -67,10 +66,10 @@ def cache_load() -> dict:
     return data
 
 
-def fetch() -> dict:
+def fetch_static() -> dict:
     data = dict()
     data['time'] = datetime.now().replace(microsecond=0).isoformat()
-    static = fetch_static()
+    static = fetch_static_maps()
     warnings = fetch_warnings()
 
     data.update(static)
@@ -130,6 +129,15 @@ def forecast_merge(a: dict, b: dict) -> dict:
     '''
 
     first = lambda a, b: a
+    avg = lambda a, b: (a + b / 2)
+
+    for k in ('tempAguaMar', 'periodoPico', 'ondulacao', 'marTotal',
+              'periodOndulacao'):
+        if k in a:
+            a[k] = float(a[k])
+
+        if k in b:
+            b[k] = float(b[k])
 
     ag_fn = {
         'dataPrev': first,
@@ -151,10 +159,16 @@ def forecast_merge(a: dict, b: dict) -> dict:
         'tMin': min,
         'time': min,
         'utci': min,
+        'tempAguaMar': avg,
+        'periodoPico': max,
+        'ondulacao': max,
+        'dirOndulacao': first,
+        'marTotal': max,
+        'periodOndulacao': max,
     }
 
     for k in a.keys():
-        assert k in ag_fn, f'{k} not found'
+        assert k in ag_fn, f'{k}:{a[k]} not found'
 
     out = {}
     out.update(
@@ -228,12 +242,25 @@ class IPMA():
     def location_id(self, loc) -> str:
         return str(self.map_locations[loc]['globalIdLocal'])
 
-    def forecast_fetch(self, location: str) -> dict:
+    def update_location(self, location: str) -> dict:
         loc_id = self.location_id(location)
         forecast = fetch_forecast(loc_id)
         self.data['forecasts'][loc_id] = forecast
 
         return forecast
+
+    def forecast_date(self, location: str) -> Optional[datetime]:
+        '''
+        Of the time it was produced by IPMA. If has it locally
+        '''
+        loc_id = self.location_id(location)
+        forecasts = self.data['forecasts'].get(loc_id)
+        if forecasts is None:
+            return None
+
+        time = datetime.fromisoformat(forecasts[0]['dataUpdate'])
+
+        return time
 
     def forecast_3parts(self, location: str) -> List[dict]:
         loc_id = self.location_id(location)
@@ -260,65 +287,90 @@ class IPMA():
         return forecast
 
 
-def main():
-    if len(sys.argv) <= 1:
-        print("Needs to specify command")
-        sys.exit(1)
+ipma = IPMA()
 
-    cmd = sys.argv[1]
 
-    ipma = IPMA()
+@click.group()
+def cli():
     if CACHE_FILE.exists():
         data = cache_load()
         ipma.load(data)
 
-    if cmd == 'fetch-static':
-        data = fetch()
-        ipma.load(data)
 
-    elif cmd == 'fetch-locations':
-        locations = LOCATIONS.split(';')
-        for loc in locations:
-            f = ipma.forecast_fetch(loc)
-            # pp.pprint(f)
-
-    elif cmd == 'show-data':
-        data = ipma.data
-
-        if len(sys.argv) >= 3:
-            name = sys.argv[2]
-            data = data[name]
-
-        pp.pprint(data)
-
-    elif cmd == 'show-data-forecast':
-        data = ipma.data
-
-        name = sys.argv[2]
-
-        locid = ipma.location_id(name)
-        pp.pprint(data['forecasts'][locid])
-
-    elif cmd == 'forecast':
-        name = sys.argv[2]
-        out = ipma.forecast_3parts(name)
-
-        headers = ('day', 'part', 'tempo', 'probChuva', 'vento', 'ventoDir')
-        rows = ((
-            f['time'].strftime('%d %a'),
-            f['part'],
-            f['tempo'],
-            int(f['probabilidadePrecipita']),
-            f.get('ffVento', 0.0),
-            f.get('ddVento'),
-        ) for f in out)
-
-        print(tabulate(rows, headers, disable_numparse=True))
-
-    else:
-        print(f"Unknown command {cmd}")
-
+@cli.resultcallback()
+def on_return(ret):
     cache_save(ipma.data)
+
+
+@cli.command()
+def update():
+    data = fetch_static()
+    ipma.load(data)
+
+
+@cli.command()
+@click.argument('location', type=str)
+def update_location(location):
+    f = ipma.update_location(location)
+
+
+@cli.command()
+@click.argument('key', type=str, default='')
+def dump_data(key):
+    data = ipma.data
+
+    if key != '':
+        key_parts = key.split('.')
+        for part in key_parts:
+            if part not in data:
+                click.echo(f"Unkown key {key}")
+                sys.exit(1)
+
+            data = data[part]
+
+    pp.pprint(data)
+
+
+@cli.command()
+@click.argument('location', type=str)
+@click.option('--auto-update/--no-auto-udpate', default=True)
+def forecast(location, auto_update):
+    #NOTE IPMA runs 2 forecast simulations daily. and thus publishs them twice
+    #daily
+
+    if ipma.data == {}:
+        if auto_update:
+            ipma.load(fetch_static())
+        else:
+            click.echo('No available data and auto-update is off', err=True)
+
+    now = datetime.now()
+    forecast_date = ipma.forecast_date(location)
+    is_non_existent = forecast_date is None
+    td12h = timedelta(hours=12)
+    is_stale = forecast_date is not None and forecast_date > (now - td12h)
+    should_update = auto_update and (is_non_existent or is_stale)
+
+    if should_update:
+        ipma.update_location(location)
+
+    # TODO no header on output option
+
+    out = ipma.forecast_3parts(location)
+
+    # headers = ('day', 'part', 'tempo', 'probChuva', 'vento', 'ventoDir')
+    headers = ['a', 'b', 'c']
+    rows = ((
+        '{} {}'.format(f['time'].strftime('%d %a'), f['part']),
+        '{}, {}%'.format(f['tempo'], int(f['probabilidadePrecipita'])),
+        '{:>2} {:4.1f}'.format(f.get('ddVento', ''), f.get('ffVento', 0.0)),
+    ) for f in out)
+
+    click.echo(tb(rows, headers, disable_numparse=True))
+
+
+def main():
+    cli()
 
 
 if __name__ == "__main__":
