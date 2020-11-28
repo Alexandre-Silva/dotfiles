@@ -56,6 +56,10 @@ xset r rate 200 45
 screen_config=~/.screenlayout/default.sh
 [ -f "${screen_config}" ] && "${screen_config}"
 
+
+# permit chaing keypad into mouse mode
+setxkbmap -option keypad:pointerkeys
+
 ################################################################################
 # start the session
 ################################################################################
