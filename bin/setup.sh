@@ -14,6 +14,10 @@ done < <(find "$DOTFILES/bin/sh/" "$DOTFILES/bin/python/" -type f -executable -p
 function st_install() {
     if hash cargo &>/dev/null; then
         for app in "$DOTFILES/bin/rust/"*; do
+            if [ -f "${app}/disable" ]; then
+                continue
+            fi
+
             (
                 cd "${app}"
                 cargo build --release
