@@ -348,13 +348,11 @@ def forecast(location, auto_update):
     forecast_date = ipma.forecast_date(location)
     is_non_existent = forecast_date is None
     td12h = timedelta(hours=12)
-    is_stale = forecast_date is not None and forecast_date > (now - td12h)
+    is_stale = forecast_date is not None and forecast_date < (now - td12h)
     should_update = auto_update and (is_non_existent or is_stale)
 
     if should_update:
         ipma.update_location(location)
-
-    # TODO no header on output option
 
     out = ipma.forecast_3parts(location)
 
