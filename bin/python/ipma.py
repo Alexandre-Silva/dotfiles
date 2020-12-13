@@ -262,7 +262,13 @@ class IPMA():
 
         return time
 
-    def forecast_3parts(self, location: str) -> List[dict]:
+    def forecast_3parts(
+        self,
+        location: str,
+        from_: datetime,
+        to: datetime,
+    ) -> List[dict]:
+
         loc_id = self.location_id(location)
         forecast = self.data['forecasts'][loc_id]
         forecast = [f.copy() for f in forecast]
@@ -272,6 +278,9 @@ class IPMA():
             forecast_setTime(f)
             forecast_classifyPart(f)
 
+        forecast = filter(lambda f: f['time'] >= from_, forecast)
+        forecast = filter(lambda f: f['time'] <= to, forecast)
+        forecast = list(forecast)
         forecast = forecast_removeWhere(forecast, idPeriodo=24)
         forecast = forecast_aggregateByPart(forecast)
 
@@ -333,10 +342,23 @@ def dump_data(key):
 
 @cli.command()
 @click.argument('location', type=str)
-@click.option('--auto-update/--no-auto-udpate', default=True)
-def forecast(location, auto_update):
-    #NOTE IPMA runs 2 forecast simulations daily. and thus publishs them twice
-    #daily
+@click.option('--auto-update/--no-auto-update', default=True)
+@click.option('short_parts', '--short-parts/--long-parts', default=False)
+@click.option(
+    'start',
+    '--start',
+    type=click.Choice(('all', 'now')),
+    default='all',
+)
+@click.option(
+    'end',
+    '--end',
+    type=click.Choice(('all', '+0', '+1', '+2', '+3', '+4', '+5', '+6')),
+    default='all',
+)
+def forecast(location, auto_update, short_parts: bool, start: str, end: str):
+    # NOTE IPMA runs 2 forecast simulations daily. and thus publishs them twice
+    # daily. Hence the 12hour stale check.
 
     if ipma.data == {}:
         if auto_update:
@@ -354,13 +376,38 @@ def forecast(location, auto_update):
     if should_update:
         ipma.update_location(location)
 
-    out = ipma.forecast_3parts(location)
+    now = datetime.now()
+
+    if start == 'all':
+        start_dt = datetime(1, 1, 1)
+    elif start == 'now':
+        start_dt = now
+    else:
+        assert False
+
+    if end == 'all':
+        end_dt = datetime(3000, 1, 1)  # TODO in the year 3000 update this
+    elif end.startswith('+'):
+        end = end.replace('+', '')
+        end_days = int(end)
+
+        # NOTE To include todays night partion the end_dt will be the last day
+        # plust the next one until 6:00
+        today = now.replace(hour=6, minute=0, second=0)
+        end_dt = today + timedelta(days=end_days + 1)
+    else:
+        assert False
+
+    out = ipma.forecast_3parts(location, start_dt, end_dt)
+
+    if short_parts:
+        for f in out:
+            f['part'] = f['part'][:3]
 
     # headers = ('day', 'part', 'tempo', 'probChuva', 'vento', 'ventoDir')
-    # headers = ['a', 'b', 'c']
     rows = ((
         '{} {}'.format(f['time'].strftime('%d %a'), f['part']),
-        '{}, {}%'.format(f['tempo'], int(f['probabilidadePrecipita'])),
+        '{:2d}% {}'.format(int(f['probabilidadePrecipita']), f['tempo']),
         '{:>2} {:4.1f}'.format(f.get('ddVento', ''), f.get('ffVento', 0.0)),
     ) for f in out)
 
