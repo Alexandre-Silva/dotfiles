@@ -1,0 +1,10 @@
+[Unit]
+Description=Manga RSS Scraper for mangakakalot and mangadex
+After=network.target
+
+[Service]
+ExecStart=/home/alex/.bin/manga_rss
+Restart=always
+
+[Install]
+WantedBy=default.target

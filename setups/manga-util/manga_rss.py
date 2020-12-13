@@ -3,7 +3,7 @@
 import os
 import sys
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from typing import Iterable, Tuple
+from typing import Iterable, Tuple, Optional
 
 import cfscrape
 from bs4 import BeautifulSoup
@@ -47,7 +47,8 @@ def feed_fetch_mangakakalot(url) -> str:
 
     # print([tag for tag in soup.findAll('div', class_="chapter-list")])
     # print(soup.find('div'))
-    chapter_list = soup.find('div', class_="panel-story-chapter-list").findAll('a')
+    chapter_list = soup.find('div',
+                             class_="panel-story-chapter-list").findAll('a')
 
     fg = feed()
     add_entries(fg, ((c.contents[0], c['href']) for c in chapter_list))
@@ -55,24 +56,19 @@ def feed_fetch_mangakakalot(url) -> str:
     return fg.writeString("iso-8859-1")
 
 
-def feed_fetch_mangadex(manga_id: int) -> str:
+def feed_fetch_mangadex(manga_id: int) -> Optional[str]:
     print(f'Fetching mangadex {manga_id}')
 
     scrape = cfscrape.create_scraper()
 
-    manga_meta = scrape.get(
-        'https://mangadex.cc/api/',
-        params={
-            'id': manga_id,
-            'type': 'manga'
-        },
-    )
-    if not manga_meta.ok:
+    manga_meta_resp = scrape.get(
+        f'https://mangadex.org/api/v2/manga/{manga_id}', )
+    if not manga_meta_resp.ok:
         print('Error fetching meta data for id:', manga_id)
         return None
 
-    manga_meta = manga_meta.json()
-    title = manga_meta['manga']['title']
+    manga_meta = manga_meta_resp.json()
+    title = manga_meta['data']['title']
 
     fg = DefaultFeed(
         title=f'mangadex - {title}',
@@ -82,10 +78,17 @@ def feed_fetch_mangadex(manga_id: int) -> str:
         language='en',
     )
 
+    chapters_resp = scrape.get(
+        f'https://mangadex.org/api/v2/manga/{manga_id}/chapters', )
+    if not chapters_resp.ok:
+        print('Error fetching chapters for {title} ({manga_id})')
+        return None
+
+    chapters_json = chapters_resp.json()
     chapters = ((f'Chapter {chapter["chapter"]}: {chapter["title"]}',
-                 f'https://mangadex.cc/chapter/{chapter_id}')
-                for chapter_id, chapter in manga_meta['chapter'].items()
-                if chapter['lang_code'] == 'gb')
+                 f'https://mangadex.cc/chapter/{chapter["id"]}')
+                for chapter in chapters_json['data']['chapters']
+                if chapter['language'] == 'gb')
 
     add_entries(fg, chapters)
 
