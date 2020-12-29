@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import requests
+import string
 import sys
 from dataclasses import dataclass
 from typing import List
@@ -11,9 +12,15 @@ from datetime import datetime, timedelta
 
 INDEX_URL = 'https://www.reddit.com/r/EarthPorn.json'
 CACHE_PATH = Path('~/.cache/wallpapers/').expanduser()
-WALLPAPER_COUNT = 5
-WALLPAPER_REMOVE_AGE = timedelta(days=1)
+WALLPAPER_MAX_COUNT = 30
+WALLPAPER_DOWNLOAD_COUNT = 5
+WALLPAPER_REMOVE_AGE = timedelta(days=5)
 # WALLPAPER_REMOVE_AGE = timedelta(minutes=1)
+printable = set(string.printable)
+
+
+def str_rm_non_printable(s: str) -> str:
+    return ''.join(filter(lambda x: x in printable, s))
 
 
 @dataclass
@@ -26,8 +33,11 @@ class Post():
 
     @property
     def fname(self):
-        ext = self.url.split('.')[-1]
-        title = self.title[:128] # truncate long names
+        ext = self.url.split('?')[0]
+        ext = ext.split('.')[-1]
+        title = self.title[:128]  # truncate long names
+        title = str_rm_non_printable(title)
+        title = title.replace('/', '')
         return f'{title}.{ext}'
 
     def __str__(self):
@@ -85,9 +95,10 @@ def fetch_posts(url: str) -> List[Post]:
 
 
 def determine_wp_to_download(cache, posts: List[Post]) -> List[Post]:
-    num2download = WALLPAPER_COUNT - len(cache)
+    num2download = WALLPAPER_DOWNLOAD_COUNT - len(cache)
     posts.sort(key=lambda p: p.score, reverse=True)
-    return posts[:num2download]
+    posts = posts[:num2download]
+    return posts
 
 
 def dowload_post(post: Post):
