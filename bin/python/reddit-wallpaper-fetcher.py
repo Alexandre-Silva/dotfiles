@@ -95,7 +95,8 @@ def fetch_posts(url: str) -> List[Post]:
 
 
 def determine_wp_to_download(cache, posts: List[Post]) -> List[Post]:
-    num2download = WALLPAPER_DOWNLOAD_COUNT - len(cache)
+    num2download = WALLPAPER_MAX_COUNT - len(cache)
+    num2download = min(num2download, WALLPAPER_DOWNLOAD_COUNT)
     posts.sort(key=lambda p: p.score, reverse=True)
     posts = posts[:num2download]
     return posts
