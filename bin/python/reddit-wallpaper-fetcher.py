@@ -103,10 +103,14 @@ def determine_wp_to_download(cache, posts: List[Post]) -> List[Post]:
 
 
 def dowload_post(post: Post):
-    print(f'Dowloading: {post.title}')
+    print(f'Dowloading: {post.title} (post.url)')
 
     rimg = requests.get(post.url,
                         headers={'User-agent': 'wallpaper-downloader-bot'})
+
+    if not rimg.ok:
+        print(f'Download failed ({rimg.status_code})')
+        return
 
     img = rimg.content
 
