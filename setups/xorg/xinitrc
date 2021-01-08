@@ -6,10 +6,19 @@
 default_session="awesome"
 
 userresources=$HOME/.Xresources
+userLocalResources=$HOME/.Xresources_local
 usermodmap=$HOME/.Xmodmap
 xbindkeysrc=$HOME/.xbindkeysrc
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
+
+
+################################################################################
+# Set keyboard as us-international with dead keys
+################################################################################
+
+setxkbmap -layout us -variant altgr-intl
+setxkbmap -option keypad:pointerkeys
 
 ################################################################################
 # merge in defaults and keymaps
@@ -20,6 +29,7 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 [ -f "$xbindkeysrc" ] && hash xbindkeys &>/dev/null && xbindkeys
 [ -f "$userresources" ] && xrdb -merge "$userresources"
 [ -f "$usermodmap" ] && xmodmap "$usermodmap"
+[ -f "$userLocalResources" ] && xrdb -merge "$userLocalResources"
 
 
 ################################################################################
@@ -38,9 +48,6 @@ fi
 # Custom settings and configs
 ################################################################################
 
-# Set keyboard as us-international with dead keys
-setxkbmap -layout us -variant altgr-intl
-
 # activate numlock
 numlockx &
 
@@ -56,9 +63,7 @@ xset r rate 200 45
 screen_config=~/.screenlayout/default.sh
 [ -f "${screen_config}" ] && "${screen_config}"
 
-
-# permit chaing keypad into mouse mode
-setxkbmap -option keypad:pointerkeys
+[ -f "$HOME/.xinitrc_local" ] && . "$HOME/.xinitrc_local"
 
 ################################################################################
 # start the session
@@ -81,7 +86,7 @@ case "$session" in
 		    xterm -geometry 80x20+494-0 &
 		    exec xterm -geometry 80x66+0+0 -name login
 		    ;;
-    awesome           ) 
+    awesome           )
         unset LUA_PATH
         unset LUA_CPATH
         exec awesome;;
