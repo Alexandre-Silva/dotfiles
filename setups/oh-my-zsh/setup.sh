@@ -2,7 +2,12 @@
 
 links=()
 
-if [ -n "$ZSH" ] && [ -d "${ZSH}" ]; then
+if [ -n "$ZSH" ] && [ -d "${ZSH}" ] || [ -d "$HOME/.oh-my-zsh" ]; then
+    if [ ! -d "${ZSH}" ]; then
+        export ZSH="$HOME/.oh-my-zsh"
+    fi
+
+
     for plugin in "$DOTFILES/setups/oh-my-zsh/plugins/"*; do
         links+=( "$plugin" "$ZSH/custom/plugins/$(basename $plugin)" )
     done
