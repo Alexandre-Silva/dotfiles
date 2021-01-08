@@ -11,6 +11,8 @@ st_install() {
 }
 
 st_rc() {
-    lastcd='/usr/share/nnn/quitcd/quitcd.bash_zsh'
-    [ -f "${lastcd}" ] && source "${lastcd}"
+    local lastcd='/usr/share/nnn/quitcd/quitcd.bash_zsh'
+    if [ -f "${lastcd}" ]; then
+        source "${lastcd}";
+    fi
 }
