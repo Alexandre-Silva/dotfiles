@@ -81,8 +81,9 @@ values."
      (python :variables
              python-test-runner 'pytest
              python-enable-yapf-format-on-save nil
-             python-sort-imports-on-save nil)
-     (c-c++ :variables c-c++-enable-clang-support t)
+             python-sort-imports-on-save nil
+             python-backend 'lsp)
+     (c-c++ :variables c-c++-backend 'lsp-clangd)
      ;; elm
      emacs-lisp
      ;; ess ; R
@@ -517,9 +518,17 @@ layers configuration."
 
     (define-key global-map "\C-cc" 'org-capture)
     (global-set-key (kbd "\C-ca") 'org-agenda)
+    (define-key global-map "\C-cc" 'org-capture)
+
+    ;; (eval-after-load 'org `(evil-define-key 'normal org-mode-map "t" 'org-todo))
+    (evil-define-key 'normal org-mode-map "t" 'org-todo)
 
     (load "config-org")
+
     )
+
+
+  ;; (spacemacs/set-leader-keys-for-major-mode 'org-mode "t" 'org-todo)
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; Evil binds
