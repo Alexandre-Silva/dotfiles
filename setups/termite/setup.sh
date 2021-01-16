@@ -17,6 +17,8 @@ st_install() {
         local font=13
     elif [[ "$(hostname)" == "alex-laptop" ]]; then
         local font=13
+    elif [[ "$(hostname)" == "alex-worktop" ]]; then
+        local font=12
     else
         local font=12
     fi
