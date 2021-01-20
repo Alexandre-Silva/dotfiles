@@ -63,7 +63,6 @@ st_install() {
             --show-progress
 
         chmod +x /tmp/zephyr-sdk.run
-
         /tmp/zephyr-sdk.run -- -d $sdk
 
         sudo cp $sdk/sysroots/x86_64-pokysdk-linux/usr/share/openocd/contrib/60-openocd.rules /etc/udev/rules.d
@@ -85,7 +84,7 @@ st_profile() {
     fi
 
     if [ -d ~/.local/zephyros ]; then
-        export ZEPHYR_BASE="~/.local/zephyros"
+        export ZEPHYR_BASE="~/.local/zephyros/zephyr"
     fi
 }
 
@@ -95,12 +94,12 @@ st_rc() {
     fi
 
     function west() {
-        if !hash west &>/dev/null; then
-            source $$ZEPHYR_BASE/venv/bin/activate
+        if ! hash west &>/dev/null; then
+            source $ZEPHYR_BASE/../venv/bin/activate
         fi
 
-        west "$@"
-
         unset -f west
+
+        west "$@"
     }
 }
