@@ -85,7 +85,7 @@ st_profile() {
     fi
 
     if [ -d ~/.local/zephyros-2.4 ]; then
-        export ZEPHYR_BASE="$HOME/.local/zephyros/zephyros-2.4"
+        export ZEPHYR_BASE="$HOME/.local/zephyros-2.4/zephyr"
     fi
 }
 
