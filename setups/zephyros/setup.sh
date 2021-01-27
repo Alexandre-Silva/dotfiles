@@ -29,7 +29,7 @@ packages=(
 
 # st_profile() {
 st_install() {
-    Z=~/.local/zephyros
+    Z=~/.local/zephyros-2.4
     if [ ! -d $Z ]; then
         echo "Installing zephyr in $Z with python venv in ~/.local/zephyros/venv"
         mkdir -p $Z/venv
@@ -39,13 +39,14 @@ st_install() {
 
             pip install west
 
-            west init $Z/
+            west init $Z/ --mr zephyr-v2.4.0
             cd $Z
             west update
 
             west zephyr-export
 
             pip install -r $Z/zephyr/scripts/requirements.txt
+
         )
 
     else
@@ -83,8 +84,8 @@ st_profile() {
         export ZEPHYR_SDK_BASE="$sdk"
     fi
 
-    if [ -d ~/.local/zephyros ]; then
-        export ZEPHYR_BASE="$HOME/.local/zephyros/zephyr"
+    if [ -d ~/.local/zephyros-2.4 ]; then
+        export ZEPHYR_BASE="$HOME/.local/zephyros/zephyros-2.4"
     fi
 }
 

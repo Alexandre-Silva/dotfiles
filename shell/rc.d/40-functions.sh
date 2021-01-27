@@ -101,6 +101,13 @@ fyi() {
     curl cli.fyi/"$1"
 }
 
+ssh-cam() {
+    local host="$1"
+    local video="${2:-/dev/video0}"
+
+    ssh "$host" ffmpeg -an -f video4linux2 -s 640x480 -i /dev/video0 -r 10 -b:v 500k -f matroska - | mpv --demuxer=mkv /dev/stdin
+}
+
 ################################################################################
 ### System
 ################################################################################
