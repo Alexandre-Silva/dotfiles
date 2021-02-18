@@ -27,9 +27,11 @@ packages=(
     'aur:nrf5x-command-line-tools'
 )
 
+_ZPVER=2.5.0
+
 # st_profile() {
 st_install() {
-    Z=~/.local/zephyros-2.4
+    Z=~/.local/zephyros-$_ZPVER
     if [ ! -d $Z ]; then
         echo "Installing zephyr in $Z with python venv in ~/.local/zephyros/venv"
         mkdir -p $Z/venv
@@ -39,7 +41,7 @@ st_install() {
 
             pip install west
 
-            west init $Z/ --mr zephyr-v2.4.0
+            west init $Z/ --mr zephyr-v$_ZPVER
             cd $Z
             west update
 
@@ -78,14 +80,14 @@ st_install() {
 }
 
 st_profile() {
-    sdk_version=0.12.1
+    sdkver=0.12.1
     sdk=~/.local/zephyr-sdk-$sdkver
     if [ -d $sdk ]; then
         export ZEPHYR_SDK_BASE="$sdk"
     fi
 
-    if [ -d ~/.local/zephyros-2.4 ]; then
-        export ZEPHYR_BASE="$HOME/.local/zephyros-2.4/zephyr"
+    if [ -d ~/.local/zephyros-$_ZPVER ]; then
+        export ZEPHYR_BASE="$HOME/.local/zephyros-$_ZPVER/zephyr"
     fi
 }
 
