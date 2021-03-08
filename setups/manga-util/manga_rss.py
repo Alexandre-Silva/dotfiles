@@ -72,9 +72,9 @@ def feed_fetch_mangadex(manga_id: int) -> Optional[str]:
 
     fg = DefaultFeed(
         title=f'mangadex - {title}',
-        link=f'https://mangadex.cc/title/{manga_id}',
+        link=f'https://mangadex.org/title/{manga_id}',
         description=f'Simple feed via scrapping for mangadex - {title}',
-        logo=f'https://mangadex.cc/images/manga/{manga_id}.jpg',
+        logo=f'https://mangadex.org/images/manga/{manga_id}.jpg',
         language='en',
     )
 
@@ -86,7 +86,7 @@ def feed_fetch_mangadex(manga_id: int) -> Optional[str]:
 
     chapters_json = chapters_resp.json()
     chapters = ((f'Chapter {chapter["chapter"]}: {chapter["title"]}',
-                 f'https://mangadex.cc/chapter/{chapter["id"]}')
+                 f'https://mangadex.org/chapter/{chapter["id"]}')
                 for chapter in chapters_json['data']['chapters']
                 if chapter['language'] == 'gb')
 

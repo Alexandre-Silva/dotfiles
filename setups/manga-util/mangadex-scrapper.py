@@ -21,7 +21,7 @@ def main():
     scrape = cfscrape.create_scraper()
 
     manga_meta = scrape.get(
-        'https://mangadex.cc/api/',
+        'https://mangadex.org/api/',
         params={
             'id': int(manga_id),
             'type': 'manga'
@@ -46,7 +46,7 @@ def main():
     for chapter in chapters:
         while True:
             result = scrape.get(
-                'https://mangadex.cc/api/',
+                'https://mangadex.org/api/',
                 params={
                     'id': chapter,
                     'type': 'chapter'
@@ -83,7 +83,7 @@ def main():
             chapter_name = f'C{chapter_num:03}.{chapter_sub}: {name}'
 
         if not server.startswith('http'):
-            server = f'https://mangadex.cc{server}'
+            server = f'https://mangadex.org{server}'
 
         image_list = [
             f'{server}{chapter_hash}/{name}' for name in result['page_array']
