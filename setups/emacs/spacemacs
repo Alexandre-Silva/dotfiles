@@ -379,6 +379,11 @@ before packages are loaded. If you are unsure, you should try in setting them in
     :pre-init
     (add-hook 'markdown-mode-hook 'spacemacs/toggle-spelling-checking-on))
 
+  (spacemacs|use-package-add-hook web-mode
+    :pre-init
+    (setq web-mode-markup-indent-offset 2)
+    (setq web-mode-css-indent-offset 2)
+    (setq web-mode-code-indent-offset 2))
 
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; magit
@@ -613,6 +618,7 @@ layers configuration."
   (global-git-commit-mode t) ;; Use Spacemacs as =$EDITOR= for editing git commits messages
 
   (elfeed-org)
+
   )
 
 ;; Don't litter my init file
