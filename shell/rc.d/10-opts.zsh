@@ -10,3 +10,4 @@ alias help=run-help
 setopt AUTO_CD EXTENDED_GLOB
 unsetopt share_history
 unsetopt inc_append_history
+# setopt +o nomatch # globs with no matches found doesn't turn to error

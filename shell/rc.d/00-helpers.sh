@@ -1,7 +1,8 @@
 try_source() {
-    file="$1"
-    [ -r "${file}" ] && . "${file}"
-    unset file
+    local file=''
+    for file in "$@"; do
+        [ -r "${file}" ] && . "${file}"
+    done
 }
 
 

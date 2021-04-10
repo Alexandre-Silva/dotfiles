@@ -31,3 +31,7 @@ zstyle ':completion:*' format $'\n%F{yellow}Completing %d%f\n'
 zstyle ':completion:*' group-name ''
 
 ### END ninrod completion
+
+## My completions (see also click-completion)
+local files=(${XDG_CONFIG_HOME:-$HOME/.config}/shell/completion_*.zsh(N))
+try_source "${files[@]}"
