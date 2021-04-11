@@ -315,9 +315,8 @@ def cli():
     CLI tool for Instituto Português do Mar e da Atmosfera
 
 
-    Completion with click-completion
-
     \b
+    Completion with click-completion
     E.g.
     `_IPMA_COMPLETE=source-zsh ipma > ~/.config/shell/ipma.zsh`
 
