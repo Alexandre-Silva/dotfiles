@@ -9,12 +9,9 @@ from pathlib import Path
 from typing import Iterable, List, Optional
 
 import click
-import click_completion
 import requests
 import tabulate
 from tabulate import tabulate as tb
-
-click_completion.init()
 
 tabulate.PRESERVE_WHITESPACE = True
 
