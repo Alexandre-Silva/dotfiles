@@ -16,13 +16,12 @@ st_install() {
 }
 
 st_rc() {
-    pacmd-index-by-name() {
+    pactl-index-by-name() {
         local name="$1"
-        pacmd list-sink-inputs |
-            awk -v name=$name '/index:/{idx = $2};
-                               /state:/{state = $2};
-                               { if ($1 == "application.name" && $3 == "\""name"\"" && state == "RUNNING")
-                                 { print idx } };'
+        pactl list sink-inputs |
+            awk -v name=$name '/Sink Input #/{idx = $3};
+                               { if ($1 == "media.name" && $3 == "\""name"\"")
+                                 {  gsub(/#/, "", idx); print idx } };'
     }
 
     spotify-addmute-watch(){
@@ -38,15 +37,19 @@ st_rc() {
 
                 sleep 0.5 # Some adds still play for some time after title change
 
-                local index="$(pacmd-index-by-name Spotify)"
-                pacmd set-sink-input-mute "$index" true
+                for index in $(pactl-index-by-name Spotify); do
+                    pactl set-sink-input-mute "$index" 1
+                done
+
                 muted=1
 
                 notify-send --urgency=low  spotify-addmute 'muting'
 
             elif [[ "$muted" != 0 ]]; then
-                local index="$(pacmd-index-by-name Spotify)"
-                pacmd set-sink-input-mute "$index" false
+                for index in $(pactl-index-by-name Spotify); do
+                    pactl set-sink-input-mute "$index" 0
+                done
+
                 muted=0
 
                 notify-send --urgency=low  spotify-addmute 'unmuting'
