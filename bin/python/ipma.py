@@ -305,22 +305,23 @@ class IPMA:
 
 ipma = IPMA()
 
+if CACHE_FILE.exists():
+    data = cache_load()
+    ipma.load(data)
 
 @click.group()
 def cli():
-    '''
+    """
     CLI tool for Instituto Português do Mar e da Atmosfera
 
 
     \b
     Completion with click-completion
     E.g.
-    `_IPMA_COMPLETE=source-zsh ipma > ~/.config/shell/ipma.zsh`
+    `_IPMA_COMPLETE=source_zsh ipma > ~/.config/shell/completion_ipma.zsh`
 
-    '''
-    if CACHE_FILE.exists():
-        data = cache_load()
-        ipma.load(data)
+    """
+    pass
 
 
 @cli.resultcallback()
@@ -330,9 +331,9 @@ def on_return(ret):
 
 @cli.command()
 def update():
-    '''
+    """
     Updates ipma meta data (such as locations or weather code id-name mappings)
-    '''
+    """
     data = fetch_static()
     ipma.load(data)
 
@@ -340,9 +341,9 @@ def update():
 @cli.command()
 @click.argument("location", type=str)
 def update_location(location):
-    '''
+    """
     Fetches the latest forecast of LOCATION from IPMA servers
-    '''
+    """
     f = ipma.update_location(location)
 
 
@@ -371,7 +372,8 @@ def dump_data(key):
 
 
 @cli.command()
-@click.argument("location", type=str)
+# @click.argument("location", type=str)
+@click.argument("location", type=click.Choice(list(ipma.location_all())))
 @click.option("--auto-update/--no-auto-update", default=True)
 @click.option("short_parts", "--short-parts/--long-parts", default=False)
 @click.option(
@@ -387,7 +389,7 @@ def dump_data(key):
     default="all",
 )
 def forecast(location, auto_update, short_parts: bool, start: str, end: str):
-    '''Show forecast for a LOCATION using fetched data
+    """Show forecast for a LOCATION using fetched data
 
 
     For updating the fectched data use the '--auto-update' or 'ipma
@@ -396,7 +398,7 @@ def forecast(location, auto_update, short_parts: bool, start: str, end: str):
     NOTE IPMA runs 2 forecast simulations daily. and thus publishs them twice
     daily. Hence the 12hour stale check.
 
-    '''
+    """
 
     if ipma.data == {}:
         if auto_update:
