@@ -4,6 +4,7 @@ import os
 import sys
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from typing import Iterable, Tuple, Optional
+from datetime import datetime
 
 import cfscrape
 from bs4 import BeautifulSoup
@@ -28,13 +29,13 @@ def feed() -> DefaultFeed:
     )
 
 
-def add_entries(fg: DefaultFeed, entries: Iterable[Tuple[str, str]]) -> None:
+def add_entries(fg: DefaultFeed, entries: Iterable[Tuple[str, str, str, Optional[datetime]]]) -> None:
     for e in entries:
         fg.add_item(
             title=e[0],
             link=e[1],
-            description='',
-            pubdate=None,
+            description=e[2],
+            pubdate=e[3],
         )
 
 
@@ -51,7 +52,7 @@ def feed_fetch_mangakakalot(url) -> str:
                              class_="panel-story-chapter-list").findAll('a')
 
     fg = feed()
-    add_entries(fg, ((c.contents[0], c['href']) for c in chapter_list))
+    add_entries(fg, ((c.contents[0], c['href'], '', None) for c in chapter_list))
 
     return fg.writeString("iso-8859-1")
 
@@ -62,33 +63,50 @@ def feed_fetch_mangadex(manga_id: int) -> Optional[str]:
     scrape = cfscrape.create_scraper()
 
     manga_meta_resp = scrape.get(
-        f'https://mangadex.org/api/v2/manga/{manga_id}', )
+        f'https://api.mangadex.org/manga/{manga_id}', )
     if not manga_meta_resp.ok:
         print('Error fetching meta data for id:', manga_id)
         return None
 
     manga_meta = manga_meta_resp.json()
-    title = manga_meta['data']['title']
+    manga_title = manga_meta['data']['attributes']['title']['en']
 
     fg = DefaultFeed(
-        title=f'mangadex - {title}',
+        title=f'mangadex - {manga_title}',
         link=f'https://mangadex.org/title/{manga_id}',
-        description=f'Simple feed via scrapping for mangadex - {title}',
+        description=f'Simple feed via scrapping for mangadex - {manga_title}',
         logo=f'https://mangadex.org/images/manga/{manga_id}.jpg',
         language='en',
     )
 
     chapters_resp = scrape.get(
-        f'https://mangadex.org/api/v2/manga/{manga_id}/chapters', )
+        f'https://api.mangadex.org/manga/{manga_id}/feed',
+        params={'locales[]': ['en'], 'limit': 500})
+
     if not chapters_resp.ok:
-        print('Error fetching chapters for {title} ({manga_id})')
+        print(f'Error fetching chapters for {manga_title} ({manga_id})')
         return None
 
     chapters_json = chapters_resp.json()
-    chapters = ((f'Chapter {chapter["chapter"]}: {chapter["title"]}',
-                 f'https://mangadex.org/chapter/{chapter["id"]}')
-                for chapter in chapters_json['data']['chapters']
-                if chapter['language'] == 'gb')
+
+    def chapters_iter():
+        for chapter in chapters_json['results']:
+            data = chapter['data']
+            if data['type'] != 'chapter':
+                continue
+
+            id_ = data['id']
+            number = data['attributes']['chapter']
+            title = data['attributes']['title']
+            publish_at = datetime.fromisoformat(data['attributes']['publishAt'])
+
+            yield id_, number, title, publish_at
+
+    chapters = ((f'Chapter {number}: {title}',
+                 f'https://mangadex.org/chapter/{id_}',
+                 f'{manga_title}<br/>id: {id_}<br/>published at: {published_at.strftime("%Y-%m-%d")}',
+                 published_at)
+                for id_, number, title, published_at in chapters_iter())
 
     add_entries(fg, chapters)
 
@@ -101,7 +119,7 @@ class RSSHandler(BaseHTTPRequestHandler):
 
         try:
             if manga.startswith('/mangadex/'):
-                manga_id = int(manga.replace('/mangadex/', ''))
+                manga_id = manga.replace('/mangadex/', '')
                 response = feed_fetch_mangadex(manga_id)
 
             elif manga.startswith('/mangakakalot/'):
