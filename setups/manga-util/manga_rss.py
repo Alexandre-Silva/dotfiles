@@ -95,6 +95,9 @@ def feed_fetch_mangadex(manga_id: int) -> Optional[str]:
             if data['type'] != 'chapter':
                 continue
 
+            if data['attributes']['translatedLanguage'] != 'en':
+                continue
+
             id_ = data['id']
             number = data['attributes']['chapter']
             title = data['attributes']['title']
