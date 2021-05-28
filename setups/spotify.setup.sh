@@ -11,10 +11,6 @@ packages=(
 links=()
 
 
-st_install() {
-    echo "recommending install https://github.com/SecUpwN/Spotify-AdKiller"
-}
-
 st_rc() {
     pactl-index-by-name() {
         local name="$1"
