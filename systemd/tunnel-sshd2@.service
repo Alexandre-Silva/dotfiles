@@ -6,7 +6,7 @@ After=network-online.target
 Type=simple
 EnvironmentFile=/etc/default/tunnel-ssh-%i
 User=%i
-ExecStart=/usr/bin/autossh -N -M $LISTEN -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -R $BIND_ADDRESSES $REMOTE
+ExecStart=/usr/bin/autossh -N -M $LISTEN -o "ServerAliveInterval 60" -o "ServerAliveCountMax 3" -o "ControlMaster no" -R $BIND_ADDRESSES $REMOTE
 Restart=always
 RestartSec=10
 

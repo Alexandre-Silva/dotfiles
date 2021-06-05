@@ -3,7 +3,7 @@ Description=Setup a socks5 proxy via ssh to %I on port 5060
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/ssh -qCNTD 5060 %i
+ExecStart=/usr/bin/ssh -qCNTD 5060 -o "ControlMaster no" %i
 
 # Restart every >X seconds to avoid StartLimitInterval failure
 RestartSec=5
