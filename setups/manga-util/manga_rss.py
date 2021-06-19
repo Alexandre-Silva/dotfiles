@@ -165,7 +165,7 @@ class RSSHandler(BaseHTTPRequestHandler):
 
             elif manga.startswith("/readmanganato/"):
                 manga_name = manga.replace("/readmanganato/", "")
-                url = f"https://readmanganato.com/manga/{manga_name}"
+                url = f"https://readmanganato.com/{manga_name}"
                 response = feed_fetch_readmanganato(url)
 
             else:
