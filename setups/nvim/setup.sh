@@ -5,14 +5,13 @@ packages=(
     "pm:python-neovim"
 )
 
-links=(
-)
+links=()
 
-# function st_install() { nvim -c "PluginUpdate" -c "quitall" ; }
+function st_install() {
+    curl -sLf https://spacevim.org/install.sh | bash
+}
 
 function st_rc() {
-    alias vimrc="nvim $HOME/.config/nvim/init.vim"
-
     if hash nvim &>/dev/null; then
         alias vi=nvim
         alias vim=nvim
