@@ -20,7 +20,7 @@ packages=(
     "pm:fzf" # A command-line fuzzy finder. https://github.com/junegunn/fzf
     "pm:entr"  # executed cmd on file changes
     "pm:fasd"  # Fasd offers quick access to files and directories for POSIX shells.
-    "aur:starship-bin" # The minimal, blazing-fast, and infinitely customizable prompt for any shell!
+    "pm:starship" # The minimal, blazing-fast, and infinitely customizable prompt for any shell!
     "pm:ttf-nerd-fonts-symbols-mono" # for starship icons
     "pm:sd" # sd is an intuitive find & replace CLI.
     "pm:ripgrep" # better grep
