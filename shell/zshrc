@@ -6,7 +6,8 @@
 main() {
     # Auto-start TMUX when in SSH session.
     if [ -z "$NO_TMUX" ] && hash tmux 2>/dev/null && [ "$SSH_CONNECTION" ] && [ -z "$TMUX" ]; then
-        tmux has-session -t ssh &>/dev/null && exec tmux attach -t ssh || exec tmux new -s ssh
+        #tmux has-session -t ssh &>/dev/null && exec tmux attach -t ssh || exec tmux new -s ssh
+        exec tmux new-session -t ssh
     fi
 
     # Function to run as sourced instead of normal executed shell script
