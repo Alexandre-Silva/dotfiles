@@ -19,8 +19,10 @@ def feed() -> DefaultFeed:
     return DefaultFeed(
         title="mangakakalot - Boarding School Juliet",
         link="https://mangakakalot.com/manga/kishuku_gakkou_no_juliet",
-        description="Simple feed via scrapping for manga mangakakalot Boarding School Juliet",
-        logo="https://avt.mkklcdnv3.com/avatar_225/16547-kishuku_gakkou_no_juliet.jpg",
+        description=
+        "Simple feed via scrapping for manga mangakakalot Boarding School Juliet",
+        logo=
+        "https://avt.mkklcdnv3.com/avatar_225/16547-kishuku_gakkou_no_juliet.jpg",
         # fg.subtitle('This is a cool feed!')
         # fg.link( href='http://larskiesow.de/test.atom', rel='self' )
         language="en",
@@ -28,8 +30,8 @@ def feed() -> DefaultFeed:
 
 
 def add_entries(
-    fg: DefaultFeed, entries: Iterable[Tuple[str, str, str, Optional[datetime]]]
-) -> None:
+        fg: DefaultFeed, entries: Iterable[Tuple[str, str, str,
+                                                 Optional[datetime]]]) -> None:
     for e in entries:
         fg.add_item(
             title=e[0],
@@ -48,10 +50,12 @@ def feed_fetch_mangakakalot(url) -> str:
 
     # print([tag for tag in soup.findAll('div', class_="chapter-list")])
     # print(soup.find('div'))
-    chapter_list = soup.find("div", class_="panel-story-chapter-list").findAll("a")
+    chapter_list = soup.find("div",
+                             class_="panel-story-chapter-list").findAll("a")
 
     fg = feed()
-    add_entries(fg, ((c.contents[0], c["href"], "", None) for c in chapter_list))
+    add_entries(fg,
+                ((c.contents[0], c["href"], "", None) for c in chapter_list))
 
     return fg.writeString("iso-8859-1")
 
@@ -65,10 +69,12 @@ def feed_fetch_readmanganato(url) -> str:
 
     # print([tag for tag in soup.findAll('div', class_="chapter-list")])
     # print(soup.find('div'))
-    chapter_list = soup.find("div", class_="panel-story-chapter-list").findAll("a")
+    chapter_list = soup.find("div",
+                             class_="panel-story-chapter-list").findAll("a")
 
     fg = feed()
-    add_entries(fg, ((c.contents[0], c["href"], "", None) for c in chapter_list))
+    add_entries(fg,
+                ((c.contents[0], c["href"], "", None) for c in chapter_list))
 
     return fg.writeString("iso-8859-1")
 
@@ -79,14 +85,20 @@ def feed_fetch_mangadex(manga_id: int) -> Optional[str]:
     scrape = cfscrape.create_scraper()
 
     manga_meta_resp = scrape.get(
-        f"https://api.mangadex.org/manga/{manga_id}",
-    )
+        f"https://api.mangadex.org/manga/{manga_id}", )
     if not manga_meta_resp.ok:
         print("Error fetching meta data for id:", manga_id)
         return None
 
     manga_meta = manga_meta_resp.json()
-    manga_title = manga_meta["data"]["attributes"]["title"]["en"]
+
+    manga_title = manga_meta["data"]["attributes"]["title"].get("en")
+    if 'en' not in manga_meta["data"]["attributes"]["title"]:
+        manga_title = manga_meta["data"]["attributes"]["title"].get('jp', '')
+        for alt in manga_meta["data"]["attributes"]['altTitles']:
+            if 'en' in alt:
+                manga_title = alt['en']
+                break
 
     fg = DefaultFeed(
         title=f"mangadex - {manga_title}",
@@ -102,7 +114,10 @@ def feed_fetch_mangadex(manga_id: int) -> Optional[str]:
     while True:
         chapters_resp = scrape.get(
             f"https://api.mangadex.org/manga/{manga_id}/feed",
-            params={"limit": limit, "offset": offset},
+            params={
+                "limit": limit,
+                "offset": offset
+            },
         )
 
         if not chapters_resp.ok:
@@ -110,17 +125,23 @@ def feed_fetch_mangadex(manga_id: int) -> Optional[str]:
             return None
 
         response_json = chapters_resp.json()
+
+        if response_json['result'] != 'ok':
+            print(f"Error fetching chapters for {manga_title} ({manga_id})")
+            print(response_json)
+            return None
+
         chapters_json.append(response_json)
 
-        if len(response_json["results"]) < limit:
+        if len(response_json["data"]) < limit:
             break
 
         offset += limit
 
     def chapters_iter():
-        for data in chapters_json:
-            for chapter in data["results"]:
-                data = chapter["data"]
+        for piece in chapters_json:
+            for chapter in piece["data"]:
+                data = chapter
                 if data["type"] != "chapter":
                     continue
 
@@ -130,19 +151,17 @@ def feed_fetch_mangadex(manga_id: int) -> Optional[str]:
                 id_ = data["id"]
                 number = data["attributes"]["chapter"]
                 title = data["attributes"]["title"]
-                publish_at = datetime.fromisoformat(data["attributes"]["publishAt"])
+                publish_at = datetime.fromisoformat(
+                    data["attributes"]["publishAt"])
 
                 yield id_, number, title, publish_at
 
-    chapters = (
-        (
-            f"Chapter {number}: {title}",
-            f"https://mangadex.org/chapter/{id_}",
-            f'{manga_title}<br/>id: {id_}<br/>published at: {published_at.strftime("%Y-%m-%d")}',
-            published_at,
-        )
-        for id_, number, title, published_at in chapters_iter()
-    )
+    chapters = ((
+        f"Chapter {number}: {title}",
+        f"https://mangadex.org/chapter/{id_}",
+        f'{manga_title}<br/>id: {id_}<br/>published at: {published_at.strftime("%Y-%m-%d")}',
+        published_at,
+    ) for id_, number, title, published_at in chapters_iter())
 
     add_entries(fg, chapters)
 
@@ -172,7 +191,7 @@ class RSSHandler(BaseHTTPRequestHandler):
                 print("Invalid path")
                 response = None
         except:
-            print("error for " + manga)
+            print("error for " + manga, file=sys.stderr)
             raise
 
         if response is None:
