@@ -61,7 +61,8 @@ numlockx &
 xset r rate 200 45
 
 screen_config=~/.screenlayout/default.sh
-[ -f "${screen_config}" ] && "${screen_config}"
+#[ -f "${screen_config}" ] && "${screen_config}"
+hash autorandr &>/dev/null && autorandr --change && sleep 1.0
 
 [ -f "$HOME/.xinitrc_local" ] && . "$HOME/.xinitrc_local"
 
