@@ -1,7 +1,7 @@
-* text=auto !eol
+#* text=auto !eol
 
-*.txt text
-*.md  text
+#*.txt text
+#*.md  text
 
 # empty file used to track directories
 */.placeholder -text
