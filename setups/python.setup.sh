@@ -8,7 +8,7 @@ packages=(
 )
 
 st_install() {
-    curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py -o /tmp/get-poetry.py
+    curl -sSL https://install.python-poetry.org -o /tmp/get-poetry.py
     python /tmp/get-poetry.py
     source "$HOME/.poetry/env"
 
@@ -19,18 +19,6 @@ st_install() {
 
 st_profile() {
     PATH="$(python -m site --user-base)/bin:${PATH}"
-
-    # setup pyenv
-    # export PYENV_ROOT="$HOME/.pyenv"
-
-    # if which pyenv &> /dev/null; then
-    #     eval "$(pyenv init -)"
-    #     eval "$(pyenv virtualenv-init -)"
-    # fi
-
-    if [[ -d ~/.poetry ]]; then
-        source "$HOME/.poetry/env"
-    fi
 }
 
 st_rc() {
