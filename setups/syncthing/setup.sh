@@ -1,9 +1,9 @@
 #!/bin/bash
 
-packages=( "pm:syncthing"{,-gtk} )
+packages=( 
+ "pm:syncthing" 
+ "aur:syncthingtray" 
+)
 
 __config="${XDG_CONFIG_HOME:-$HOME/.config}"
-links=(
-    {"$DOTFILES/setups/syncthing","$__config/systemd/user"}/syncthing.service
-    {"$DOTFILES/setups/syncthing","$__config/autostart/"}/Syncthing-GTK.desktop
-)
+links=( )
