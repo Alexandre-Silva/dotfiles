@@ -7,6 +7,8 @@ function st_install() {
 }
 
 function st_rc() {
+    [ -z "$ZSH_VERSION" ] && return
+
     [ -f ~/.config/shell/autoenv.zsh ] && source ~/.config/shell/autoenv.zsh
 
     # see https://github.com/Tarrasch/zsh-autoenv#configuration
