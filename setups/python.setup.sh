@@ -10,7 +10,6 @@ packages=(
 st_install() {
     curl -sSL https://install.python-poetry.org -o /tmp/get-poetry.py
     python /tmp/get-poetry.py
-    source "$HOME/.poetry/env"
 
     poetry completions zsh > ~/.zfunctions/_poetry
     ~/.poetry/bin/poetry completions bash > /tmp/poetry.bash-completion
