@@ -12,7 +12,7 @@ st_install() {
     python /tmp/get-poetry.py
 
     poetry completions zsh > ~/.zfunctions/_poetry
-    ~/.poetry/bin/poetry completions bash > /tmp/poetry.bash-completion
+    poetry completions bash > /tmp/poetry.bash-completion
     sudo mv /tmp/poetry.bash-completion /etc/bash_completion.d/poetry.bash-completion
 }
 
