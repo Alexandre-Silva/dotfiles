@@ -14,21 +14,11 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 
 
 ################################################################################
-# Set keyboard as us-international with dead keys
-################################################################################
-
-setxkbmap -layout us -variant altgr-intl
-setxkbmap -option keypad:pointerkeys
-
-################################################################################
 # merge in defaults and keymaps
 ################################################################################
 
 [ -f "$sysresources" ] && xrdb -merge "$sysresources"
-[ -f "$sysmodmap" ] && xmodmap "$sysmodmap"
-[ -f "$xbindkeysrc" ] && hash xbindkeys &>/dev/null && xbindkeys
 [ -f "$userresources" ] && xrdb -merge "$userresources"
-[ -f "$usermodmap" ] && xmodmap "$usermodmap"
 [ -f "$userLocalResources" ] && xrdb -merge "$userLocalResources"
 
 
@@ -48,20 +38,33 @@ fi
 # Custom settings and configs
 ################################################################################
 
-# activate numlock
-numlockx &
+if hash kbd_setup.sh &>/dev/null; then
+    kbd_setup.sh
 
-# The typematic delay indicates the amount of time (typically in miliseconds) a
-# key needs to be pressed in order for the repeating process to begin. After the
-# repeating process has been triggered, the character will be repeated with a
-# certain frequency (usually given in Hz) specified by the typematic rate. The
-# typematic delay in the virtual console is not affected by these settings.
+else
+    [ -f "$sysmodmap" ] && xmodmap "$sysmodmap"
+    [ -f "$xbindkeysrc" ] && hash xbindkeys &>/dev/null && xbindkeys
+    [ -f "$usermodmap" ] && xmodmap "$usermodmap"
 
-# xset r rate <delay> <rate>
-xset r rate 200 45
+    # Set keyboard as us-international with dead keys
+    setxkbmap -layout us -variant altgr-intl
+    setxkbmap -option keypad:pointerkeys
+
+    # activate numlock
+    numlockx &
+
+    # The typematic delay indicates the amount of time (typically in miliseconds) a
+    # key needs to be pressed in order for the repeating process to begin. After the
+    # repeating process has been triggered, the character will be repeated with a
+    # certain frequency (usually given in Hz) specified by the typematic rate. The
+    # typematic delay in the virtual console is not affected by these settings.
+
+    # xset r rate <delay> <rate>
+    xset r rate 200 45
+fi
 
 screen_config=~/.screenlayout/default.sh
-if hash autorandr &>/dev/null; then 
+if hash autorandr &>/dev/null; then
   autorandr --change && sleep 1.0
 else
   [ -f "${screen_config}" ] && "${screen_config}"

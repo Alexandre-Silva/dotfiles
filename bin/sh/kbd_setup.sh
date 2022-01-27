@@ -1,9 +1,7 @@
 #!/bin/sh
 
-
 usermodmap=$HOME/.Xmodmap
 xbindkeysrc=$HOME/.xbindkeysrc
-
 
 setxkbmap -layout us -variant altgr-intl
 setxkbmap -option keypad:pointerkeys
