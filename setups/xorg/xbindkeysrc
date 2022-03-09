@@ -65,10 +65,10 @@
 #"rxvt"
 #  Control + b:2 + Release
 
-"pacmd set-source-mute @DEFAULT_SOURCE@ 1 && notify-send 'X' -t 1000"
+"pactl set-source-mute @DEFAULT_SOURCE@ 1 && notify-send 'X' -t 1000"
     b:8 + Release
 
-"pacmd set-source-mute @DEFAULT_SOURCE@ 0 && notify-send 'O' -t 1000"
+"pactl set-source-mute @DEFAULT_SOURCE@ 0 && notify-send 'O' -t 1000"
     b:8 
 
 ##################################
