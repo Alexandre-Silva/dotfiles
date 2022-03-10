@@ -6,7 +6,7 @@ packages=(
     pm:adobe-source-serif-pro-fonts
     pm:{cairo,fontconfig,freetype2,jdk8-openjdk,jre8-openjdk,jre8-openjdk-headless}
     pm:ttf-freefont
-    pm:ttf-linux-libertine
+    pm:libertinus-font
     pm:awesome-terminal-fonts
 
     # aur:fonts-meta-extended-lt
