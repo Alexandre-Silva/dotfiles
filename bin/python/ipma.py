@@ -324,7 +324,7 @@ def cli():
     pass
 
 
-@cli.resultcallback()
+@cli.result_callback()
 def on_return(ret):
     cache_save(ipma.data)
 
