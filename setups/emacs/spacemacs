@@ -839,7 +839,7 @@ layers configuration."
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
   ;; atomic-chrome: emacs plugin for GhostText for Firefox
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-  (global-git-commit-mode t) ;; Use Spacemacs as =$EDITOR= for editing git commits messages
+  ;; (global-git-commit-mode t) ;; Use Spacemacs as =$EDITOR= for editing git commits messages
 
   (elfeed-org)
 
