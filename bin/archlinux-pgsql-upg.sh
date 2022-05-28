@@ -13,8 +13,8 @@ systemctl stop postgresql
 
 
 echo 'creating backup/upgrade dirs'
-# mv /var/lib/postgres/data /var/lib/postgres/olddata
-# mkdir /var/lib/postgres/tmp
+mv /var/lib/postgres/data /var/lib/postgres/olddata
+mkdir /var/lib/postgres/tmp
 mkdir /var/lib/postgres/data
 chown postgres:postgres /var/lib/postgres/data /var/lib/postgres/tmp
 
