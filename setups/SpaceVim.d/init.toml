@@ -48,15 +48,17 @@
   name = "telescope"
   # name = "fzf"
 
+
+# Options are from dein. use `:h dein-options`
+[[custom_plugins]]
+    repo = "nvim-telescope/telescope-fzf-native.nvim"
+    build = 'make'
+    # note: you need to disable merged feature
+    merged = false
+
 [[layers]]
   name = "lang#python"
 
 [[layers]]
   name = "lang#c"
 
-
-[[custom_plugins]]
-    repo = "nvim-telescope/telescope-fzf-native.nvim"
-    build = 'make'
-    # note: you need to disable merged feature
-    merged = false
