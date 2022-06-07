@@ -10,4 +10,9 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 
-
+-- Makefile configs
+vim.api.nvim_create_autocmd('Filetype', {
+  group = aug,
+  pattern = "make",
+  command = [[ setlocal tabstop=4 ]],
+})
