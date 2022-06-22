@@ -9,8 +9,8 @@ userresources=$HOME/.Xresources
 userLocalResources=$HOME/.Xresources_local
 usermodmap=$HOME/.Xmodmap
 xbindkeysrc=$HOME/.xbindkeysrc
-sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodmap
+sysresources=/etc/X11/xinit/Xresources
+sysmodmap=/etc/X11/xinit/Xmodmap
 
 
 ################################################################################
@@ -65,7 +65,8 @@ fi
 
 screen_config=~/.screenlayout/default.sh
 if hash autorandr &>/dev/null; then
-  autorandr --change && sleep 1.0
+  autorandr --change
+  # autorandr --change && sleep 1.0
 else
   [ -f "${screen_config}" ] && "${screen_config}"
 fi
