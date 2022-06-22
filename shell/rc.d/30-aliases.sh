@@ -58,6 +58,10 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 alias slFE="while true; do sl;done"
 
+if which viddy &>/dev/null; then
+  alias watch="viddy"
+fi
+
 #trash-cli
 alias tp=trash-put
 alias th-put=trash-put
