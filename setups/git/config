@@ -38,6 +38,7 @@
 	stsh    = stash --keep-index
 	staash  = stash --include-untracked
 	staaash = stash --all
+  local-branches = "!git branch --format '%(refname:short) %(upstream:short)' | awk '{if (!$2) print $1;}'"
 
 [color]
 	ui = true
