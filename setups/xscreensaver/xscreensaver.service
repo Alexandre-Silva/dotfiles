@@ -3,6 +3,7 @@ Description=XScreenSaver
 
 [Service]
 ExecStart=/usr/bin/xscreensaver -no-splash -log /home/alex/.log/xscreensaver
+RestartSec=10s
 
 [Install]
 WantedBy=default.target
