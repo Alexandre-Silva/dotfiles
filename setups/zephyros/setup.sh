@@ -94,7 +94,7 @@ st_profile() {
     fi
 
     if [ -d $_ZP_HOME ]; then
-        export ZEPHYR_BASE="$HOME/.local/zephyros-$_ZP_VER/zephyr"
+        export ZEPHYR_BASE="$_ZP_HOME/zephyr"
     fi
 }
 
@@ -105,7 +105,7 @@ st_rc() {
 
     function west() {
         if ! hash west &>/dev/null; then
-            source $ZEPHYR_BASE/../venv/bin/activate
+            source $_ZP_HOME/venv/bin/activate
         fi
 
         unset -f west
