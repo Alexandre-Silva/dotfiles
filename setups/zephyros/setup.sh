@@ -13,6 +13,8 @@ packages=(
     'pm:xz'
     'pm:file'
 
+    'pm:dtc' # Device Tree Compiler
+
     'pm:python-pip'
     'pm:python-setuptools'
     'pm:python-wheel'
@@ -20,18 +22,20 @@ packages=(
     'pm:base-devel'
     'pm:gcc'
     'pm:gcc-libs'
-    'pm:lib32-gcc-libs'
+    # 'pm:lib32-gcc-libs'
 
     'pm:sdl2'
 
     'aur:nrf5x-command-line-tools'
 )
 
-_ZPVER=2.5.0
+_ZP_VER=3.1.0
+_ZP_HOME=~/.local/share/zephyros-$_ZP_VER
+_ZPSDK_VER=0.14.2
+_ZPSDK_HOME=~/.local/share/zephyr-sdk-$_ZPSDK_VER
 
-# st_profile() {
 st_install() {
-    Z=~/.local/zephyros-$_ZPVER
+    Z=$_ZP_HOME
     if [ ! -d $Z ]; then
         echo "Installing zephyr in $Z with python venv in ~/.local/zephyros/venv"
         mkdir -p $Z/venv
@@ -41,7 +45,7 @@ st_install() {
 
             pip install west
 
-            west init $Z/ --mr zephyr-v$_ZPVER
+            west init $Z/ --mr zephyr-v$_ZP_VER
             cd $Z
             west update
 
@@ -56,20 +60,25 @@ st_install() {
 
     fi
 
-    sdkver=0.12.1
-    sdk=~/.local/zephyr-sdk-$sdkver
+    sdkver=$_ZPSDK_VER
+    sdk=$_ZPSDK_HOME
     if [ ! -d $sdk ]; then
-        echo "Installing zephyr sdk $skdver in $sdk"
-        wget \
-            https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v$sdkver/zephyr-sdk-$sdkver-x86_64-linux-setup.run \
-            -O /tmp/zephyr-sdk.run \
-            --show-progress
+        (
+          echo "Installing zephyr sdk $skdver in $sdk"
 
-        chmod +x /tmp/zephyr-sdk.run
-        /tmp/zephyr-sdk.run -- -d $sdk
+          cd /tmp
+          wget \
+              https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v$sdkver/zephyr-sdk-${sdkver}_linux-x86_64.tar.gz \
+              --show-progress
 
-        sudo cp $sdk/sysroots/x86_64-pokysdk-linux/usr/share/openocd/contrib/60-openocd.rules /etc/udev/rules.d
-        sudo udevadm control --reload
+          tar xvf zephyr-sdk-${sdkver}_linux-x86_64.tar.gz
+          mv zephyr-sdk-$sdkver $sdk
+          cd ~/.local/share/zephyr-sdk-$sdkver
+          ./setup.sh
+
+          sudo cp ./sysroots/x86_64-pokysdk-linux/usr/share/openocd/contrib/60-openocd.rules /etc/udev/rules.d
+          sudo udevadm control --reload
+        )
 
     else
         echo "Skipping installation of zephyr-sdk. Already installed."
@@ -80,14 +89,12 @@ st_install() {
 }
 
 st_profile() {
-    sdkver=0.12.1
-    sdk=~/.local/zephyr-sdk-$sdkver
-    if [ -d $sdk ]; then
-        export ZEPHYR_SDK_BASE="$sdk"
+    if [ -d $_ZPSDK_HOME ]; then
+        export ZEPHYR_SDK_BASE="$_ZPSDK_HOME"
     fi
 
-    if [ -d ~/.local/zephyros-$_ZPVER ]; then
-        export ZEPHYR_BASE="$HOME/.local/zephyros-$_ZPVER/zephyr"
+    if [ -d $_ZP_HOME ]; then
+        export ZEPHYR_BASE="$HOME/.local/zephyros-$_ZP_VER/zephyr"
     fi
 }
 
