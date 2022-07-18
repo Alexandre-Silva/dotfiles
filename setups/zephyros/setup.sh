@@ -91,6 +91,7 @@ st_install() {
 st_profile() {
     if [ -d $_ZPSDK_HOME ]; then
         export ZEPHYR_SDK_BASE="$_ZPSDK_HOME"
+        export PATH="${ZEPHYR_SDK_BASE}/sysroots/x86_64-pokysdk-linux/usr/bin:$PATH"
     fi
 
     if [ -d $_ZP_HOME ]; then
