@@ -11,9 +11,16 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
+
 -- lvim.colorscheme = "onedarker"
--- lvim.colorscheme = "gruvbox"
-lvim.colorscheme = "gruvbox-baby"
+
+-- lvim.colorscheme = "gruvbox-baby"
+-- vim.g.gruvbox_baby_use_original_palette = true
+
+lvim.colorscheme = "gruvbox-material"
+vim.o.background = "dark"
+vim.g.gruvbox_material_background = 'medium'
+
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -78,6 +85,7 @@ end
 lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BufferKill<CR>", "Delete Buffer" }
 lvim.builtin.which_key.mappings["b"]["n"] = { "<cmd>tabnew<CR>", "New Empty Buffer" }
 lvim.builtin.which_key.mappings["b"]["N"] = { new_file_here, "New File here" }
+lvim.builtin.which_key.mappings["<tab>"] = { "<cmd>BufferLineCyclePrev<CR>", "Previous buffer" }
 
 
 -- TODO: User Config for predefined plugins
@@ -86,7 +94,7 @@ lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
-lvim.builtin.nvimtree.setup.view.side = "left"
+lvim.builtin.nvimtree.setup.view.side = "right"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 
 -- if you don't want all the parsers change this to a table of the ones you want
@@ -194,6 +202,7 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 lvim.plugins = {
   { "luisiacc/gruvbox-baby", branch = 'main' },
+  { "sainnhe/gruvbox-material" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
