@@ -123,6 +123,7 @@ lvim.builtin.nvimtree.setup.view.mappings.list = {
 lvim.builtin.treesitter.ensure_installed = {
   "bash",
   "c",
+  "cpp",
   "javascript",
   "json",
   "lua",
