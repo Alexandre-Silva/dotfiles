@@ -10,3 +10,5 @@ setxkbmap -option keypad:pointerkeys
 [ -f "$usermodmap" ] && xmodmap "$usermodmap"
 
 xset r rate 200 45
+
+numlockx on 

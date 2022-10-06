@@ -51,7 +51,7 @@ else
     setxkbmap -option keypad:pointerkeys
 
     # activate numlock
-    numlockx &
+    numlockx on
 
     # The typematic delay indicates the amount of time (typically in miliseconds) a
     # key needs to be pressed in order for the repeating process to begin. After the
@@ -63,13 +63,7 @@ else
     xset r rate 200 45
 fi
 
-screen_config=~/.screenlayout/default.sh
-if hash autorandr &>/dev/null; then
-  autorandr --change
-  # autorandr --change && sleep 1.0
-else
-  [ -f "${screen_config}" ] && "${screen_config}"
-fi
+# Screen layout is now in xinitrc_local
 
 [ -f "$HOME/.xinitrc_local" ] && . "$HOME/.xinitrc_local"
 
