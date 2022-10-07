@@ -40,11 +40,8 @@ if [ -d "$HOME/.bin" ] ; then
     PATH="$HOME/.bin:$PATH"
 fi
 
-editor_prio=( nvim vim vi nano )
-hash et &>/dev/null && editor_prio=( et "${editor_prio[@]}" )
-
-prio_assign EDITOR "${editor_prio[@]}"
-prio_assign BROWSER firefox chrome-stable chromium
+prio_assign EDITOR  lvim nvim et vim vi nano 
+prio_assign BROWSER firefox chromium chrome-stable
 export VISUAL="${EDITOR}"
 export PAGER='less'
 export TERMCMD='alacritty'
