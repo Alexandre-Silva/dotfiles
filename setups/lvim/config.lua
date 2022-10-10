@@ -149,6 +149,7 @@ formatters.setup {
 lvim.plugins = {
   { "luisiacc/gruvbox-baby", branch = 'main' },
   { "sainnhe/gruvbox-material" },
+  { "ntpeters/vim-better-whitespace" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
@@ -164,3 +165,10 @@ lvim.plugins = {
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
+
+
+-- Strip Whitespace on file save
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = "*",
+  command = 'silent! StripWhitespaceOnChangedLines',
+})
