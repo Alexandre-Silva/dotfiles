@@ -6,6 +6,16 @@ filled in as strings with either
 a global executable or a path to
 an executable
 ]]
+
+
+-- IMPORTS
+local nl = require("null-ls")
+local nlh = require("null-ls.helpers")
+local FORMATTING = nl.methods.FORMATTING
+local formatters = require "lvim.lsp.null-ls.formatters"
+local Log = require "lvim.core.log"
+local fmt = string.format
+
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
 -- general
@@ -88,6 +98,42 @@ lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<cr>", "Lis
 lvim.builtin.which_key.mappings["s"]["s"] = { "<cmd>Telescope grep_string<cr>", "Word under cursor" }
 lvim.builtin.which_key.mappings["<tab>"] = { "<cmd>b#<CR>", "Previous buffer" }
 
+lvim.builtin.which_key.mappings["l"]["f"] = {
+  function()
+    require("lvim.lsp.utils").format { timeout_ms = 2000 }
+  end,
+  "Format",
+}
+
+lvim.builtin.which_key.mappings["l"]["F"] = {
+  name = "Format Special",
+
+  a = {
+    function()
+      local py_active_sources = nl.get_source({ method = FORMATTING, filetypes = { 'python' } })
+
+      local sources_to_reenable = {}
+      for _, v in pairs(py_active_sources) do
+        local enabled = not v._disabled
+        if enabled then
+          nl.disable({ method = FORMATTING, name = v.name })
+          table.insert(sources_to_reenable, v.name)
+        end
+      end
+
+      nl.enable({ method = FORMATTING, name = 'autoflake' })
+      vim.lsp.buf.format({ timeout_ms = 2000 })
+      nl.disable({ method = FORMATTING, name = 'autoflake' })
+
+      for _, name in pairs(sources_to_reenable) do
+        nl.enable({ method = FORMATTING, filetypes = { 'python' }, name = name })
+      end
+    end,
+    "autoflake",
+  }
+}
+
+
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -140,11 +186,25 @@ lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
 -- LSP settings
-local formatters = require "lvim.lsp.null-ls.formatters"
+
 formatters.setup {
-  { command = "yapf", filetypes = { "python" } },
+  { command = "yapf" },
   -- { command = "isort", filetypes = { "python" } },
 }
+
+nl.register({
+  name = "autoflake",
+  method = FORMATTING,
+  filetypes = { "python" },
+  generator = nlh.formatter_factory({
+    command = "autoflake",
+    args = { "--in-place", '--remove-all-unused-imports', "$FILENAME" },
+    to_temp_file = true,
+  }),
+})
+
+-- currently <leader>lFa calls autoflake
+nl.disable({ method = FORMATTING, name = 'autoflake' })
 
 lvim.plugins = {
   { "luisiacc/gruvbox-baby", branch = 'main' },
