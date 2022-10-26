@@ -15,6 +15,7 @@ local FORMATTING = nl.methods.FORMATTING
 local formatters = require "lvim.lsp.null-ls.formatters"
 local Log = require "lvim.core.log"
 local fmt = string.format
+local ls = require('luasnip')
 
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
@@ -40,6 +41,25 @@ lvim.keys.normal_mode["<C-l>"] = ":noh<cr>"
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
 -- lvim.keys.normal_mode["<C-q>"] = ":q<cr>" -- or vim.keymap.set("n", "<C-q>", ":q<cr>" )
+
+
+local cmp = require('cmp')
+
+-- NOTE: cmp related keymaps are repeated for 'lvim.builtin.cmp.mapping' and 'vim.keymap' because
+-- the former overrides the latter when the completion hover (from nvim-cmp) appears.
+-- Thus, this is needed to keep the keymaps consistent
+local cmd_keyset = function(modes, key, fn)
+  lvim.builtin.cmp.mapping[key] = cmp.mapping(fn, modes)
+  vim.keymap.set(modes, key, fn, { silent = true })
+end
+
+cmd_keyset({ "i", "s" }, "<C-k>", function(fallback)
+  if ls.expand_or_jumpable() then
+    ls.expand_or_jump()
+  elseif fallback ~= nil then
+    fallback()
+  end
+end)
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
@@ -225,7 +245,6 @@ lvim.plugins = {
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
-
 
 -- Strip Whitespace on file save
 vim.api.nvim_create_autocmd('BufWritePre', {
