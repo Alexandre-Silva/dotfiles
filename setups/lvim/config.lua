@@ -44,16 +44,19 @@ lvim.keys.normal_mode["<C-l>"] = ":noh<cr>"
 
 
 local cmp = require('cmp')
+local keymap = require('cmp.utils.keymap')
 
 -- NOTE: cmp related keymaps are repeated for 'lvim.builtin.cmp.mapping' and 'vim.keymap' because
 -- the former overrides the latter when the completion hover (from nvim-cmp) appears.
 -- Thus, this is needed to keep the keymaps consistent
 local cmd_keyset = function(modes, key, fn)
-  lvim.builtin.cmp.mapping[key] = cmp.mapping(fn, modes)
-  vim.keymap.set(modes, key, fn, { silent = true })
+  local keyn = keymap.normalize(key)
+  lvim.builtin.cmp.mapping[keyn] = cmp.mapping(fn, modes)
+  -- cmp.mapping[key] = cmp.mapping(fn, modes)
+  vim.keymap.set(modes, keyn, fn, { silent = true })
 end
 
-cmd_keyset({ "i", "s" }, "<C-k>", function(fallback)
+cmd_keyset({ "i", "s" }, "<C-K>", function(fallback)
   if ls.expand_or_jumpable() then
     ls.expand_or_jump()
   elseif fallback ~= nil then
@@ -115,7 +118,8 @@ lvim.builtin.which_key.mappings["b"]["n"] = { "<cmd>tabnew<CR>", "New Empty Buff
 lvim.builtin.which_key.mappings["b"]["N"] = { new_file_here, "New File here" }
 lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<cr>", "List Buffers" }
 
-lvim.builtin.which_key.mappings["s"]["s"] = { "<cmd>Telescope grep_string<cr>", "Word under cursor" }
+lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Word under cursor" }
+lvim.builtin.which_key.mappings["s"]["s"] = { "<cmd>Telescope luasnip<cr>", "snippet" }
 lvim.builtin.which_key.mappings["<tab>"] = { "<cmd>b#<CR>", "Previous buffer" }
 
 lvim.builtin.which_key.mappings["l"]["f"] = {
@@ -159,7 +163,6 @@ lvim.builtin.which_key.mappings["l"]["F"] = {
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "dashboard"
-lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 
 local function telescope_find_files(_)
@@ -230,7 +233,15 @@ lvim.plugins = {
   { "luisiacc/gruvbox-baby", branch = 'main' },
   { "sainnhe/gruvbox-material" },
   { "ntpeters/vim-better-whitespace" },
+  { "benfowler/telescope-luasnip.nvim", module = "telescope._extensions.luasnip" },
 }
+
+lvim.builtin.telescope.on_config_done = function(telescope)
+  local installed, _ = pcall(require, 'telescope._extensions.luasnip')
+  if installed then
+    telescope.load_extension('luasnip')
+  end
+end
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {
