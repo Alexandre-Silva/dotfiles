@@ -10,9 +10,7 @@ links=(
     "$ADM_DIR"/git-listobjectsbysize $HOME/.bin/git-listobjectsbysize
 )
 
-st_profile() {
-    export GIT_EDITOR="et"
-}
+st_profile() {}
 
 st_rc() {
     alias g='git'
