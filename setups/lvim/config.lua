@@ -212,7 +212,7 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 formatters.setup {
   { command = "yapf" },
-  -- { command = "isort", filetypes = { "python" } },
+  { command = "isort", filetypes = { "python" } },
 }
 
 nl.register({
@@ -234,7 +234,11 @@ lvim.plugins = {
   { "sainnhe/gruvbox-material" },
   { "ntpeters/vim-better-whitespace" },
   { "benfowler/telescope-luasnip.nvim", module = "telescope._extensions.luasnip" },
+  { "ggandor/leap.nvim" },
+  { "tpope/vim-abolish" },
 }
+
+require('leap').add_default_mappings()
 
 lvim.builtin.telescope.on_config_done = function(telescope)
   local installed, _ = pcall(require, 'telescope._extensions.luasnip')
