@@ -11,7 +11,10 @@ an executable
 -- IMPORTS
 local nl = require("null-ls")
 local nlh = require("null-ls.helpers")
+local nll = require("null-ls.loop")
+local nlu = require("null-ls.utils")
 local FORMATTING = nl.methods.FORMATTING
+local CODE_ACTION = nl.methods.CODE_ACTION
 local formatters = require "lvim.lsp.null-ls.formatters"
 local Log = require "lvim.core.log"
 local fmt = string.format
@@ -129,36 +132,6 @@ lvim.builtin.which_key.mappings["l"]["f"] = {
   "Format",
 }
 
-lvim.builtin.which_key.mappings["l"]["F"] = {
-  name = "Format Special",
-
-  a = {
-    function()
-      local py_active_sources = nl.get_source({ method = FORMATTING, filetypes = { 'python' } })
-
-      local sources_to_reenable = {}
-      for _, v in pairs(py_active_sources) do
-        local enabled = not v._disabled
-        if enabled then
-          nl.disable({ method = FORMATTING, name = v.name })
-          table.insert(sources_to_reenable, v.name)
-        end
-      end
-
-      nl.enable({ method = FORMATTING, name = 'autoflake' })
-      vim.lsp.buf.format({ timeout_ms = 2000 })
-      nl.disable({ method = FORMATTING, name = 'autoflake' })
-
-      for _, name in pairs(sources_to_reenable) do
-        nl.enable({ method = FORMATTING, filetypes = { 'python' }, name = name })
-      end
-    end,
-    "autoflake",
-  }
-}
-
-
-
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
@@ -217,17 +190,62 @@ formatters.setup {
 
 nl.register({
   name = "autoflake",
-  method = FORMATTING,
+  -- method = FORMATTING,
+  method = CODE_ACTION,
   filetypes = { "python" },
-  generator = nlh.formatter_factory({
-    command = "autoflake",
-    args = { "--in-place", '--remove-all-unused-imports', "$FILENAME" },
-    to_temp_file = true,
+
+  generator = nlh.generator_factory({
+    command = 'autoflake',
+    args = { "--check", '--remove-all-unused-imports', "$FILENAME" },
+    format = 'raw',
+    check_exit_code = function(code)
+      return code <= 1
+    end,
+    on_output = function(params, done)
+      if params.output == 'No issues detected!\n' then
+        return {}
+      end
+
+      local actions = {};
+      table.insert(actions, {
+        title = 'Remove unused imports',
+        action = function()
+
+          local get_content = function()
+            -- when possible, get content from params
+            if params.content then
+              return nlu.join_at_newline(params.bufnr, params.content)
+            end
+
+            -- otherwise, get content directly
+            return nlu.buf.content(params.bufnr, true) --[[@as string]]
+          end
+
+          local on_done = function(error_output, output)
+            -- normalize line endings
+            output = output:gsub("\r\n?", "\n")
+            local lines = vim.split(output, "\n")
+            vim.api.nvim_buf_set_lines(
+              params.bufnr,
+              0,
+              -1,
+              true,
+              lines
+            )
+          end
+
+          nll.spawn(
+            "autoflake-null.sh",
+            { '--remove-all-unused-imports', },
+            { handler = on_done, input = get_content() }
+          )
+        end,
+      })
+
+      done(actions)
+    end,
   }),
 })
-
--- currently <leader>lFa calls autoflake
-nl.disable({ method = FORMATTING, name = 'autoflake' })
 
 lvim.plugins = {
   { "luisiacc/gruvbox-baby", branch = 'main' },
