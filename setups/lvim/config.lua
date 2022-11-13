@@ -235,7 +235,7 @@ nl.register({
           end
 
           nll.spawn(
-            "autoflake-null.sh",
+            "autoflake-null-ls.sh",
             { '--remove-all-unused-imports', },
             { handler = on_done, input = get_content() }
           )
