@@ -123,6 +123,7 @@ lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<cr>", "Lis
 
 lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Word under cursor" }
 lvim.builtin.which_key.mappings["s"]["s"] = { "<cmd>Telescope luasnip<cr>", "snippet" }
+lvim.builtin.which_key.mappings["s"]["l"] = { "<cmd>Telescope resume<cr>", "last search" }
 lvim.builtin.which_key.mappings["<tab>"] = { "<cmd>b#<CR>", "Previous buffer" }
 
 lvim.builtin.which_key.mappings["l"]["f"] = {
