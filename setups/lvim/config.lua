@@ -124,6 +124,7 @@ lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<cr>", "Lis
 lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Word under cursor" }
 lvim.builtin.which_key.mappings["s"]["s"] = { "<cmd>Telescope luasnip<cr>", "snippet" }
 lvim.builtin.which_key.mappings["s"]["l"] = { "<cmd>Telescope resume<cr>", "last search" }
+
 lvim.builtin.which_key.mappings["<tab>"] = { "<cmd>b#<CR>", "Previous buffer" }
 
 lvim.builtin.which_key.mappings["l"]["f"] = {
@@ -255,16 +256,25 @@ lvim.plugins = {
   { "benfowler/telescope-luasnip.nvim", module = "telescope._extensions.luasnip" },
   { "ggandor/leap.nvim" },
   { "tpope/vim-abolish" },
+  { "nvim-telescope/telescope-fzf-native.nvim",
+    run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
+    -- run = "make",
+    -- event = "BufRead",
+  },
 }
 
-require('leap').add_default_mappings()
-
 lvim.builtin.telescope.on_config_done = function(telescope)
-  local installed, _ = pcall(require, 'telescope._extensions.luasnip')
-  if installed then
+  local installed_ls, _ = pcall(require, 'telescope._extensions.luasnip')
+  if installed_ls then
     telescope.load_extension('luasnip')
   end
+
+  -- NOTE: no need to call it. lunarvim already does it
+  -- require('telescope').load_extension('fzf')
 end
+
+
+require('leap').add_default_mappings()
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {
