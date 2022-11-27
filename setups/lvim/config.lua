@@ -96,6 +96,7 @@ end)
 --   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
 --   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordkpace Diagnostics" },
 -- }
+lvim.builtin.telescope.defaults.file_ignore_patterns = { "node_modules", ".git", "__pycache__" }
 
 local new_file_here = function()
   --local out = vim.fn.input('test>')
