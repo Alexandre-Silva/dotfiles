@@ -7,7 +7,6 @@ a global executable or a path to
 an executable
 ]]
 
-
 -- IMPORTS
 local nl = require("null-ls")
 local nlh = require("null-ls.helpers")
@@ -262,6 +261,7 @@ lvim.plugins = {
     -- run = "make",
     -- event = "BufRead",
   },
+  { "nvim-treesitter/playground" }
 }
 
 lvim.builtin.telescope.on_config_done = function(telescope)

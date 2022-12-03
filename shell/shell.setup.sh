@@ -21,7 +21,7 @@ packages=(
     "pm:entr"  # executed cmd on file changes
     "pm:fasd"  # Fasd offers quick access to files and directories for POSIX shells.
     "pm:starship" # The minimal, blazing-fast, and infinitely customizable prompt for any shell!
-    "pm:ttf-nerd-fonts-symbols-mono" # for starship icons
+    # "pm:ttf-nerd-fonts-symbols-mono" # for starship icons
     "pm:sd" # sd is an intuitive find & replace CLI.
     "pm:ripgrep" # better grep
     "pm:exa" # better ls
