@@ -29,6 +29,10 @@ lvim.colorscheme = "gruvbox-material"
 vim.o.background = "dark"
 vim.g.gruvbox_material_background = 'medium'
 
+-- show relative line numbers except for current one
+vim.o.relativenumber = true
+vim.o.number = true
+
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
