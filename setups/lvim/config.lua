@@ -290,9 +290,14 @@ lvim.plugins = {
     requires = { "nvim-lua/plenary.nvim" },
     setup = function()
       require("grapple").setup({
+        -- log_level = "debug",
         scope = require("grapple.scope").resolver(function()
           local root, _ = require("project_nvim.project").get_project_root()
-          return root
+          if root ~= nil then
+            return root
+          else
+            return vim.fn.getcwd()
+          end
         end, { cache = false, persist = false })
       })
     end
