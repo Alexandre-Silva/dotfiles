@@ -21,6 +21,7 @@ local ls = require('luasnip')
 
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
+
 -- general
 lvim.log.level = "info"
 lvim.format_on_save = false
@@ -120,6 +121,13 @@ lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BufferKill<CR>", "Delete Buf
 lvim.builtin.which_key.mappings["b"]["n"] = { "<cmd>tabnew<CR>", "New Empty Buffer" }
 lvim.builtin.which_key.mappings["b"]["N"] = { new_file_here, "New File here" }
 lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<cr>", "List Buffers" }
+lvim.builtin.which_key.mappings["b"]["m"] = { require("grapple").toggle, "Anon tag toggle" }
+lvim.builtin.which_key.mappings["b"]["'"] = { require("grapple").popup_tags, "Tags poppup" }
+lvim.builtin.which_key.mappings["b"]["1"] = { function() require("grapple").select({ key = 1 }) end, "tag 1" }
+lvim.builtin.which_key.mappings["b"]["2"] = { function() require("grapple").select({ key = 2 }) end, "tag 2" }
+lvim.builtin.which_key.mappings["b"]["3"] = { function() require("grapple").select({ key = 3 }) end, "tag 3" }
+lvim.builtin.which_key.mappings["b"]["4"] = { function() require("grapple").select({ key = 4 }) end, "tag 4" }
+lvim.builtin.which_key.mappings["b"]["5"] = { function() require("grapple").select({ key = 5 }) end, "tag 5" }
 
 lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Word under cursor" }
 lvim.builtin.which_key.mappings["s"]["s"] = { "<cmd>Telescope luasnip<cr>", "snippet" }
@@ -182,6 +190,22 @@ lvim.builtin.treesitter.ensure_installed = {
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
+
+
+local lls = require("lvim.core.lualine.styles")
+local lls_default = lls.get_style("default")
+local lualine_x = {
+  {
+    function()
+      local key = require("grapple").key()
+      return "  [" .. key .. "]"
+    end,
+    cond = require("grapple").exists,
+  },
+}
+table.foreach(lls_default.sections.lualine_x, function(k, v) table.insert(lualine_x, v) end)
+
+lvim.builtin.lualine.sections.lualine_x = lualine_x
 
 -- LSP settings
 
@@ -261,7 +285,18 @@ lvim.plugins = {
     -- run = "make",
     -- event = "BufRead",
   },
-  { "nvim-treesitter/playground" }
+  { "nvim-treesitter/playground" },
+  { "cbochs/grapple.nvim",
+    requires = { "nvim-lua/plenary.nvim" },
+    setup = function()
+      require("grapple").setup({
+        scope = require("grapple.scope").resolver(function()
+          local root, _ = require("project_nvim.project").get_project_root()
+          return root
+        end, { cache = false, persist = false })
+      })
+    end
+  }
 }
 
 lvim.builtin.telescope.on_config_done = function(telescope)
