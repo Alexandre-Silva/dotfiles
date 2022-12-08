@@ -198,7 +198,7 @@ local lualine_x = {
   {
     function()
       local key = require("grapple").key()
-      return "  [" .. key .. "]"
+      return " [" .. key .. "]"
     end,
     cond = require("grapple").exists,
   },
