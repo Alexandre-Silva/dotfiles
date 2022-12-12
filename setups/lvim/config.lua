@@ -125,8 +125,8 @@ lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BufferKill<CR>", "Delete Buf
 lvim.builtin.which_key.mappings["b"]["n"] = { "<cmd>tabnew<CR>", "New Empty Buffer" }
 lvim.builtin.which_key.mappings["b"]["N"] = { new_file_here, "New File here" }
 lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<cr>", "List Buffers" }
-lvim.builtin.which_key.mappings["b"]["m"] = { require("grapple").toggle, "Anon tag toggle" }
-lvim.builtin.which_key.mappings["b"]["'"] = { require("grapple").popup_tags, "Tags poppup" }
+lvim.builtin.which_key.mappings["b"]["m"] = { function() require("grapple").toggle() end, "Anon tag toggle" }
+lvim.builtin.which_key.mappings["b"]["'"] = { function() require("grapple").popup_tags() end, "Tags poppup" }
 lvim.builtin.which_key.mappings["b"]["1"] = { function() require("grapple").select({ key = 1 }) end, "tag 1" }
 lvim.builtin.which_key.mappings["b"]["2"] = { function() require("grapple").select({ key = 2 }) end, "tag 2" }
 lvim.builtin.which_key.mappings["b"]["3"] = { function() require("grapple").select({ key = 3 }) end, "tag 3" }
@@ -204,7 +204,11 @@ local lualine_x = {
       local key = require("grapple").key()
       return " [" .. key .. "]"
     end,
-    cond = require("grapple").exists,
+    cond = function()
+      local status_ok, grapple = pcall(require, "grapple")
+      if not status_ok then return false end
+      return grapple.exists()
+    end,
   },
 }
 table.foreach(lls_default.sections.lualine_x, function(k, v) table.insert(lualine_x, v) end)
@@ -319,7 +323,10 @@ lvim.builtin.telescope.on_config_done = function(telescope)
 end
 
 
-require('leap').add_default_mappings()
+local leap_exists, leap = pcall(require, "leap")
+if leap_exists then
+  leap.add_default_mappings()
+end
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {
