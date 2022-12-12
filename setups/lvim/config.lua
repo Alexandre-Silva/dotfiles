@@ -137,6 +137,8 @@ lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", 
 lvim.builtin.which_key.mappings["s"]["s"] = { "<cmd>Telescope luasnip<cr>", "snippet" }
 lvim.builtin.which_key.mappings["s"]["l"] = { "<cmd>Telescope resume<cr>", "last search" }
 
+lvim.builtin.which_key.mappings["g"]["g"] = { function() require("neogit").open() end, "Neogit Status" }
+
 lvim.builtin.which_key.mappings["<tab>"] = { "<cmd>b#<CR>", "Previous buffer" }
 
 lvim.builtin.which_key.mappings["l"]["f"] = {
@@ -309,7 +311,33 @@ lvim.plugins = {
         end, { cache = false, persist = false })
       })
     end
-  }
+  },
+  { 'TimUntersberger/neogit',
+    requires = 'nvim-lua/plenary.nvim',
+    setup = function()
+      local neogit = require('neogit')
+      neogit.setup({
+        -- Change the default way of opening neogit
+        kind = "split",
+        -- Change the default way of opening the commit popup
+        commit_popup = {
+          kind = "split",
+        },
+        -- Change the default way of opening popups
+        popup = {
+          kind = "split",
+        },
+        -- customize displayed signs
+        signs = {
+          -- { CLOSED, OPENED }
+          section = { "▷ ", "▽ " },
+          item = { "▷ ", "▽ " },
+          hunk = { "", "" },
+        },
+
+      })
+    end
+  },
 }
 
 lvim.builtin.telescope.on_config_done = function(telescope)
