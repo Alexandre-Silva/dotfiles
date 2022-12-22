@@ -1,4 +1,5 @@
-; Highlight embbeded SQL. Strings that have '-- TS-sql' in them
+; extends
+
 ((string) @sql (#contains? @sql "-- TS-sql"))
 
 
@@ -8,4 +9,5 @@
   arguments: (argument_list
     (string) @sql))
   (#any-of? @_fn "text" "TEXT"))
+
 

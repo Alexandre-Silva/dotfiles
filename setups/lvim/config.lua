@@ -370,6 +370,13 @@ end
 --   end,
 -- })
 
+
+-- Detects jinj2
+vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+  pattern = "*.j2.html",
+  command = 'set filetype=htmldjango',
+})
+
 -- Strip Whitespace on file save
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = "*",
