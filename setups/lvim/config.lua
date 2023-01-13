@@ -124,6 +124,7 @@ end
 lvim.builtin.which_key.mappings["b"]["d"] = { "<cmd>BufferKill<CR>", "Delete Buffer" }
 lvim.builtin.which_key.mappings["b"]["n"] = { "<cmd>tabnew<CR>", "New Empty Buffer" }
 lvim.builtin.which_key.mappings["b"]["N"] = { new_file_here, "New File here" }
+lvim.builtin.which_key.mappings["b"]["Y"] = { "<cmd>%y+<CR>", "Yank buffer" }
 lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<cr>", "List Buffers" }
 lvim.builtin.which_key.mappings["b"]["m"] = { function() require("grapple").toggle() end, "Anon tag toggle" }
 lvim.builtin.which_key.mappings["b"]["'"] = { function() require("grapple").popup_tags() end, "Tags poppup" }
