@@ -19,9 +19,8 @@ echo ""
 
 
 echo "Preparing"
-# mv /var/lib/postgres/data /var/lib/postgres/olddata
-mkdir /var/lib/postgres/data
-# mkdir /var/lib/postgres/tmp
+mv /var/lib/postgres/data /var/lib/postgres/olddata
+mkdir /var/lib/postgres/data /var/lib/postgres/tmp
 chown postgres:postgres /var/lib/postgres/data /var/lib/postgres/tmp
 
 echo "Creating new DB cluster"
