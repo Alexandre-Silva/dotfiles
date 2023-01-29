@@ -17,7 +17,6 @@ fi
 echo "Upgrading from $1"
 echo ""
 
-
 echo "Preparing"
 mv /var/lib/postgres/data /var/lib/postgres/olddata
 mkdir /var/lib/postgres/data /var/lib/postgres/tmp
