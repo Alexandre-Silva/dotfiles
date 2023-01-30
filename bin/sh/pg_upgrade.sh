@@ -14,12 +14,21 @@ if [[ ! -e "/opt/pgsql-$1" ]]; then
   exit 1;
 fi
 
+if [[ -e "/var/lib/postgres/olddata" ]]; then
+  echo "Mid migration folder still exists. Continue y/n?"
+  read yn
+  if [[ "$yn" != 'y' ]]; then
+    exit 1;
+  fi
+fi
+
 echo "Upgrading from $1"
 echo ""
 
 echo "Preparing"
 mv /var/lib/postgres/data /var/lib/postgres/olddata
-mkdir /var/lib/postgres/data /var/lib/postgres/tmp
+mkdir /var/lib/postgres/data
+mkdir /var/lib/postgres/tmp
 chown postgres:postgres /var/lib/postgres/data /var/lib/postgres/tmp
 
 echo "Creating new DB cluster"
