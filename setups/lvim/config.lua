@@ -128,11 +128,12 @@ lvim.builtin.which_key.mappings["b"]["Y"] = { "<cmd>%y+<CR>", "Yank buffer" }
 lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers<cr>", "List Buffers" }
 lvim.builtin.which_key.mappings["b"]["m"] = { function() require("grapple").toggle() end, "Anon tag toggle" }
 lvim.builtin.which_key.mappings["b"]["'"] = { function() require("grapple").popup_tags() end, "Tags poppup" }
-lvim.builtin.which_key.mappings["b"]["1"] = { function() require("grapple").select({ key = 1 }) end, "tag 1" }
-lvim.builtin.which_key.mappings["b"]["2"] = { function() require("grapple").select({ key = 2 }) end, "tag 2" }
-lvim.builtin.which_key.mappings["b"]["3"] = { function() require("grapple").select({ key = 3 }) end, "tag 3" }
-lvim.builtin.which_key.mappings["b"]["4"] = { function() require("grapple").select({ key = 4 }) end, "tag 4" }
-lvim.builtin.which_key.mappings["b"]["5"] = { function() require("grapple").select({ key = 5 }) end, "tag 5" }
+for i = 1, 5, 1 do
+  local name = string.format("tag %i", i)
+  local key = string.format("%i", i)
+  lvim.builtin.which_key.mappings["b"][key] = { function() require("grapple").select({ key = i }) end, name }
+  lvim.builtin.which_key.mappings[key] = { function() require("grapple").select({ key = i }) end, name }
+end
 
 lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Word under cursor" }
 lvim.builtin.which_key.mappings["s"]["s"] = { "<cmd>Telescope luasnip<cr>", "snippet" }
