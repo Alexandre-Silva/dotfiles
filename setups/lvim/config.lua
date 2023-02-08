@@ -18,6 +18,7 @@ local formatters = require "lvim.lsp.null-ls.formatters"
 local Log = require "lvim.core.log"
 local fmt = string.format
 local ls = require('luasnip')
+local wk = require("which-key")
 
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
@@ -101,6 +102,10 @@ end)
 --   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Wordkpace Diagnostics" },
 -- }
 lvim.builtin.telescope.defaults.file_ignore_patterns = { "node_modules", ".git", "__pycache__" }
+
+
+-- bindings for folds, spelling and others prefixed with z
+lvim.builtin.which_key.setup.plugins.presets.z = true
 
 local new_file_here = function()
   --local out = vim.fn.input('test>')
@@ -340,6 +345,42 @@ lvim.plugins = {
       })
     end
   },
+  {
+    "nvim-neorg/neorg",
+    config = function()
+      require('neorg').setup {
+        load = {
+          ["core.defaults"] = {}, -- Loads default behaviour
+          ["core.norg.concealer"] = {}, -- Adds pretty icons to your documents
+          ["core.norg.dirman"] = { -- Manages Neorg workspaces
+            config = {
+              workspaces = {
+                notes = "~/Documents/@sync/syncthing/norg",
+              },
+            },
+          },
+          ["core.keybinds"] = {
+            config = {
+              default_keybinds = true,
+              hook = function(keybinds)
+
+                -- Binds the `gtd` key in `norg` mode to execute `:echo 'Hello'`
+                keybinds.map_event("norg", "n", "td", "core.norg.qol.todo_items.todo.task_done")
+                keybinds.map_event("norg", "n", "ti", "core.norg.qol.todo_items.todo.task_important")
+                keybinds.map_event("norg", "n", "<leader>np", "core.norg.dirman.new.note")
+
+                keybinds.map("norg", "n", "ta", "<cmd>Neorg keybind norg core.norg.qol.todo_items.todo.task_done <CR>")
+                keybinds.map("norg", "n", "te", "<cmd>echo '321' <CR>")
+
+              end,
+            }
+          }
+        },
+      }
+    end,
+    run = ":Neorg sync-parsers",
+    requires = "nvim-lua/plenary.nvim",
+  }
 }
 
 lvim.builtin.telescope.on_config_done = function(telescope)
@@ -374,7 +415,7 @@ end
 
 
 -- Detects jinj2
-vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
+vim.api.nvim_create_autocmd({ 'BufNewFile', 'BufRead' }, {
   pattern = "*.j2.html",
   command = 'set filetype=htmldjango',
 })
@@ -383,6 +424,24 @@ vim.api.nvim_create_autocmd({'BufNewFile', 'BufRead'}, {
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = "*",
   command = 'silent! StripWhitespaceOnChangedLines',
+})
+
+
+-----------------
+-- Neorg stuff --
+-----------------
+local neorg = require("neorg")
+require("neorg.modules.base")
+
+-- proper binds
+vim.api.nvim_create_autocmd('BufEnter', {
+  pattern = "*.norg",
+  callback = function(ev)
+    wk.register({
+      -- ["ti"] = { function() require("neorg").core.norg.qol.todo_items.todo.task_important() end, 'Important' },
+      -- ["td"] = { function() print(vim.inspect(neorg.modules.loaded_modules["core.norg.qol.todo_items"].public)) end, 'debug' },
+    })
+  end
 })
 
 ---------------------
