@@ -384,3 +384,9 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = "*",
   command = 'silent! StripWhitespaceOnChangedLines',
 })
+
+---------------------
+-- modular configs --
+---------------------
+
+local als = require ('alex.luasnip')
