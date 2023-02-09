@@ -45,3 +45,12 @@ ls.add_snippets('arduino', {
     })),
   }),
 })
+
+ls.add_snippets('cpp', {
+  s("mem0", {
+    unpack(fmt('memset({}, 0, sizeof({}));', {
+      i(1),
+      rep(1),
+    })),
+  }),
+})
