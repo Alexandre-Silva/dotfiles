@@ -20,6 +20,10 @@ st_profile() {
     export XDG_MUSIC_DIR
     export XDG_PICTURES_DIR
     export XDG_VIDEOS_DIR
+    export XDG_CACHE_HOME
+    export XDG_CONFIG_HOME
+    export XDG_DATA_HOME
+    export XDG_STATE_HOME
 
     source "$XDG_CONFIG_HOME/user-dirs.dirs"
 
@@ -37,6 +41,10 @@ st_install() {
     export XDG_MUSIC_DIR
     export XDG_PICTURES_DIR
     export XDG_VIDEOS_DIR
+    export XDG_CACHE_HOME
+    export XDG_CONFIG_HOME
+    export XDG_DATA_HOME
+    export XDG_STATE_HOME
 
     source "$XDG_CONFIG_HOME/user-dirs.dirs"
 
@@ -48,5 +56,9 @@ st_install() {
     mkdir -vp $XDG_MUSIC_DIR
     mkdir -vp $XDG_PICTURES_DIR
     mkdir -vp $XDG_VIDEOS_DIR
+    mkdir -vp $XDG_CACHE_HOME
+    mkdir -vp $XDG_CONFIG_HOME
+    mkdir -vp $XDG_DATA_HOME
+    mkdir -vp $XDG_STATE_HOME
 
 }
