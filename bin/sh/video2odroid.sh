@@ -31,7 +31,13 @@ main() {
         else
             notify-send "Encoding & transferring: $file"
 
-            ffmpeg -i "$file" -c:v libx265 -vf format=yuv420p -preset fast -c:a copy -f matroska - \
+            # x265 8bit
+            # ffmpeg -i "$file" -c:v libx265 -vf format=yuv420p -preset ultrafast -c:a copy -f matroska -
+
+            # x264 8bit
+            # ffmpeg -i "$file" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -c:a copy -f matroska -
+
+            ffmpeg -i "$file" -c:v libx264 -pix_fmt yuv420p -preset ultrafast -c:a copy -f matroska - \
                 | ssh $host "cat > '""${target}""/$(basename "${file}")'"
 
             notify-send "Encoding & transferring complete: $file"
