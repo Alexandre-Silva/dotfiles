@@ -14,7 +14,7 @@ return {
       local nls = require("null-ls")
 
       return {
-        log_level = "info",
+        log_level = "debug",
 
         -- defaults
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
@@ -29,6 +29,7 @@ return {
 
           -- python
           nls.builtins.formatting.yapf,
+          nls.builtins.formatting.isort.with({ timeout = 2000 }),
           -- autoflake-alex is loaded in config()
         },
       }
@@ -51,6 +52,7 @@ return {
           command = "autoflake-null-ls.sh",
           args = { "--remove-all-unused-imports" },
           to_stdin = true,
+          timeout = 2000,
         }),
       })
     end,
