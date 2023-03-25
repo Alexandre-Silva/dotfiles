@@ -8,9 +8,6 @@ links=(
 
 
 st_rc() {
-  if ! hash lvim &>/dev/null; then
-    return
-  fi
-
   alias zvim='nvim -u ~/.config/zvim/init.lua'
+  alias nvim='zvim'
 }

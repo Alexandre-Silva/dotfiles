@@ -12,9 +12,15 @@ return {
     "jose-elias-alvarez/null-ls.nvim",
     opts = function()
       local nls = require("null-ls")
+
       return {
+        log_level = "info",
+
+        -- defaults
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),
+
         sources = {
+          -- defaults
           nls.builtins.formatting.fish_indent,
           nls.builtins.diagnostics.fish,
           nls.builtins.formatting.stylua,
@@ -23,9 +29,30 @@ return {
 
           -- python
           nls.builtins.formatting.yapf,
-          nls.builtins.formatting.autoflake,
+          -- autoflake-alex is loaded in config()
         },
       }
+    end,
+
+    config = function(_, opts)
+      local h = require("null-ls.helpers")
+      local nls = require("null-ls")
+      local methods = require("null-ls.methods")
+
+      local FORMATTING = methods.internal.FORMATTING
+
+      nls.setup(opts)
+
+      nls.register({
+        name = "autoflake-alex",
+        method = { FORMATTING },
+        filetypes = { "python" },
+        generator = h.formatter_factory({
+          command = "autoflake-null-ls.sh",
+          args = { "--remove-all-unused-imports" },
+          to_stdin = true,
+        }),
+      })
     end,
   },
 }
