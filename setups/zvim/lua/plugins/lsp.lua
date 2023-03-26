@@ -14,7 +14,7 @@ return {
       local nls = require("null-ls")
 
       return {
-        log_level = "debug",
+        log_level = "info",
 
         -- defaults
         root_dir = require("null-ls.utils").root_pattern(".null-ls-root", ".neoconf.json", "Makefile", ".git"),

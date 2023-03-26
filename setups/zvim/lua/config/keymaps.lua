@@ -16,3 +16,5 @@ end
 map("n", "<A-l>", ":noh<cr>", { desc = "Clear search highlight", silent = true })
 
 map("n", "<leader>bY", "<cmd>%y+<CR>", { desc = "Yank buffer" })
+
+map("n", "<C-s>", "<cmd>wa<cr>", { desc = "Save All" })
