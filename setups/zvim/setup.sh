@@ -8,6 +8,6 @@ links=(
 
 
 st_rc() {
-  alias zvim='nvim -u ~/.config/zvim/init.lua'
+  alias zvim='\nvim -u ~/.config/zvim/init.lua'
   alias nvim='zvim'
 }

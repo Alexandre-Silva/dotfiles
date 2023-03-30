@@ -11,5 +11,5 @@ st_rc() {
     return
   fi
 
-  alias nvim='lvim'
+  # alias nvim='lvim'
 }
