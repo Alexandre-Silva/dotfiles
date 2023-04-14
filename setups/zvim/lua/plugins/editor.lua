@@ -81,4 +81,17 @@ return {
       return opts
     end,
   },
+
+  -- to remove trailling whitespace and stuff
+  {
+    "ntpeters/vim-better-whitespace",
+    config = function()
+      -- Strip Whitespace on file save
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = vim.api.nvim_create_augroup("autostrip", {}),
+        pattern = "*",
+        command = "silent! StripWhitespaceOnChangedLines",
+      })
+    end,
+  },
 }
