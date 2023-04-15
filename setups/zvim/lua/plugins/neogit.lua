@@ -28,6 +28,10 @@ return {
           item = { "▷ ", "▽ " },
           hunk = { "", "" },
         },
+
+        -- when nvim-noice is active, the confirmation breaks the plugin
+        -- see https://github.com/folke/noice.nvim/issues/232
+        disable_commit_confirmation = true,
       })
     end
   }
