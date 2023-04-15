@@ -4,6 +4,13 @@ return {
     opts = {
       -- Automatically format on save
       autoformat = false,
+      --
+      -- options for vim.lsp.buf.format
+      -- `bufnr` and `filter` is handled by the LazyVim formatter,
+      -- but can be also overridden when specified
+      format = {
+        timeout_ms = 5000,
+      },
     },
   },
 
@@ -28,8 +35,8 @@ return {
           nls.builtins.diagnostics.flake8,
 
           -- python
-          nls.builtins.formatting.yapf,
-          nls.builtins.formatting.isort.with({ timeout = 2000 }),
+          nls.builtins.formatting.yapf.with({ timeout = 5000 }),
+          nls.builtins.formatting.isort.with({ timeout = 5000 }),
           -- autoflake-alex is loaded in config()
         },
       }
@@ -52,7 +59,7 @@ return {
           command = "autoflake-null-ls.sh",
           args = { "--remove-all-unused-imports" },
           to_stdin = true,
-          timeout = 2000,
+          timeout = 5000,
         }),
       })
     end,
