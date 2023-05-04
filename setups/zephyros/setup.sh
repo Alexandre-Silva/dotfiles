@@ -29,9 +29,9 @@ packages=(
     'aur:nrf5x-command-line-tools'
 )
 
-_ZP_VER=3.1.0
+_ZP_VER=3.3.0
 _ZP_HOME=~/.local/share/zephyros-$_ZP_VER
-_ZPSDK_VER=0.14.2
+_ZPSDK_VER=0.16.0
 _ZPSDK_HOME=~/.local/share/zephyr-sdk-$_ZPSDK_VER
 
 st_install() {
@@ -68,10 +68,10 @@ st_install() {
 
           cd /tmp
           wget \
-              https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v$sdkver/zephyr-sdk-${sdkver}_linux-x86_64.tar.gz \
+              https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v$sdkver/zephyr-sdk-${sdkver}_linux-x86_64.tar.xz \
               --show-progress
 
-          tar xvf zephyr-sdk-${sdkver}_linux-x86_64.tar.gz
+          tar xvf zephyr-sdk-${sdkver}_linux-x86_64.tar.xz
           mv zephyr-sdk-$sdkver $sdk
           cd ~/.local/share/zephyr-sdk-$sdkver
           ./setup.sh
