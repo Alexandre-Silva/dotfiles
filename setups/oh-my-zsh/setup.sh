@@ -24,7 +24,7 @@ st_install() {
 
     elif [ ! -e $HOME/.oh-my-zsh ]; then
         echo "Cloning oh-my-zsh."
-        git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
+        git clone https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh"
         export ZSH="$HOME/.oh-my-zsh"
         echo "Oh-my-zsh is ready to use."
 
