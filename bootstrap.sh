@@ -49,7 +49,7 @@ function install-dotfiles {
     echo "---- Fetching dotfiles"
 
     if [[ -d ${DOTFILES} ]]; then
-        git pull && git submodule sync --recursive && git submodule update --init --recursive
+        ( cd ${DOTFILES}; git pull && git submodule sync --recursive && git submodule update --init --recursive )
     else
         git clone --recursive --progress ${DOTFILES_REPO} ${DOTFILES}
     fi
