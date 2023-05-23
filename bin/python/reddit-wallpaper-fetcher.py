@@ -1,14 +1,13 @@
 #!/usr/bin/env python3
 
-import requests
 import string
-import sys
+import time
 from dataclasses import dataclass
-from typing import List
-import json
-import os
-from pathlib import Path
 from datetime import datetime, timedelta
+from pathlib import Path
+from typing import List
+
+import requests
 
 INDEX_URL = 'https://www.reddit.com/r/EarthPorn.json'
 CACHE_PATH = Path('~/.cache/wallpapers/').expanduser()
@@ -75,10 +74,20 @@ def init_cache() -> List[Path]:
 
 
 def fetch_posts(url: str) -> List[Post]:
-    r = requests.get(
-        url,
-        headers={'User-agent': 'wallpaper-downloader-bot'},
-    )
+    attempt_max = 3
+    for attempt in range(attempt_max + 1):
+        try:
+            r = requests.get(
+                url,
+                headers={'User-agent': 'wallpaper-downloader-bot'},
+            )
+        except requests.ConnectionError:
+            if attempt < attempt_max:
+                print(f'connection error: retrying ({attempt}/{attempt_max})')
+                time.sleep(1.0 + 5.0 * attempt)
+            else:
+                raise
+
     index = r.json()
 
     posts = []
