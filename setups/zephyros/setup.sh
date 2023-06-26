@@ -29,9 +29,9 @@ packages=(
     'aur:nrf5x-command-line-tools'
 )
 
-_ZP_VER=3.3.0
+_ZP_VER=3.4.0
 _ZP_HOME=~/.local/share/zephyros-$_ZP_VER
-_ZPSDK_VER=0.16.0
+_ZPSDK_VER=0.16.1
 _ZPSDK_HOME=~/.local/share/zephyr-sdk-$_ZPSDK_VER
 
 st_install() {
