@@ -5,7 +5,7 @@
 -- stylua: ignore
 
 return {
-  { "TimUntersberger/neogit",
+  { "NeogitOrg/neogit",
     requires = 'nvim-lua/plenary.nvim',
     keys = { { "<leader>gg", function() require("neogit").open() end, desc = "Neogit Status" }, },
     config = function()
