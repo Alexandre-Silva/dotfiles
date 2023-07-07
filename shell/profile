@@ -49,6 +49,7 @@ prio_assign BROWSER firefox chromium chrome-stable
 export VISUAL="${EDITOR}"
 export PAGER='less'
 export TERMCMD='alacritty'
+#export TERMCMD='wezterm'
 
 export GIT_HOME="$HOME/.git"
 
