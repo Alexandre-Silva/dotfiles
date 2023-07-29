@@ -1,0 +1,1 @@
+Any operation that requires an device with no no associated exhibitor can do so if the exhibitor in question is temporary. In the operation, the temporary exhibitor is de-associated and marked as is_disabled. Thus freeing the device for the original operation.
