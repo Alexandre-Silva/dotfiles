@@ -1,4 +1,5 @@
 configuration {
   modi: "run,drun";
+  font: "InconsolataGO Nerd Font Mono 14";
 }
 
