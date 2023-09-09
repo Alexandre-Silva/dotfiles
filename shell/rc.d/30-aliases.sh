@@ -16,17 +16,17 @@ if  hash dircolors &>/dev/null; then
 fi
 
 # ls/exa, the common ones I use a lot shortened for rapid fire usage
-if hash exa &>/dev/null; then
-  alias ls='exa'
-  alias l='exa -lFh'     #size,show type,human readable
-  alias la='exa -lAFh'   #long list,show almost all,show type,human readable
-  alias lr='exa -tRFh'   #sorted by date,recursive,show type,human readable
-  alias lt='exa -ltFh'   #long list,sorted by date,show type,human readable
-  alias ll='exa -l'      #long list
-  alias ldot='exa -ld .*'
-  alias lS='exa -1FSsh'
-  alias lart='exa -1Fcart'
-  alias lrt='exa -1Fcrt'
+if hash eza &>/dev/null; then
+  alias ls='eza'
+  alias l='eza -lFh'     #size,show type,human readable
+  alias la='eza -lAFh'   #long list,show almost all,show type,human readable
+  alias lr='eza -tRFh'   #sorted by date,recursive,show type,human readable
+  alias lt='eza -ltFh'   #long list,sorted by date,show type,human readable
+  alias ll='eza -l'      #long list
+  alias ldot='eza -ld .*'
+  alias lS='eza -1FSsh'
+  alias lart='eza -1Fcart'
+  alias lrt='eza -1Fcrt'
 
 else
   alias l='ls -lFh'     #size,show type,human readable
