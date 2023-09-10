@@ -4,7 +4,7 @@ import sys
 import traceback
 from typing import List, Tuple
 
-import PySimpleGUI as sg  # noqa
+import PySimpleGUI as sg
 import sh
 
 
