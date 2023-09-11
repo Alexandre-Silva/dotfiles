@@ -5,7 +5,7 @@
     "modes": [
         3
     ],
-    "usageCount": 15,
+    "usageCount": 23,
     "prompt": false,
     "omitTrigger": false,
     "showInTrayMenu": false,
@@ -19,7 +19,7 @@
     },
     "hotkey": {
         "modifiers": [],
-        "hotKey": "<code194>"
+        "hotKey": "<f16>"
     },
     "filter": {
         "regex": null,
