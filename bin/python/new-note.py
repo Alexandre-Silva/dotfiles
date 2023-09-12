@@ -2,8 +2,8 @@
 
 '''
 ENV vars that need to be specified:
-GTD_REFILE
-LOGSEQ_REFILE
+- GTD_REFILE
+- LOGSEQ_REFILE
 '''
 
 import os
