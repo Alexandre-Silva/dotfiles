@@ -160,7 +160,7 @@ def do_save_note(values):
         raw = fmt_logseq(title, body, type_)
         fp = os.environ.get('LOGSEQ_REFILE')
         if fp is not None:
-            with open(fp, 'w+') as f:
+            with open(fp, 'a') as f:
                 f.write(raw)
         else:
             notify("ERROR!", 'LOGSEQ_REFILE not set')
@@ -175,7 +175,7 @@ def do_save_note(values):
         raw = fmt_org(title, body, type_)
         fp = os.environ.get('GTD_REFILE')
         if fp is not None:
-            with open(fp, 'w+') as f:
+            with open(fp, 'a') as f:
                 f.write(raw)
         else:
             notify("ERROR!", 'GTD_REFILE not set')
