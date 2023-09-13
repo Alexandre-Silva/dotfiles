@@ -1,6 +1,8 @@
 #!/usr/env/env bash
 
-packages=()
+packages=(
+  "aur:python-pysimplegui"
+)
 
 links=()
 
