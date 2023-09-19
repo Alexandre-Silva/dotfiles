@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+# ignore: E500
 # flake8: noqa: E500
 # ruff: noqa: E500
 
@@ -17,9 +18,42 @@ REPLACE = {
     '[[Pe/Nuno Ferreira]]': '[[id:4a7c3298-c2b6-4083-9c4c-1b79a8b22d71][Nuno Ferreira]]',
     '[[Pe/Raquel Santos]]': '[[id:4b023b9c-87be-45f5-81e5-6ee76f6be770][Raquel Santos]]',
     '[[Ref/WhatsApp]]': '[[id:1ce69ce3-a4dd-4c42-9e0d-26917f183869][WhatsApp]]',
-    '[[logging]]': '[[id:f053d058-f7cf-4b4b-a9c2-f5301462b376][logging]]',
-    '[[t/log]]': '[[id:3ca16330-e3dc-43e7-ba59-ea94943f9fc8][t.log]]',
+    '[[Ref/Graylog]]': '[[id:fb6d1849-bca8-447b-81d3-405a6ca7f431][Graylog]]',
+    '[[Ref/restic]]': '[[id:d00af650-6e7b-47e3-879d-5428ce34c24f][restic]]',
+    '[[Ref/1NCE]]': '[[id:356671d4-b2fd-4d4f-8d3e-61ecfb955008][1NCE]]',
+    '[[Ref/OpenVPN]]': '[[id:a8c5d939-9909-498c-8ea8-5abfdeee4735][OpenVPN]]',
+    '[[Ref/ESP32S3]]': '[[id:8d420381-4153-4001-8d6e-21e0e4c0d5dd][ESP32S3]]',
+    '[[Ref/ZeroMQ]]': '[[id:cec89197-8051-4de6-980e-0ecf6c9b42c6][ZeroMQ]]',
+    '[[Ref/Bluetooth]]': '[[id:3a2be2c9-4daf-4795-b73e-a622deb65f01][Bluetooth]]',
+    '[[GS/EOT]]': '[[id:9c5ee471-94bd-4826-a852-a76d5350ea5d][EOT]]',
+    '[[GS]]': '[[id:fe350e80-670d-4ea0-939f-ae1798e25e41][GS]]',
+    '[[GS/EMS]]': '[[id:6efa8442-0239-4df4-b326-1dc10a55c749][EMS]]',
+    '[[GS/SAT1]]': '[[id:3aac5e64-fd67-488d-a82c-fe4d9dbbadaa][GS-SAT1]]',
+    #
     '[[to/consider]]': '[[id:201a6008-ffba-49ee-a27e-c25dfb331497][to.consider]]',
+    '[[to/discuss]]': '[[id:751798e1-1210-4828-964c-f536a4929c2b][to-discuss]]',
+    '[[to/experiment': '[[id:70b3d438-99f9-4a61-8303-749d68e7d65c][to-experiment]]',
+
+    #
+    '[[t/log]]': '[[id:3ca16330-e3dc-43e7-ba59-ea94943f9fc8][t.log]]',
+    '[[t/consider]]': '[[id:201a6008-ffba-49ee-a27e-c25dfb331497][to-consider]]',
+    '[[t/notes]]': '[[id:ff9929c4-77af-40fe-b82b-a1d922658d77][t-notes]]',
+    '[[t/meeting]]': '[[id:df8c2ab0-0229-433c-9e4e-0ae35a52df95][t-meeting]]',
+    #
+    '[[self-hosted]]': '[[id:0c94b234-b12e-40e9-9066-9a436ad4639d][self-hosted]]',
+    '#self-hosted': '[[id:0c94b234-b12e-40e9-9066-9a436ad4639d][self-hosted]]',
+    '[[sysadmin]]': '[[id:5721d54b-262a-44be-bf1a-bd8014a999db][sysadmin]]',
+    '#sysadmin': '[[id:5721d54b-262a-44be-bf1a-bd8014a999db][sysadmin]]',
+    '[[backups]]': '[[id:ef4a7d2a-60f1-43ae-a904-d491073f344c][backups]]',
+    '#backups': '[[id:ef4a7d2a-60f1-43ae-a904-d491073f344c][backups]]',
+    '[[network-overlay]]': '[[id:7681ce76-423f-4694-8881-9bfd65d482db][network-overlay]]',
+    '#network-overlay': '[[id:7681ce76-423f-4694-8881-9bfd65d482db][network-overlay]]',
+    '#logging': '[[id:f053d058-f7cf-4b4b-a9c2-f5301462b376][logging]]',
+    '[[logging]]': '[[id:f053d058-f7cf-4b4b-a9c2-f5301462b376][logging]]',
+    '[[dev-tools]]': '[[id:4ee253b3-2611-4898-812b-1927fad2e1fa][dev_tools]]',
+    '#dev-tools': '[[id:4ee253b3-2611-4898-812b-1927fad2e1fa][dev_tools]]',
+    '[[product]]': '[[id:4aca2a21-db29-4c64-95b8-0c80eb9f5397][product]]',
+    '#product': '[[id:4aca2a21-db29-4c64-95b8-0c80eb9f5397][product]]',
 }
 
 
@@ -46,7 +80,7 @@ def main():
             text = f.read()
 
             for k, v in REPLACE.items():
-                text = re.sub(re.escape(k), v, text)
+                text = re.sub(r'#?' + re.escape(k), v, text)
 
             # fp = Path(target)
             # fp = fp.with_stem(fp.stem + '.2')
