@@ -34,16 +34,26 @@ REPLACE = {
     '[[Someday]]': '[[id:0652a5ff-d044-4167-b217-8fd6ffa85af4][Someday]]',
     '[[Ref/Django]]': '[[id:6301ec94-924a-4735-9c0c-b7c7f89891be][Django]]',
     '[[Ref/Redis]]': '[[id:1c83765a-56d9-4df3-a65a-c3c3ecd2f66b][Redis]]',
+    '[[Ref/LogSeq]]': '[[id:3d589131-5adf-4d74-bee3-2451a3388d62][LogSeq]]',
+    '[[Ref/PARA Method]]': '[[id:83f73ad3-19b2-41a4-9a53-ede094f0721d][PARA Method]]',
+    '[[Refile]]': '[[id:f178f064-779f-4bab-8e96-3fa3dc49cb08][Inbox]]',
+    '[[gtd]]': '[[id:63cfc687-d36d-4670-b181-664c388a663a][GTD]]',
+
     #
     '[[to/consider]]': '[[id:201a6008-ffba-49ee-a27e-c25dfb331497][to.consider]]',
     '[[to/discuss]]': '[[id:751798e1-1210-4828-964c-f536a4929c2b][to-discuss]]',
-    '[[to/experiment': '[[id:70b3d438-99f9-4a61-8303-749d68e7d65c][to-experiment]]',
+    '[[to/experiment]]': '[[id:70b3d438-99f9-4a61-8303-749d68e7d65c][to-experiment]]',
+    '[[to/refile]]': '[[id:2094d6a7-82d3-4baa-a9a1-91def8426031][to-refile]]',
 
     #
     '[[t/log]]': '[[id:3ca16330-e3dc-43e7-ba59-ea94943f9fc8][t.log]]',
     '[[t/consider]]': '[[id:201a6008-ffba-49ee-a27e-c25dfb331497][to-consider]]',
     '[[t/notes]]': '[[id:ff9929c4-77af-40fe-b82b-a1d922658d77][t-notes]]',
     '[[t/meeting]]': '[[id:df8c2ab0-0229-433c-9e4e-0ae35a52df95][t-meeting]]',
+
+    #
+    '[[s/unconsumed]]': '[[id:d82c7546-6897-41c8-8318-7fe12eecbca5][s-unconsumed]]',
+
     #
     '[[self-hosted]]': '[[id:0c94b234-b12e-40e9-9066-9a436ad4639d][self-hosted]]',
     '#self-hosted': '[[id:0c94b234-b12e-40e9-9066-9a436ad4639d][self-hosted]]',
