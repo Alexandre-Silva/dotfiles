@@ -22,7 +22,7 @@ if hash eza &>/dev/null; then
   alias la='eza -lAFh'   #long list,show almost all,show type,human readable
   alias lr='eza -tRFh'   #sorted by date,recursive,show type,human readable
   alias lt='eza -ltFh'   #long list,sorted by date,show type,human readable
-  alias ll='eza -l'      #long list
+  alias ll='eza --long --header --git --sort=name --group-directories-first' #long list
   alias ldot='eza -ld .*'
   alias lS='eza -1FSsh'
   alias lart='eza -1Fcart'
@@ -62,6 +62,9 @@ alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 
+alias md='mkdir -p'
+alias rd=rmdir
+
 alias zshrc='$EDITOR ~/.zshrc' # Quick access to the ~/.zshrc file
 
 #alias kinit="secret-tool lookup ist pass | kinit $(secret-tool lookup ist user) > /dev/null"
@@ -83,11 +86,15 @@ alias th-put=trash-put
 alias th-list=trash-list
 alias th-trash=restore-trash
 alias th-empty=trash-empty
+hash trash &>/dev/null && alias rm='trash-put'
 
 # Misc servers
 alias server.http='python -m http.server'
 alias server.ftp='python -m pyftpdlib -w'
 alias server.vnc='x11vnc -forever -nopw -display $DISPLAY'
+
+# Info & Status
+alias ipinfo='curl ipinfo.io --no-progress-meter | jq "del(.readme)"'
 
 ################################################################################
 ### System
@@ -108,12 +115,12 @@ alias pa="p -fe"
 
 unset	PS_FORMAT
 
-# du - disk usage
+# du - disk usage; see functions.sh for du-usage
 alias du="du --human-readable"
 
 alias ip="ip --color"
 
-if hash bat &>/dev/null; then alias cat='bat'; fi
+if hash bat &>/dev/null; then alias cat='bat -pp'; fi
 if hash prettyping &>/dev/null; then alias ping='prettyping --nolegend'; fi
 if hash ncdu &>/dev/null; then alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"; fi
 

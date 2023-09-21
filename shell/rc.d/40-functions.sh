@@ -108,9 +108,18 @@ ssh-cam() {
     ssh "$host" ffmpeg -an -f video4linux2 -s 640x480 -i /dev/video0 -r 10 -b:v 500k -f matroska - | mpv --demuxer=mkv /dev/stdin
 }
 
+
 ################################################################################
 ### System
 ################################################################################
+
+du-usage() {
+  /usr/bin/du -s "$@" 2>/dev/null | awk '{ print $1 }'
+}
+du-usageh() {
+  /usr/bin/du -sh "$@" 2>/dev/null | awk '{ print $1 }'
+}
+
 
 # Get current host related info.
 ii() {
