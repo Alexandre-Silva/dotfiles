@@ -1,0 +1,16 @@
+# key: new-sw
+# name: New org-roam node: SW reference
+# --
+:PROPERTIES:
+:homepage:
+:repo:
+:type: ${2:$$(yas-choose-value '("sw" "sw-tool" "sw-lib" "sw-service"))}
+:topics:
+:END:
+
+
+* Introduction
+* Notes :notes:
+* Usage
+* Alternatives
+* Links & References
