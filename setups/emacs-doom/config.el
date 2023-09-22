@@ -47,7 +47,13 @@
 (setq org-roam-directory org-directory)
 
 (after! org
-  (setq org-log-done 'time))
+  (setq org-log-done 'time)
+
+  (setq org-todo-keywords
+        (append org-todo-keywords
+                '((sequence "|" "MEETING"))))
+
+  )
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
