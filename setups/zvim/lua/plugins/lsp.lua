@@ -16,7 +16,7 @@ return {
 
   -- based on default settings for lazyvim
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     opts = function()
       local nls = require("null-ls")
 
