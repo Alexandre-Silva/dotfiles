@@ -46,9 +46,6 @@ alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
 
 alias t='tail -f'
 
-alias dud='du -d 1 -h'
-alias duf='du -sh *'
-
 alias h='history'
 alias hgrep="fc -El 0 | grep"
 alias help='man'
@@ -96,6 +93,8 @@ alias server.vnc='x11vnc -forever -nopw -display $DISPLAY'
 # Info & Status
 alias ipinfo='curl ipinfo.io --no-progress-meter | jq "del(.readme)"'
 
+alias kb='kbd_setup.sh'
+
 ################################################################################
 ### System
 ################################################################################
@@ -115,14 +114,27 @@ alias pa="p -fe"
 
 unset	PS_FORMAT
 
-# du - disk usage; see functions.sh for du-usage
-alias du="du --human-readable"
 
 alias ip="ip --color"
 
 if hash bat &>/dev/null; then alias cat='bat -pp'; fi
 if hash prettyping &>/dev/null; then alias ping='prettyping --nolegend'; fi
-if hash ncdu &>/dev/null; then alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"; fi
+
+# du - disk usage; see functions.sh for du-usage
+if hash duf &>/dev/null; then
+  alias df='duf'
+fi
+
+if hash duf &>/dev/null; then
+  alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules";
+  alias duf='/usr/bin/du -sh *'
+  alias dud='/usrc/bin/du -d 1 -h'
+else
+  alias du="du --human-readable"
+  alias duf='du -sh *'
+  alias dud='du -d 1 -h'
+fi
+
 
 ################################################################################
 ### Arch

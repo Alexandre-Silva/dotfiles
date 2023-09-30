@@ -25,6 +25,7 @@ packages=(
     "pm:sd" # sd is an intuitive find & replace CLI.
     "pm:ripgrep" # better grep
     "pm:eza" # better ls
+    "pm:duf" # better du
     "aur:viddy" # better watch command
 )
 
