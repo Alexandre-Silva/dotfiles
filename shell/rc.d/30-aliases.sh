@@ -118,7 +118,12 @@ unset	PS_FORMAT
 alias ip="ip --color"
 
 if hash bat &>/dev/null; then alias cat='bat -pp'; fi
-if hash prettyping &>/dev/null; then alias ping='prettyping --nolegend'; fi
+
+if hash gping &>/dev/null;
+  then alias ping='gping';
+elif hash prettyping &>/dev/null;
+  then alias ping='prettyping --nolegend';
+fi
 
 # du - disk usage; see functions.sh for du-usage
 if hash duf &>/dev/null; then
@@ -135,6 +140,7 @@ else
   alias dud='du -d 1 -h'
 fi
 
+if hash dog &>/dev/null; then alias dig='dog'; fi
 
 ################################################################################
 ### Arch

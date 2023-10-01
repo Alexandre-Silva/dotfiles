@@ -14,6 +14,7 @@ packages=(
     "pm:fd" # better find
     "pm:bat" # cat++
     "pm:prettyping" # better ping
+    "pm:gping" # better ping w/ graphics
     "pm:ncdu" # better du
     "pm:tldr" # Simplified and community-driven man pages. https://tldr.sh/
     "pm:jq" # jq is a lightweight and flexible command-line JSON processor. https://stedolan.github.io/jq/
@@ -26,6 +27,8 @@ packages=(
     "pm:ripgrep" # better grep
     "pm:eza" # better ls
     "pm:duf" # better du
+    "pm:dog" # better dig
+    "pm:choose" # better cut/awk
     "aur:viddy" # better watch command
 )
 
