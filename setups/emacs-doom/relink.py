@@ -38,6 +38,43 @@ REPLACE = {
     '[[Ref/PARA Method]]': '[[id:83f73ad3-19b2-41a4-9a53-ede094f0721d][PARA Method]]',
     '[[Refile]]': '[[id:f178f064-779f-4bab-8e96-3fa3dc49cb08][Inbox]]',
     '[[gtd]]': '[[id:63cfc687-d36d-4670-b181-664c388a663a][GTD]]',
+    '[[Index]]': '[[id:59ec4c6a-a891-45c3-b3d3-8a2be43216bd][Index]]',
+    '[[GS/Automotive]]': '[[id:ecd46ebe-7177-49a1-9f5c-6c33ef6c44ee][GSAutomotive]]',
+    '[[M/Programa Cujo Nome Estamos Legalmente Impedidos de Dizer]]':
+    '[[id:acd6178f-1853-4a41-a7f6-e34af44dd651][Programa Cujo Nome Estamos Legalmente Impedidos de Dizer]]',
+    '[[M/Starfield]]': '[[bec5f688-4b3a-4f6d-ae36-c609dc5ea54c][Starfield]]',
+    '[[M/The WAN Show]]': '[[id:4b4776d5-eeb2-4800-9a44-d61d287198d0][WAN Show]]',
+    '[[Pe/Linux Sebastion]]': '[[id:4b4776d5-eeb2-4800-9a44-d61d287198d0][Linux Sebastion (LTT)]]',
+    '[[Social]]': '[[id:93dd483f-54a3-4e0c-a929-f9374d032d2d][Social]]',
+    '[[emeter]]': '[[id:51346329-9b77-4a3c-8d1a-e6d04065f2a2][emeter]]',
+    '[[enshitification]]': '[[id:9eaa1cf8-fb36-490d-b95a-83326df555c8][enshitification]]',
+    '[[fw]]': '[[id:e8dc19f3-08ed-41cb-b0f7-b0186ae87320][fw]]',
+    '[[gaming]]': '[[id:ff9a5497-1a70-4821-9710-01d675341f86][gaming]]',
+    '[[privacy]]': '[[id:6d3dadc1-7fa9-4506-8224-efa38cd6534f][privacy]]',
+    '[[Ref/Obsidian]]': '[[id:df5d4e28-2810-400c-ba1f-fb4fcde104dc][Obsidian]]',
+    '[[Ref/PPV]]': '[[id:f6ab982c-8338-4bf2-95a6-1af3bf56cf20][Ref/PPV]]',
+    '[[Ref/Quinta Curvilho]]': '[[id:f4973861-bc19-4ec9-9d2d-7470ed91ded2][Quinta Curvilho]]',
+    '[[Ref/Rockstar]]': '[[id:801f16b0-8141-45df-80eb-5de884fce3d7][Rockstar]]',
+    '[[Ref/SOAP]]': '[[id:32e2b558-1d52-4b0f-801b-eff82e467489][SOAP]]',
+    '[[Ref/Steam]]': '[[id:93f9c7dd-5304-4053-bee4-5b8fd8acb2e7][Steam]]',
+    '[[Ref/Syncthing]]': '[[id:cff923ca-a189-4368-936b-adf535fb59ca][Syncthing]]',
+    '[[Ref/Tesla]]': '[[id:62bce4a4-80e9-4231-9ecd-0907c30621b7][Tesla]]',
+    '[[Ref/Unity]]': '[[id:0bbefaa6-8ff6-4625-83d3-917d6c01c957][Unity]]',
+    '[[Ref/XeSS]]': '[[id:da44a95f-97a1-462a-8047-d51afe4861c5][XeSS]]',
+    '[[Ref/alex-server]]': '[[id:3bd0e0f4-c221-451c-a087-6bf05b6c0df7][alex-server]]',
+    '[[Ref/resticprofile]]': '[[id:5135e3c8-b3d2-4897-9c36-84cba8ae7b8e][resticprofile]]',
+
+    '[[Pe/Pedro Gameiro]]': '[[id:a3b4e7fe-e748-4ac4-8f8b-31edef1f9312][edro Gameiro]]',
+    '[[Ref/Ansible]]': '[[id:c621a020-dd62-4ee4-9748-ec124e5fe3c6][Ansible]]',
+    '[[Ref/DLSS]]': '[[id:8df53f2d-b566-47a2-b4fe-25db5b2518c0][DLSS]]',
+    '[[Ref/EU]]': '[[id:1d5f297b-3668-490f-948a-d0605ee4ea56][EU]]',
+    '[[Ref/FSR2]]': '[[id:228ff40b-3269-4428-910f-afcb3d934045][FSR2]]',
+    '[[Ref/GTD]]': '[[id:63cfc687-d36d-4670-b181-664c388a663a][GTD]]',
+    '[[Ref/Mozilla]]': '[[id:aba7175e-1e62-42c0-a767-9aa1357db435][Mozilla]]',
+    '[[Ref/My Moonlander layout]]': '[[id:4772424f-8fc9-4aa4-ba2d-88009da72362][My Moonlander layout]]',
+    '[[Ref/NextBITT]]': '[[id:a4c0bfcf-f34a-4c32-a36a-630efdab2abd][NextBITT]]',
+    '[[Ref/Notion]]': '[[id:dbc2f2fe-366b-4253-b72f-d049e6ff509c][Notion]]',
+
 
     #
     '[[to/consider]]': '[[id:201a6008-ffba-49ee-a27e-c25dfb331497][to.consider]]',
@@ -50,9 +87,12 @@ REPLACE = {
     '[[t/consider]]': '[[id:201a6008-ffba-49ee-a27e-c25dfb331497][to-consider]]',
     '[[t/notes]]': '[[id:ff9929c4-77af-40fe-b82b-a1d922658d77][t-notes]]',
     '[[t/meeting]]': '[[id:df8c2ab0-0229-433c-9e4e-0ae35a52df95][t-meeting]]',
+    '[[t/media/video]]': 'media-video',
+    '[[t/sw]]': 'sw-other',
 
     #
     '[[s/unconsumed]]': '[[id:d82c7546-6897-41c8-8318-7fe12eecbca5][s-unconsumed]]',
+    '[[s/consumed]]': '[[id:e7db87f9-7aec-43a4-adae-51d786c4568a][s/consumed]]',
 
     #
     '[[self-hosted]]': '[[id:0c94b234-b12e-40e9-9066-9a436ad4639d][self-hosted]]',
@@ -81,6 +121,9 @@ REPLACE = {
     '[[2023-09-15 Friday]]': '[[id:43db7705-6a2e-4d4f-8f67-e0fa33ebda33][2023-09-15]]',
     '[[2023-09-16 Saturday]]': '[[id:6f193995-d7cc-4e72-9195-1ff0c00f551c][2023-09-16]]',
     '[[2023-09-18 Monday]]': '[[id:f76e44ae-b347-43f2-83c2-848ad05214a0][2023-09-18]]',
+    '[[2023-09-17 Saturday]]': '[[id:15403a59-7388-437e-b114-2ccd9481b7ff][2023-09-17]]',
+    '[[2023-09-10 Sunday]]': '[[id:0acd0499-7884-4c3f-9597-bcca7be0f014][2023-09-10]]',
+    '[[2023-09-14 Thursday]]': '[[id:7c0dff76-35d7-4009-9bd2-6c101881ad25][2023-09-14]]'
 }
 
 
@@ -89,7 +132,8 @@ def main():
     targets = sys.argv[2:]
 
     if cmd == 'search':
-        p = r'\[\[[a-zA-Z0-9\s\/-]*\]\]'
+        page_ref_pattern = r'\[\[[a-zA-Z0-9\s\/-]*\]\]'
+        block_ref_pattern = r'\(\([a-zA-Z0-9\s\/-]*\)\)'
         counter = collections.Counter()
         entry2file = {}
 
@@ -97,20 +141,21 @@ def main():
             with open(target, 'r') as f:
                 text = '\n'.join(f.readlines())
 
-            matches = re.findall(p, text)
-            counter.update(matches)
-            for m in matches:
-                if m not in entry2file:
-                    entry2file[m] = [target]
-                else:
-                    entry2file[m].append(target)
+            for p in (page_ref_pattern, block_ref_pattern):
+                matches = re.findall(p, text)
+                counter.update(matches)
+                for m in matches:
+                    if m not in entry2file:
+                        entry2file[m] = [target]
+                    else:
+                        entry2file[m].append(target)
 
         entries = [(k, v) for k, v in counter.items()]
         entries.sort(key=lambda x: x[0])
         for key, count in entries:
             note = '' if key in REPLACE else '(no link)'
             files = ','.join(entry2file.get(key, []))
-            print(f'{count:2d} {key} {note}: {files}')
+            print(f'{count:2d} {key:45s} {note:10s}: {files}')
 
     elif cmd == 'replace':
         for target in targets:

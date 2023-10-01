@@ -46,14 +46,102 @@
 (setq org-directory "~/Documents/org/")
 (setq org-roam-directory org-directory)
 
+
 (after! org
+  (map! :map org-mode-map
+        :nv "t" #'org-todo
+        )
+
+
+  (setq org-startup-with-inline-images t) ; show images is on on startup press 'zi' to toggle it
+  (setq org-startup-folded 'show2levels) ; expand up to 2 levels of heading on opening org files
   (setq org-log-done 'time)
 
   (setq org-todo-keywords
         (append org-todo-keywords
-                '((sequence "|" "MEETING"))))
+                '((sequence "|" "MEETING")))
+        )
 
+  (setq +org-capture-todo-file "Inbox.org")
+  (setq +org-capture-notes-file "Inbox.org")
+  (setq +org-capture-project-todo-file "Inbox.org")
+  (setq +org-capture-project-notes-file "Inbox.org")
+
+  (setq org-capture-templates
+  '(("t" "New todo" entry
+    (file+headline +org-capture-todo-file "Tasks")
+    "* TODO %?\n%i\n%a")
+   ("n" "Personal notes" entry
+    (file+headline +org-capture-notes-file "Notes")
+    "* %u %?\n%i\n%a")
+   ("j" "Journal" entry
+    (file+olp+datetree +org-capture-journal-file)
+    "* %U %?\n%i\n%a" :prepend t)
+
+   ("p" "Templates for projects")
+   ("pt" "Project-local todo" entry
+    (file+headline +org-capture-project-todo-file "Inbox")
+    "* TODO %?\n%i\n%a" :prepend t)
+   ("pn" "Project-local notes" entry
+    (file+headline +org-capture-project-notes-file "Inbox")
+    "* %U %?\n%i\n%a" :prepend t)
+   ("pc" "Project-local changelog" entry
+    (file+headline +org-capture-project-changelog-file "Unreleased")
+    "* %U %?\n%i\n%a" :prepend t)
+
+   ("o" "Centralized templates for projects")
+   ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+   ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+   ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))
   )
+
+  (setq org-roam-capture-templates
+        '(("d" "default" plain "%?"
+           :target (file+head "refs/roam/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+          ("s" "reference software" plain (file "templates/roam-sw.org")
+           :target (file+head "refs/roam/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+          ("c" "consumed media" plain (file "templates/roam-consumed-media.org")
+           :target (file+head "refs/roam/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)
+          ("p" "person default" plain (file "templates/roam-person.org")
+           :target (file+head "people/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
+           :unnarrowed t)))
+
+  (setq org-roam-dailies-capture-templates
+        (let ((head "#+title: %<%Y-%m-%d (%A)>\n#+startup: showall\n* Journal\n* Content\n* Tasks\n"))
+          `(
+            ("d" "default" entry "* %?" :target
+             (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))
+            ("j" "journal" entry "** %<%H:%M> %?"
+             :target (file+head+olp "%<%Y-%m-%d>.org" ,head ("Journal"))
+             :unnarrowed t)
+            ("c" "content" entry (file "templates/roam-consumed-media.org")
+             :target (file+head+olp "%<%Y-%m-%d>.org" ,head ("Content"))
+             :unnarrowed t))
+          ))
+
+    (setq org-agenda-custom-commands
+          '(("n" "Agenda and all TODOs"
+             ((agenda "")
+              (alltodo "")))
+
+            ("R" "Refile items"
+             ((tags "+refile-hide")))
+
+            ("d" "Review: Daily"
+             ((agenda "")
+              (tags "+refile-hide")))
+
+
+            ))
+  )
+
+(use-package! org-super-agenda
+  :after (org)
+  )
+
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
