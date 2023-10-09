@@ -135,32 +135,38 @@
             (tags "+refile-hide")))
 
           ("." "Review: Daily test"
-           ((agenda "")
-            (org-ql-block '(or
+           ((agenda ""
+                    ((org-agenda-start-day "-1d")
+                     (org-agenda-span 4)
+                     (org-agenda-include-diary t)))
 
-                            ; Refile
+            (org-ql-block '(or
+                                        ; Refile
                             (and (tags "refile")
-                                (not (tags "hide"))
-                                (and (not (heading "Tasks")) (not (heading "Inbox")) (not (heading "Notes"))))
+                                 (not (tags "hide"))
+                                 (and (not (heading "Tasks")) (not (heading "Inbox")) (not (heading "Notes")))
+                                 )
 
                             (and (todo "WAIT")
-                                (not (ts-active :to "9999-01-01"))
-                                (not (tags "hide"))
-                                )
-                               )
+                                 (not (ts-active :to "9999-01-01"))
+                                 (not (tags "hide")))
+
+                            (and (not (todo "DONE"))
+                                 (not (tags "hide"))
+                                 (priority "A" "B" "C")
+                                 (not (ts-active :to "9999-01-01"))
+                                 ))
                           ((org-agenda-block-separator nil)
                            (org-agenda-overriding-header nil)
-                           (org-ql-block-header "")))
+                           (org-ql-block-header "")
+                           (org-super-agenda-groups '(
+                              (:name "Refile" :tag ("refile") :order 1)
+                              (:name "Important" :priority>= "B" :order 2)
+                              (:name "Notable" :priority "C" :order 3)
+                              (:name "Waiting" :todo ("WAIT") :order 4)))
+                           ))
             ))
           ))
-
-  (setq org-super-agenda-groups
-        '(
-          (:name "Refile"
-           :tag ("refile")
-           :order 1)
-          ))
-
   )
 
 (use-package! org-super-agenda
@@ -168,12 +174,28 @@
 
   :config
   ; see https://github.com/alphapapa/org-super-agenda/issues/50#issuecomment-817432643
-  (setq org-super-agenda-header-map evil-org-agenda-mode-map)
-  )
+  (setq org-super-agenda-header-map (make-sparse-keymap))
+  ;; (setq org-super-agenda-groups
+  ;;       '(
+  ;;         (:name "Refile"
+  ;;          :tag ("refile")
+  ;;          :order 1)
+  ;;         (:name "Important"
+  ;;          :priority>= "B"
+  ;;          :order 2
+  ;;          :time-grid t)
+  ;;         (:name "Notable"
+  ;;          :priority "C"
+  ;;          :order 3)
+  ;;         (:name "Waiting"
+  ;;          :todo ("WAIT")
+  ;;          :order 4)))
+  (org-super-agenda-mode)
+)
 
 (use-package! org-ql
   :after (org)
-  )
+)
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
