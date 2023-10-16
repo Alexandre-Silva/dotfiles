@@ -23,13 +23,14 @@ local conds = require("luasnip.extras.expand_conditions")
 local postfix = require("luasnip.extras.postfix").postfix
 local types = require("luasnip.util.types")
 local parse = require("luasnip.util.parser").parse_snippet
-
+local ms = ls.multi_snippet
+local k = require("luasnip.nodes.key_indexer").new_key
 
 -- Arduino w/ genoa lib
-
-ls.add_snippets('cpp', {
+return {
   s("every", {
-    unpack(fmt([[
+    unpack(fmt(
+      [[
     static time_ms_t {} = 0;
     time_ms_t now = os_timems();
     if (time_is_after(_last, {}, now)) {{
@@ -37,20 +38,20 @@ ls.add_snippets('cpp', {
 
       {}
     }}
-    ]], {
-      i(1),
-      i(2, "1000"),
-      rep(1),
-      i(3),
-    })),
+    ]],
+      {
+        i(1),
+        i(2, "1000"),
+        rep(1),
+        i(3),
+      }
+    )),
   }),
-})
 
-ls.add_snippets('cpp', {
   s("mem0", {
-    unpack(fmt('memset({}, 0, sizeof({}));', {
+    unpack(fmt("memset({}, 0, sizeof({}));", {
       i(1),
       rep(1),
     })),
   }),
-})
+}

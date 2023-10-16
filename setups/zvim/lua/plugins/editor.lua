@@ -3,14 +3,6 @@ return {
     "telescope.nvim",
     dependencies = {
       {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        -- build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build',
-        config = function()
-          require("telescope").load_extension("fzf")
-        end,
-      },
-      {
         "benfowler/telescope-luasnip.nvim",
         config = function()
           require("telescope").load_extension("luasnip")
@@ -19,7 +11,7 @@ return {
     },
       -- stylua: ignore
     keys = {
-      { "<leader>sn", "<cmd>Telescope luasnip<cr>", desc = "snippets" },
+      { "<leader>si", "<cmd>Telescope luasnip<cr>", desc = "snippets" },
     },
   },
 

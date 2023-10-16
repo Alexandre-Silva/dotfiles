@@ -6,3 +6,5 @@ vim.o.background = "dark"
 vim.g.gruvbox_material_background = "medium"
 
 vim.opt.modeline = true
+
+vim.g.autoformat = false
