@@ -1,6 +1,8 @@
 #!/usr/env/env bash
 
 packages=(
+  "pm:python-requests"
+  "pm:python-click"
   "aur:python-pysimplegui"
 )
 
@@ -11,6 +13,11 @@ while IFS= read -r -d '' file; do
 
     links+=( "$file" "$link_name" )
 done < <(find "$DOTFILES/bin/sh/" "$DOTFILES/bin/python/" -type f -executable -print0)
+
+
+st_rc() {
+	alias ntfy='ntfy.py'
+}
 
 
 function st_install() {
