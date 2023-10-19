@@ -4,7 +4,8 @@ packages=(
 	"pm:ruff-lsp"
 	"pm:neovim"
 	"pm:python-pynvim"
-
+	"pm:shellcheck"
+	"pm:shellfmt"
 )
 
 links=(
