@@ -70,4 +70,30 @@ return {
       }
     )),
   }),
+
+
+  s("csv_write", {
+    unpack(fmta(
+      [[
+import csv
+
+# TODO: use proper data
+headers = ['a', 'b', 'c']
+rows = [
+    {'a':1, 'b':1, 'c':1},
+    {'a':2, 'b':2, 'c':2},
+    {'a':3, 'b':3, 'c':3},
+]
+
+with open('<>', 'w') as f:
+    writer = csv.DictWriter(f, fieldnames=headers)
+    writer.writeheader()
+    for row in rows:
+        writer.writerow(row)
+]],
+      {
+        i(1),
+      }
+    )),
+  }),
 }
