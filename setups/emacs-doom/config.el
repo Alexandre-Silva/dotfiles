@@ -53,14 +53,46 @@
         )
 
 
-  (setq org-startup-with-inline-images t) ; show images is on on startup press 'zi' to toggle it
-  (setq org-startup-folded 'show2levels) ; expand up to 2 levels of heading on opening org files
-  (setq org-log-done 'time)
+  (setq org-startup-with-inline-images t ; show images is on on startup press 'zi' to toggle it
+        org-startup-folded 'show2levels ; expand up to 2 levels of heading on opening org files
+        org-log-done 'time
+        org-fontify-done-headline nil
+        org-fontify-whole-heading-line nil)
 
   (setq org-todo-keywords
-        (append org-todo-keywords
-                '((sequence "|" "MEETING")))
-        )
+        '((sequence
+           "TODO(t)"  ; A task that needs doing & is ready to do
+           "LOOP(r)"  ; A recurring task
+           "NEXT(n)"  ; The planned next task to be done in a group of tasks
+           "STRT(s)"  ; A task that is in progress
+           "WAIT(w)"  ; Something external is holding up this task
+           "HOLD(h)"  ; This task is paused/on hold because of me
+           "IDEA(i)"  ; An unconfirmed and unapproved task or notion
+           "|"
+           "DONE(d)"  ; Task successfully completed
+           "KILL(k)") ; Task was cancelled, aborted or is no longer applicable
+          (sequence
+           "TO-MEET(m)"  ; scheduled meeting
+           "|"
+           "MEETING(M)") ; concluded meeting
+          (sequence
+           "PROJECT(p)"   ; A project, which usually contains other tasks
+           "PROJ"         ; Like PROJECT
+           "PAUSED(P)"    ; A project started but was paused (is on hold) for whatever reason
+           "|"
+           "COMPLETE(c)")) ; A project that is finished/complete
+
+        org-todo-keyword-faces
+        '(("STRT" . +org-todo-active)
+          ("WAIT" . +org-todo-onhold)
+          ("HOLD" . +org-todo-onhold)
+          ("KILL" . +org-todo-cancel)
+
+          ("PROJ" . +org-todo-project)
+          ("PROJECT" . +org-todo-project)
+          ("PAUSED" . +org-todo-project)
+          ;("COMPLETE" . +org-todo-project)
+        ))
 
   (setq +org-capture-todo-file "Inbox.org")
   (setq +org-capture-notes-file "Inbox.org")
@@ -96,7 +128,7 @@
   )
 
   (setq org-roam-capture-templates
-        '(("d" "default" plain "%?"
+        '(("d" "default" plain (file "templates/roam-default.org")
            :target (file+head "refs/roam/%<%Y%m%d%H%M%S>-${slug}.org" "#+title: ${title}\n")
            :unnarrowed t)
           ("s" "reference software" plain (file "templates/roam-sw.org")
@@ -110,12 +142,15 @@
            :unnarrowed t)))
 
   (setq org-roam-dailies-capture-templates
-        (let ((head "#+title: %<%Y-%m-%d (%A)>\n#+startup: showall\n* Journal\n* Content\n* Tasks\n"))
+        (let ((head "#+title: %<%Y-%m-%d (%A)>\n#+startup: showall\n* Journal\n* Content\n*Meetings\n* Tasks\n"))
           `(
             ("d" "default" entry "* %?" :target
              (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))
             ("j" "journal" entry "** %<%H:%M> %?"
              :target (file+head+olp "%<%Y-%m-%d>.org" ,head ("Journal"))
+             :unnarrowed t)
+            ("m" "meeting" entry (file "templates/meeting.org")
+             :target (file+head+olp "%<%Y-%m-%d>.org" ,head ("Meetings"))
              :unnarrowed t)
             ("c" "content" entry (file "templates/roam-consumed-media.org")
              :target (file+head+olp "%<%Y-%m-%d>.org" ,head ("Content"))
@@ -131,17 +166,12 @@
            ((tags "+refile-hide")))
 
           ("d" "Review: Daily"
-           ((agenda "")
-            (tags "+refile-hide")))
-
-          ("." "Review: Daily test"
            ((agenda ""
                     ((org-agenda-start-day "-1d")
                      (org-agenda-span 4)
                      (org-agenda-include-diary t)))
 
             (org-ql-block '(or
-                                        ; Refile
                             (and (tags "refile")
                                  (not (tags "hide"))
                                  (and (not (heading "Tasks")) (not (heading "Inbox")) (not (heading "Notes")))
@@ -151,22 +181,38 @@
                                  (not (ts-active :to "9999-01-01"))
                                  (not (tags "hide")))
 
-                            (and (not (todo "DONE"))
+                            (and (not (todo "DONE" "PROJECT" "PROJ" "KILL"))
                                  (not (tags "hide"))
                                  (priority "A" "B" "C")
-                                 (not (ts-active :to "9999-01-01"))
-                                 ))
+                                 (not (ts-active :to "9999-01-01")))
+
+                            (and (todo "PROJECT" "PROJ")
+                                 (not (tags "hide"))
+                            ))
                           ((org-agenda-block-separator nil)
                            (org-agenda-overriding-header nil)
                            (org-ql-block-header "")
                            (org-super-agenda-groups '(
                               (:name "Refile" :tag ("refile") :order 1)
-                              (:name "Important" :priority>= "B" :order 2)
-                              (:name "Notable" :priority "C" :order 3)
-                              (:name "Waiting" :todo ("WAIT") :order 4)))
+                              (:name "Important" :and (:priority>= "B" :not (:todo ("PROJ" "PROJECT"))) :order 2)
+                              (:name "Notable" :and (:priority "C" :not (:todo ("PROJ" "PROJECT"))) :order 3)
+                              (:name "Active Projects" :and (:todo ("PROJ" "PROJECT")) :order 4)
+                              (:name "Waiting" :todo ("WAIT") :order 5)))
                            ))
             ))
           ))
+
+(defun my/org-property ()
+    "gets the value of property"
+
+    (org-element-map (org-element-at-point) 'keyword
+      (lambda (el) (and
+                    (string= (org-element-property :key el) "PROPERTY")
+                    (let* ((strings (split-string (org-element-property :value el)))
+                           (value (string-join (cdr strings) " "))
+                           (name (car strings)))
+                      (cons name value))))))
+
   )
 
 (use-package! org-super-agenda
@@ -197,6 +243,17 @@
   :after (org)
 )
 
+(use-package! org-roam-ql
+  :after (org-roam)
+  :bind ((:map org-roam-mode-map
+               ;; Have org-roam-ql's transient available in org-roam-mode buffers
+               ("v" . org-roam-ql-buffer-dispatch)
+               :map minibuffer-mode-map
+               ;; Be able to add titles in queries while in minibuffer.
+               ;; This is similar to `org-roam-node-insert', but adds
+               ;; only title as a string.
+               ("C-c n i" . org-roam-ql-insert-node-title)))
+)
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.

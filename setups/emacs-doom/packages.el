@@ -51,3 +51,6 @@
 
 (package! org-super-agenda)
 (package! org-ql)
+(package! org-roam-ql
+        :recipe (:host github  :repo "ahmed-shariff/org-roam-ql"
+                 :files (:defaults (:exclude "org-roam-ql-ql.el"))))
