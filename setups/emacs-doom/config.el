@@ -50,6 +50,8 @@
 (after! org
   (map! :map org-mode-map
         :nv "t" #'org-todo
+        "M-n" #'org-roam-dailies-goto-next-note
+        "M-p" #'org-roam-dailies-goto-previous-note
         )
 
 
@@ -187,8 +189,15 @@
                                  (not (ts-active :to "9999-01-01")))
 
                             (and (todo "PROJECT" "PROJ")
-                                 (not (tags "hide"))
-                            ))
+                                 (not (tags "hide")))
+
+                            (and (todo "PROJECT" "PROJ")
+                                 (not (tags "hide")))
+
+                            (and (not (todo "DONE" "KILL"))
+                                 (tags "easy")
+                                 (not (tags "hide")))
+                            )
                           ((org-agenda-block-separator nil)
                            (org-agenda-overriding-header nil)
                            (org-ql-block-header "")
@@ -197,7 +206,8 @@
                               (:name "Important" :and (:priority>= "B" :not (:todo ("PROJ" "PROJECT"))) :order 2)
                               (:name "Notable" :and (:priority "C" :not (:todo ("PROJ" "PROJECT"))) :order 3)
                               (:name "Active Projects" :and (:todo ("PROJ" "PROJECT")) :order 4)
-                              (:name "Waiting" :todo ("WAIT") :order 5)))
+                              (:name "Waiting" :todo ("WAIT") :order 5)
+                              (:name "Some easier todos (max 3)" :take (3 (:tag ("easy"))) :order 6 )))
                            ))
             ))
           ))
