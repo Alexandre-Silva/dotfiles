@@ -183,7 +183,7 @@
                                  (not (ts-active :to "9999-01-01"))
                                  (not (tags "hide")))
 
-                            (and (not (todo "DONE" "PROJECT" "PROJ" "KILL"))
+                            (and (not (todo "DONE" "PROJECT" "PROJ" "KILL" "COMPLETE" "PAUSED"))
                                  (not (tags "hide"))
                                  (priority "A" "B" "C")
                                  (not (ts-active :to "9999-01-01")))

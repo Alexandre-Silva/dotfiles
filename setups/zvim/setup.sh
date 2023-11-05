@@ -5,7 +5,7 @@ packages=(
 	"pm:neovim"
 	"pm:python-pynvim"
 	"pm:shellcheck"
-	"pm:shellfmt"
+	"pm:shfmt"
 )
 
 links=(

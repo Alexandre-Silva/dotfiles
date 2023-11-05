@@ -41,6 +41,11 @@ else
 
 fi
 
+
+if hash btop &>/dev/null; then
+  alias htop=btop
+fi
+
 alias grep='grep --color'
 alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
 

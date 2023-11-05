@@ -1,5 +1,7 @@
 #!/bin/sh
 
+pkill xbindkeys
+
 usermodmap=$HOME/.Xmodmap
 xbindkeysrc=$HOME/.xbindkeysrc
 

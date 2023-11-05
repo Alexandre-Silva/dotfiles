@@ -29,7 +29,8 @@ packages=(
     "pm:duf" # better du
     "pm:dog" # better dig
     "pm:choose" # better cut/awk
-    "aur:viddy" # better watch command
+    # "aur:viddy" # better watch command
+    "pm:btop" # better htop
 )
 
 
