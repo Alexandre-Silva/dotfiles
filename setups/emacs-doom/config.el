@@ -144,7 +144,7 @@
            :unnarrowed t)))
 
   (setq org-roam-dailies-capture-templates
-        (let ((head "#+title: %<%Y-%m-%d (%A)>\n#+startup: showall\n* Journal\n* Content\n*Meetings\n* Tasks\n"))
+        (let ((head "#+title: %<%Y-%m-%d (%A)>\n#+startup: showall\n* Journal\n* Content\n* Meetings\n* Tasks\n"))
           `(
             ("d" "default" entry "* %?" :target
              (file+head "%<%Y-%m-%d>.org" "#+title: %<%Y-%m-%d>\n"))
