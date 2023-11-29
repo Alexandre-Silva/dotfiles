@@ -4,7 +4,8 @@ return {
     opts = {
       formatters_by_ft = {
         -- python = { "autoflake", "isort", "yapf" },
-        python = { "autoflake", "ruff", "yapf" },
+        -- python = { "autoflake", "ruff", "yapf" },
+        python = { "isort", "ruff", "yapf" },
       },
       formatters = {
         autoflake = {
