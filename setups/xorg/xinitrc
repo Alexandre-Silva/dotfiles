@@ -8,6 +8,7 @@ default_session="awesome"
 userresources=$HOME/.Xresources
 userLocalResources=$HOME/.Xresources_local
 usermodmap=$HOME/.Xmodmap
+usermodmaplocal=$HOME/.Xmodmap_local
 xbindkeysrc=$HOME/.xbindkeysrc
 sysresources=/etc/X11/xinit/Xresources
 sysmodmap=/etc/X11/xinit/Xmodmap
@@ -45,6 +46,7 @@ else
     [ -f "$sysmodmap" ] && xmodmap "$sysmodmap"
     [ -f "$xbindkeysrc" ] && hash xbindkeys &>/dev/null && xbindkeys
     [ -f "$usermodmap" ] && xmodmap "$usermodmap"
+    [ -f "$usermodmaplocal" ] && xmodmap "$usermodmaplocal"
 
     # Set keyboard as us-international with dead keys
     setxkbmap -layout us -variant altgr-intl

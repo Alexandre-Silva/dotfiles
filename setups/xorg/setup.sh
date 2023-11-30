@@ -10,4 +10,5 @@ links=(
     {"$DOTFILES/setups/xorg/",$HOME"/."}xinitrc
     {"$DOTFILES/setups/xorg/",$HOME"/."}Xresources
     {"$DOTFILES/setups/xorg/",$HOME"/."}xbindkeysrc
+    {"$DOTFILES/setups/xorg/",$HOME"/."}Xmodmap
 )
