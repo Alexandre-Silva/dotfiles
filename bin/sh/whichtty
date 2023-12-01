@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+# outputs tty1, tty2, etc even in graphical session
+
+if [[ "$TTY" =~ /dev/tty.* ]]; then
+  echo "${TTY#/dev/}"
+else
+  ps -e | grep Xorg | choose 1
+fi

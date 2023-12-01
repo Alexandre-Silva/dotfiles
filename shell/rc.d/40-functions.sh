@@ -120,16 +120,6 @@ du-usageh() {
   /usr/bin/du -sh "$@" 2>/dev/null | awk '{ print $1 }'
 }
 
-whichtty() {
-  # outputs tty1, tty2, etc even in graphical session
-
-  if [[ "$TTY" =~ /dev/tty.* ]]; then
-    echo "${TTY#/dev/}"
-  else
-    ps -e G Xorg | choose 1
-  fi
-}
-
 # Get current host related info.
 ii() {
     &>/dev/null hash grc && local g=grc
