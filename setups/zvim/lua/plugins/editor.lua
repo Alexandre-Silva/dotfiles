@@ -15,6 +15,15 @@ return {
     },
   },
 
+  { -- import modules faster based on what you've already imported in your project.
+    "piersolenski/telescope-import.nvim",
+    dependencies = "nvim-telescope/telescope.nvim",
+    config = function()
+      require("telescope").load_extension("import")
+    end,
+  },
+
+
   {
     "cbochs/grapple.nvim",
     requires = { "nvim-lua/plenary.nvim" },
