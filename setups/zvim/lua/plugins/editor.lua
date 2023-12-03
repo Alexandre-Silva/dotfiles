@@ -23,7 +23,6 @@ return {
     end,
   },
 
-
   {
     "cbochs/grapple.nvim",
     requires = { "nvim-lua/plenary.nvim" },
@@ -94,5 +93,21 @@ return {
         command = "silent! StripWhitespaceOnChangedLines",
       })
     end,
+  },
+
+  -- https://github.com/echasnovski/mini.align
+  {
+    "echasnovski/mini.align",
+    version = "*",
+
+    -- mostly defaults; included for documentation
+    opts = {
+
+      -- Module mappings. Use `''` (empty string) to disable one.
+      mappings = {
+        start = "ga",
+        start_with_preview = "gA",
+      },
+    },
   },
 }
