@@ -21,6 +21,9 @@ return {
     config = function()
       require("telescope").load_extension("import")
     end,
+    keys = {
+      { "<leader>ci", "<cmd>Telescope import<cr>", desc = "imports" },
+    },
   },
 
   {
