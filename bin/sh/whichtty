@@ -2,7 +2,9 @@
 
 # outputs tty1, tty2, etc even in graphical session
 
-if [[ "$TTY" =~ /dev/tty.* ]]; then
+if [[ -n "$XDG_VTNR" ]]; then
+  echo "$XDG_VTNR"
+elif [[ "$TTY" =~ /dev/tty.* ]]; then
   echo "${TTY#/dev/}"
 else
   ps -e | grep Xorg | choose 1
