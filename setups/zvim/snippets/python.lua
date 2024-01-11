@@ -96,4 +96,8 @@ with open('<>', 'w') as f:
       }
     )),
   }),
+
+  s("qcompile", {
+    t("q.compile(compile_kwargs={\"literal_binds\": True})"),
+  }),
 }
