@@ -1,3 +1,3 @@
 #!/usr/bin/env zsh
 
-eval $(starship init zsh)
+eval "$(starship init zsh)"
