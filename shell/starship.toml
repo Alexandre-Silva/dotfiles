@@ -1,127 +1,131 @@
-# refer to https://starship.rs/config
-
-[aws]
-disabled = true
-
-[battery]
-disabled = true
+format = """
+$directory\
+[](fg:#769ff0 bg:#394260)\
+$git_branch\
+$git_status\
+[](fg:#394260 bg:#212736)\
+$python\
+$php\
+$c\
+$elixir\
+$elm\
+$golang\
+$haskell\
+$java\
+$julia\
+$nodejs\
+$nim\
+$rust\
+$package\
+[](fg:#212736 bg:#1d2230)\
+$docker_context\
+[](fg:#1d2230 bg:#1d2230)\
+$time\
+[ ](fg:#1d2230)\
+\n$character"""
 
 [character]
 success_symbol = "[⊳](bold green)"
 error_symbol = "[⊳](bold red)"
 
-[cmd_duration]
-show_milliseconds = true
-
-[conda]
-disabled = true
-
 [directory]
-truncation_length = 8
-style = "bold yellow"
+style = "fg:#e3e5e5 bg:#769ff0"
+format = "[ $path ]($style)"
+truncation_length = 3
+truncation_symbol = "…/"
 
-[dotnet]
-disabled = true
-
-[elixir]
-disabled = true
-
-[elm]
-disabled = true
-
-[env_var]
-disabled = true
-# variable = "SHELL"
-# default = "unknown shell"
-# prefix = "SHELL: "
-
-[erlang]
-disabled = true
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = " "
+"Pictures" = " "
 
 [git_branch]
-
-[git_commit]
-
-[git_state]
+symbol = ""
+style = "bg:#394260"
+format = '[[ $symbol $branch ](fg:#769ff0 bg:#394260)]($style)'
 
 [git_status]
-ahead = "↑"
-behind = "↓"
+style = "bg:#394260"
+format = '[[($all_status$ahead_behind )](fg:#769ff0 bg:#394260)]($style)'
 
-[golang]
-disabled = true
 
-[hostname]
-disabled = false
-
-[java]
-disabled = true
-
-[jobs]
-
-[kubernetes]
-
-[line_break]
-disabled = false
-
-[memory_usage]
-disabled = true
-
-[hg_branch]
-disabled = true
-
-[nim]
-disabled = true
-
-[nix_shell]
-disabled = true
 
 [nodejs]
-
-[package]
-symbol = "Pkg: "
-
-[ocaml]
-disabled = true
-
-[php]
-disabled = true
-
-[python]
-symbol = "Py: "
-style = "bold fg:bright-green"
-
-[ruby]
-symbol = "🔺 "
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
 [rust]
-symbol = "⚙ "
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
-[singularity]
-disabled = true
+[golang]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
 
-[terraform]
-disabled = true
+[php]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[c]
+symbol = " "
+style = "bg:#212736"
+format = '[[ $symbol($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[python]
+style = "bg:#212736"
+# format = '[(\($virtualenv\) )]($style)'
+format = '[[ $symbol($version) \(($virtualenv)\) ](fg:#769ff0 bg:#212736)]($style)'
+
+[package]
+style = "bg:#212736"
+format = '[[ $symbol$version ](fg:#769ff0 bg:#212736)]($style)'
+
+[elixir]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[elm]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[haskell]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[java]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[julia]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+[nim]
+symbol = ""
+style = "bg:#212736"
+format = '[[ $symbol ($version) ](fg:#769ff0 bg:#212736)]($style)'
+
+
+[docker_context]
+symbol = " "
+style = "bg:#1d2230"
+format = '[ $symbol $context ]($style) $path'
+
+
 
 [time]
-disabled = true
+disabled = false
+time_format = "%R" # Hour:Minute Format
+style = "bg:#1d2230"
+format = '[[  $time ](fg:#a0a9cb bg:#1d2230)]($style)'
 
-[username]
-
-[zig]
-disabled = true
-
-# [custom.foo]
-# command = "echo foo"  # shows output of command
-# files = ["foo"]       # can specify filters
-# when = """ test "$HOME" == "$PWD" """
-# prefix = " transcending "
-
-# [custom.time]
-# command = "time /T"
-# files = ["*.pst"]
-# prefix = "transcending "
-# shell = ["pwsh.exe", "-NoProfile", "-Command", "-"]
-
-[purescript]
-disabled = true
