@@ -44,7 +44,7 @@ if [ -d "$HOME/.local/bin" ]; then
     PATH="$HOME/.local/bin:$PATH"
 fi
 
-prio_assign EDITOR lvim nvim et vim vi nano
+prio_assign EDITOR nvim et vim vi nano
 prio_assign BROWSER firefox chromium chrome-stable
 export VISUAL="${EDITOR}"
 export PAGER='less'
