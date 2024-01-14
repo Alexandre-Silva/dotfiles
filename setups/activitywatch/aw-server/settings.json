@@ -1,0 +1,16 @@
+{
+    "initialTimestamp": "2024-01-14T13:50:09.925Z",
+    "startOfDay": "04:00",
+    "startOfWeek": "Monday",
+    "durationDefault": 14400,
+    "landingpage": "/home",
+    "theme": "dark",
+    "newReleaseCheckData": {
+        "isEnabled": true,
+        "nextCheckTime": "2024-01-15T13:50:09.925Z",
+        "howOftenToCheck": 86400,
+        "timesChecked": 0
+    },
+    "requestTimeout": 30,
+    "_loaded": true
+}
