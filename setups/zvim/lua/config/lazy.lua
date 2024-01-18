@@ -19,6 +19,8 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.lang.python" },
     { import = "lazyvim.plugins.extras.lang.yaml" },
 
+    { import = "lazyvim.plugins.extras.editor.navic" },
+
     -- import/override with your plugins
     { import = "plugins" },
   },
