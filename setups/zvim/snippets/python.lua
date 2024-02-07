@@ -71,7 +71,6 @@ return {
     )),
   }),
 
-
   s("csv_write", {
     unpack(fmta(
       [[
@@ -98,6 +97,24 @@ with open('<>', 'w') as f:
   }),
 
   s("qcompile", {
-    t("q.compile(compile_kwargs={\"literal_binds\": True})"),
+    t('q.compile(compile_kwargs={"literal_binds": True})'),
+  }),
+
+  s("pt-param", {
+    unpack(fmta(
+      [[
+@pytest.mark.parametrize(
+    "<>",
+    [
+        ('a', 123),
+        ('b', 0x7BCD),
+        ('c', 0x7BCDABCD),
+    ],
+)
+]],
+      {
+        i(1),
+      }
+    )),
   }),
 }

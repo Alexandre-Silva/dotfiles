@@ -22,7 +22,16 @@ local s = s
 local t = t
 
 return {
-  s("ifm", {
-    t { 'if __name__ == "__main__":', '    main()' } ,
-  }),
+	s("ifm", {
+		t({ 'if __name__ == "__main__":', "    main()" }),
+	}),
+
+	s("pt-param", {
+		t({ "@pytest.mark.parametrize(" }),
+		t({ '"in_,out_"' }),
+		t({ "[" }),
+		t({ '    ("0x00", b"\\x00")' }),
+		t({ '    ("asddsa", b"asddsa")' }),
+		t({ "]" }),
+	}),
 }
