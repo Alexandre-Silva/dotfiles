@@ -159,6 +159,21 @@
              :unnarrowed t))
           ))
 
+  ;; see https://github.com/org-roam/org-roam/issues/1354#issuecomment-879033786
+  (defun with-first-dailies-capture-template (dailies-find-function &rest args)
+    "Temporarily shadow org-roam-dailies-capture-templates with only
+its first entry when calling DAILIES-FIND-FUNCTION to prevent
+template-select menu from showing."
+    (let ((org-roam-dailies-capture-templates
+           (list (car org-roam-dailies-capture-templates))))
+      (apply dailies-find-function args)))
+
+  (advice-add #'org-roam-dailies-goto-today :around #'with-first-dailies-capture-template)
+  (advice-add #'org-roam-dailies-goto-date :around #'with-first-dailies-capture-template)
+  (advice-add #'org-roam-dailies-goto-tomorrow :around #'with-first-dailies-capture-template)
+  (advice-add #'org-roam-dailies-goto-yesterday :around #'with-first-dailies-capture-template)
+
+
   (setq org-agenda-custom-commands
         '(("n" "Agenda and all TODOs"
            ((agenda "")
