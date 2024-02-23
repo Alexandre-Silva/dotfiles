@@ -93,8 +93,8 @@
           ("PROJ" . +org-todo-project)
           ("PROJECT" . +org-todo-project)
           ("PAUSED" . +org-todo-project)
-          ;("COMPLETE" . +org-todo-project)
-        ))
+                                        ;("COMPLETE" . +org-todo-project)
+          ))
 
   (setq +org-capture-todo-file "Inbox.org")
   (setq +org-capture-notes-file "Inbox.org")
@@ -102,32 +102,32 @@
   (setq +org-capture-project-notes-file "Inbox.org")
 
   (setq org-capture-templates
-  '(("t" "New todo" entry
-    (file+headline +org-capture-todo-file "Tasks")
-    "* TODO %?\n%i\n%a")
-   ("n" "Personal notes" entry
-    (file+headline +org-capture-notes-file "Notes")
-    "* %u %?\n%i\n%a")
-   ("j" "Journal" entry
-    (file+olp+datetree +org-capture-journal-file)
-    "* %U %?\n%i\n%a" :prepend t)
+        '(("t" "New todo" entry
+           (file+headline +org-capture-todo-file "Tasks")
+           "* TODO %?\n%i\n%a")
+          ("n" "Personal notes" entry
+           (file+headline +org-capture-notes-file "Notes")
+           "* %u %?\n%i\n%a")
+          ("j" "Journal" entry
+           (file+olp+datetree +org-capture-journal-file)
+           "* %U %?\n%i\n%a" :prepend t)
 
-   ("p" "Templates for projects")
-   ("pt" "Project-local todo" entry
-    (file+headline +org-capture-project-todo-file "Inbox")
-    "* TODO %?\n%i\n%a" :prepend t)
-   ("pn" "Project-local notes" entry
-    (file+headline +org-capture-project-notes-file "Inbox")
-    "* %U %?\n%i\n%a" :prepend t)
-   ("pc" "Project-local changelog" entry
-    (file+headline +org-capture-project-changelog-file "Unreleased")
-    "* %U %?\n%i\n%a" :prepend t)
+          ("p" "Templates for projects")
+          ("pt" "Project-local todo" entry
+           (file+headline +org-capture-project-todo-file "Inbox")
+           "* TODO %?\n%i\n%a" :prepend t)
+          ("pn" "Project-local notes" entry
+           (file+headline +org-capture-project-notes-file "Inbox")
+           "* %U %?\n%i\n%a" :prepend t)
+          ("pc" "Project-local changelog" entry
+           (file+headline +org-capture-project-changelog-file "Unreleased")
+           "* %U %?\n%i\n%a" :prepend t)
 
-   ("o" "Centralized templates for projects")
-   ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
-   ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
-   ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))
-  )
+          ("o" "Centralized templates for projects")
+          ("ot" "Project todo" entry #'+org-capture-central-project-todo-file "* TODO %?\n %i\n %a" :heading "Tasks" :prepend nil)
+          ("on" "Project notes" entry #'+org-capture-central-project-notes-file "* %U %?\n %i\n %a" :heading "Notes" :prepend t)
+          ("oc" "Project changelog" entry #'+org-capture-central-project-changelog-file "* %U %?\n %i\n %a" :heading "Changelog" :prepend t))
+        )
 
   (setq org-roam-capture-templates
         '(("d" "default" plain (file "templates/roam-default.org")
@@ -217,17 +217,32 @@ template-select menu from showing."
                            (org-agenda-overriding-header nil)
                            (org-ql-block-header "")
                            (org-super-agenda-groups '(
-                              (:name "Refile" :tag ("refile") :order 1)
-                              (:name "Important" :and (:priority>= "B" :not (:todo ("PROJ" "PROJECT"))) :order 2)
-                              (:name "Notable" :and (:priority "C" :not (:todo ("PROJ" "PROJECT"))) :order 3)
-                              (:name "Active Projects" :and (:todo ("PROJ" "PROJECT")) :order 4)
-                              (:name "Waiting" :todo ("WAIT") :order 5)
-                              (:name "Some easier todos (max 3)" :take (3 (:tag ("easy"))) :order 6 )))
+                                                      (:name "Refile" :tag ("refile") :order 1)
+                                                      (:name "Important" :and (:priority>= "B" :not (:todo ("PROJ" "PROJECT"))) :order 2)
+                                                      (:name "Notable" :and (:priority "C" :not (:todo ("PROJ" "PROJECT"))) :order 3)
+                                                      (:name "Active Projects" :and (:todo ("PROJ" "PROJECT")) :order 4)
+                                                      (:name "Waiting" :todo ("WAIT") :order 5)
+                                                      (:name "Some easier todos (max 3)" :take (3 (:tag ("easy"))) :order 6 )))
                            ))
             ))
           ))
 
-(defun my/org-property ()
+  ;; NOTE: when exporting org files to other formats, unless cbthunderlink links
+  ;; are handled exporting fails. This is thus the cbthunderlink handler
+  (org-link-set-parameters
+   "cbthunderlink"
+   :follow
+   (lambda (path arg)
+     (browse-url (format "cbthunderlink://%s" path)))
+   :export
+   (lambda (path description backend info)
+     (pcase backend
+       ('html (format "<a href=\"cbthunderlink://%s\">%s</a>" path description)))))
+
+
+  (setq org-icalendar-include-todo t)
+
+  (defun my/org-property ()
     "gets the value of property"
 
     (org-element-map (org-element-at-point) 'keyword
