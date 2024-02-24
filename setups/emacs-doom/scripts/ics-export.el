@@ -7,7 +7,7 @@
 
 (setq
   org-export-with-broken-links t     ; otherwise it dies on mu4e links
-  ; org-directory "."
+  org-directory (file-name-directory buffer-file-name)
   ; org-agenda-default-appointment-duration 60
   org-export-backends '(icalendar)
 
