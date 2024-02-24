@@ -22,7 +22,7 @@ def task_create_output_dir():
 def task_update_roam_id_locations():
     return {
         'actions': [
-            'doomscript ~/dotfiles/setups/emacs-doom//scripts/update-roam-ids.el',
+            'doomscript ~/dotfiles/setups/emacs-doom/scripts/update-roam-ids.el',
         ],
         'file_dep': FILES_ORG,
     }
@@ -51,6 +51,8 @@ def task_convert_org_to_ics():
             'file_dep': [org_file, f"{OUTPUT_DIR}/.sentinel"],
             'task_dep': ['update_roam_id_locations'],
             'targets': [ics_file],
+            'verbosity':
+            2,
         }
 
 

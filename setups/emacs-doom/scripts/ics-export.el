@@ -7,7 +7,7 @@
 
 (setq
   org-export-with-broken-links t     ; otherwise it dies on mu4e links
-  org-directory (file-name-directory buffer-file-name)
+  org-directory (file-name-directory  export-file)
   ; org-agenda-default-appointment-duration 60
   org-export-backends '(icalendar)
 
@@ -48,6 +48,7 @@
     (expand-file-name relative-path output-dir-path)))
 
 
+(print org-directory)
 
 (setq export-out-file (replace-file-path-prefix (concat (file-name-sans-extension export-file) ".ics")
                                          org-directory
