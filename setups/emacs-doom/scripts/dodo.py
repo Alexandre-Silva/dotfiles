@@ -40,7 +40,7 @@ def task_convert_org_to_ics():
                 [
                     "emacs",
                     "-l",
-                    "~/.emacs.d/early-init",
+                    "~/.config/emacs/early-init",
                     "-batch",
                     "--eval",
                     f'(setq export-out-dir "{OUTPUT_DIR}" export-file "{org_file}")',
