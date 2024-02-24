@@ -3,6 +3,7 @@
 packages=(
   "pm:python-requests"
   "pm:python-click"
+  "pm:python-icalendar"
   "aur:python-pysimplegui"
 )
 

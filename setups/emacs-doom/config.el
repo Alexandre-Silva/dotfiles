@@ -230,7 +230,7 @@ template-select menu from showing."
   ;; NOTE: when exporting org files to other formats, unless cbthunderlink links
   ;; are handled exporting fails. This is thus the cbthunderlink handler
   (org-link-set-parameters
-   "cbthunderlink"
+   "cbthunderlink'"
    :follow
    (lambda (path arg)
      (browse-url (format "cbthunderlink://%s" path)))
@@ -241,6 +241,19 @@ template-select menu from showing."
 
 
   (setq org-icalendar-include-todo t)
+  (setq org-export-with-broken-links t)     ; otherwise it dies on mueu, roam links
+
+
+  (defun my/org-icalendar-export-file (file)
+  "Export file to iCalendar file."
+      (org-agenda-prepare-buffers '(file))
+      (unwind-protect
+	    (catch 'nextfile
+	      (org-check-agenda-file file)
+	      (with-current-buffer (org-get-agenda-file-buffer file)
+		(org-icalendar-export-to-ics))))
+	(org-release-buffers org-agenda-new-buffers))
+
 
   (defun my/org-property ()
     "gets the value of property"

@@ -1,11 +1,16 @@
 #!/usr/bin/env python3
 
+# calutil
+
 # Requirements:
 # caldav
+# click
+#
 
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, List, Tuple
+from urllib.parse import urlparse
 
 import caldav
 import click
@@ -30,6 +35,13 @@ class Event():
     def name(self) -> str:
         if self.kind == 'ics':
             return self.raw.get("SUMMARY")
+        else:
+            raise AssertionError("unsupported Event kind {}".format(self.kind))
+
+    @property
+    def type(self) -> str:
+        if self.kind == 'ics':
+            return self.raw.__class__.__name__
         else:
             raise AssertionError("unsupported Event kind {}".format(self.kind))
 
@@ -61,27 +73,19 @@ class Event():
 
 
 @cli.command()
+@click.argument('url', type=str)
+@click.option('dry', '--dry/--live', is_flag=True, default=True)
+def clean(url: str, dry):
+    with caldav.DAVClient(url=url) as client:
+        cal = pick_cal(url, client)
+        do_clean(cal, dry)
+
+
+@cli.command()
 @click.argument('input', type=str)
 @click.argument('output', type=str)
-@click.option('output_calendar',
-              '--output-calendar',
-              type=str,
-              help='specify the calendar to use in the caldav server')
-@click.option('do_clean',
-              '--clean/--no-clean',
-              is_flag=True,
-              default=True,
-              help='Should the output calendar be cleared before writing the events from input')
-def convert(input, output, output_calendar, do_clean: bool):
-
+def convert(input, output):
     events, todos = do_read_ics(input)
-
-    # ev = events[0]
-    # click.echo(ev.raw.to_ical())
-    # for ev in events:
-    #     ev.print_dbg()
-    #     print()
-    #     break
 
     items = []
     items += events
@@ -89,19 +93,15 @@ def convert(input, output, output_calendar, do_clean: bool):
     for t in todos:
         if t.has_due_date or t.has_start_date:
             items.append(t)
+            # print(t)
+
+    if len(items) == 0:
+        print('exiting (no entries)')
+        return
 
     with caldav.DAVClient(url=output) as client:
-        principal = client.principal()
-        print_caldav_calendars(principal.calendars())
-
-        if output_calendar:
-            cal = principal.calendar(name=output_calendar)
-        else:
-            cal = next(iter(principal.calendars()))
-
-        click.echo(f"Using calendar {cal}")
-
-        do_save_events(cal, items, do_clean)
+        cal = pick_cal(output, client)
+        do_save_events(cal, items)
 
 
 @cli.command()
@@ -111,6 +111,16 @@ def dbg(input):
     for ev in todos:
         ev.print_dbg()
         print()
+
+
+@cli.command()
+@click.argument('url', type=str)
+def count(url: str):
+    with caldav.DAVClient(url=url) as client:
+        cal = pick_cal(url, client)
+
+        print('events/todos/total')
+        print(do_count(cal))
 
 
 def do_read_ics(input: str) -> Tuple[List[Event], List[Event]]:
@@ -129,17 +139,44 @@ def do_read_ics(input: str) -> Tuple[List[Event], List[Event]]:
     return events, todos
 
 
-def do_save_events(cal: caldav.Calendar, events: List[Event], do_clean: bool):
-    if do_clean:
-        click.echo("Deleting existing events")
-        for ev in cal.events():
+def do_clean(cal: caldav.Calendar, dry: bool = True):
+    click.echo("Deleting existing events")
+    for ev in cal.events():
+        print('deleting event', ev)
+        if not dry:
             ev.delete()
-        for t in cal.todos():
+    for t in cal.todos():
+        print('deleting todo', t)
+        if not dry:
             t.delete()
 
+
+def do_count(cal: caldav.Calendar, dry: bool = True):
+    len_ev = len(cal.events())
+    len_todo = len(cal.todos())
+    len_total = len_ev + len_todo
+    return len_ev, len_todo, len_total
+
+
+def do_save_events(cal: caldav.Calendar, events: List[Event]):
     for ev in events:
-        click.echo(f"Writing event: {ev.name}")
+        click.echo(f"Writing entry ({ev.type}): {ev.name}")
         cal.save_event(ev.to_ical())
+
+
+def pick_cal(url: str, client: caldav.DAVClient) -> caldav.Calendar:
+    o = urlparse(url)
+
+    principal = client.principal()
+    for cal in principal.calendars():
+        if urlparse(str(cal.url)).path == o.path:
+            break
+    else:
+        cal = next(iter(principal.calendars()))
+
+    click.echo(f"Using calendar {cal}")
+
+    return cal
 
 
 def print_ics_event(ev: icalendar.Event):
