@@ -2,11 +2,17 @@
 
 import glob
 import os
+from itertools import chain
 from pathlib import Path
 
 OUTPUT_DIR = '/tmp/emacs-export'
-FILES_ORG = glob.glob('*.org')
+ORG_DIR = os.getcwd()
+ORG_DIRS = ['./', './people/']
+ORG_FILES = list(chain.from_iterable([glob.glob(d + '*.org') for d in ORG_DIRS]))
 CALDAV_URL = os.environ.get('CALDAV_URL')
+
+if CALDAV_URL is None:
+    print("WARNING: CALDAV_URL is unset")
 
 
 def task_create_output_dir():
@@ -24,12 +30,12 @@ def task_update_roam_id_locations():
         'actions': [
             'doomscript ~/dotfiles/setups/emacs-doom/scripts/update-roam-ids.el',
         ],
-        'file_dep': FILES_ORG,
+        'file_dep': ORG_FILES,
     }
 
 
 def task_convert_org_to_ics():
-    for org_file in FILES_ORG:
+    for org_file in ORG_FILES:
         ics_file = (Path(OUTPUT_DIR) / org_file).with_suffix('.ics')
         ics_parent = ics_file.parent
         yield {
@@ -43,7 +49,7 @@ def task_convert_org_to_ics():
                     "~/.config/emacs/early-init",
                     "-batch",
                     "--eval",
-                    f'(setq export-out-dir "{OUTPUT_DIR}" export-file "{org_file}")',
+                    f'(setq org-directory "{ORG_DIR}" export-out-dir "{OUTPUT_DIR}" export-file "{org_file}")',
                     "-l",
                     "~/dotfiles/setups/emacs-doom/scripts/ics-export.el",
                 ],
@@ -57,7 +63,7 @@ def task_convert_org_to_ics():
 
 
 def task_push_caldav():
-    ics_files = list(map(path_org2ics, FILES_ORG))
+    ics_files = list(map(path_org2ics, ORG_FILES))
 
     actions = [
         f'calutil.py clean {CALDAV_URL}',

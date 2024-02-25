@@ -6,12 +6,13 @@
 (require 'ox-icalendar)
 
 ;; NOTE: this scripts assumed the following vars were passed as args
+;; - org-directory
 ;; - export-file
 ;; - export-out-dir
 
 (setq
   org-export-with-broken-links t     ; otherwise it dies on mu4e links
-  org-directory (file-name-directory  export-file)
+  ; org-directory (file-name-directory export-file)
   ; org-agenda-default-appointment-duration 60
   org-export-backends '(icalendar)
 
