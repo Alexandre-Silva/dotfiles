@@ -6,7 +6,7 @@ from pathlib import Path
 
 OUTPUT_DIR = '/tmp/emacs-export'
 FILES_ORG = glob.glob('*.org')
-CALDAC_URL = os.environ.get('CALDAV_URL')
+CALDAV_URL = os.environ.get('CALDAV_URL')
 
 
 def task_create_output_dir():
@@ -60,10 +60,10 @@ def task_push_caldav():
     ics_files = list(map(path_org2ics, FILES_ORG))
 
     actions = [
-        f'calutil.py clean {CALDAC_URL}',
+        f'calutil.py clean {CALDAV_URL}',
     ]
     for file in ics_files:
-        action = f"calutil.py convert '{file}' '{CALDAC_URL}'"
+        action = f"calutil.py convert '{file}' '{CALDAV_URL}'"
         actions.append(action)
 
     return {

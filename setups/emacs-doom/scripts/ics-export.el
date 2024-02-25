@@ -5,6 +5,10 @@
 (require 'icalendar)
 (require 'ox-icalendar)
 
+;; NOTE: this scripts assumed the following vars were passed as args
+;; - export-file
+;; - export-out-dir
+
 (setq
   org-export-with-broken-links t     ; otherwise it dies on mu4e links
   org-directory (file-name-directory  export-file)
@@ -32,9 +36,6 @@
   org-icalendar-exclude-tags (list "hide")
   )
 
-(print org-icalendar-use-scheduled)
-(print org-icalendar-use-deadline)
-
 ;; The real function here asks the operator for confirmation.  Because
 ;; this is meant to run non-interactively, this hangs the process.
 ;; This replacement saves unconditionally instead.
@@ -47,8 +48,6 @@
   (let ((relative-path (file-relative-name file-path dir-path)))
     (expand-file-name relative-path output-dir-path)))
 
-
-(print org-directory)
 
 (setq export-out-file (replace-file-path-prefix (concat (file-name-sans-extension export-file) ".ics")
                                          org-directory
