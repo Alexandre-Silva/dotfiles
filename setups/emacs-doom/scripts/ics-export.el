@@ -17,7 +17,7 @@
   org-export-backends '(icalendar)
 
   ; org-icalendar-combined-description "Items from Org"
-  org-icalendar-combined-name "Ian's Org Calendar"
+  ; org-icalendar-combined-name "Ian's Org Calendar"
   ; org-icalendar-combined-agenda-file "org.ics"
   org-icalendar-include-todo t
   ; org-icalendar-store-UID nil
@@ -25,13 +25,18 @@
   org-icalendar-timezone nil
 
   org-icalendar-use-deadline '(event-if-not-todo todo-due)
-  org-icalendar-use-scheduled '(todo-start)
+  ;
+  ; org-icalendar-use-scheduled '(todo-start)
   ; org-icalendar-use-scheduled '(todo-start event-if-todo event-if-not-todo)
+  org-icalendar-use-scheduled '(todo-start event-if-not-todo)
   ; org-icalendar-use-scheduled '(event-start)
   ; org-icalendar-use-scheduled '()
+
   org-icalendar-todo-unscheduled-start nil
   ; org-icalendar-todo-unscheduled-start nil
+  ;
   org-icalendar-with-timestamps 'active
+
   ; org-icalendar-use-plain-timestamp nil
 
   org-icalendar-exclude-tags (list "hide")

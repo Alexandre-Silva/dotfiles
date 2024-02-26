@@ -239,10 +239,13 @@ template-select menu from showing."
      (pcase backend
        ('html (format "<a href=\"cbthunderlink://%s\">%s</a>" path description)))))
 
-
-  (setq org-icalendar-include-todo t)
-  (setq org-export-with-broken-links t)     ; otherwise it dies on mueu, roam links
-
+  (setq
+   org-icalendar-include-todo t
+   org-export-with-broken-links t     ; otherwise it dies on mueu, roam links
+   org-icalendar-use-deadline '(event-if-not-todo todo-due)
+   org-icalendar-use-scheduled '(todo-start event-if-not-todo)
+   org-icalendar-todo-unscheduled-start nil
+   )
 
   (defun my/org-icalendar-export-file (file)
   "Export file to iCalendar file."
