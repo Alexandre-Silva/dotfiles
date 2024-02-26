@@ -49,7 +49,7 @@ def task_convert_org_to_ics():
                     "~/.config/emacs/early-init",
                     "-batch",
                     "--eval",
-                    f'(setq org-directory "{ORG_DIR}" export-out-dir "{OUTPUT_DIR}" export-file "{org_file}")',
+                    f'(setq export-in-directory "{ORG_DIR}" export-out-dir "{OUTPUT_DIR}" export-file "{org_file}")',
                     "-l",
                     "~/dotfiles/setups/emacs-doom/scripts/ics-export.el",
                 ],
