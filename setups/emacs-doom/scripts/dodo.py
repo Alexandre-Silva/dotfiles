@@ -66,7 +66,7 @@ def task_push_caldav():
     ics_files = list(map(path_org2ics, ORG_FILES))
 
     actions = [
-        f'calutil.py clean {CALDAV_URL}',
+        f'calutil.py clean --live {CALDAV_URL}',
     ]
     for file in ics_files:
         action = f"calutil.py convert '{file}' '{CALDAV_URL}'"
