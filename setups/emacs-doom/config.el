@@ -194,6 +194,12 @@ template-select menu from showing."
                                  (and (not (heading "Tasks")) (not (heading "Inbox")) (not (heading "Notes")))
                                  )
 
+                            (and (tags-local "td")
+                                 (not (tags "hide")))
+
+                            (and (closed :on today)
+                                 (not (tags "hide")))
+
                             (and (todo "WAIT")
                                  (not (ts-active :to "9999-01-01"))
                                  (not (tags "hide")))
@@ -219,10 +225,12 @@ template-select menu from showing."
                            (org-super-agenda-groups '(
                                                       (:name "Refile" :tag ("refile") :order 1)
                                                       (:name "Important" :and (:priority>= "B" :not (:todo ("PROJ" "PROJECT"))) :order 2)
-                                                      (:name "Notable" :and (:priority "C" :not (:todo ("PROJ" "PROJECT"))) :order 3)
-                                                      (:name "Active Projects" :and (:todo ("PROJ" "PROJECT")) :order 4)
+                                                      (:name "Plan" :tag ("td") :order 3)
+                                                      (:name "Done" :todo ("DONE" "KILL" "COMPLETED" "MEETING") :order 4)
                                                       (:name "Waiting" :todo ("WAIT") :order 5)
-                                                      (:name "Some easier todos (max 3)" :take (3 (:tag ("easy"))) :order 6 )))
+                                                      (:name "Some easier todos (max 3)" :take (3 (:tag ("easy"))) :order 6))
+                                                      (:name "Notable" :and (:priority "C" :not (:todo ("PROJ" "PROJECT"))) :order 7)
+                                                      (:name "Active Projects" :and (:todo ("PROJ" "PROJECT")) :order 8))
                            ))
             ))
           ))

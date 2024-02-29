@@ -63,6 +63,8 @@ Description=<>
 Type=oneshot
 ExecStart=<>
 
+[Install]
+WantedBy=multi-user.target
 ]],
       {
         i(1),
