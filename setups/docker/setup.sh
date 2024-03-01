@@ -1,14 +1,24 @@
 #!/usr/bin/bash
 
-packages=( pm:docker )
+packages=(
+  pm:docker
+  aur:lazydocker
+  aur:docker-credential-secretservice
+)
 
-links=()
+links=(
+  "${ADM_DIR}/lazydocker.yml" ~/.config/lazydocker/config.yml
+  "${ADM_DIR}/config.json" ~/.docker/config.json
+)
 
 for f in docker-gc.timer docker-gc.service; do
     links+=( "${ADM_DIR}/${f}" ~/.config/systemd/user/"${f}" )
 done
 
 st_rc() {
+  alias dk="docker"
+  alias ldk="lazydocker"
+
     alias docker_clean_images='docker rmi $(docker images -a --filter=dangling=true -q)'
     alias docker_clean_ps='docker rm $(docker ps --filter=status=exited --filter=status=created -q)'
     function docker-last() {
