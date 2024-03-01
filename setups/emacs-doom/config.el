@@ -96,6 +96,9 @@
                                         ;("COMPLETE" . +org-todo-project)
           ))
 
+  (setq org-tag-alist '(("td" . ?d)
+                        ("tw" . ?w)))
+
   (setq +org-capture-todo-file "Inbox.org")
   (setq +org-capture-notes-file "Inbox.org")
   (setq +org-capture-project-todo-file "Inbox.org")
