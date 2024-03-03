@@ -8,3 +8,13 @@ vim.g.gruvbox_material_background = "medium"
 vim.opt.modeline = true
 
 vim.g.autoformat = false
+
+
+vim.filetype.add({
+  filename = {
+    ["play.yml"] = "yaml.ansible",
+    ["play.yaml"] = "yaml.ansible",
+    ["playbook.yml"] = "yaml.ansible",
+    ["playbook.yaml"] = "yaml.ansible",
+  },
+})
