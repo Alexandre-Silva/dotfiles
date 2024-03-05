@@ -176,6 +176,91 @@ template-select menu from showing."
   (advice-add #'org-roam-dailies-goto-tomorrow :around #'with-first-dailies-capture-template)
   (advice-add #'org-roam-dailies-goto-yesterday :around #'with-first-dailies-capture-template)
 
+  ;; org-columns-default-format
+  ;; org-columns-default-format-for-agenda
+  ;;
+  ;; available properties:
+  ;;
+  ;; ITEM         The content of the headline.
+  ;; TODO         The TODO keyword of the entry.
+  ;; TAGS         The tags defined directly in the headline.
+  ;; ALLTAGS      All tags, including inherited ones.
+  ;; PRIORITY     The priority of the entry, a string with a single letter.
+  ;; DEADLINE     The deadline time string, without the angular brackets.
+  ;; SCHEDULED    The scheduling time stamp, without the angular brackets.
+
+  ;; (setq org-columns-default-format "%25ITEM %TODO %3PRIORITY %TAGS")
+
+  ;; (setq org-agenda-prefix-format nil)
+  ;; (setq org-prefix-category-max-length 12)
+  ;; (setq org-agenda-prefix-format
+  ;;       '((agenda . " %i %-12:c%?-12t% s")
+  ;;        (timeline . "       % s")
+  ;;        (todo . "          %3c")
+  ;;        (tags . "           %i %-12:c")
+  ;;        (search . "         %i %-12:c")))
+
+  ;; (setq org-agenda-prefix-format
+  ;;       '((agenda . " %i %-12:c%?-12t% s")
+  ;;         (todo . " %i %6:c")
+  ;;         (tags . " %i %6:c")
+  ;;         (search . " %i %-12:c")))
+
+  (setq salih/org-ql-view--category-format-len 12) ;; the default is 11
+
+  ;; NOTE: THIS WAS VERY FUCKING HARD TO FIND
+  ;;
+  ;; https://github.com/alphapapa/org-ql/issues/23#issuecomment-1651898801
+  ;;
+  (defun salih/org-ql-view--format-element (orig-fun &rest args)
+    "This function will intercept the original function and
+add the category to the result.
+
+ARGS is `element' in `org-ql-view--format-element'"
+    (if (not args)
+        ""
+      (let* ((element args)
+             (properties (cadar element))
+             (result (apply orig-fun element))
+             (smt "")
+             (category (org-entry-get (plist-get properties :org-marker) "CATEGORY")))
+        (if (> (length category) salih/org-ql-view--category-format-len)
+            (setq category (substring category 0 (- salih/org-ql-view--category-format-len 1))))
+        (if (< (length category) salih/org-ql-view--category-format-len)
+            (setq smt (make-string (- salih/org-ql-view--category-format-len (length category)) ?\s)))
+        (org-add-props
+            (format "   %-8s %s" (concat category ":" smt) result)
+            (text-properties-at 0 result)))))
+
+  (advice-add 'org-ql-view--format-element :around #'salih/org-ql-view--format-element)
+
+  (setq org-super-agenda-groups
+        '(
+          (:name "Refile" :tag ("refile") :order 1)
+
+          ;; (:name "Week Plan" :tag ("tw") :order 2)
+          (:name "Day Plan" :tag ("td") :order 2)
+
+          (:name "Done" :todo ("DONE" "KILL" "COMPLETED" "MEETING") :order 4)
+          (:name "Important" :and (:priority>= "B" :not (:todo ("PROJ" "PROJECT"))) :order 3)
+
+          (:name "Waiting" :todo ("WAIT") :order 5)
+          (:name "Some easier todos (max 3)" :take (3 (:tag ("easy"))) :order 6)
+          (:name "Notable" :and (:priority "C" :not (:todo ("PROJ" "PROJECT"))) :order 7)
+          (:name "Active Projects" :and (:todo ("PROJ" "PROJECT")) :order 8)
+          ))
+
+
+  (setq alex/sa-group-waiting
+        '((:name "Waiting" :todo ("WAIT") :order 5)))
+
+  (setq alex/sa-group-priorities
+        '((:name "Important" :and (:priority>= "B" :not (:todo ("PROJ" "PROJECT"))) :order 3)
+          (:name "Notable" :and (:priority "C" :not (:todo ("PROJ" "PROJECT"))) :order 7)))
+
+  (setq alex/sa-group-projects
+        '((:name "Active Projects" :and (:todo ("PROJ" "PROJECT")) :order 8)))
+
 
   (setq org-agenda-custom-commands
         '(("n" "Agenda and all TODOs"
@@ -185,11 +270,14 @@ template-select menu from showing."
           ("R" "Refile items"
            ((tags "+refile-hide")))
 
-          ("d" "Review: Daily"
-           ((agenda ""
+          ("d" "Day"
+           (
+            (agenda ""
                     ((org-agenda-start-day "-1d")
                      (org-agenda-span 4)
-                     (org-agenda-include-diary t)))
+                     (org-agenda-include-diary t)
+                     (org-super-agenda-groups nil)
+                     ))
 
             (org-ql-block '(or
                             (and (tags "refile")
@@ -197,6 +285,7 @@ template-select menu from showing."
                                  (and (not (heading "Tasks")) (not (heading "Inbox")) (not (heading "Notes")))
                                  )
 
+                            ;; planned
                             (and (tags-local "td")
                                  (not (tags "hide")))
 
@@ -212,12 +301,6 @@ template-select menu from showing."
                                  (priority "A" "B" "C")
                                  (not (ts-active :to "9999-01-01")))
 
-                            (and (todo "PROJECT" "PROJ")
-                                 (not (tags "hide")))
-
-                            (and (todo "PROJECT" "PROJ")
-                                 (not (tags "hide")))
-
                             (and (not (todo "DONE" "KILL"))
                                  (tags "easy")
                                  (not (tags "hide")))
@@ -225,17 +308,80 @@ template-select menu from showing."
                           ((org-agenda-block-separator nil)
                            (org-agenda-overriding-header nil)
                            (org-ql-block-header "")
-                           (org-super-agenda-groups '(
-                                                      (:name "Refile" :tag ("refile") :order 1)
-                                                      (:name "Important" :and (:priority>= "B" :not (:todo ("PROJ" "PROJECT"))) :order 2)
-                                                      (:name "Plan" :tag ("td") :order 3)
-                                                      (:name "Done" :todo ("DONE" "KILL" "COMPLETED" "MEETING") :order 4)
-                                                      (:name "Waiting" :todo ("WAIT") :order 5)
-                                                      (:name "Some easier todos (max 3)" :take (3 (:tag ("easy"))) :order 6))
-                                                      (:name "Notable" :and (:priority "C" :not (:todo ("PROJ" "PROJECT"))) :order 7)
-                                                      (:name "Active Projects" :and (:todo ("PROJ" "PROJECT")) :order 8))
                            ))
+            )
+           ((org-agenda-tag-filter-preset '("-daily"))))
+
+
+          ("w" "Plan: Week"
+           ((agenda ""
+                    ((org-agenda-start-day "-3d")
+                     (org-agenda-span 10)
+                     (org-agenda-include-diary t)
+                     (org-super-agenda-groups nil)
+                     ))
+
+            (org-ql-block '(or
+                            (and (todo "WAIT")
+                                 (not (ts-active :to "9999-01-01"))
+                                 (not (tags "hide")))
+
+                            ;; Planned
+                            (and (tags-local "tw")
+                                 (not (tags "hide")))
+
+                            ;; priority
+                            (and (not (todo "DONE" "PROJECT" "PROJ" "KILL" "COMPLETE" "PAUSED"))
+                                 (not (tags "hide"))
+                                 (priority "A" "B" "C")
+                                 (not (ts-active :to "9999-01-01")))
+
+                            (and (todo "PROJECT" "PROJ")
+                                 (not (tags "hide")))
+                            )
+                          ((org-agenda-block-separator nil)
+                           (org-agenda-overriding-header nil)
+                           (org-ql-block-header "")
+                           (org-super-agenda-groups
+                            (append
+                             '((:name "Week Plan" :tag ("tw") :order 2))
+                             alex/sa-group-waiting
+                             alex/sa-group-projects
+                             alex/sa-group-priorities
+                             )))))
+           ((org-agenda-tag-filter-preset '("-daily"))
+
             ))
+
+          ("W" "Review: Week"
+           ((agenda ""
+                    ((org-agenda-start-day "-7d")
+                     (org-agenda-span 8)
+                     (org-agenda-include-diary t)
+                     (org-super-agenda-groups nil)
+                     ))
+
+            (org-ql-block '(or
+                            (and (closed :from -7 :to 1)
+                                 (not (tags "hide")))
+
+                            (and (todo "WAIT")
+                                 (not (ts-active :to "9999-01-01"))
+                                 (not (tags "hide")))
+
+                            (and (not (todo "DONE" "PROJECT" "PROJ" "KILL" "COMPLETE" "PAUSED"))
+                                 (not (tags "hide"))
+                                 (priority "A" "B" "C")
+                                 (not (ts-active :to "9999-01-01")))
+
+                            (and (todo "PROJECT" "PROJ")
+                                 (not (tags "hide")))
+                            )
+                          ((org-agenda-block-separator nil)
+                           (org-agenda-overriding-header nil)
+                           (org-ql-block-header "")))
+            )
+           ((org-agenda-tag-filter-preset '("-daily"))))
           ))
 
   ;; NOTE: when exporting org files to other formats, unless cbthunderlink links
