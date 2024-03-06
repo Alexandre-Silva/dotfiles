@@ -46,15 +46,15 @@ return {
     keys = function()
       -- stylua: ignore
       local keys = {
-        { "<leader>bm", function() require("grapple").toggle() end, "Grapple tag toggle", },
-        { "<leader>b'", function() require("grapple").popup_tags() end, "Grapple poppup", },
+        { "<leader>bm", require("grapple").toggle, "Grapple tag toggle", },
+        { "<leader>b'", require("grapple").toggle_tags, "Grapple poppup", },
       }
 
       for i = 1, 5, 1 do
         keys[#keys + 1] = {
           string.format("<A-%i>", i),
           function()
-            require("grapple").select({ key = i })
+            require("grapple").select({ index = i })
           end,
           string.format("Grapple select %i", i),
         }
@@ -70,7 +70,7 @@ return {
     opts = function(_, opts)
       opts.sections.lualine_x[#opts.sections.lualine_x + 1] = {
         function()
-          local key = require("grapple").key()
+          local key = require("grapple").statusline()
           return " [" .. key .. "]"
         end,
         cond = function()
